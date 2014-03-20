@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/main_menu_add"
+          android:icon="@android:drawable/ic_menu_add"
+          android:showAsAction="ifRoom"
+          android:title="add"
+          android:titleCondensed="add">
+    </item>
+    <item android:id="@+id/main_menu_delete"
+          android:icon="@android:drawable/ic_menu_delete"
+          android:showAsAction="ifRoom"
+          android:title="delete">
+
+    </item>
+</menu>

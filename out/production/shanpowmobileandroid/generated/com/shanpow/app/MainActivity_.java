@@ -10,14 +10,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+import com.shanpow.app.R.id;
 import com.shanpow.app.R.layout;
+import com.shanpow.widget.BookCoverCard;
+import com.shanpow.widget.SimpleBookCoverCard;
 import org.androidannotations.api.view.HasViews;
+import org.androidannotations.api.view.OnViewChangedListener;
 import org.androidannotations.api.view.OnViewChangedNotifier;
 
 public final class MainActivity_
     extends MainActivity
-    implements HasViews
+    implements HasViews, OnViewChangedListener
 {
 
     private final OnViewChangedNotifier onViewChangedNotifier_ = new OnViewChangedNotifier();
@@ -32,6 +40,7 @@ public final class MainActivity_
     }
 
     private void init_(Bundle savedInstanceState) {
+        OnViewChangedNotifier.registerOnViewChangedListener(this);
     }
 
     @Override
@@ -54,6 +63,53 @@ public final class MainActivity_
 
     public static MainActivity_.IntentBuilder_ intent(Context context) {
         return new MainActivity_.IntentBuilder_(context);
+    }
+
+    @Override
+    public void onViewChanged(HasViews hasViews) {
+        secondCard = ((SimpleBookCoverCard) hasViews.findViewById(id.secondCard));
+        firstCard = ((BookCoverCard) hasViews.findViewById(id.firstCard));
+        {
+            View view = hasViews.findViewById(id.firstCard);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        MainActivity_.this.firstCardClicked(view);
+                    }
+
+                }
+                );
+            }
+        }
+        init();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getSupportMenuInflater();
+        menuInflater.inflate(com.shanpow.app.R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        boolean handled = super.onOptionsItemSelected(item);
+        if (handled) {
+            return true;
+        }
+        int itemId_ = item.getItemId();
+        if (itemId_ == id.main_menu_delete) {
+            menuDeleteSelected();
+            return true;
+        }
+        if (itemId_ == id.main_menu_add) {
+            menuAddSelected();
+            return true;
+        }
+        return false;
     }
 
     public static class IntentBuilder_ {
