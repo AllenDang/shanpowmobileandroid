@@ -21,10 +21,20 @@ android {
         versionName "1.0"
     }
 
+    signingConfigs {
+        releaseConfig {
+            storeFile file("../key.jks")
+            storePassword "Support@890AD"
+            keyAlias "shanpowmobileandroid"
+            keyPassword "Support@890AD"
+        }
+    }
+
     buildTypes {
         release {
             runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.releaseConfig
         }
     }
 
