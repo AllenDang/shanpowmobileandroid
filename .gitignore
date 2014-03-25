@@ -29,3 +29,6 @@ proguard/
 *.ipr
 *.iws
 .idea/
+
+/libraries/SlidingMenu/build/bundles/release/classes.jar
+/libraries/SlidingMenu/build/libs/SlidingMenu.aar
