@@ -23,7 +23,6 @@ public class ShanpowClientHttpRequestInterceptor implements ClientHttpRequestInt
 
     private static final String SET_COOKIE = "Set-Cookie";
     private static final String COOKIE = "Cookie";
-    private static final String COOKIE_STORE = "cookieStore";
 
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {

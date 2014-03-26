@@ -2,12 +2,9 @@ package com.shanpow.app.android;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockActivity;
 import com.shanpow.app.entity.GetCsrfTokenResult;
-import com.shanpow.app.entity.LoginResult;
 import com.shanpow.app.service.ShanpowErrorHandler;
 import com.shanpow.app.service.ShanpowRestClient;
 import com.shanpow.app.util.AppPref_;
@@ -17,7 +14,6 @@ import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
@@ -28,7 +24,7 @@ import java.util.Set;
 
 @EActivity
 @OptionsMenu(R.menu.main)
-public class MainActivity extends SherlockActivity {
+public class MainActivity extends SlidingMenuBaseActivity {
 
     @RestService
     ShanpowRestClient restClient;
@@ -50,7 +46,7 @@ public class MainActivity extends SherlockActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
@@ -58,11 +54,6 @@ public class MainActivity extends SherlockActivity {
     @OptionsItem(R.id.action_settings)
     void settingsClicked() {
         Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
-    }
-
-    @Click
-    void btn_main_newClicked() {
-        doNetworkJob();
     }
 
     @Background
@@ -82,11 +73,4 @@ public class MainActivity extends SherlockActivity {
         restClient.setCookie(Constant.CSRF_TOKEN, pref.csrfToken().get());
     }
 
-    @Background
-    void doNetworkJob() {
-        LoginResult result = restClient.Login("AllenDang", "andrewd");
-        if (result != null && result.Result) {
-            Log.d("DEBUG", result.Data.Nickname);
-        }
-    }
 }
