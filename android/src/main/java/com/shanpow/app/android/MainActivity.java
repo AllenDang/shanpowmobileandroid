@@ -1,5 +1,6 @@
 package com.shanpow.app.android;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -9,8 +10,8 @@ import com.shanpow.app.entity.GetCsrfTokenResult;
 import com.shanpow.app.entity.LoginResult;
 import com.shanpow.app.service.ShanpowErrorHandler;
 import com.shanpow.app.service.ShanpowRestClient;
+import com.shanpow.app.util.AppPref_;
 import com.shanpow.app.util.Constant;
-import com.shanpow.app.util.PrefHelper_;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
@@ -23,6 +24,8 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.rest.RestService;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
+import java.util.Set;
+
 @EActivity
 @OptionsMenu(R.menu.main)
 public class MainActivity extends SherlockActivity {
@@ -34,7 +37,7 @@ public class MainActivity extends SherlockActivity {
     ShanpowErrorHandler errorHandler;
 
     @Pref
-    PrefHelper_ pref;
+    AppPref_ pref;
 
     @AfterInject
     void afterInject() {
@@ -43,7 +46,7 @@ public class MainActivity extends SherlockActivity {
 
     @AfterViews
     void init() {
-        checkCsrfToken();
+        checkCookieAndCsrfToken();
     }
 
     @Override
@@ -63,14 +66,20 @@ public class MainActivity extends SherlockActivity {
     }
 
     @Background
-    void checkCsrfToken() {
-        //自动获取CsrfToken
-        //TODO:需要处理异常
-        GetCsrfTokenResult result = restClient.GetCsrfToken();
-        if (result.Result) {
-            pref.csrfToken().put(result.Data);
-            restClient.setCookie(Constant.CSRF_TOKEN, result.Data);
+    void checkCookieAndCsrfToken() {
+        //检查Cookie和CsrfToken是否存在，如果没有则通过发起获取Token的请求
+        SharedPreferences sharedPref = pref.getSharedPreferences();
+        Set<String> cookies = sharedPref.getStringSet(Constant.PREF_COOKIES, null);
+        if (cookies == null && !pref.csrfToken().exists()) {
+            //TODO:需要处理异常
+            GetCsrfTokenResult result = restClient.GetCsrfToken();
+            if (result.Result) {
+                pref.csrfToken().put(result.Data);
+            }
         }
+
+        //设置csrfToken到restClient得Cookie中
+        restClient.setCookie(Constant.CSRF_TOKEN, pref.csrfToken().get());
     }
 
     @Background

@@ -1,7 +1,7 @@
 package com.shanpow.app.service;
 
 import com.shanpow.app.entity.GetCsrfTokenResult;
-import com.shanpow.app.util.PrefHelper_;
+import com.shanpow.app.util.AppPref_;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.rest.RestService;
@@ -21,7 +21,7 @@ public class ShanpowErrorHandler implements RestErrorHandler {
     ShanpowRestClient restClient;
 
     @Pref
-    PrefHelper_ pref;
+    AppPref_ pref;
 
     @Override
     public void onRestClientExceptionThrown(RestClientException e) {
