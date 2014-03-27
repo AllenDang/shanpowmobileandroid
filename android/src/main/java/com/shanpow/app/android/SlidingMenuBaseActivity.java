@@ -1,7 +1,7 @@
 package com.shanpow.app.android;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
@@ -25,6 +25,7 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
 
     @Click
     void btn_sm_loginClicked() {
-        Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show();
+        Intent loginIntent = new Intent(this, LoginActivity_.class);
+        startActivity(loginIntent);
     }
 }

@@ -21,7 +21,10 @@
         </activity>
         <activity
             android:name="com.shanpow.app.android.SlidingMenuBaseActivity_"
-            android:label="@string/title_activity_sliding_menu_base"></activity>
+            android:label="@string/title_activity_sliding_menu_base" />
+        <activity
+            android:name=".LoginActivity_"
+            android:label="@string/title_activity_login" />
     </application>
 
 </manifest>
