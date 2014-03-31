@@ -2,8 +2,11 @@ package com.shanpow.app.android;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import com.handmark.pulltorefresh.library.PullToRefreshWebView;
 import com.shanpow.app.entity.GetCsrfTokenResult;
 import com.shanpow.app.service.ShanpowErrorHandler;
 import com.shanpow.app.service.ShanpowRestClient;
@@ -17,6 +20,7 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.rest.RestService;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
@@ -25,6 +29,17 @@ import java.util.Set;
 @EActivity
 @OptionsMenu(R.menu.main)
 public class MainActivity extends SlidingMenuBaseActivity {
+
+    private static class RefreshableWebViewClient extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
+    }
+
+    @ViewById
+    PullToRefreshWebView pull_refresh_webview;
 
     @RestService
     ShanpowRestClient restClient;
@@ -43,6 +58,10 @@ public class MainActivity extends SlidingMenuBaseActivity {
     @AfterViews
     void init() {
         checkCookieAndCsrfToken();
+
+        //读取网页内容
+        WebView webView = pull_refresh_webview.getRefreshableView();
+        webView.loadUrl(Constant.URL_MAIN);
     }
 
     @Override
