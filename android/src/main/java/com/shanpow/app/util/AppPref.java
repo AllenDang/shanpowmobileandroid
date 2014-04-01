@@ -10,4 +10,7 @@ import org.androidannotations.annotations.sharedpreferences.SharedPref;
 public interface AppPref {
     @DefaultString("")
     String csrfToken();
+
+    @DefaultString("")
+    String currentUserInJsonFormat();
 }

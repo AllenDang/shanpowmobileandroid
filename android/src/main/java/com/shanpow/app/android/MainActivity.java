@@ -1,6 +1,7 @@
 package com.shanpow.app.android;
 
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -10,8 +11,8 @@ import com.handmark.pulltorefresh.library.PullToRefreshWebView;
 import com.shanpow.app.entity.GetCsrfTokenResult;
 import com.shanpow.app.service.ShanpowErrorHandler;
 import com.shanpow.app.service.ShanpowRestClient;
-import com.shanpow.app.util.AppPref_;
 import com.shanpow.app.util.Constant;
+import com.shanpow.app.util.Util;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
@@ -22,7 +23,6 @@ import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.rest.RestService;
-import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.util.Set;
 
@@ -33,6 +33,10 @@ public class MainActivity extends SlidingMenuBaseActivity {
     private static class RefreshableWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            if (Uri.parse(url).getHost().equals(Constant.URL_ROOT)) {
+                return false;
+            }
+
             view.loadUrl(url);
             return true;
         }
@@ -41,26 +45,14 @@ public class MainActivity extends SlidingMenuBaseActivity {
     @ViewById
     PullToRefreshWebView pull_refresh_webview;
 
-    @RestService
-    ShanpowRestClient restClient;
-
-    @Bean
-    ShanpowErrorHandler errorHandler;
-
-    @Pref
-    AppPref_ pref;
-
-    @AfterInject
-    void afterInject() {
-        restClient.setRestErrorHandler(errorHandler);
-    }
-
     @AfterViews
     void init() {
         checkCookieAndCsrfToken();
 
         //读取网页内容
         WebView webView = pull_refresh_webview.getRefreshableView();
+        webView.setWebViewClient(new RefreshableWebViewClient());
+        webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl(Constant.URL_MAIN);
     }
 
@@ -88,8 +80,8 @@ public class MainActivity extends SlidingMenuBaseActivity {
             }
         }
 
-        //设置csrfToken到restClient得Cookie中
         restClient.setCookie(Constant.CSRF_TOKEN, pref.csrfToken().get());
+        Util.SyncCookie(this);
     }
 
 }

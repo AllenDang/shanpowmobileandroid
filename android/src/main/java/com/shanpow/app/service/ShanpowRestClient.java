@@ -24,6 +24,9 @@ public interface ShanpowRestClient extends RestClientErrorHandling {
     @RequiresCookieInUrl("csrf_token")
     LoginResult Login(String email, String password);
 
+    @Get("/mobilelogout")
+    void Logout();
+
     void setCookie(String name, String value);
 
     String getCookie(String name);

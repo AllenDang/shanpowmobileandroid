@@ -2,11 +2,12 @@
     <string name="title_activity_login">登陆</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
+    <string name="prompt_email">Email或者昵称</string>
     <string name="prompt_password">密码</string>
     <string name="action_sign_in">登陆</string>
-    <string name="action_sign_in_short">登陆</string>
+    <string name="action_signing_in">登陆中</string>
 
-    <string name="error_invalid_email">不是有效的邮件地址</string>
-    <string name="error_incorrect_password">密码不正确</string>
+    <string name="error_invalid_email_or_password">邮件地址或密码不正确，请修改后重试</string>
+    <string name="error_failed_to_save">保存用户信息失败</string>
+    <string name="error_email_and_password_cannot_empty">邮件地址、昵称和密码不能为空</string>
 </resources>
