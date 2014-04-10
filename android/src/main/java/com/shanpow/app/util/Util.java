@@ -13,7 +13,6 @@ import java.util.Set;
 public final class Util {
     public static void SyncCookie(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(Constant.APP_PREF, Context.MODE_PRIVATE);
-        //检查Cookie和CsrfToken是否存在，如果没有则通过发起获取Token的请求
         Set<String> cookies = sharedPref.getStringSet(Constant.PREF_COOKIES, null);
         if (cookies != null) {
             String cookieString = "";
