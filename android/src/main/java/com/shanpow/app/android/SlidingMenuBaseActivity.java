@@ -14,6 +14,7 @@ import com.shanpow.app.entity.SimpleUser;
 import com.shanpow.app.service.ShanpowErrorHandler;
 import com.shanpow.app.service.ShanpowRestClient;
 import com.shanpow.app.util.AppPref_;
+import com.shanpow.app.util.Util;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Background;
@@ -21,6 +22,7 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ItemClick;
+import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.rest.RestService;
@@ -104,6 +106,8 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
     @Background
     void doLogout() {
         restClient.Logout();
+        pref.csrfToken().remove();
+        Util.SyncCookie(this);
         afterLogout();
     }
 
@@ -122,5 +126,10 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
     @ItemClick
     void lv_menuItemClicked(String item) {
         Toast.makeText(this, item, Toast.LENGTH_SHORT).show();
+    }
+
+    @OptionsItem(android.R.id.home)
+    void homeAsUpClicked() {
+        getSlidingMenu().toggle();
     }
 }

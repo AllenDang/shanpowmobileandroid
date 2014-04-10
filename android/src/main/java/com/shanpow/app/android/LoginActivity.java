@@ -1,26 +1,33 @@
 package com.shanpow.app.android;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.shanpow.app.entity.GetCsrfTokenResult;
 import com.shanpow.app.entity.LoginResult;
+import com.shanpow.app.service.ShanpowErrorHandler;
 import com.shanpow.app.service.ShanpowRestClient;
 import com.shanpow.app.util.AppPref_;
 import com.shanpow.app.util.Constant;
 import com.shanpow.app.util.Util;
 
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.rest.RestService;
 import org.androidannotations.annotations.sharedpreferences.Pref;
+
+import java.util.Set;
 
 /**
  * Created by allendang on 14-3-26.
@@ -43,12 +50,20 @@ public class LoginActivity extends Activity {
     @RestService
     ShanpowRestClient restClient;
 
+    @Bean
+    ShanpowErrorHandler errorHandler;
+
     @Pref
     AppPref_ pref;
 
     @AfterViews
     void init() {
         restClient.setCookie(Constant.CSRF_TOKEN, pref.csrfToken().get());
+    }
+
+    @AfterInject
+    void afterInject() {
+        restClient.setRestErrorHandler(errorHandler);
     }
 
     @Click
@@ -70,6 +85,20 @@ public class LoginActivity extends Activity {
 
     @Background
     void doLogin(String email, String password) {
+        //检查Cookie和CsrfToken是否存在，如果没有则通过发起获取Token的请求
+        SharedPreferences sharedPref = pref.getSharedPreferences();
+        Set<String> cookies = sharedPref.getStringSet(Constant.PREF_COOKIES, null);
+        if (cookies == null && !pref.csrfToken().exists()) {
+            //TODO:需要处理异常
+            GetCsrfTokenResult result = restClient.GetCsrfToken();
+            if (result.Result) {
+                pref.csrfToken().put(result.Data);
+            }
+        }
+
+        restClient.setCookie(Constant.CSRF_TOKEN, pref.csrfToken().get());
+        Util.SyncCookie(this);
+
         LoginResult result = restClient.Login(email, password);
         if (!result.Result) {
             afterLogin(false, R.string.error_invalid_email_or_password);

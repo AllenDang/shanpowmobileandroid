@@ -44,14 +44,16 @@ public class ShanpowClientHttpRequestInterceptor implements ClientHttpRequestInt
         ClientHttpResponse response = execution.execute(request, body);
 
         //从回复中取出Cookie全部保存到SharedPreference以待下次使用
+        SharedPreferences.Editor cookieEditor = pref.edit();
         cookies = response.getHeaders().get(SET_COOKIE);
         if (cookies != null) {
             Set<String> cookieSet = new HashSet<String>();
             cookieSet.addAll(cookies);
-            SharedPreferences.Editor cookieEditor = pref.edit();
             cookieEditor.putStringSet(Constant.PREF_COOKIES, cookieSet);
-            cookieEditor.commit();
+        } else {
+            cookieEditor.remove(Constant.PREF_COOKIES);
         }
+        cookieEditor.commit();
         return response;
     }
 }
