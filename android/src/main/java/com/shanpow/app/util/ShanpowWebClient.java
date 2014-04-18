@@ -21,7 +21,7 @@ public final class ShanpowWebClient extends WebViewClient {
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
         //如果是www.shanpow.com的url，就在webview中打开，否则，使用系统默认浏览器打开
-        if (Uri.parse(url).getHost().equals(Constant.URL_ROOT)) {
+        if (Uri.parse(url).getHost().equals(Constant.URL_DOMAIN)) {
             return false;
         }
 

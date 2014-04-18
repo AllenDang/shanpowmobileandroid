@@ -3,6 +3,7 @@ package com.shanpow.app.android;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.KeyEvent;
+import android.webkit.CookieSyncManager;
 import android.webkit.WebView;
 import android.widget.Toast;
 
@@ -37,6 +38,18 @@ public class MainActivity extends SlidingMenuBaseActivity {
         webView.setWebViewClient(new ShanpowWebClient(this));
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl(Constant.URL_MAIN);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        CookieSyncManager.getInstance().sync();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CookieSyncManager.getInstance().stopSync();
     }
 
     @OptionsItem(R.id.action_search)

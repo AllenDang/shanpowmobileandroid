@@ -14,7 +14,6 @@ import com.shanpow.app.service.ShanpowErrorHandler;
 import com.shanpow.app.service.ShanpowRestClient;
 import com.shanpow.app.util.AppPref_;
 import com.shanpow.app.util.Constant;
-import com.shanpow.app.util.Util;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
@@ -88,7 +87,7 @@ public class LoginActivity extends Activity {
         //检查Cookie和CsrfToken是否存在，如果没有则通过发起获取Token的请求
         SharedPreferences sharedPref = pref.getSharedPreferences();
         Set<String> cookies = sharedPref.getStringSet(Constant.PREF_COOKIES, null);
-        if (cookies == null && !pref.csrfToken().exists()) {
+        if (cookies == null || !pref.csrfToken().exists()) {
             //TODO:需要处理异常
             GetCsrfTokenResult result = restClient.GetCsrfToken();
             if (result.Result) {
@@ -97,10 +96,9 @@ public class LoginActivity extends Activity {
         }
 
         restClient.setCookie(Constant.CSRF_TOKEN, pref.csrfToken().get());
-        Util.SyncCookie(this);
 
         LoginResult result = restClient.Login(email, password);
-        if (!result.Result) {
+        if (result == null || !result.Result) {
             afterLogin(false, R.string.error_invalid_email_or_password);
             return;
         }
@@ -111,7 +109,6 @@ public class LoginActivity extends Activity {
         try {
             String jsonUserInfo = mapper.writeValueAsString(result.Data);
             pref.currentUserInJsonFormat().put(jsonUserInfo);
-            Util.SyncCookie(this);
             afterLogin(true, 0);
         } catch (JsonProcessingException e) {
             //序列化失败
