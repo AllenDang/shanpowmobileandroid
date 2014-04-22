@@ -7,6 +7,9 @@
     <string name="action_sign_out">退出</string>
     <string name="action_signing_out">退出中</string>
     <string name="action_search">搜索</string>
-    <string name="action_settings">Setting</string>
+    <string name="channel_male">男频</string>
+    <string name="channel_female">女频</string>
+    <string name="channel_param_male">c=m</string>
+    <string name="channel_param_female">c=f</string>
 
 </resources>

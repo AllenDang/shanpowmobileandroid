@@ -4,9 +4,15 @@
     tools:context="com.shanpow.app.android.MainActivity">
 
     <item
+        android:id="@+id/action_channel"
+        android:title="@string/channel_male"
+        android:icon="@drawable/ic_action_dropdown_crown_male"
+        shanpow:showAsAction="ifRoom"
+        shanpow:actionProviderClass="com.shanpow.app.widget.ChannelActionProvider" />
+
+    <item
         android:id="@+id/action_search"
         android:icon="@android:drawable/ic_menu_search"
         android:title="@string/action_search"
-        shanpow:showAsAction="ifRoom"
-        shanpow:actionProviderClass="com.shanpow.app.widget.ChannelActionProvider" />
+        shanpow:showAsAction="ifRoom" />
 </menu>
