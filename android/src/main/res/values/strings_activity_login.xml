@@ -4,7 +4,8 @@
     <!-- Strings related to login -->
     <string name="prompt_email">Email或者昵称</string>
     <string name="prompt_password">密码</string>
-    <string name="action_sign_in">登陆</string>
+    <string name="text_user_doesnt_signedin">未登录用户</string>
+    <string name="action_sign_in">立即登陆</string>
     <string name="action_signing_in">登陆中</string>
 
     <string name="error_invalid_email_or_password">邮件地址或密码不正确，请修改后重试</string>

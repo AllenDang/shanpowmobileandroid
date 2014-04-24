@@ -62,8 +62,8 @@ public class ChannelActionProvider extends ActionProvider implements
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        if (mContext.getBaseContext() instanceof MainActivity_) {
-            MainActivity_ activity = (MainActivity_) mContext.getBaseContext();
+        if (mContext instanceof MainActivity_) {
+            MainActivity_ activity = (MainActivity_) mContext;
             SharedPreferences pref = mContext.getSharedPreferences(Constant.APP_PREF, Context.MODE_PRIVATE);
             switch (item.getItemId()) {
                 case 1:

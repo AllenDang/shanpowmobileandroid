@@ -11,12 +11,12 @@ apply plugin: 'android'
 apply plugin: 'android-apt'
 
 android {
-    compileSdkVersion 17
+    compileSdkVersion 19
     buildToolsVersion "19.0.3"
 
     defaultConfig {
         minSdkVersion 11
-        targetSdkVersion 17
+        targetSdkVersion 19
         versionCode 1
         versionName "1.0"
     }
@@ -78,5 +78,8 @@ dependencies {
     compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
     compile 'org.springframework.android:spring-android-auth:1.0.1.RELEASE'
     compile 'org.springframework.android:spring-android-core:1.0.1.RELEASE'
+    compile 'de.hdodenhof:circleimageview:1.1.0'
+    compile 'com.squareup:otto:1.3.4'
+    compile 'com.squareup.picasso:picasso:2.2.0'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }

@@ -14,6 +14,7 @@ import com.shanpow.app.entity.SimpleUser;
 import com.shanpow.app.service.ShanpowErrorHandler;
 import com.shanpow.app.service.ShanpowRestClient;
 import com.shanpow.app.util.AppPref_;
+import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Background;
@@ -27,6 +28,8 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.rest.RestService;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 @EActivity
 public class SlidingMenuBaseActivity extends SlidingActivity {
 
@@ -37,6 +40,9 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
 
     @ViewById
     TextView tv_nickname;
+
+    @ViewById
+    CircleImageView img_profile;
 
     @Pref
     AppPref_ pref;
@@ -79,6 +85,15 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
                 tv_nickname.setText(user.Nickname);
                 btn_login.setText(R.string.action_sign_out);
 
+                //读取用户头像
+                //TODO:将下载过来的头像保存起来
+                if (!user.AvatarUrl.isEmpty()) {
+                    Picasso.with(this)
+                            .load(user.AvatarUrl)
+                            .placeholder(R.drawable.ic_user_normal)
+                            .into(img_profile);
+                }
+
                 currentUser = user;
             } catch (Exception e) {
                 //TODO: 处理序列化错误
@@ -118,7 +133,8 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
         //更新UI
         btn_login.setText(R.string.action_sign_in);
         btn_login.setEnabled(true);
-        tv_nickname.setText("");
+        tv_nickname.setText(getResources().getString(R.string.text_user_doesnt_signedin));
+        img_profile.setImageResource(R.drawable.ic_user_normal);
 
         //如果是MainActivity，则刷新webview
         if (this instanceof MainActivity_) {
