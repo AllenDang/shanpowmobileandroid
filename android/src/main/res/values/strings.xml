@@ -9,7 +9,5 @@
     <string name="action_search">搜索</string>
     <string name="channel_male">男频</string>
     <string name="channel_female">女频</string>
-    <string name="channel_param_male">c=m</string>
-    <string name="channel_param_female">c=f</string>
-
+    <string name="title_activity_billboard_list">榜单列表</string>
 </resources>

@@ -14,10 +14,12 @@ public final class Constant {
     //Url
     public static String URL_DOMAIN = "www.shanpow.com";
     public static String URL_MAIN = "http://www.shanpow.com/m";
+    public static String URL_BILLBOARD_LIST = "http://www.shanpow.com/m/billboard";
+
     public static String URL_ACTION_SHOWLOGIN = "http://action/showlogin";
 
-    public static String URL_PARAM_CHANNEL_MALE = "c=m";
-    public static String URL_PARAM_CHANNEL_FEMALE = "c=f";
+    public static String URL_PARAM_CHANNEL_MALE = "ch=m";
+    public static String URL_PARAM_CHANNEL_FEMALE = "ch=f";
 
     //Misc
     public static int CHANNEL_MALE = 1;
