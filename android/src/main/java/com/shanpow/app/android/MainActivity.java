@@ -114,8 +114,6 @@ public class MainActivity extends SlidingMenuBaseActivity {
     }
 
     public void adapteActionBarByUrl(String url) {
-        WebView webView = pull_refresh_webview.getRefreshableView();
-
         if (url.startsWith(Constant.URL_BILLBOARD_LIST)) {
             baseUrl = Constant.URL_BILLBOARD_LIST;
             actionBarHandler = new BillboardListActionBarHandler(this, pref);
