@@ -18,7 +18,8 @@
         android:layout_height="wrap_content"
         android:text="写长评"
         android:id="@+id/btn_review"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentRight="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
