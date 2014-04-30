@@ -16,6 +16,7 @@ import com.shanpow.app.actionbarmodifier.MainActionBarHandler;
 import com.shanpow.app.actionbarmodifier.WriteReviewActionBarHandler;
 import com.shanpow.app.util.Constant;
 import com.shanpow.app.util.ShanpowWebClient;
+import com.umeng.analytics.MobclickAgent;
 
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
@@ -51,6 +52,8 @@ public class MainActivity extends SlidingMenuBaseActivity {
                 reloadWebviewWithArgs(Constant.URL_PARAM_CHANNEL_FEMALE);
                 break;
         }
+
+        MobclickAgent.updateOnlineConfig(this);
     }
 
     //这个方法主要给ChannelActionProvider调用
@@ -63,12 +66,14 @@ public class MainActivity extends SlidingMenuBaseActivity {
     protected void onPause() {
         super.onPause();
         CookieSyncManager.getInstance().sync();
+        MobclickAgent.onPause(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         CookieSyncManager.getInstance().stopSync();
+        MobclickAgent.onResume(this);
     }
 
     @Override
@@ -157,7 +162,7 @@ public class MainActivity extends SlidingMenuBaseActivity {
             return;
         }
 
-        if (url.startsWith(Constant.URL_COMMENT)) {
+        if (url.startsWith(Constant.URL_COMMENT) || url.startsWith(Constant.URL_REVIEW)) {
             adapteGeneralActionBar(R.string.title_activity_comment);
             return;
         }

@@ -3,6 +3,8 @@
     package="com.shanpow.app.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:name="com.shanpow.app.android.MainApp"
@@ -24,6 +26,13 @@
         <activity
             android:name=".LoginActivity_"
             android:label="@string/title_activity_login" />
+
+        <meta-data
+            android:value="53608cd456240bd7de0061f9"
+            android:name="UMENG_APPKEY" />
+        <meta-data
+            android:value="Default"
+            android:name="UMENG_CHANNEL" />
     </application>
 
 </manifest>

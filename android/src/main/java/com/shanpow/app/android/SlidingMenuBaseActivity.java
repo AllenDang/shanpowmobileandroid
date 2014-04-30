@@ -68,7 +68,7 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
         menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
         menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
 
-        String[] menuItems = {"首页", "文章", "书评", "设置"};
+        String[] menuItems = {"首页", "专栏文章", "设置"};
         ListView list = (ListView) findViewById(R.id.lv_menu);
         list.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menuItems));
     }
