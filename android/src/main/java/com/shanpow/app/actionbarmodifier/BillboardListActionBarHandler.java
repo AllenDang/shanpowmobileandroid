@@ -31,7 +31,7 @@ public class BillboardListActionBarHandler extends ActionBarHandlerBase implemen
     @Override
     public void setup(Menu menu) {
         MenuInflater menuInflater = mActivity.getMenuInflater();
-        menuInflater.inflate(R.menu.menu_billboard_list, menu);
+        menuInflater.inflate(R.menu.menu_empty, menu);
 
         ActionBar actionBar = mActivity.getSupportActionBar();
         actionBar.setCustomView(R.layout.actionbar_billboardlist);

@@ -97,7 +97,7 @@ public class MainActionBarHandler extends ActionBarHandlerBase implements IActio
         int itemId_ = item.getItemId();
 
         if (itemId_ == R.id.action_search) {
-
+            mActivity.gotoUrl(Constant.URL_SEARCH);
             return true;
         }
 

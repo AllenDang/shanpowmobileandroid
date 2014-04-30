@@ -10,4 +10,11 @@
     <string name="channel_male">男频</string>
     <string name="channel_female">女频</string>
     <string name="title_activity_billboard_list">榜单列表</string>
+    <string name="title_activity_onekeyheal">一键治书荒</string>
+    <string name="title_activity_search">搜索</string>
+    <string name="title_activity_bookdetail">书籍信息</string>
+    <string name="title_activity_billboard_detail">榜单</string>
+    <string name="title_activity_comment">评论</string>
+    <string name="title_activity_people">用户信息</string>
+
 </resources>

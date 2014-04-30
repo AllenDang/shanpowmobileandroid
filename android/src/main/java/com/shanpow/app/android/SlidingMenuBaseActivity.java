@@ -5,7 +5,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -14,6 +13,7 @@ import com.shanpow.app.entity.SimpleUser;
 import com.shanpow.app.service.ShanpowErrorHandler;
 import com.shanpow.app.service.ShanpowRestClient;
 import com.shanpow.app.util.AppPref_;
+import com.shanpow.app.util.Constant;
 import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.AfterInject;
@@ -68,7 +68,7 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
         menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
         menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
 
-        String[] menuItems = {"首页", "榜单", "热辣书评", "设置"};
+        String[] menuItems = {"首页", "文章", "书评", "设置"};
         ListView list = (ListView) findViewById(R.id.lv_menu);
         list.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menuItems));
     }
@@ -117,6 +117,15 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
         }
     }
 
+    @Click
+    void img_profileClicked() {
+        if (this instanceof MainActivity_ && currentUser != null) {
+            MainActivity_ activity = (MainActivity_) this;
+            activity.gotoUrl(Constant.URL_PEOPLE + currentUser.Nickname);
+            toggle();
+        }
+    }
+
     @Background
     void doLogout() {
         restClient.Logout();
@@ -145,7 +154,15 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
 
     @ItemClick
     void lv_menuItemClicked(String item) {
-        Toast.makeText(this, item, Toast.LENGTH_SHORT).show();
+        //如果是MainActivity，则刷新webview
+        if (this instanceof MainActivity_) {
+            MainActivity_ activity = (MainActivity_) this;
+            if (item.equals("首页")) {
+                activity.gotoUrl(Constant.URL_MAIN);
+            }
+        }
+
+        toggle();
     }
 
     @OptionsItem(android.R.id.home)

@@ -10,8 +10,10 @@ import android.webkit.WebView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshWebView;
 import com.shanpow.app.actionbarmodifier.BillboardListActionBarHandler;
+import com.shanpow.app.actionbarmodifier.GeneralActionBarHandler;
 import com.shanpow.app.actionbarmodifier.IActionBarHandler;
 import com.shanpow.app.actionbarmodifier.MainActionBarHandler;
+import com.shanpow.app.actionbarmodifier.WriteReviewActionBarHandler;
 import com.shanpow.app.util.Constant;
 import com.shanpow.app.util.ShanpowWebClient;
 
@@ -113,8 +115,60 @@ public class MainActivity extends SlidingMenuBaseActivity {
         }
     }
 
+    public void gotoUrl(String url) {
+        WebView webView = pull_refresh_webview.getRefreshableView();
+        webView.loadUrl(url);
+        adapteActionBarByUrl(url);
+    }
+
+    public String getCurrentUrl() {
+        WebView webView = pull_refresh_webview.getRefreshableView();
+        return webView.getUrl();
+    }
+
+    private void adapteGeneralActionBar(int titleResId) {
+        actionBarHandler = new GeneralActionBarHandler(this, pref, titleResId);
+        invalidateOptionsMenu();
+    }
+
     public void adapteActionBarByUrl(String url) {
-        if (url.startsWith(Constant.URL_BILLBOARD_LIST)) {
+        if (url.equals(Constant.URL_SEARCH)) {
+            adapteGeneralActionBar(R.string.title_activity_search);
+            return;
+        }
+
+        if (url.equals(Constant.URL_ONE_KEY_HEAL)) {
+            adapteGeneralActionBar(R.string.title_activity_onekeyheal);
+            return;
+        }
+
+        if (url.startsWith(Constant.URL_PEOPLE)) {
+            adapteGeneralActionBar(R.string.title_activity_people);
+            return;
+        }
+
+        if (url.startsWith(Constant.URL_BILLBOARD_DETAIL)) {
+            adapteGeneralActionBar(R.string.title_activity_billboard_detail);
+            return;
+        }
+
+        if (url.startsWith(Constant.URL_BOOK_DETAIL)) {
+            adapteGeneralActionBar(R.string.title_activity_bookdetail);
+            return;
+        }
+
+        if (url.startsWith(Constant.URL_COMMENT)) {
+            adapteGeneralActionBar(R.string.title_activity_comment);
+            return;
+        }
+
+        if (url.startsWith(Constant.URL_WRITE_COMMENT) || url.startsWith(Constant.URL_WRITE_REVIEW)) {
+            actionBarHandler = new WriteReviewActionBarHandler(this, pref);
+            invalidateOptionsMenu();
+            return;
+        }
+
+        if (url.equals(Constant.URL_BILLBOARD_LIST)) {
             baseUrl = Constant.URL_BILLBOARD_LIST;
             actionBarHandler = new BillboardListActionBarHandler(this, pref);
             invalidateOptionsMenu();
