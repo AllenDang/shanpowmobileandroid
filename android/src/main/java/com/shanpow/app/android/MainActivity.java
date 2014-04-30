@@ -110,13 +110,13 @@ public class MainActivity extends SlidingMenuBaseActivity {
     public void goBack() {
         WebView webView = pull_refresh_webview.getRefreshableView();
         if (webView.canGoBack()) {
-            webView.goBack();
-
             WebBackForwardList list = webView.copyBackForwardList();
             if (list.getCurrentIndex() > 0) {
                 String previousUrl = list.getItemAtIndex(list.getCurrentIndex() - 1).getUrl();
                 adapteActionBarByUrl(previousUrl);
             }
+
+            webView.goBack();
         }
     }
 
