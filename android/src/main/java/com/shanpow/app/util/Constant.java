@@ -25,6 +25,7 @@ public final class Constant {
     public static String URL_ARTICLE_LIST = "http://www.shanpow.com/m/article";
     public static String URL_WRITE_COMMENT = "http://www.shanpow.com/m/writecomment";
     public static String URL_WRITE_REVIEW = "http://www.shanpow.com/m/writereview";
+    public static String URL_BOOKLIST = "http://www.shanpow.com/m/booklist";
 
     public static String URL_ACTION_SHOWLOGIN = "http://action/showlogin";
 

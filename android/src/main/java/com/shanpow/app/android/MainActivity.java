@@ -177,6 +177,11 @@ public class MainActivity extends SlidingMenuBaseActivity {
             return;
         }
 
+        if (url.startsWith(Constant.URL_BOOKLIST)) {
+            adapteGeneralActionBar(R.string.title_activity_booklist);
+            return;
+        }
+
         if (url.startsWith(Constant.URL_WRITE_COMMENT) || url.startsWith(Constant.URL_WRITE_REVIEW)) {
             actionBarHandler = new WriteReviewActionBarHandler(this, pref);
             invalidateOptionsMenu();

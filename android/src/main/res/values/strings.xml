@@ -18,5 +18,6 @@
     <string name="title_activity_people">用户信息</string>
     <string name="title_activity_article_list">文章列表</string>
     <string name="title_activity_article">文章</string>
+    <string name="title_activity_booklist">书单</string>
 
 </resources>
