@@ -147,6 +147,16 @@ public class MainActivity extends SlidingMenuBaseActivity {
             return;
         }
 
+        if (url.equals(Constant.URL_ARTICLE_LIST)) {
+            adapteGeneralActionBar(R.string.title_activity_article_list);
+            return;
+        }
+
+        if (url.startsWith(Constant.URL_ARTICLE_LIST)) {
+            adapteGeneralActionBar(R.string.title_activity_article);
+            return;
+        }
+
         if (url.startsWith(Constant.URL_PEOPLE)) {
             adapteGeneralActionBar(R.string.title_activity_people);
             return;

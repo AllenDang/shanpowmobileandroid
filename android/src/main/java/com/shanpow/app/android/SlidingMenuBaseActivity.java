@@ -68,7 +68,7 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
         menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
         menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
 
-        String[] menuItems = {"首页", "专栏文章", "设置"};
+        String[] menuItems = {"首页", "专栏文章"};
         ListView list = (ListView) findViewById(R.id.lv_menu);
         list.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menuItems));
     }
@@ -159,6 +159,9 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
             MainActivity_ activity = (MainActivity_) this;
             if (item.equals("首页")) {
                 activity.gotoUrl(Constant.URL_MAIN);
+            }
+            if (item.equals("专栏文章")) {
+                activity.gotoUrl(Constant.URL_ARTICLE_LIST);
             }
         }
 
