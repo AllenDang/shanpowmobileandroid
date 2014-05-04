@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebBackForwardList;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshWebView;
 import com.shanpow.app.actionbarmodifier.BillboardListActionBarHandler;
@@ -21,6 +22,9 @@ import com.umeng.analytics.MobclickAgent;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 @EActivity
 public class MainActivity extends SlidingMenuBaseActivity {
 
@@ -30,6 +34,10 @@ public class MainActivity extends SlidingMenuBaseActivity {
     private IActionBarHandler actionBarHandler;
 
     private String baseUrl = Constant.URL_MAIN;
+
+    private boolean isReadyToExit = false;
+
+    private Timer exitTimer = new Timer("exit_timer");
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -117,6 +125,22 @@ public class MainActivity extends SlidingMenuBaseActivity {
             }
 
             webView.goBack();
+        } else {
+            //提示再按一次后退就退出
+            if (isReadyToExit) {
+                webView.stopLoading();
+                finish();
+            } else {
+                Toast.makeText(this, R.string.toast_prompt_quit, Toast.LENGTH_SHORT).show();
+                //先把isReadyExit设为true, 两秒之后如果没有再次按下后退，则设为false
+                isReadyToExit = true;
+                exitTimer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        isReadyToExit = false;
+                    }
+                }, 2000);
+            }
         }
     }
 
