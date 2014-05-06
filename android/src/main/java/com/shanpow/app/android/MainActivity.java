@@ -1,11 +1,14 @@
 package com.shanpow.app.android;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebBackForwardList;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Toast;
 
@@ -50,6 +53,16 @@ public class MainActivity extends SlidingMenuBaseActivity {
         WebView webView = pull_refresh_webview.getRefreshableView();
         webView.setWebViewClient(new ShanpowWebClient(this));
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.requestFocus(View.FOCUS_DOWN);
+
+        //启动webView缓存
+        WebSettings websetting = webView.getSettings();
+        websetting.setDomStorageEnabled(true);
+        String appCacheDir = getApplicationContext().getDir("cache", Context.MODE_PRIVATE).getPath();
+        websetting.setAppCachePath(appCacheDir);
+        websetting.setAllowFileAccess(true);
+        websetting.setAppCacheEnabled(true);
+        websetting.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
         //根据用户上次选择的频道获取首页内容
         switch (pref.channel().get()) {
