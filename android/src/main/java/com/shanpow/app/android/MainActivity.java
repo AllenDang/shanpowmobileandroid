@@ -1,86 +1,47 @@
 package com.shanpow.app.android;
 
-import android.content.Context;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 import android.webkit.CookieSyncManager;
-import android.webkit.WebBackForwardList;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.Toast;
 
-import com.handmark.pulltorefresh.library.PullToRefreshWebView;
-import com.shanpow.app.actionbarmodifier.BillboardListActionBarHandler;
-import com.shanpow.app.actionbarmodifier.GeneralActionBarHandler;
-import com.shanpow.app.actionbarmodifier.IActionBarHandler;
-import com.shanpow.app.actionbarmodifier.MainActionBarHandler;
-import com.shanpow.app.actionbarmodifier.WriteReviewActionBarHandler;
-import com.shanpow.app.util.Constant;
-import com.shanpow.app.util.ShanpowWebClient;
 import com.umeng.analytics.MobclickAgent;
 
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.apache.cordova.Config;
+import org.apache.cordova.CordovaInterface;
+import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.CordovaWebView;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @EActivity
-public class MainActivity extends SlidingMenuBaseActivity {
+public class MainActivity extends SlidingMenuBaseActivity implements CordovaInterface {
 
     @ViewById
-    PullToRefreshWebView pull_refresh_webview;
-
-    private IActionBarHandler actionBarHandler;
-
-    private String baseUrl = Constant.URL_MAIN;
+    CordovaWebView webView;
 
     private boolean isReadyToExit = false;
 
     private Timer exitTimer = new Timer("exit_timer");
+
+    private final ExecutorService threadPool = Executors.newCachedThreadPool();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        actionBarHandler = new MainActionBarHandler(this, pref);
-
-        //读取网页内容
-        WebView webView = pull_refresh_webview.getRefreshableView();
-        webView.setWebViewClient(new ShanpowWebClient(this));
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.requestFocus(View.FOCUS_DOWN);
-
-        //启动webView缓存
-        WebSettings websetting = webView.getSettings();
-        websetting.setDomStorageEnabled(true);
-        String appCacheDir = getApplicationContext().getDir("cache", Context.MODE_PRIVATE).getPath();
-        websetting.setAppCachePath(appCacheDir);
-        websetting.setAllowFileAccess(true);
-        websetting.setAppCacheEnabled(true);
-        websetting.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-
-        //根据用户上次选择的频道获取首页内容
-        switch (pref.channel().get()) {
-            case 1: //男频
-                reloadWebviewWithArgs(Constant.URL_PARAM_CHANNEL_MALE);
-                break;
-            case 0: //女频
-                reloadWebviewWithArgs(Constant.URL_PARAM_CHANNEL_FEMALE);
-                break;
-        }
+        Config.init(this);
+        webView.loadUrl(Config.getStartUrl());
 
         MobclickAgent.updateOnlineConfig(this);
-    }
-
-    //这个方法主要给ChannelActionProvider调用
-    public void reloadWebviewWithArgs(String args) {
-        WebView webView = pull_refresh_webview.getRefreshableView();
-        webView.loadUrl(baseUrl + "?" + args);
     }
 
     @Override
@@ -98,28 +59,6 @@ public class MainActivity extends SlidingMenuBaseActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (actionBarHandler != null) {
-            actionBarHandler.setup(menu);
-        }
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        boolean handled = super.onOptionsItemSelected(item);
-        if (handled) {
-            return true;
-        }
-
-        if (actionBarHandler != null) {
-            return actionBarHandler.onOptionsItemSelected(item);
-        }
-
-        return false;
-    }
-
-    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             goBack();
@@ -129,14 +68,7 @@ public class MainActivity extends SlidingMenuBaseActivity {
     }
 
     public void goBack() {
-        WebView webView = pull_refresh_webview.getRefreshableView();
         if (webView.canGoBack()) {
-            WebBackForwardList list = webView.copyBackForwardList();
-            if (list.getCurrentIndex() > 0) {
-                String previousUrl = list.getItemAtIndex(list.getCurrentIndex() - 1).getUrl();
-                adapteActionBarByUrl(previousUrl);
-            }
-
             webView.goBack();
         } else {
             //提示再按一次后退就退出
@@ -158,84 +90,31 @@ public class MainActivity extends SlidingMenuBaseActivity {
     }
 
     public void gotoUrl(String url) {
-        WebView webView = pull_refresh_webview.getRefreshableView();
         webView.loadUrl(url);
-        adapteActionBarByUrl(url);
     }
 
-    public String getCurrentUrl() {
-        WebView webView = pull_refresh_webview.getRefreshableView();
-        return webView.getUrl();
+    @Override
+    public void startActivityForResult(CordovaPlugin cordovaPlugin, Intent intent, int i) {
+
     }
 
-    private void adapteGeneralActionBar(int titleResId) {
-        actionBarHandler = new GeneralActionBarHandler(this, pref, titleResId);
-        invalidateOptionsMenu();
+    @Override
+    public void setActivityResultCallback(CordovaPlugin cordovaPlugin) {
+
     }
 
-    public void adapteActionBarByUrl(String url) {
-        if (url.equals(Constant.URL_SEARCH)) {
-            adapteGeneralActionBar(R.string.title_activity_search);
-            return;
-        }
+    @Override
+    public Activity getActivity() {
+        return this;
+    }
 
-        if (url.equals(Constant.URL_ONE_KEY_HEAL)) {
-            adapteGeneralActionBar(R.string.title_activity_onekeyheal);
-            return;
-        }
+    @Override
+    public Object onMessage(String s, Object o) {
+        return this;
+    }
 
-        if (url.equals(Constant.URL_ARTICLE_LIST)) {
-            adapteGeneralActionBar(R.string.title_activity_article_list);
-            return;
-        }
-
-        if (url.startsWith(Constant.URL_ARTICLE_LIST)) {
-            adapteGeneralActionBar(R.string.title_activity_article);
-            return;
-        }
-
-        if (url.startsWith(Constant.URL_PEOPLE)) {
-            adapteGeneralActionBar(R.string.title_activity_people);
-            return;
-        }
-
-        if (url.startsWith(Constant.URL_BILLBOARD_DETAIL)) {
-            adapteGeneralActionBar(R.string.title_activity_billboard_detail);
-            return;
-        }
-
-        if (url.startsWith(Constant.URL_BOOK_DETAIL)) {
-            adapteGeneralActionBar(R.string.title_activity_bookdetail);
-            return;
-        }
-
-        if (url.startsWith(Constant.URL_COMMENT) || url.startsWith(Constant.URL_REVIEW)) {
-            adapteGeneralActionBar(R.string.title_activity_comment);
-            return;
-        }
-
-        if (url.startsWith(Constant.URL_BOOKLIST)) {
-            adapteGeneralActionBar(R.string.title_activity_booklist);
-            return;
-        }
-
-        if (url.startsWith(Constant.URL_WRITE_COMMENT) || url.startsWith(Constant.URL_WRITE_REVIEW)) {
-            actionBarHandler = new WriteReviewActionBarHandler(this, pref);
-            invalidateOptionsMenu();
-            return;
-        }
-
-        if (url.equals(Constant.URL_BILLBOARD_LIST)) {
-            baseUrl = Constant.URL_BILLBOARD_LIST;
-            actionBarHandler = new BillboardListActionBarHandler(this, pref);
-            invalidateOptionsMenu();
-            return;
-        }
-
-        if (url.startsWith(Constant.URL_MAIN)) {
-            baseUrl = Constant.URL_MAIN;
-            actionBarHandler = new MainActionBarHandler(this, pref);
-            invalidateOptionsMenu();
-        }
+    @Override
+    public ExecutorService getThreadPool() {
+        return threadPool;
     }
 }

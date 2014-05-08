@@ -148,7 +148,7 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
         //如果是MainActivity，则刷新webview
         if (this instanceof MainActivity_) {
             MainActivity_ activity = (MainActivity_) this;
-            activity.pull_refresh_webview.getRefreshableView().reload();
+            activity.webView.reload();
         }
     }
 
