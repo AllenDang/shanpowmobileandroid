@@ -1,0 +1,142 @@
+@import (once) "General.less";
+
+h5 {
+  a {
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 10px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 0 10px;
+    margin-right: 8px;
+  }
+
+  span {
+    font-weight: normal;
+    font-size: 0.9em;
+  }
+}
+
+hr {
+  border-color: #aaa;
+}
+
+.cats {
+  margin-bottom: 0;
+}
+
+.cat {
+  .dotdotdotForLongText;
+  height: 20px;
+  line-height: 20px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  box-sizing: border-box;
+  color: white;
+  padding: 0 10px !important;
+  margin-bottom: 8px;
+
+  &:nth-child(4n+1) {
+    margin-left: 0;
+  }
+
+  &.active {
+    background-color: @base;
+  }
+
+  &.more {
+    span.halflings:before {
+      color: white;
+      margin: -8px 0 0 4px;
+    }
+  }
+}
+
+.book {
+  position: relative;
+  color: white;
+  background-color: @base;
+  margin-bottom: 16px;
+
+  & > a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  h4 {
+    margin-top: 8px;
+  }
+
+  .bookMega {
+    div {
+      height: 20px;
+      line-height: 20px;
+      margin-bottom: 8px;
+      border-radius: 10px;
+      padding: 0 10px;
+      box-sizing: border-box;
+      background-color: rgba(0, 0, 0, 0.2);
+
+      &.clearfix {
+        background-color: rgba(0, 0, 0, 0);
+      }
+    }
+  }
+
+  .comment {
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 8px 0;
+    font-size: 0.9em;
+
+    .ratingStar {
+      margin-top: -2px;
+    }
+  }
+}
+
+.mega {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 3;
+  padding: 8px;
+
+  table {
+    width: 100%;
+
+    td {
+      &:first-child {
+        border-right: 1px solid rgba(255, 255, 255, 0.5);
+      }
+
+      div, a {
+        display: block;
+        width: 100%;
+        height: 100%;
+
+        span {
+          position: relative;
+          left: 50%;
+        }
+      }
+    }
+  }
+
+  .glyphicons {
+    color: white;
+    font-size: 14px;
+    padding-left: 20px;
+  }
+
+  .glyphicons:before {
+    color: white;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+}

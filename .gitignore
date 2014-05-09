@@ -34,3 +34,6 @@ proguard/
 /libraries/SlidingMenu/build/libs/SlidingMenu.aar
 /libraries/SlidingMenu/build/
 /libraries/PullToRefresh/build/
+android/src/main/assets/www/shanpowlocalweb.sublime-project
+android/src/main/assets/www/shanpowlocalweb.sublime-workspace
+android/src/main/assets/www/public/js/jquery-1.10.1.min.map

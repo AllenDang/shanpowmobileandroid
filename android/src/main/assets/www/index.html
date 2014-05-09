@@ -1,1 +1,56 @@
-Hello world
+<!doctype html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+  <title>山坡网</title>
+  <!-- Style Sheet -->
+  <link rel="stylesheet" type="text/css" href="public/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="public/css/Index.css">
+
+  <!-- Javascript Libraries -->
+  <script src="public/js/jquery-1.10.1.min.js" charset="utf-8"></script>
+  <script src="public/js/bootstrap.min.js"></script>
+  <script src="public/js/jquery.raty.min.js"></script>
+  <script src="public/js/jquery.slides.min.js"></script>
+  <script src="public/js/Common.js" charset="utf-8"></script>
+  <script src="modules/template.js" charset="utf-8"></script>
+  <script src="modules/Index/Articles.js" charset="utf-8"></script>
+  <script src="modules/Index/Billboards.js" charset="utf-8"></script>
+  <script src="modules/Index/Wizard.js" charset="utf-8"></script>
+  <script src="modules/public/Reviews.js" charset="utf-8"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="row-fluid slides section hide"></div>
+    <div class="row-fluid hot_ranking section">
+      <div class="title row-fluid">
+        <h4>
+          <span>新鲜热榜</span>
+          <span class="more pull-right"><a href="/m/billboard">更多&nbsp;&nbsp;&nbsp;&nbsp;></a></span>
+        </h4>
+      </div>
+      <div class="rankinglist row-fluid"></div>
+    </div>
+    <div class="row-fluid wizard section">
+      <div class="title row-fluid">
+        <h4>
+          <span>为您推荐</span>
+          <span class="more pull-right hide"><a href="/m/book/recommendation">一键治书荒</a></span>
+        </h4>
+      </div>
+      <div class="row-fluid bookRecommended"></div>
+    </div>
+    <div class="row-fluid reviews section">
+      <div class="title row-fluid">
+        <h4>
+          <span>推荐书评</span>
+          <span class="more pull-right"><a href="/m/review/all">更多&nbsp;&nbsp;&nbsp;&nbsp;></a></span>
+        </h4>
+      </div>
+      <ul class="unstyled"></ul>
+    </div>
+  </div>
+  <script src="public/js/Index.js"></script>
+</body>
+</html>

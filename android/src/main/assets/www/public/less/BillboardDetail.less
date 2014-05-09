@@ -1,0 +1,109 @@
+@import (once) "General.less";
+
+hr {
+  border-color: @base;
+}
+
+.desc {
+  margin: 0;
+  margin-top: 16px;
+}
+
+.book {
+  position: relative;
+  color: white;
+  background-color: fadeout(@base, 20%);
+  margin-bottom: 16px;
+
+  & > a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+  }
+
+  .bookMega {
+    padding-top: 8px;
+
+    & > .row-fluid:first-child {
+      font-size: 1.1em;
+    }
+
+    .author {
+      font-size: 0.9em;
+      height: 20px;
+      line-height: 20px;
+      margin-bottom: 8px;
+      border-radius: 10px;
+      padding: 0 10px;
+      box-sizing: border-box;
+      background-color: rgba(0, 0, 0, 0.2);
+      margin-left: 8px;
+    }
+  }
+
+  .comment {
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 8px 0;
+
+    .ratingStar {
+      margin-top: -2px;
+    }
+  }
+
+  .bookCover {
+    position: relative;
+
+    .rank {
+      color: black;
+      position: absolute;
+      top: -8px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 100%;
+      font-size: 64px;
+      margin-top: 50%;
+      z-index: 2;
+    }
+  }
+}
+
+.mega {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: fadeout(@base, 30%);
+  z-index: 3;
+  padding: 8px;
+
+  table {
+    width: 100%;
+
+    td {
+      &:first-child {
+        border-right: 1px solid rgba(255, 255, 255, 0.5);
+      }
+
+      div {
+        position: relative;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  .glyphicons {
+    color: white;
+    font-size: 14px;
+    padding-left: 20px;
+  }
+
+  .glyphicons:before {
+    color: white;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+}

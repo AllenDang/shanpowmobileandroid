@@ -1,0 +1,36 @@
+@import (once) "General.less";
+
+.book {
+  position: relative;
+  color: white;
+  background-color: @base;
+  margin-bottom: 16px;
+  
+  & > a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  h4 {
+    margin-top: 8px;
+  }
+
+  .bookMega {
+    div {
+      height: 20px;
+      line-height: 20px;
+      margin-bottom: 8px;
+      border-radius: 10px;
+      padding: 0 10px;
+      box-sizing: border-box;
+      background-color: rgba(0, 0, 0, 0.2);
+
+      &.clearfix, &.ratingStar {
+        background-color: transparent;
+      }
+    }
+  }
+}

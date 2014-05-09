@@ -1,0 +1,10 @@
+{{each billboards}}
+<div class="ranking pull-left">
+  <a href="/m/billboard/detail?title={{$value.Title}}&version={{$value.Version}}"></a>
+  <div class="rankingImage">
+    <img src="{{$value.ImageUrl}}?imageView2/1/w/200/h/200" alt="">
+    <div class="updateInfo">更新至第<span>{{$value.Version}}</span>期</div>
+  </div>
+  <div class="rankingTitle"><table><tr><td>{{$value.Title}}</td></tr></table></div>
+</div>
+{{/each}}

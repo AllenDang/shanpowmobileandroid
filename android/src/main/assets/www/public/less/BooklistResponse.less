@@ -1,0 +1,44 @@
+@import (once) "General.less";
+
+.container {
+  padding-bottom: 40px;
+}
+
+.response {
+  box-sizing: border-box;
+  margin-bottom: 16px;
+  padding: 8px;
+  background-color: rgba(0, 0, 0, 0.2);
+
+  .timestamp {
+    color: rgba(0, 0, 0, 0.3);
+  }
+}
+
+.postResponse {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+
+  box-sizing: border-box;
+  width: 100%;
+  padding-top: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.replyInput {
+  position: relative;
+
+  .cancelInput {
+    position: absolute;
+    right: 16px;
+    top: 4px;
+  }
+}
+
+.responseText {
+  word-break: break-all;
+}

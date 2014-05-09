@@ -1,0 +1,518 @@
+@import (once) "General.less";
+
+.title {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  width: 100%;
+
+  .more {
+    background-color: @base;
+    border-radius: 10px;
+    color: white;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+    padding: 0 8px;
+  }
+}
+
+.section {
+  margin-bottom: 16px;
+}
+
+.mainInfo {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding-bottom: 8px;
+
+  .bookCover {
+    position: relative;
+
+    &:after {
+      display: block;
+      content: '';
+      padding-top: 133.33%;
+    }
+
+    .wrapper {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      img {
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+
+  .basicInfo {
+    div {
+      margin-bottom: 4px;
+
+      [class^="span"] {
+        min-height: 0;
+      }
+
+      a {
+        .dotdotdotForLongText;
+
+        box-sizing: border-box;
+        background-color: rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        display: inline-block;
+        max-width: 100%;
+        padding: 0 12px;
+        color: white;
+      }
+    }
+
+    .badge {
+      background-color: @base;
+    }
+  }
+
+  .subSection2 {
+    margin-top: 16px;
+
+    [class^="span"] {
+      .score {
+        font-size: 18px;
+      }
+
+      .ratingStar {
+        margin: 0 auto;
+      }
+
+      span {
+        display: inline-block;
+        width: 100%;
+
+        &:first-child {
+          font-size: 18px;
+          margin-bottom: 8px;
+        }
+      }
+
+      &:before {
+        background-color: @base;
+        content: "";
+        display: block;
+        float: left;
+        height: 50px;
+        margin-left: -2px;
+        margin-top: 4px;
+        width: 1px;
+      }
+
+      &:first-child:before {
+        height: 0;
+      }
+    }
+  }
+}
+
+.readStatus {
+  background-color: white;
+  padding: 16px;
+  box-sizing: border-box;
+
+  .status {
+    margin-bottom: 16px;
+    
+    .statusAction {
+      &.inactive {
+        opacity: 0.3;
+      }
+    }
+  }
+
+  .wanttoread, .read, .giveup, .addToBooklist, .writeComment {
+    display: inline-block;
+    height: 32px;
+
+    img {
+      height: 32px;
+      width: 32px;
+    }
+
+    div {
+      line-height: 32px;
+      margin-left: 8px;
+    }
+  }
+
+  .write {
+    position: relative;
+
+    & > a {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+  }
+
+  a {
+    color: black;
+  }
+}
+
+.arrow {
+  width:0;
+  height:0;
+  font-size:0; /*防止输入文字，破坏效果*/
+  border-width:16px;
+  border-color:transparent transparent @base;
+  border-style:dashed dashed solid;
+  margin-top: -28px;
+}
+
+.summary {
+  .summaryContent {
+    margin-top: 8px;
+    overflow: hidden;
+  }
+
+  .expand {
+    background: url(/public/img/chevron_down.png) no-repeat;
+    display: block;
+    width: 20px;
+    height: 10px;
+    margin-bottom: 16px;
+
+    &.expanded {
+      background: url(/public/img/chevron_up.png) no-repeat;
+    }
+  }
+}
+
+.comment {
+  position: relative;
+  background-color: @base;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  padding: 8px;
+  padding-bottom: 0;
+
+  .author {
+    .dotdotdotForLongText;
+    margin-bottom: 4px;
+    margin-right: 8px;
+    max-width: 80%;
+
+    a, a:hover {
+      color: black;
+      width: 100%;
+    }
+  }
+
+  .content {
+    color: white;
+    margin-bottom: 4px;
+  }
+
+  .mega {
+    margin-top: 8px;
+
+    table {
+      width: 100%;
+
+      td {
+        padding: 4px;
+
+        &:first-child {
+          border-right: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        div {
+          position: relative;
+          left: 50%;
+          margin-left: width/2;
+        }
+      }
+    }
+
+    .glyphicons {
+      color: white;
+      font-size: 14px;
+      padding-left: 20px;
+    }
+
+    .glyphicons:before {
+      color: white;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+  }
+}
+
+.review {
+  background-color: @base;
+  margin-bottom: 8px;
+  position: relative;
+
+  .userAvatar {
+    position: relative;
+    z-index: 2;
+    margin-left: 8px;
+    height: 32px;
+    width: 32px;
+
+    a {
+      height: 100%;
+      width: 100%;
+
+      img {
+        border-radius: 50%;
+        float: left;
+        margin-top: 8px;
+      }
+    }
+  }
+
+  .megaInfo {
+    width: 100%;
+
+    .otherInfo {
+      margin-left: 8px;
+      max-width: 80%;
+
+      .firstRow {
+        margin-top: 4px;
+        
+        .reviewScore {
+          margin-left: 8px;
+          margin-top: -2px;
+        }
+
+        .nickname {
+          .dotdotdotForLongText;
+          max-width: 80px;
+
+          a, a:hover {
+            color: black;
+          }
+        }
+      }
+
+      .secondRow {
+        .reviewTitle {
+          margin-top: 4px;
+          max-width: 100%;
+        }
+      }
+
+      .mega {
+        font-size: 12px;
+        position: absolute;
+        right: 0;
+        top: 4px;
+
+        .glyphicons {
+          color: white;
+          font-size: 12px;
+          margin-right: 8px;
+          padding-left: 20px;
+        }
+
+        .glyphicons:before {
+          color: white;
+          font-size: 12px;
+          margin-top: 4px;
+        }
+      }
+    }
+  }
+
+  .content {
+    color: white;
+    box-sizing: border-box;
+    padding: 8px;
+  }
+}
+
+.booklist {
+  position: relative;
+  background-color: @base;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  padding: 8px 8px 0 8px;
+  color: white;
+
+  &:nth-child(2n-1) {
+    margin-left: 0;
+  }
+
+  .titleText {
+    .dotdotdotForLongText;
+    max-width: 75%;
+  }
+
+  .nickname {
+    margin: 4px 0;
+  }
+
+  .bookCover {
+    position: relative;
+
+    &:after {
+      display: block;
+      padding-top: 133.33%;
+      content: '';
+    }
+
+    .wrapper {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  .mega {
+    font-size: 12px;
+    margin-top: 8px;
+
+    [class^="span"] {
+      border-left: 1px solid white;
+      min-height: 25px;
+      text-align: center;
+
+      &:first-child {
+        border: none;
+      }
+    }
+
+    .glyphicons {
+      color: white;
+      font-size: 12px;
+      margin: 0 auto;
+      padding-left: 20px;
+    }
+
+    .glyphicons:before {
+      color: white;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+  }
+}
+
+.comment, .review, .booklist {
+  & > a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.sameBook {
+  margin-bottom: 8px;
+
+  &:nth-child(4n+1) {
+    margin-left: 0;
+  }
+
+  .bookCover {
+    position: relative;
+
+    &:after {
+      display: block;
+      content: '';
+      padding-top: 133.33%;
+    }
+
+    .wrapper {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      img {
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+
+  .bookTitle {
+    .dotdotdotForLongText;
+    color: black;
+    margin-top: 4px;
+  }
+}
+
+.selfComment {
+  margin-bottom: 8px;
+
+  .nickname {
+    max-width: 100px !important;
+    margin-right: 8px;
+  }
+
+  .review {
+    box-sizing: border-box;
+    padding: 8px;
+
+    .row-fluid {
+      margin: 4px 0;
+    }
+  }
+
+  .content {
+    padding: 0;
+  }
+
+  .mega {
+    font-size: 12px;
+    position: absolute;
+    right: 0;
+    top: 4px;
+
+    .glyphicons {
+      color: white;
+      font-size: 12px;
+      margin-right: 8px;
+      padding-left: 20px;
+    }
+
+    .glyphicons:before {
+      color: white;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+  }
+
+  .timeStamp {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  .reviewTitle {
+    font-size: 1.05em;
+    font-weight: bold;
+  }
+}
+
+.more {
+  a {
+    color: white;
+  }
+}

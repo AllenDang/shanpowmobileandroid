@@ -1,0 +1,109 @@
+@import (once) "prefixer.less";
+@import (once) "General.less";
+
+.tabs {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 48px;
+  line-height: 40px;
+
+  .tab {
+    background-color: rgba(255, 255, 255, 0.9);
+    width: 50%;
+
+    &.active {
+      background-color: @base;
+      color: white;
+    }
+  }
+}
+
+.booklists {
+  margin-top: 40px;
+  width: 100%;
+
+  .item {
+    background-color: @base;
+    margin-bottom: 20px;
+    padding: 8px 8px 38px 8px;
+    position: relative;
+    box-sizing: border-box;
+    max-width: 50%;
+
+    .detail {
+      color: white;
+      width: 100%;
+      
+      h4 {
+        margin: 0;
+      }
+
+      .timestamp {
+        color: fadeout(white, 30%);
+        margin: 4px 0;
+      }
+    }
+
+    .covers {
+      margin-bottom: 8px;
+      width: 100%;
+
+      .bookCover {
+        height: 100%;
+        min-height: 50px;
+
+        img {
+          height: 100%;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.mega {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+
+  table {
+    width: 100%;
+
+    td {
+      padding: 4px;
+
+      &:first-child {
+        border-right: 1px solid rgba(255, 255, 255, 0.5);
+      }
+
+      div {
+        position: relative;
+        // left: 50%;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  .glyphicons {
+    color: white;
+    font-size: 14px;
+    padding-left: 20px;
+  }
+
+  .glyphicons:before {
+    color: white;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+}
+
+.none {
+  box-sizing: border-box;
+  padding: 16px;
+  background-color: @base;
+  color: white;
+}

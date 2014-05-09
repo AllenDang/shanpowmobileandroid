@@ -1,0 +1,18 @@
+{{if isLogin === true}}
+  {{each guessBooks}}
+  <div class="wizardBook span3">
+    <a href="/m/book/{{$value.Id}}">
+      <div class="bookCover">
+        <div class="wrapper"><img src="{{$value.ImageUrl}}" alt=""></div>
+      </div>
+      <div class="bookTitle text-center">{{$value.Title}}</div>
+    </a>
+  </div>
+  {{/each}}
+{{else}}
+  <div class="span6 pull-left">
+    <div class="tip row-fluid">曲高不一定和寡，登录后发现您的专属推荐，还有志同道合的书友们</div>
+    <div class="login pull-left row-fluid"><a href="http://action/showlogin">立即登录</a></div>
+  </div>
+  <div class="span6 pull-left"><img src="public/img/tagCloud.png" alt=""></div>
+{{/if}}

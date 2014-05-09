@@ -1,0 +1,474 @@
+@import (once) "General.less";
+
+.section {
+  margin-bottom: 16px;
+}
+
+.title {
+  box-sizing: border-box;
+  border-bottom: 1px solid #999;
+  width: 100%;
+  
+  .more {
+    background-color: @base;
+    border-radius: 10px;
+    color: white;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+    padding: 0 8px;
+  }
+}
+
+.bookCover {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+
+  .dummy {
+    padding-top: 133.33%;
+  }
+
+  a {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    img.bookCoverImg {
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
+
+.hot_ranking {
+  .rankinglist {
+    box-sizing: border-box;
+    padding: 8px 0;
+    position: relative;
+  }
+}
+
+.ranking {
+  position: relative;
+  width: 42%;
+  margin: 0 3% 0 5%;
+
+  a, a:hover {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: black;
+    text-decoration: none;
+  }
+
+  .rankingImage {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+
+    &:before {
+      content: "";
+      display: block;
+      padding-top: 100%;
+    }
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .updateInfo {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+
+      padding: 2px 8px 0 8px;
+
+      font-size: 0.9em;
+      color: white;
+      background-color: fadeout(@base, 40%);
+
+      span {
+        font-size: 1.5em;
+        margin: 0 2px;
+      }
+    }
+  }
+
+  .rankingTitle {
+    padding: 4px;
+    height: 40px;
+    color: white;
+    background-color: @base;
+    
+    table {
+      height: 100%;
+      width: 100%;
+
+      td {
+        padding: 0;
+      }
+    }
+  }
+}
+
+.book {
+  margin-bottom: 8px;
+  margin-left: 4%;
+  width: 21%;
+  position: relative;
+
+  .bookTitle {
+    padding: 4px 0;
+    .dotdotdotForLongText;
+  }
+
+  &:first-child {
+    margin-left: 0;
+    margin-bottom: 0;
+    position: relative;
+    width: 50%;
+
+    .info {
+      background-color: rgba(0, 0, 0, 0.7);
+      bottom: 0;
+      box-sizing: border-box;
+      color: white;
+      left: 0;
+      padding: 8px;
+      position: absolute;
+      width: 100%;
+
+      .rating {
+        margin-bottom: 4px;
+
+        .score {
+          font-size: 18px;
+          margin-left: 8px;
+        }
+      }
+    }
+  }
+
+  &:nth-child(n+4) {
+    bottom: 8px;
+    margin-bottom: 0;
+    position: absolute;
+    right: 25%;
+  }
+
+  &:last-child {
+    right: 0;
+  }
+}
+
+.wizard {
+  .tip {
+    font-size: 18px;
+    margin: 20px 16px 20px 0;
+  }
+
+  .login {
+    .title .more;
+    
+    margin-bottom: 16px;
+    margin-top: 30%;
+    text-align: center;
+    width: 30%;
+
+    a {
+      color: white;
+    }
+  }
+
+  img {
+    width: 100%;
+  }
+
+  .wizardBook {
+    margin-top: 8px;
+    margin-bottom: 8px;
+
+    .bookCover {
+      position: relative;
+
+      &:after {
+        display: block;
+        content: '';
+        padding-top: 133.33%;
+      }
+
+      .wrapper {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        img {
+          height: 100%;
+          width: 100%;
+        }
+      }
+    }
+
+    .bookTitle {
+      color: black;
+      margin-top: 4px;
+    }
+  }
+}
+
+.reviews {
+  .title {
+    margin-bottom: 8px;
+  }
+}
+
+.review {
+  position: relative;
+  width: 100%;
+  
+  & > a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+  }
+
+  .reviewBasic {
+    background-color: @base;
+  }
+
+  .reviewRelated {
+    position: relative;
+
+    box-sizing: border-box;
+    padding: 8px;
+    padding-top: 0;
+
+    background-color: white;
+
+    .arrow {
+      margin: 0 auto;
+      width:0;
+      height:0;
+
+      font-size:0; /*防止输入文字，破坏效果*/
+      border-width:8px;
+      border-color:@base transparent transparent transparent;
+      border-style:solid;
+    }
+
+    .user {
+      .avatar {
+        display: block;
+        width: 48px;
+
+        a {
+          position: relative;
+          z-index: 2;
+          display: block;
+          width: 48px;
+          height: 48px;
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      .userInfo {
+        margin-top: 20px;
+
+        a {
+          position: relative;
+          z-index: 2;
+        }
+      }
+    }
+  }
+
+  .bookCover {
+    width: 23%;
+    position: relative;
+    z-index: 2;
+
+    display: table-cell;
+    height: 100%;
+
+    & > a {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
+    }
+
+    &:before {
+      content: "";
+      padding-top: 133.33%;
+      display: block;
+    }
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .bookTitle {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+
+      box-sizing: border-box;
+      width: 100%;
+      padding: 4px 2px;
+
+      background-color: fadeout(@base, 30%);
+      color: white;
+      word-break: break-all;
+    }
+  }
+
+  .reviewInfo {
+    padding: 8px;
+    display: table-cell;
+    vertical-align: top;
+
+    .reviewTitle {
+      margin-bottom: 8px;
+      color: white;
+      font-size: 1.2em;
+    }
+
+    .content {
+      word-break: break-all;
+      color: white;
+    }
+  }
+
+  .mega {
+    margin-top: 26px;
+    opacity: 0.5;
+    
+    .glyphicons {
+      padding-left: 24px;
+
+      height: 16px;
+      line-height: 16px;
+    }
+
+    .glyphicons:before {
+      font-size: 1.2em;
+    }
+  }
+}
+
+.slides {
+  position: relative;
+
+  .slide {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    & > a {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+
+    img {
+      width: 100%;
+      min-height: 126px;
+    }
+
+    .titleWrapper {
+      display: block;
+      width: 100%;
+      height: 48px;
+      padding: 4px;
+      box-sizing: border-box;
+
+      color: white;
+      background-color: @indexarticle;
+
+      .articleTitle {
+        display: table-cell;
+        vertical-align: middle;
+        height: 40px;
+      }
+    }
+  }
+
+  .slidesjs-container {
+    z-index: 1;
+  }
+
+  ul.slidesjs-pagination {
+    position: absolute;
+    bottom: 52px;
+    right: 0;
+    margin: 0;
+    z-index: 2;
+    padding: 4px;
+
+    background-color: fadeout(@indexarticle, 50%);
+    border-radius: 500px;
+
+    li {
+      display: block;
+      float: left;
+
+      a {
+        display: block;
+        width: 10px;
+        height: 10px;
+        overflow: hidden;
+        margin: 0 4px;
+        color: white;
+
+        &:before {
+          display: block;
+          box-sizing: border-box;
+          background-color: fadeout(white, 40%);
+          border-radius: 50%;
+          content: "";
+          width: 10px;
+          height: 10px;
+        }
+
+        &.active:before {
+          background-color: white;
+        }
+      }
+    }
+  }
+}
+
+.more {
+  a {
+    color: white;
+  }
+}

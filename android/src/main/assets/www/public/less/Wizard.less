@@ -1,0 +1,120 @@
+@import (once) "General.less";
+
+.circle {
+  position: absolute;
+  left: -78px;
+  margin-left: 50%;
+  top: 50px;
+  width: 156px;
+  z-index: 0;
+}
+
+.innerCircle {
+  display: block;
+  width: 20%;
+  border-radius: 50%;
+  background-color: white;
+  padding: 30px;
+  margin: 50px auto 0 auto;
+  position: relative;
+  z-index: 1;
+
+  img {
+    width: 100%;
+    margin-top: 15px;
+  }
+}
+
+hr {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.tip {
+  margin-top: 80px;
+}
+
+.searchButton {
+  background-color: rgba(0, 0, 0, 0.3);
+  display: block;
+  margin: 30px auto;
+  width: 25%;
+  height: 30px;
+  border-radius: 15px;
+  line-height: 30px;
+  color: white;
+  padding: 0 10%;
+  position: relative;
+
+  & > a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  .glyphicons:before {
+    color: white;
+    font-size: 16px;
+    line-height: 30px;
+  }
+
+  .buttonText {
+    margin-left: 24px;
+  }
+}
+
+.rotateAnimation(@duration) {
+  .animation-duration(@duration);
+  .animation-iteration-count(infinite);
+  .animation-name("rotate");
+  .animation-timing-function(linear);
+
+  @-webkit-keyframes "rotate" {
+    from {
+      .rotate(0deg);
+    }
+    to {
+      .rotate(360deg);
+    }
+  }
+}
+
+.rotate {
+  .rotateAnimation(2s);
+}
+
+.book {
+  position: relative;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.2);
+  margin-bottom: 16px;
+
+  & > a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .bookMega {
+    padding-top: 8px;
+
+    & > .row-fluid:first-child {
+      font-size: 1.1em;
+    }
+
+    .author {
+      font-size: 0.9em;
+      height: 20px;
+      line-height: 20px;
+      margin-bottom: 8px;
+      border-radius: 10px;
+      padding: 0 10px;
+      box-sizing: border-box;
+      background-color: rgba(0, 0, 0, 0.2);
+      margin-left: 8px;
+    }
+  }
+}

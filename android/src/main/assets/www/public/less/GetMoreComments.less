@@ -1,0 +1,66 @@
+@import "General.less";
+
+.comment {
+  background-color: rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  padding: 8px;
+  padding-bottom: 0;
+
+  .author {
+    .dotdotdotForLongText;
+    margin-bottom: 4px;
+    margin-right: 8px;
+    max-width: 80%;
+
+    a, a:hover {
+      color: black;
+      width: 100%;
+    }
+  }
+
+  .content {
+    margin-bottom: 4px;
+  }
+
+  .mega {
+    margin-top: 8px;
+
+    table {
+      width: 100%;
+
+      td {
+        padding: 4px;
+
+        &:first-child {
+          border-right: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        div {
+          position: relative;
+          left: 50%;
+          margin-left: width/2;
+        }
+      }
+    }
+
+    .glyphicons {
+      color: white;
+      font-size: 14px;
+      padding-left: 20px;
+    }
+
+    .glyphicons:before {
+      color: white;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+  }
+}
+
+.loadMore {
+  background-color: rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  padding: 8px;
+}
