@@ -1,0 +1,45 @@
+<div class="container" data-reviewid="{{article.Id}}">
+  <div class="row-fluid title">{{article.Title}}</div>
+  <div class="info row-fluid">
+    <div class="user pull-left" id="{{article.Author.Id}}">
+      <a href="People/Detail.html?nickname={{article.Author.Nickname}}">
+        <div class="avatar pull-left"><img src="{{article.Author.AvatarUrl}}" alt="" class="img-circle"></div>
+        <div class="nickname pull-left">{{article.Author.Nickname}}</div>
+      </a>
+    </div>
+  </div>
+  <div class="content">{{#article.Content}}</div>
+  {{if relatedBooks}}
+  <div class="section row-fluid similarBooks">
+    <div class="row-fluid title">
+      <span>相关书籍</span>
+    </div>
+    <div class="row-fluid">
+      {{each relatedBooks}}
+      <div class="book span3">
+        <a href="Book/Detail.html?id={{$value.Id}}">
+          <div class="bookCover">
+            <div class="wrapper"><img src="{{$value.ImageUrl}}" alt=""></div>
+          </div>
+          <div class="bookTitle text-center">{{$value.Title}}</div>
+        </a>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+  {{/if}}
+</div>
+<div class="row-fluid mega">
+  <table class="pull-right">
+    <tr>
+      <td class="response">
+        <a href="Article/Response.html?id={{article.Id}}">
+          <span class="glyphicons comments">{{article.ResponseSum}}</span>
+        </a>
+      </td>
+      <td class="viewcount">
+        <div><span class="glyphicons eye_open">{{article.ViewCount}}</span></div>
+      </td>
+    </tr>
+  </table>
+</div>

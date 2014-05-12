@@ -2,27 +2,31 @@
 var DidGetIndexData, FailGetIndexData;
 
 $(document).ready(function() {
+  var actionbar, ch;
+  actionbar = template("public/ActionBar");
+  $("body").html(actionbar());
+  $(".actionbar .page-title").text("首页");
+  $(".actionbar .back").addClass("hide");
+  $(".actionbar").children(".center").css("margin-left", ($(window).width() - $(".actionbar").children(".center").width() - $(".actionbar").children(".left-button").width() - $(".actionbar").children(".right-button").width()) / 2);
+  ch = getQueryString("ch");
   RequestAjax("GET", "/mj", {
-    ch: "m"
+    ch: ch != null ? ch : "m"
   }, DidGetIndexData, FailGetIndexData);
 });
 
 DidGetIndexData = function(data, rawData) {
-  var articles, billboards, recommendedReviews, wizard;
-  articles = template("Index/Articles");
-  $(".slides").html(articles(data.Data));
-  data.Data.articles = "";
-  billboards = template("Index/Billboards");
-  $(".rankinglist").html(billboards(data.Data));
-  data.Data.billboards = "";
-  wizard = template("Index/Wizard");
-  $(".bookRecommended").html(wizard(data.Data));
-  data.Data.guessBooks = "";
+  var channel, main;
+  main = template("Index/Main");
+  $(".spinner").replaceWith(main(data.Data));
+  channel = getQueryString("ch");
+  if (channel === "f") {
+    $(".actionbar .channel").find("img.current-channel").attr("src", "public/img/Crown_Woman.png");
+  } else {
+    $(".actionbar .channel").find("img.current-channel").attr("src", "public/img/Crown.png");
+  }
   if (data.Data.isLogin) {
     $(".wizard h4 .more").removeClass("hide");
   }
-  recommendedReviews = template("public/Reviews");
-  $(".reviews ul").html(recommendedReviews(data.Data));
   $(".slides").slidesjs({
     width: $(".container").width() - 16,
     height: ($(".container").width() - 16) * 270 / 790 + 52,
