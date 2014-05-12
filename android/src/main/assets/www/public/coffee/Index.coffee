@@ -3,8 +3,9 @@ $(document).ready ()->
   $("body").html actionbar()
   $(".actionbar .page-title").text "首页"
   $(".actionbar .back").addClass "hide"
+  $(".actionbar .button.search").removeClass "hide"
 
-  $(".actionbar").children(".center").css("margin-left", ($(window).width() - $(".actionbar").children(".center").width() - $(".actionbar").children(".left-button").width() - $(".actionbar").children(".right-button").width()) / 2)
+  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2)
 
   ch = getQueryString "ch"
   RequestAjax "GET", "/mj", {ch: ch ? "m"}, DidGetIndexData, FailGetIndexData
