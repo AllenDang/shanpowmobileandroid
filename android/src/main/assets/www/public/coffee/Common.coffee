@@ -22,7 +22,7 @@ RequestAjax = (type, url, data, successCallback, failCallback, timeoutCallback, 
   $.ajax {
     async: async ? true,
     type: type,
-    url: "http://test.shanpow.com#{encodeURI(url ? "/")}",
+    url: "http://www.shanpow.com#{encodeURI(url ? "/")}",
     cache: false,
     data: data,
     statusCode: {
@@ -79,7 +79,7 @@ RequestAjaxWithParam = (options)->
   $.ajax {
     async: options.async ? true,
     type: options.type ? "GET",
-    url: "http://test.shanpow.com#{encodeURI(options.url ? "/")}",
+    url: "http://www.shanpow.com#{encodeURI(options.url ? "/")}",
     cache: false,
     data: options.data,
     statusCode: {

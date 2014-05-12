@@ -30,7 +30,7 @@ RequestAjax = function(type, url, data, successCallback, failCallback, timeoutCa
   $.ajax({
     async: async != null ? async : true,
     type: type,
-    url: "http://test.shanpow.com" + (encodeURI(url != null ? url : "/")),
+    url: "http://www.shanpow.com" + (encodeURI(url != null ? url : "/")),
     cache: false,
     data: data,
     statusCode: {
@@ -113,7 +113,7 @@ RequestAjaxWithParam = function(options) {
   $.ajax({
     async: (_ref1 = options.async) != null ? _ref1 : true,
     type: (_ref2 = options.type) != null ? _ref2 : "GET",
-    url: "http://test.shanpow.com" + (encodeURI((_ref3 = options.url) != null ? _ref3 : "/")),
+    url: "http://www.shanpow.com" + (encodeURI((_ref3 = options.url) != null ? _ref3 : "/")),
     cache: false,
     data: options.data,
     statusCode: {
