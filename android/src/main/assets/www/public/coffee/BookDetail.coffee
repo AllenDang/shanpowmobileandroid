@@ -1,7 +1,6 @@
 $(document).ready ()->
   actionbar = template "public/ActionBar"
   $("body").html actionbar()
-  $(".actionbar .page-title").text "首页"
   $(".actionbar .channel").addClass "hide"
   $(".actionbar .slide-menu").addClass "hide"
   $(".actionbar .button.heart").removeClass "hide"
