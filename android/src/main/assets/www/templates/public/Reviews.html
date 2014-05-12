@@ -2,13 +2,13 @@
 <li class="review" id="{{$value.Id}}">
   <a href="{{if $value.Title}}Review{{else}}Comment{{/if}}/Detail.html?id={{$value.Id}}"></a>
   <div class="row-fluid reviewBasic">
-    <div class="reviewInfo">
+    <div class="reviewInfo pull-left">
       {{if $value.Title}}
       <div class="reviewTitle dotdotdotForLongText"><strong>{{$value.Title}}</strong></div>
       {{/if}}
       <div class="content">{{if $value.Title}}{{$substring $value.Content 0 45}}{{else}}{{$substring $value.Content 0 55}}{{/if}}</div>
     </div>
-    <div class="bookCover">
+    <div class="bookCover pull-left">
       <a href="Book/Detail.html?id={{$value.Book.Id}}"></a>
       <img src="{{$value.Book.ImageUrl}}" alt="">
       <div class="bookTitle text-center">{{$substring $value.Book.Title 0 10}}</div>

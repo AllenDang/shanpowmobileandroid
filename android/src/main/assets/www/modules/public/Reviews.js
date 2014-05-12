@@ -1,4 +1,4 @@
-/*TMODJS:{"debug":true,"version":11,"md5":"f819741ddf99efe5450d2da4626b9953"}*/
+/*TMODJS:{"debug":true,"version":12,"md5":"c5f797dfd3a9694b1aec02bcaeee6812"}*/
 template("public/Reviews", function($data, $id) {
     var $helpers = this, $line = 0, $each = $helpers.$each, recommendedReviews = $data.recommendedReviews, $value = $data.$value, $index = $data.$index, $escape = $helpers.$escape, $string = $helpers.$string, $substring = $helpers.$substring, $out = "";
     try {
@@ -19,7 +19,7 @@ template("public/Reviews", function($data, $id) {
             $out += "/Detail.html?id=";
             $line = 3;
             $out += $escape($value.Id);
-            $out += '"></a> <div class="row-fluid reviewBasic"> <div class="reviewInfo"> ';
+            $out += '"></a> <div class="row-fluid reviewBasic"> <div class="reviewInfo pull-left"> ';
             $line = 6;
             if ($value.Title) {
                 $out += ' <div class="reviewTitle dotdotdotForLongText"><strong>';
@@ -39,7 +39,7 @@ template("public/Reviews", function($data, $id) {
                 $out += $string($substring($value.Content, 0, 55));
                 $line = 9;
             }
-            $out += '</div> </div> <div class="bookCover"> <a href="Book/Detail.html?id=';
+            $out += '</div> </div> <div class="bookCover pull-left"> <a href="Book/Detail.html?id=';
             $line = 12;
             $out += $escape($value.Book.Id);
             $out += '"></a> <img src="';
@@ -78,7 +78,7 @@ template("public/Reviews", function($data, $id) {
             name: "Render Error",
             message: e.message,
             line: $line,
-            source: '{{each recommendedReviews}}\n<li class="review" id="{{$value.Id}}">\n  <a href="{{if $value.Title}}Review{{else}}Comment{{/if}}/Detail.html?id={{$value.Id}}"></a>\n  <div class="row-fluid reviewBasic">\n    <div class="reviewInfo">\n      {{if $value.Title}}\n      <div class="reviewTitle dotdotdotForLongText"><strong>{{$value.Title}}</strong></div>\n      {{/if}}\n      <div class="content">{{if $value.Title}}{{$substring $value.Content 0 45}}{{else}}{{$substring $value.Content 0 55}}{{/if}}</div>\n    </div>\n    <div class="bookCover">\n      <a href="Book/Detail.html?id={{$value.Book.Id}}"></a>\n      <img src="{{$value.Book.ImageUrl}}" alt="">\n      <div class="bookTitle text-center">{{$substring $value.Book.Title 0 10}}</div>\n    </div>\n  </div>\n  <div class="row-fluid reviewRelated">\n    <div class="user span8 row-fluid">\n      <div class="avatar span3">\n        <div class="arrow"></div>\n        <a href="People/Detail.html?nickname={{$value.Author.Nickname}}"><img src="{{$value.Author.AvatarUrl}}" alt="" class="img-circle"></a>\n      </div>\n      <div class="userInfo span9">\n        <div class="row-fluid dotdotdotForLongText"><a href="People/Detail.html?nickname={{$value.Author.Nickname}}">{{$substring $value.Author.Nickname 0 10}}</a></div>\n        <div class="row-fluid"><div class="ratingStar" data-score="{{$value.Score}}"></div></div>\n      </div>\n    </div>\n    <div class="mega span4 row-fluid">\n      <div class="span6"><div class="glyphicons comments">{{$value.ResponseSum}}</div></div>\n      <div class="span6"><div class="glyphicons thumbs_up">{{$value.LikeSum}}</div></div>\n    </div>\n  </div>\n</li>\n{{/each}}'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
+            source: '{{each recommendedReviews}}\n<li class="review" id="{{$value.Id}}">\n  <a href="{{if $value.Title}}Review{{else}}Comment{{/if}}/Detail.html?id={{$value.Id}}"></a>\n  <div class="row-fluid reviewBasic">\n    <div class="reviewInfo pull-left">\n      {{if $value.Title}}\n      <div class="reviewTitle dotdotdotForLongText"><strong>{{$value.Title}}</strong></div>\n      {{/if}}\n      <div class="content">{{if $value.Title}}{{$substring $value.Content 0 45}}{{else}}{{$substring $value.Content 0 55}}{{/if}}</div>\n    </div>\n    <div class="bookCover pull-left">\n      <a href="Book/Detail.html?id={{$value.Book.Id}}"></a>\n      <img src="{{$value.Book.ImageUrl}}" alt="">\n      <div class="bookTitle text-center">{{$substring $value.Book.Title 0 10}}</div>\n    </div>\n  </div>\n  <div class="row-fluid reviewRelated">\n    <div class="user span8 row-fluid">\n      <div class="avatar span3">\n        <div class="arrow"></div>\n        <a href="People/Detail.html?nickname={{$value.Author.Nickname}}"><img src="{{$value.Author.AvatarUrl}}" alt="" class="img-circle"></a>\n      </div>\n      <div class="userInfo span9">\n        <div class="row-fluid dotdotdotForLongText"><a href="People/Detail.html?nickname={{$value.Author.Nickname}}">{{$substring $value.Author.Nickname 0 10}}</a></div>\n        <div class="row-fluid"><div class="ratingStar" data-score="{{$value.Score}}"></div></div>\n      </div>\n    </div>\n    <div class="mega span4 row-fluid">\n      <div class="span6"><div class="glyphicons comments">{{$value.ResponseSum}}</div></div>\n      <div class="span6"><div class="glyphicons thumbs_up">{{$value.LikeSum}}</div></div>\n    </div>\n  </div>\n</li>\n{{/each}}'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
         };
     }
     return new String($out);

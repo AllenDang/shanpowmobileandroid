@@ -306,7 +306,7 @@
     position: relative;
     z-index: 2;
 
-    display: table-cell;
+    display: block;
     height: 100%;
 
     & > a {
@@ -350,14 +350,17 @@
   }
 
   .reviewInfo {
+    box-sizing: border-box;
     padding: 8px;
-    display: table-cell;
+    display: block;
     vertical-align: top;
+    width: 77%;
 
     .reviewTitle {
-      margin-bottom: 8px;
+      margin-bottom: 4px;
       color: white;
       font-size: 1.2em;
+      width: 100%;
     }
 
     .content {
