@@ -1,0 +1,65 @@
+<div class="container">
+  <h5 class="row-fluid text-center">
+    <a href="People/Detail.html?nickname={{Author.Nickname}}" class="authorNameLink">{{Author.Nickname}}</a><span>发布于 {{CreationTime}}</span>
+  </h5>
+  <div class="desc row-fluid text-center">{{Description}}</div>
+  <hr>
+  {{if Categories}}
+  <ul class="cats unstyled inline row-fluid">
+    <li class="cat span3 text-center active" data-cat="all">全部({{$len Books}})</li>
+    {{each Categories}}
+    <li class="cat span3 text-center" data-cat="{{$value.Category}}">{{$value.Category}}({{$value.Count}})</li>
+    {{/each}}
+    <li class="cat more span3 text-center">更多<span class="halflings chevron-down"></span></li>
+  </ul>
+  {{else}}
+  <em class="muted">暂时还没有书籍被加入到本书单</em>
+  {{/if}}
+  <hr>
+  <div class="clearfix"></div>
+  <div class="tab-content">
+    <div class="listDetail tab-pane active" id="allbooks">
+      <ul class="unstyled">
+        {{each Books}}
+        <li class="book row-fluid" data-cat="{{$value.GeneralCategory}}" id="{{$value.Id}}">
+          <a href="/m/book/{{$value.Id | toobjectidstring}}"></a>
+          <div class="megaInfo row-fluid">
+            <div class="bookCover span3">
+              <img src="{{$value.ImageUrl}}" alt="" data-srcimg="{{$value.ImageUrl}}">
+            </div>
+            <div class="bookMega span9">
+              <h4><strong>{{$value.Title}}</strong></h4>
+              <div class="pull-left">{{$value.Author}}</div>
+              <div class="clearfix"></div>
+              <div class="pull-left">{{$value.Category}}</div>
+            </div>
+          </div>
+          {{if $value.Comment}}
+          <div class="comment row-fluid">
+            <div class="span3">创建者评价</div>
+            <div class="span9">
+              <div class="ratingStar" data-score="{{$value.Score}}"></div>
+              <div class="content">{{$value.Comment}}</div>
+            </div>
+          </div>
+          {{/if}}
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="mega">
+  <table>
+    <tr>
+      <td class="span6">
+        <a href="Response.html?booklistid={{Id}}">
+          <span class="glyphicons chat">{{ResponseSum}}</span>
+        </a>
+      </td>
+      <td class="span6">
+        <div><span class="glyphicons heart">{{SubscribeSum}}</span></div>
+      </td>
+    </tr>
+  </table>
+</div>

@@ -57,3 +57,8 @@ DidGetIndexData = function(data, rawData) {
 };
 
 FailGetIndexData = function(data, rawData) {};
+
+$(document).on("backbutton", function(event) {
+  event.preventDefault();
+  navigator.app.exitApp();
+});

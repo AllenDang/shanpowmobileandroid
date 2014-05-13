@@ -24,7 +24,7 @@
   <div class="section row-fluid readStatus">
     <div class="row-fluid status">
       <div class="span4 text-center statusAction" data-statuscode="wanttoread">
-        <a href="Book/WriteComment.html?bookid={{book.Id}}&status=wanttoread&category={{book.Category}}&bookcover={{book.ImageUrl}}&isforman={{book.ForMan}}&booktitle={{book.Title}}">
+        <a href="WriteComment.html?bookid={{book.Id}}&status=wanttoread&category={{book.Category}}&bookcover={{book.ImageUrl}}&isforman={{book.ForMan}}&booktitle={{book.Title}}">
           <div class="wanttoread">
             <img src="public/img/WantToRead{{if userBookStatus}}{{if userBookStatus.Status === 1}}_Active{{/if}}{{/if}}.png" alt="" class="pull-left">
             <div class="pull-left" id="wanttoread">我想读</div>
@@ -32,7 +32,7 @@
         </a>
       </div>
       <div class="span4 text-center statusAction" data-statuscode="read">
-        <a href="Book/WriteComment.html?bookid={{book.Id}}&status=read&category={{book.Category}}&bookcover={{book.ImageUrl}}&isforman={{book.ForMan}}&booktitle={{book.Title}}">
+        <a href="WriteComment.html?bookid={{book.Id}}&status=read&category={{book.Category}}&bookcover={{book.ImageUrl}}&isforman={{book.ForMan}}&booktitle={{book.Title}}">
           <div class="read">
             <img src="public/img/Read{{if userBookStatus}}{{if userBookStatus.Status === 4}}_Active{{/if}}{{/if}}.png" alt="" class="pull-left">
             <div class="pull-left" id="read">我读过</div>
@@ -40,7 +40,7 @@
         </a>
       </div>
       <div class="span4 text-center statusAction" data-statuscode="giveup">
-        <a href="Book/WriteComment.html?bookid={{book.Id}}&status=giveup&category={{book.Category}}&bookcover={{book.ImageUrl}}&isforman={{book.ForMan}}&booktitle={{book.Title}}">
+        <a href="WriteComment.html?bookid={{book.Id}}&status=giveup&category={{book.Category}}&bookcover={{book.ImageUrl}}&isforman={{book.ForMan}}&booktitle={{book.Title}}">
           <div class="giveup">
             <img src="public/img/GiveUp{{if userBookStatus}}{{if userBookStatus.Status === 3}}_Active{{/if}}{{/if}}.png" alt="" class="pull-left">
             <div class="pull-left" id="giveup">弃读</div>
@@ -113,7 +113,7 @@
         </div>
       </div>
       <div class="span6 text-center write">
-        <a href="Book/WriteComment.html?status=read&bookid={{book.Id}}&category={{book.Category}}&bookcover={{book.ImageUrl}}&isforman={{book.ForMan}}&booktitle={{book.Title}}"></a>
+        <a href="WriteComment.html?status=read&bookid={{book.Id}}&category={{book.Category}}&bookcover={{book.ImageUrl}}&isforman={{book.ForMan}}&booktitle={{book.Title}}"></a>
         <div class="writeComment">
           <img src="public/img/mobile/Pencil.png" alt="" class="pull-left">
           <div class="pull-left">写评论</div>
@@ -132,7 +132,7 @@
   <div class="section row-fluid comments">
     <div class="row-fluid title">
       <span>短评（{{book.CommentSum}}）</span>
-      <span class="more pull-right"><a href="Book/MoreComments.html?bookid={{book.Id}}">更多&nbsp;&nbsp;&nbsp;&nbsp;></a></span>
+      <span class="more pull-right"><a href="MoreComments.html?bookid={{book.Id}}">更多&nbsp;&nbsp;&nbsp;&nbsp;></a></span>
     </div>
     <div class="row-fluid">
       {{each book.Comments}}
@@ -161,7 +161,7 @@
   <div class="section row-fluid reviews">
     <div class="row-fluid title">
       <span>书评（{{book.ReviewSum}}）</span>
-      <span class="more pull-right"><a href="Book/MoreReviews.html?bookid={{book.Id | toobjectidstring}}">更多&nbsp;&nbsp;&nbsp;&nbsp;></a></span>
+      <span class="more pull-right"><a href="MoreReviews.html?bookid={{book.Id | toobjectidstring}}">更多&nbsp;&nbsp;&nbsp;&nbsp;></a></span>
     </div>
     <div class="row-fluid">
       {{each book.Reviews}}
@@ -205,7 +205,7 @@
     <div class="row-fluid">
       {{each relatedBooklists as $c $i}}
       <div class="booklist pull-left span6">
-        <a href="Booklist/Detail.html?id={{$c.Id}}"></a>
+        <a href="../Booklist/Detail.html?id={{$c.Id}}"></a>
         <div class="row-fluid booklistTitle"><div class="titleText pull-left">{{$c.Title}}</div><div class="pull-right">({{$c.BookSum}})</div></div>
         <div class="row-fluid nickname">{{$c.Author.Nickname}}</div>
         <div class="row-fluid">
@@ -232,7 +232,7 @@
     <div class="row-fluid">
       {{each booksWithSameAuthor}}
       <div class="sameBook span3">
-        <a href="Book/Detail.html?id={{$value.Id}}">
+        <a href="Detail.html?id={{$value.Id}}">
           <div class="bookCover">
             <div class="wrapper"><img src="{{$value.ImageUrl}}" alt=""></div>
           </div>
@@ -252,7 +252,7 @@
       {{each book.SimilarBooks as $c $i}}
       {{if $i <= 3}}
       <div class="sameBook span3">
-        <a href="Book/Detail.html?id={{$c.Id}}">
+        <a href="Detail.html?id={{$c.Id}}">
           <div class="bookCover">
             <div class="wrapper"><img src="{{$c.ImageUrl}}" alt=""></div>
           </div>

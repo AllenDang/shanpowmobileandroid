@@ -55,3 +55,8 @@ DidGetIndexData = (data, rawData)->
 
 FailGetIndexData = (data, rawData)->
   return
+
+$(document).on "backbutton", (event)->
+  event.preventDefault()
+  navigator.app.exitApp()
+  return

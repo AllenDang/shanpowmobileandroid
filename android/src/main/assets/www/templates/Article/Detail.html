@@ -2,7 +2,7 @@
   <div class="row-fluid title">{{article.Title}}</div>
   <div class="info row-fluid">
     <div class="user pull-left" id="{{article.Author.Id}}">
-      <a href="People/Detail.html?nickname={{article.Author.Nickname}}">
+      <a href="../People/Detail.html?nickname={{article.Author.Nickname}}">
         <div class="avatar pull-left"><img src="{{article.Author.AvatarUrl}}" alt="" class="img-circle"></div>
         <div class="nickname pull-left">{{article.Author.Nickname}}</div>
       </a>
@@ -17,7 +17,7 @@
     <div class="row-fluid">
       {{each relatedBooks}}
       <div class="book span3">
-        <a href="Book/Detail.html?id={{$value.Id}}">
+        <a href="../Book/Detail.html?id={{$value.Id}}">
           <div class="bookCover">
             <div class="wrapper"><img src="{{$value.ImageUrl}}" alt=""></div>
           </div>
@@ -33,7 +33,7 @@
   <table class="pull-right">
     <tr>
       <td class="response">
-        <a href="Article/Response.html?id={{article.Id}}">
+        <a href="Response.html?id={{article.Id}}">
           <span class="glyphicons comments">{{article.ResponseSum}}</span>
         </a>
       </td>

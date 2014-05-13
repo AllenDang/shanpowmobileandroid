@@ -1,4 +1,4 @@
-/*TMODJS:{"debug":true,"version":9,"md5":"f2ef32365e7b62967ea6dfc85415a3c4"}*/
+/*TMODJS:{"debug":true,"version":10,"md5":"f2ef32365e7b62967ea6dfc85415a3c4"}*/
 template("Index/Articles", function($data, $id) {
     var $helpers = this, $line = 0, $each = $helpers.$each, articles = $data.articles, $value = $data.$value, $index = $data.$index, $escape = $helpers.$escape, $string = $helpers.$string, $substring = $helpers.$substring, $out = "";
     try {
