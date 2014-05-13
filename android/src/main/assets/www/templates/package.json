@@ -5,14 +5,14 @@
         "tmodjs": "~0.1.1"
     },
     "tmodjs-config": {
-        "output": "../modules",
+        "output": "../public/js",
         "charset": "utf-8",
         "syntax": "simple",
         "helpers": "./config/template-helper.js",
         "escape": true,
         "engine": false,
         "type": "default",
-        "combo": false,
+        "combo": true,
         "minify": true
     }
 }

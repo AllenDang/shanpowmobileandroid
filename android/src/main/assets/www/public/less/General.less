@@ -203,15 +203,26 @@ body {
         width: 16px;
       }
 
+      .btn:focus {
+        outline: none;
+      }
+
+      .btn-link, .btn-link:focus, .btn-link:hover {
+        text-decoration: none;
+      }
+
       .dropdown-menu {
         li a img {
-          margin-right: 8px;
+          padding: 8px 0;
           width: 32px;
+          max-width: 32px;
         }
       }
     }
 
     .buttons {
+      height: 100%;
+      
       .glyphicons:before {
         margin-left: 16px;
       }
