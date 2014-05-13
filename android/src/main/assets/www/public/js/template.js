@@ -1,4 +1,4 @@
-/*TMODJS:{"debug":true,"build":1399970499860}*/
+/*TMODJS:{"debug":true,"build":1399978036730}*/
 !function(global) {
     "use strict";
     var template = function(uri, content) {
@@ -988,7 +988,7 @@
         }
         return new String($out);
     });
-    template("public/ActionBar", '<div class="actionbar row-fluid">\n  <div class="actionbar-section left-button pull-left">\n    <div class="slide-menu"><div class="glyphicons show_lines"></div></div>\n    <div class="back"><div class="glyphicons chevron-left"></div></div>\n  </div>\n  <div class="actionbar-section center pull-left">\n    <div class="page-title pull-left"></div>\n    <div class="btn-group pull-left channel">\n      <a class="btn btn-link dropdown-toggle" data-toggle="dropdown" href="#">\n        <img src="public/img/Crown.png" alt="" class="current-channel">\n        <span class="caret"></span>\n      </a>\n      <ul class="dropdown-menu">\n        <li><a href="?ch=m"><img src="public/img/Crown.png" alt=""></a></li>\n        <li><a href="?ch=f"><img src="public/img/Crown_Woman.png" alt=""></a></li>\n      </ul>\n    </div>\n  </div>\n  <div class="actionbar-section right-button pull-right">\n    <div class="buttons">\n      <a href="Search" class="button hide glyphicons search"></a>\n    </div>\n  </div>\n</div>\n<div class="spinner"></div>');
+    template("public/ActionBar", '<div class="actionbar row-fluid">\n  <div class="actionbar-section left-button pull-left">\n    <div class="slide-menu"><div class="glyphicons show_lines"></div></div>\n    <div class="back"><div class="glyphicons chevron-left"></div></div>\n  </div>\n  <div class="actionbar-section center pull-left">\n    <div class="page-title pull-left"></div>\n    <div class="btn-group pull-left channel">\n      <a class="btn btn-link dropdown-toggle" data-toggle="dropdown" href="#">\n        <img src="public/img/Crown.png" alt="" class="current-channel pull-left">\n        <div class="arrow pull-left"></div>\n      </a>\n      <ul class="dropdown-menu">\n        <li><a href="?ch=m"><img src="public/img/Crown.png" alt=""></a></li>\n        <li><a href="?ch=f"><img src="public/img/Crown_Woman.png" alt=""></a></li>\n      </ul>\n    </div>\n  </div>\n  <div class="actionbar-section right-button pull-right">\n    <div class="buttons">\n      <a href="Search" class="button hide glyphicons search"></a>\n    </div>\n  </div>\n</div>\n<div class="spinner"></div>');
     template("public/BookWithComment", function($data, $id) {
         var $helpers = this, $line = 0, $escape = $helpers.$escape, Id = $data.Id, ImageUrl = $data.ImageUrl, Title = $data.Title, Author = $data.Author, $string = $helpers.$string, $substring = $helpers.$substring, Summary = $data.Summary, Comment = $data.Comment, $out = "";
         try {
