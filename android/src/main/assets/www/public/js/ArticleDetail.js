@@ -2,7 +2,11 @@
 var DidGetArticleDetailData, FailGetArticleDetailData;
 
 $(document).ready(function() {
-  var articleId;
+  var actionbar, articleId;
+  actionbar = template("public/ActionBar");
+  $("body").html(actionbar());
+  $(".actionbar .channel").addClass("hide");
+  $(".actionbar .slide-menu").addClass("hide");
   articleId = getQueryString("id");
   RequestAjax("GET", "/mj/article/" + articleId, {}, DidGetArticleDetailData, FailGetArticleDetailData);
 });
@@ -10,7 +14,9 @@ $(document).ready(function() {
 DidGetArticleDetailData = function(data, rawData) {
   var articles;
   articles = template("Article/Detail");
-  $("body").append(articles(data.Data));
+  $(".spinner").replaceWith(articles(data.Data));
+  $(".actionbar .page-title").text(data.Data.article.Title);
+  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
 };
 
 FailGetArticleDetailData = function(data, rawData) {};
