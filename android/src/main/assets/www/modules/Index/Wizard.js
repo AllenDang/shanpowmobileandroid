@@ -1,4 +1,4 @@
-/*TMODJS:{"debug":true,"version":5,"md5":"73ae9d8353d3683dd45b7d0ff61df658"}*/
+/*TMODJS:{"debug":true,"version":7,"md5":"73ae9d8353d3683dd45b7d0ff61df658"}*/
 template("Index/Wizard", function($data, $id) {
     var $helpers = this, $line = 0, isLogin = $data.isLogin, $each = $helpers.$each, guessBooks = $data.guessBooks, $value = $data.$value, $index = $data.$index, $escape = $helpers.$escape, $out = "";
     try {

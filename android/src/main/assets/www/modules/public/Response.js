@@ -1,4 +1,4 @@
-/*TMODJS:{"debug":true,"version":1,"md5":"12fb50957754f75fe02bfb21287ee8f5"}*/
+/*TMODJS:{"debug":true,"version":3,"md5":"12fb50957754f75fe02bfb21287ee8f5"}*/
 template("public/Response", function($data, $id) {
     var $helpers = this, $line = 0, $escape = $helpers.$escape, Id = $data.Id, Author = $data.Author, Content = $data.Content, CreationTime = $data.CreationTime, $out = "";
     try {

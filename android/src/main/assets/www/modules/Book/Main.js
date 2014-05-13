@@ -1,4 +1,4 @@
-/*TMODJS:{"debug":true,"version":13,"md5":"25fb804ff43b772cb23968e3aa6c844f"}*/
+/*TMODJS:{"debug":true,"version":15,"md5":"25fb804ff43b772cb23968e3aa6c844f"}*/
 template("Book/Main", function($data, $id) {
     var $helpers = this, $line = 0, $escape = $helpers.$escape, book = $data.book, usersumOfReading = $data.usersumOfReading, isLogin = $data.isLogin, userBookStatus = $data.userBookStatus, userReview = $data.userReview, userComment = $data.userComment, $string = $helpers.$string, $substring = $helpers.$substring, $each = $helpers.$each, $value = $data.$value, $index = $data.$index, toobjectidstring = $data.toobjectidstring, relatedBooklists = $data.relatedBooklists, $c = $data.$c, $i = $data.$i, $d = $data.$d, $j = $data.$j, booksWithSameAuthor = $data.booksWithSameAuthor, $out = "";
     try {

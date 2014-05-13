@@ -9,7 +9,7 @@ $(document).ready ()->
   return
 
 DidGetBooklistDetailData = (data, rawData)->
-  bookDetail = template "Booklist/Main"
+  bookDetail = template "Booklist/Detail"
   $(".spinner").replaceWith bookDetail data.Data
   
   if $(".cat").length <= 9

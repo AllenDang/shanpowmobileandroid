@@ -124,6 +124,12 @@
     template.helper("$len", function(collection) {
         return collection.length;
     });
+    template.helper("$array", function(size) {
+        return new Array(size);
+    });
+    template.helper("$sub", function(x, y) {
+        return x - y;
+    });
     if (typeof define === "function") {
         define(function() {
             return template;

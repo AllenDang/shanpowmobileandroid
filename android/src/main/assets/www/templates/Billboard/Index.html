@@ -1,0 +1,23 @@
+<div class="container">
+  {{each Data as $c $i}}
+  <div class="row-fluid billboard">
+    <a href="Detail.html?title={{$c.Title}}&version={{$c.Version}}">
+      <div class="row-fluid info">
+        <div class="span4"><img src="{{$c.ImageUrl}}" alt=""></div>
+        <div class="span8">
+          <div class="row-fluid"><h4>{{$c.Title}}</h4></div>
+          <div class="row-fluid">更新于{{$c.CreationTime}}</div>
+          <div class="row-fluid description">{{$c.Description}}</div>
+        </div>
+      </div>
+    </a>
+    <div class="row-fluid versions">
+      {{each $c.array as $d $j}}
+      <div class="ver pull-left text-center"><a href="Detail.html?title={{$c.Title}}&version={{$sub $c.Version $j}}">{{$sub $c.Version $j}}</a></div>
+      {{/each}}
+      <div class="ver pull-left text-center more {{if $c.Version <= 5}}hide{{/if}}">更多<span class="halflings chevron-down"></span></div>
+    </div>
+    <hr>
+  </div>
+  {{/each}}
+</div>

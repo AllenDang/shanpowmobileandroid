@@ -1,0 +1,14 @@
+<div class="container" data-authorid="{{AuthorId}}" data-id="{{Id}}" data-avatar="{{avatarUrl}}" data-nickname="{{nickname}}" data-bookid="{{bookId}}">
+  {{each responses}}
+  {{include "./Response" $value}}
+  {{/each}}
+</div>
+{{if isLogin === true}}
+<div class="postResponse row-fluid">
+  <div class="replyInput span10">
+    <input type="text" class="input-block-level" name="q">
+    <div class="cancelInput hide">x</div>
+  </div>
+  <button class="btn button text-center span2 submit" disabled="disabled">回复</button>
+</div>
+{{/if}}

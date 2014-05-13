@@ -4,13 +4,13 @@ $(document).ready ()->
   $(".actionbar .channel").addClass "hide"
   $(".actionbar .slide-menu").addClass "hide"
 
-  booklistId = getQueryString "booklistid"
-  RequestAjax "GET", "/mj/booklist/#{booklistId}/response", {}, DidGetBooklistResponseData, FailGetBooklistResponseData
+  articleId = getQueryString "id"
+  RequestAjax "GET", "/mj/article/#{articleId}/response", {}, DidGetArticleResponseData, FailGetArticleResponseData
   return
 
-DidGetBooklistResponseData = (data, rawData)->
-  booklistResponse = template "public/Responses"
-  $(".spinner").replaceWith booklistResponse data.Data
+DidGetResponseData = (data, rawData)->
+  articleResponseMain = template "public/Responses"
+  $(".spinner").replaceWith articleResponseMain data.Data
   
   $(".actionbar .page-title").text "回复"
   $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2)
@@ -36,13 +36,14 @@ DidGetBooklistResponseData = (data, rawData)->
         content: $("input").val() ? "",
         authorId: $(".container").data("authorid")
       }
-      RequestAjax "POST", "/booklist/#{$(".container").data('id')}/addresponse", data, DidPostResponse, DidFailPostResponse, DidFailPostResponse
+      articleId = getQueryString "id"
+      RequestAjax "POST", "/article/#{articleId}/addresponse", data, DidPostResponse, DidFailPostResponse, DidFailPostResponse
     return
 
   RegisterResponseBtn()
   return
 
-FailGetBooklistResponseData = (data, rawData)->
+FailGetResponseData = (data, rawData)->
   return
 
 DidPostResponse = (data)->

@@ -1,5 +1,5 @@
 /*TMODJS:{"debug":true,"version":3,"md5":"1bd9bb2f6e9f8e6d713fda1a4b82e898"}*/
-template("Booklist/Main", function($data, $id) {
+template("Booklist/Detail", function($data, $id) {
     var $helpers = this, $line = 0, $escape = $helpers.$escape, Author = $data.Author, CreationTime = $data.CreationTime, Description = $data.Description, Categories = $data.Categories, $string = $helpers.$string, $len = $helpers.$len, Books = $data.Books, $each = $helpers.$each, $value = $data.$value, $index = $data.$index, toobjectidstring = $data.toobjectidstring, Id = $data.Id, ResponseSum = $data.ResponseSum, SubscribeSum = $data.SubscribeSum, $out = "";
     try {
         $out += '<div class="container"> <h5 class="row-fluid text-center"> <a href="People/Detail.html?nickname=';

@@ -1,4 +1,4 @@
-/*TMODJS:{"debug":true,"version":11,"md5":"f42a25ea9a50356a17a1c9a222daeb2f"}*/
+/*TMODJS:{"debug":true,"version":13,"md5":"f42a25ea9a50356a17a1c9a222daeb2f"}*/
 template("Article/Detail", function($data, $id) {
     var $helpers = this, $line = 0, $escape = $helpers.$escape, article = $data.article, $string = $helpers.$string, relatedBooks = $data.relatedBooks, $each = $helpers.$each, $value = $data.$value, $index = $data.$index, $out = "";
     try {
