@@ -24,6 +24,7 @@ public class MainApp extends Application {
 
         CookieSyncManager.createInstance(this);
         CookieManager.getInstance().setAcceptCookie(true);
+        CookieManager.setAcceptFileSchemeCookies(true);
 
         WebkitCookieManagerProxy coreCookieManager = new WebkitCookieManagerProxy(null, CookiePolicy.ACCEPT_ALL);
         CookieHandler.setDefault(coreCookieManager);
