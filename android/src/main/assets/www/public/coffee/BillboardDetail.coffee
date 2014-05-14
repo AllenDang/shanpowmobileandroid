@@ -13,7 +13,7 @@ DidGetBillboardDetailData = (data, rawData)->
   billboardIndex = template "Billboard/Detail"
   $(".spinner").replaceWith billboardIndex data.Data
 
-  $(".actionbar .page-title").text data.Data.Title
+  $(".actionbar .page-title").text data.Data.billboard.Title
   $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2)
 
   $(".mega table td").each (index)->

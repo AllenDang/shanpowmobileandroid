@@ -28,11 +28,13 @@
     <div class="title row-fluid">
       <h4>
         <span>推荐书评</span>
-        <span class="more pull-right"><a href="Review/All.html">更多&nbsp;&nbsp;&nbsp;&nbsp;></a></span>
+        <span class="more pull-right"><a href="Review/All.html?ch={{ch}}">更多&nbsp;&nbsp;&nbsp;&nbsp;></a></span>
       </h4>
     </div>
-    <ul class="unstyled">
-      {{include "../public/Reviews"}}
-    </ul>
+    <div class="unstyled">
+      {{each recommendedReviews}}
+      {{include "../public/Review" $value}}
+      {{/each}}
+    </div>
   </div>
 </div>

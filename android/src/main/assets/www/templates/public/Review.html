@@ -1,0 +1,32 @@
+<div class="review" id="{{Id}}">
+  <a href="file:///android_asset/www/{{if Title}}Review{{else}}Comment{{/if}}/Detail.html?id={{Id}}"></a>
+  <div class="row-fluid reviewBasic">
+    <div class="reviewInfo pull-left">
+      {{if Title}}
+      <div class="reviewTitle dotdotdotForLongText"><strong>{{Title}}</strong></div>
+      {{/if}}
+      <div class="content">{{if Title}}{{$substring Content 0 45}}{{else}}{{$substring Content 0 55}}{{/if}}</div>
+    </div>
+    <div class="bookCover pull-left">
+      <a href="Book/Detail.html?id={{Book.Id}}"></a>
+      <img src="{{Book.ImageUrl}}" alt="">
+      <div class="bookTitle text-center">{{$substring Book.Title 0 10}}</div>
+    </div>
+  </div>
+  <div class="row-fluid reviewRelated">
+    <div class="user span8 row-fluid">
+      <div class="avatar span3">
+        <div class="arrow"></div>
+        <a href="People/Detail.html?nickname={{Author.Nickname}}"><img src="{{Author.AvatarUrl}}" alt="" class="img-circle"></a>
+      </div>
+      <div class="userInfo span9">
+        <div class="row-fluid dotdotdotForLongText"><a href="People/Detail.html?nickname={{Author.Nickname}}">{{$substring Author.Nickname 0 10}}</a></div>
+        <div class="row-fluid"><div class="ratingStar" data-score="{{Score}}"></div></div>
+      </div>
+    </div>
+    <div class="mega span4 row-fluid">
+      <div class="span6"><div class="glyphicons comments">{{ResponseSum}}</div></div>
+      <div class="span6"><div class="glyphicons thumbs_up">{{LikeSum}}</div></div>
+    </div>
+  </div>
+</div>

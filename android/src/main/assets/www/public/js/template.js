@@ -1,4 +1,4 @@
-/*TMODJS:{"debug":true,"build":1400048343035}*/
+/*TMODJS:{"debug":true,"build":1400053948481}*/
 !function(global) {
     "use strict";
     var template = function(uri, content) {
@@ -197,28 +197,28 @@
         return new String($out);
     });
     template("Billboard/Detail", function($data, $id) {
-        var $helpers = this, $line = 0, $escape = $helpers.$escape, CreationTime = $data.CreationTime, NextVersionPlan = $data.NextVersionPlan, $each = $helpers.$each, Books = $data.Books, $value = $data.$value, $index = $data.$index, include = function(id, data) {
+        var $helpers = this, $line = 0, $escape = $helpers.$escape, billboard = $data.billboard, isDispNextPlan = $data.isDispNextPlan, $each = $helpers.$each, $value = $data.$value, $index = $data.$index, include = function(id, data) {
             data = data || $data;
             var $text = $helpers.$include(id, data, $id);
             $out += $text;
             return $text;
-        }, ViewCount = $data.ViewCount, LikeSum = $data.LikeSum, $out = "";
+        }, $out = "";
         try {
             $out += '<div class="container"> <div class="row-fluid text-center">本期发布于';
             $line = 2;
-            $out += $escape(CreationTime);
+            $out += $escape(billboard.CreationTime);
             $out += "</div> ";
             $line = 3;
-            if (NextVersionPlan > 0) {
+            if (isDispNextPlan === true) {
                 $out += ' <div class="desc row-fluid text-center">距离下期发布还有';
                 $line = 4;
-                $out += $escape(NextVersionPlan);
-                $out += "天</div> ";
+                $out += $escape(billboard.NextVersionPlan);
+                $out += "</div> ";
                 $line = 5;
             }
             $out += ' <hr> <div class="listDetail tab-pane active" id="allbooks"> <ul class="unstyled"> ';
             $line = 9;
-            $each(Books, function($value, $index) {
+            $each(billboard.Books, function($value, $index) {
                 $out += " ";
                 $line = 10;
                 include("../public/BookWithComment", $value);
@@ -227,10 +227,10 @@
             });
             $out += ' </ul> </div> </div> <div class="mega"> <table> <tr> <td class="span6"> <div class="glyphicons eye_open">';
             $line = 19;
-            $out += $escape(ViewCount);
+            $out += $escape(billboard.ViewCount);
             $out += '</div> </td> <td class="span6"> <div class="glyphicons heart">';
             $line = 22;
-            $out += $escape(LikeSum);
+            $out += $escape(billboard.LikeSum);
             $out += "</div> </td> </tr> </table> </div>";
         } catch (e) {
             throw {
@@ -238,7 +238,7 @@
                 name: "Render Error",
                 message: e.message,
                 line: $line,
-                source: '<div class="container">\n  <div class="row-fluid text-center">本期发布于{{CreationTime}}</div>\n  {{if NextVersionPlan > 0}}\n  <div class="desc row-fluid text-center">距离下期发布还有{{NextVersionPlan}}天</div>\n  {{/if}}\n  <hr>\n  <div class="listDetail tab-pane active" id="allbooks">\n    <ul class="unstyled">\n      {{each Books}}\n      {{include "../public/BookWithComment" $value}}\n      {{/each}}\n    </ul>\n  </div>\n</div>\n<div class="mega">\n  <table>\n    <tr>\n      <td class="span6">\n        <div class="glyphicons eye_open">{{ViewCount}}</div>\n      </td>\n      <td class="span6">\n        <div class="glyphicons heart">{{LikeSum}}</div>\n      </td>\n    </tr>\n  </table>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
+                source: '<div class="container">\n  <div class="row-fluid text-center">本期发布于{{billboard.CreationTime}}</div>\n  {{if isDispNextPlan === true}}\n  <div class="desc row-fluid text-center">距离下期发布还有{{billboard.NextVersionPlan}}</div>\n  {{/if}}\n  <hr>\n  <div class="listDetail tab-pane active" id="allbooks">\n    <ul class="unstyled">\n      {{each billboard.Books}}\n      {{include "../public/BookWithComment" $value}}\n      {{/each}}\n    </ul>\n  </div>\n</div>\n<div class="mega">\n  <table>\n    <tr>\n      <td class="span6">\n        <div class="glyphicons eye_open">{{billboard.ViewCount}}</div>\n      </td>\n      <td class="span6">\n        <div class="glyphicons heart">{{billboard.LikeSum}}</div>\n      </td>\n    </tr>\n  </table>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
         return new String($out);
@@ -1093,7 +1093,7 @@
             var $text = $helpers.$include(id, data, $id);
             $out += $text;
             return $text;
-        }, $out = "";
+        }, $escape = $helpers.$escape, ch = $data.ch, $each = $helpers.$each, recommendedReviews = $data.recommendedReviews, $value = $data.$value, $index = $data.$index, $out = "";
         try {
             $out += '<div class="container"> <div class="row-fluid slides section"> ';
             $line = 3;
@@ -1104,17 +1104,26 @@
             $out += ' </div> </div> <div class="row-fluid wizard section"> <div class="title row-fluid"> <h4> <span>为您推荐</span> <span class="more pull-right hide"><a href="Book/Recommendation.html">一键治书荒</a></span> </h4> </div> <div class="row-fluid bookRecommended"> ';
             $line = 24;
             include("./Wizard");
-            $out += ' </div> </div> <div class="row-fluid reviews section"> <div class="title row-fluid"> <h4> <span>推荐书评</span> <span class="more pull-right"><a href="Review/All.html">更多&nbsp;&nbsp;&nbsp;&nbsp;></a></span> </h4> </div> <ul class="unstyled"> ';
+            $out += ' </div> </div> <div class="row-fluid reviews section"> <div class="title row-fluid"> <h4> <span>推荐书评</span> <span class="more pull-right"><a href="Review/All.html?ch=';
+            $line = 31;
+            $out += $escape(ch);
+            $out += '">更多&nbsp;&nbsp;&nbsp;&nbsp;></a></span> </h4> </div> <div class="unstyled"> ';
             $line = 35;
-            include("../public/Reviews");
-            $out += " </ul> </div> </div>";
+            $each(recommendedReviews, function($value, $index) {
+                $out += " ";
+                $line = 36;
+                include("../public/Review", $value);
+                $out += " ";
+                $line = 37;
+            });
+            $out += " </div> </div> </div>";
         } catch (e) {
             throw {
                 id: $id,
                 name: "Render Error",
                 message: e.message,
                 line: $line,
-                source: '<div class="container">\n  <div class="row-fluid slides section">\n    {{include "./Articles"}}\n  </div>\n  <div class="row-fluid hot_ranking section">\n    <div class="title row-fluid">\n      <h4>\n        <span>新鲜热榜</span>\n        <span class="more pull-right"><a href="Billboard/Index.html">更多&nbsp;&nbsp;&nbsp;&nbsp;></a></span>\n      </h4>\n    </div>\n    <div class="rankinglist row-fluid">\n      {{include "./Billboards"}}\n    </div>\n  </div>\n  <div class="row-fluid wizard section">\n    <div class="title row-fluid">\n      <h4>\n        <span>为您推荐</span>\n        <span class="more pull-right hide"><a href="Book/Recommendation.html">一键治书荒</a></span>\n      </h4>\n    </div>\n    <div class="row-fluid bookRecommended">\n      {{include "./Wizard"}}\n    </div>\n  </div>\n  <div class="row-fluid reviews section">\n    <div class="title row-fluid">\n      <h4>\n        <span>推荐书评</span>\n        <span class="more pull-right"><a href="Review/All.html">更多&nbsp;&nbsp;&nbsp;&nbsp;></a></span>\n      </h4>\n    </div>\n    <ul class="unstyled">\n      {{include "../public/Reviews"}}\n    </ul>\n  </div>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
+                source: '<div class="container">\n  <div class="row-fluid slides section">\n    {{include "./Articles"}}\n  </div>\n  <div class="row-fluid hot_ranking section">\n    <div class="title row-fluid">\n      <h4>\n        <span>新鲜热榜</span>\n        <span class="more pull-right"><a href="Billboard/Index.html">更多&nbsp;&nbsp;&nbsp;&nbsp;></a></span>\n      </h4>\n    </div>\n    <div class="rankinglist row-fluid">\n      {{include "./Billboards"}}\n    </div>\n  </div>\n  <div class="row-fluid wizard section">\n    <div class="title row-fluid">\n      <h4>\n        <span>为您推荐</span>\n        <span class="more pull-right hide"><a href="Book/Recommendation.html">一键治书荒</a></span>\n      </h4>\n    </div>\n    <div class="row-fluid bookRecommended">\n      {{include "./Wizard"}}\n    </div>\n  </div>\n  <div class="row-fluid reviews section">\n    <div class="title row-fluid">\n      <h4>\n        <span>推荐书评</span>\n        <span class="more pull-right"><a href="Review/All.html?ch={{ch}}">更多&nbsp;&nbsp;&nbsp;&nbsp;></a></span>\n      </h4>\n    </div>\n    <div class="unstyled">\n      {{each recommendedReviews}}\n      {{include "../public/Review" $value}}\n      {{/each}}\n    </div>\n  </div>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
         return new String($out);
@@ -1127,7 +1136,7 @@
                 $out += " ";
                 $line = 2;
                 $each(guessBooks, function($value, $index) {
-                    $out += ' <div class="wizardBook span3"> <a href="/m/book/';
+                    $out += ' <div class="wizardBook span3"> <a href="Book/Detail.html?id=';
                     $line = 4;
                     $out += $escape($value.Id);
                     $out += '"> <div class="bookCover"> <div class="wrapper"><img src="';
@@ -1151,7 +1160,7 @@
                 name: "Render Error",
                 message: e.message,
                 line: $line,
-                source: '{{if isLogin === true}}\n  {{each guessBooks}}\n  <div class="wizardBook span3">\n    <a href="/m/book/{{$value.Id}}">\n      <div class="bookCover">\n        <div class="wrapper"><img src="{{$value.ImageUrl}}" alt=""></div>\n      </div>\n      <div class="bookTitle text-center">{{$value.Title}}</div>\n    </a>\n  </div>\n  {{/each}}\n{{else}}\n  <div class="span6 pull-left">\n    <div class="tip row-fluid">曲高不一定和寡，登录后发现您的专属推荐，还有志同道合的书友们</div>\n    <div class="login pull-left row-fluid"><a href="http://action/showlogin">立即登录</a></div>\n  </div>\n  <div class="span6 pull-left"><img src="public/img/tagCloud.png" alt=""></div>\n{{/if}}'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
+                source: '{{if isLogin === true}}\n  {{each guessBooks}}\n  <div class="wizardBook span3">\n    <a href="Book/Detail.html?id={{$value.Id}}">\n      <div class="bookCover">\n        <div class="wrapper"><img src="{{$value.ImageUrl}}" alt=""></div>\n      </div>\n      <div class="bookTitle text-center">{{$value.Title}}</div>\n    </a>\n  </div>\n  {{/each}}\n{{else}}\n  <div class="span6 pull-left">\n    <div class="tip row-fluid">曲高不一定和寡，登录后发现您的专属推荐，还有志同道合的书友们</div>\n    <div class="login pull-left row-fluid"><a href="http://action/showlogin">立即登录</a></div>\n  </div>\n  <div class="span6 pull-left"><img src="public/img/tagCloud.png" alt=""></div>\n{{/if}}'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
         return new String($out);
@@ -1446,6 +1455,127 @@
         }
         return new String($out);
     });
+    template("Article/List", function($data, $id) {
+        var $helpers = this, $line = 0, $each = $helpers.$each, Data = $data.Data, $c = $data.$c, $i = $data.$i, $escape = $helpers.$escape, Tags = $data.Tags, $d = $data.$d, $j = $data.$j, $string = $helpers.$string, $substring = $helpers.$substring, $out = "";
+        try {
+            $out += '<div class="container"> ';
+            $line = 2;
+            $each(Data, function($c, $i) {
+                $out += ' <div class="article row-fluid"> <a href="Detail.html?id=';
+                $line = 4;
+                $out += $escape($c.Id);
+                $out += '"></a> <div class="row-fluid"> <h4>';
+                $line = 6;
+                $out += $escape($c.Title);
+                $out += '</h4> </div> <div class="row-fluid"> <ul class="unstyled inline"> ';
+                $line = 10;
+                $each(Tags, function($d, $j) {
+                    $out += ' <li class="badge">';
+                    $line = 11;
+                    $out += $escape($d);
+                    $out += "</li> ";
+                    $line = 12;
+                });
+                $out += ' </ul> </div> <div class="row-fluid">';
+                $line = 15;
+                $out += $string($substring($c.Content, 0, 30));
+                $out += "</div> </div> ";
+                $line = 17;
+            });
+            $out += " </div>";
+        } catch (e) {
+            throw {
+                id: $id,
+                name: "Render Error",
+                message: e.message,
+                line: $line,
+                source: '<div class="container">\n  {{each Data as $c $i}}\n  <div class="article row-fluid">\n    <a href="Detail.html?id={{$c.Id}}"></a>\n    <div class="row-fluid">\n      <h4>{{$c.Title}}</h4>\n    </div>\n    <div class="row-fluid">\n      <ul class="unstyled inline">\n        {{each Tags as $d $j}}\n        <li class="badge">{{$d}}</li>\n        {{/each}}\n      </ul>\n    </div>\n    <div class="row-fluid">{{$substring $c.Content 0 30}}</div>\n  </div>\n  {{/each}}\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
+            };
+        }
+        return new String($out);
+    });
+    template("Review/All", "<div class=\"container\">\n  <div class='loadMore text-center hide'>加载更多书评</div>\n</div>");
+    template("public/Review", function($data, $id) {
+        var $helpers = this, $line = 0, $escape = $helpers.$escape, Id = $data.Id, Title = $data.Title, $string = $helpers.$string, $substring = $helpers.$substring, Content = $data.Content, Book = $data.Book, Author = $data.Author, Score = $data.Score, ResponseSum = $data.ResponseSum, LikeSum = $data.LikeSum, $out = "";
+        try {
+            $out += '<div class="review" id="';
+            $line = 1;
+            $out += $escape(Id);
+            $out += '"> <a href="file:///android_asset/www/';
+            $line = 2;
+            if (Title) {
+                $out += "Review";
+                $line = 2;
+            } else {
+                $out += "Comment";
+                $line = 2;
+            }
+            $out += "/Detail.html?id=";
+            $line = 2;
+            $out += $escape(Id);
+            $out += '"></a> <div class="row-fluid reviewBasic"> <div class="reviewInfo pull-left"> ';
+            $line = 5;
+            if (Title) {
+                $out += ' <div class="reviewTitle dotdotdotForLongText"><strong>';
+                $line = 6;
+                $out += $escape(Title);
+                $out += "</strong></div> ";
+                $line = 7;
+            }
+            $out += ' <div class="content">';
+            $line = 8;
+            if (Title) {
+                $line = 8;
+                $out += $string($substring(Content, 0, 45));
+                $line = 8;
+            } else {
+                $line = 8;
+                $out += $string($substring(Content, 0, 55));
+                $line = 8;
+            }
+            $out += '</div> </div> <div class="bookCover pull-left"> <a href="Book/Detail.html?id=';
+            $line = 11;
+            $out += $escape(Book.Id);
+            $out += '"></a> <img src="';
+            $line = 12;
+            $out += $escape(Book.ImageUrl);
+            $out += '" alt=""> <div class="bookTitle text-center">';
+            $line = 13;
+            $out += $string($substring(Book.Title, 0, 10));
+            $out += '</div> </div> </div> <div class="row-fluid reviewRelated"> <div class="user span8 row-fluid"> <div class="avatar span3"> <div class="arrow"></div> <a href="People/Detail.html?nickname=';
+            $line = 20;
+            $out += $escape(Author.Nickname);
+            $out += '"><img src="';
+            $line = 20;
+            $out += $escape(Author.AvatarUrl);
+            $out += '" alt="" class="img-circle"></a> </div> <div class="userInfo span9"> <div class="row-fluid dotdotdotForLongText"><a href="People/Detail.html?nickname=';
+            $line = 23;
+            $out += $escape(Author.Nickname);
+            $out += '">';
+            $line = 23;
+            $out += $string($substring(Author.Nickname, 0, 10));
+            $out += '</a></div> <div class="row-fluid"><div class="ratingStar" data-score="';
+            $line = 24;
+            $out += $escape(Score);
+            $out += '"></div></div> </div> </div> <div class="mega span4 row-fluid"> <div class="span6"><div class="glyphicons comments">';
+            $line = 28;
+            $out += $escape(ResponseSum);
+            $out += '</div></div> <div class="span6"><div class="glyphicons thumbs_up">';
+            $line = 29;
+            $out += $escape(LikeSum);
+            $out += "</div></div> </div> </div> </div>";
+        } catch (e) {
+            throw {
+                id: $id,
+                name: "Render Error",
+                message: e.message,
+                line: $line,
+                source: '<div class="review" id="{{Id}}">\n  <a href="file:///android_asset/www/{{if Title}}Review{{else}}Comment{{/if}}/Detail.html?id={{Id}}"></a>\n  <div class="row-fluid reviewBasic">\n    <div class="reviewInfo pull-left">\n      {{if Title}}\n      <div class="reviewTitle dotdotdotForLongText"><strong>{{Title}}</strong></div>\n      {{/if}}\n      <div class="content">{{if Title}}{{$substring Content 0 45}}{{else}}{{$substring Content 0 55}}{{/if}}</div>\n    </div>\n    <div class="bookCover pull-left">\n      <a href="Book/Detail.html?id={{Book.Id}}"></a>\n      <img src="{{Book.ImageUrl}}" alt="">\n      <div class="bookTitle text-center">{{$substring Book.Title 0 10}}</div>\n    </div>\n  </div>\n  <div class="row-fluid reviewRelated">\n    <div class="user span8 row-fluid">\n      <div class="avatar span3">\n        <div class="arrow"></div>\n        <a href="People/Detail.html?nickname={{Author.Nickname}}"><img src="{{Author.AvatarUrl}}" alt="" class="img-circle"></a>\n      </div>\n      <div class="userInfo span9">\n        <div class="row-fluid dotdotdotForLongText"><a href="People/Detail.html?nickname={{Author.Nickname}}">{{$substring Author.Nickname 0 10}}</a></div>\n        <div class="row-fluid"><div class="ratingStar" data-score="{{Score}}"></div></div>\n      </div>\n    </div>\n    <div class="mega span4 row-fluid">\n      <div class="span6"><div class="glyphicons comments">{{ResponseSum}}</div></div>\n      <div class="span6"><div class="glyphicons thumbs_up">{{LikeSum}}</div></div>\n    </div>\n  </div>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
+            };
+        }
+        return new String($out);
+    });
+    template("Review/AllReviews", "");
     if (typeof define === "function") {
         define(function() {
             return template;

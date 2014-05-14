@@ -1,7 +1,7 @@
 {{if isLogin === true}}
   {{each guessBooks}}
   <div class="wizardBook span3">
-    <a href="/m/book/{{$value.Id}}">
+    <a href="Book/Detail.html?id={{$value.Id}}">
       <div class="bookCover">
         <div class="wrapper"><img src="{{$value.ImageUrl}}" alt=""></div>
       </div>
