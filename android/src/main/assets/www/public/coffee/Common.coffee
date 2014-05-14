@@ -10,7 +10,6 @@ getQueryString = (name)->
   return null
 
 RequestAjax = (type, url, data, successCallback, failCallback, timeoutCallback, beforeAction, afterAction, dontAlertOnStatusCode, async)->
-  data.csrf_token = window.csrfToken;
   rawData = {
     Path: url,
     Data: data
@@ -57,17 +56,14 @@ RequestAjax = (type, url, data, successCallback, failCallback, timeoutCallback, 
       return),
     complete: ((jqXHR, textStatus)->
       afterAction?(jqXHR, textStatus)
-      return)
+      return),
+    xhrFields: {
+      withCredentials: true
+    }
   }
   return
 
 RequestAjaxWithParam = (options)->
-  if options.data?
-    options.data.csrf_token = window.csrfToken;
-  else
-    options.data = {
-      csrf_token: window.csrfToken
-    }
   rawData = {
     Path: options.url ? "/",
     Data: options.data

@@ -1,0 +1,40 @@
+<div class="container" data-bookid="{{comment.Book.Id}}">
+  <div class="info row-fluid">
+    <div class="user pull-left" id="{{comment.Author.Id}}">
+      <a href="../People/Detail.html?nickname={{comment.Author.Nickname}}">
+        <div class="avatar pull-left"><img src="{{comment.Author.AvatarUrl}}" alt="" class="img-circle"></div>
+        <div class="nickname pull-left">{{comment.Author.Nickname}}</div>
+      </a>
+    </div>
+    <div class="ratingStar pull-left" data-score="{{comment.Score}}"></div>
+  </div>
+  <div class="content">{{comment.Content}}</div>
+  <div class="book row-fluid" id="{{comment.Book}}">
+    <a href="../Book/Detail.html?id={{comment.Book.Id}}"></a>
+    <div class="megaInfo row-fluid">
+      <div class="bookCover span3">
+        <img src="{{comment.Book.ImageUrl}}" alt="" data-srcimg="{{comment.Book.ImageUrl}}">
+      </div>
+      <div class="bookMega span9">
+        <h4><strong>{{comment.Book.Title}}</strong></h4>
+        <div class="pull-left">{{comment.Book.Author}}</div>
+        <div class="clearfix"></div>
+        <div class="pull-left">{{comment.Book.Category}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row-fluid mega">
+  <table class="pull-right">
+    <tr>
+      <td class="response">
+        <a href="Response.html?commentId={{comment.Id}}">
+          <span class="glyphicons comments">{{comment.ResponseSum}}</span>
+        </a>
+      </td>
+      <td class="thumbsUp">
+        <div><span class="glyphicons thumbs_up">{{comment.LikeSum}}</span></div>
+      </td>
+    </tr>
+  </table>
+</div>

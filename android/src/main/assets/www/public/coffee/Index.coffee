@@ -7,6 +7,17 @@ $(document).ready ()->
 
   $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2)
 
+  # RequestAjax "GET", "/token", {}, DidGetToken, null
+  ch = getQueryString "ch"
+  RequestAjax "GET", "/mj", {ch: ch ? "m"}, DidGetIndexData, FailGetIndexData
+  return
+
+DidGetToken = (data, rawData)->
+  csrfToken = data.Data
+  RequestAjax "POST", "/account/mobilelogin", {email:"celtavonce@gmail.com", password:"guwolves07", csrf_token: csrfToken}, DidLogin, null
+  return
+
+DidLogin = (data, rawData)->
   ch = getQueryString "ch"
   RequestAjax "GET", "/mj", {ch: ch ? "m"}, DidGetIndexData, FailGetIndexData
   return

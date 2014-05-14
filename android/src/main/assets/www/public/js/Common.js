@@ -18,7 +18,6 @@ getQueryString = function(name) {
 
 RequestAjax = function(type, url, data, successCallback, failCallback, timeoutCallback, beforeAction, afterAction, dontAlertOnStatusCode, async) {
   var rawData;
-  data.csrf_token = window.csrfToken;
   rawData = {
     Path: url,
     Data: data
@@ -89,19 +88,15 @@ RequestAjax = function(type, url, data, successCallback, failCallback, timeoutCa
       if (typeof afterAction === "function") {
         afterAction(jqXHR, textStatus);
       }
-    })
+    }),
+    xhrFields: {
+      withCredentials: true
+    }
   });
 };
 
 RequestAjaxWithParam = function(options) {
   var rawData, _ref, _ref1, _ref2, _ref3;
-  if (options.data != null) {
-    options.data.csrf_token = window.csrfToken;
-  } else {
-    options.data = {
-      csrf_token: window.csrfToken
-    };
-  }
   rawData = {
     Path: (_ref = options.url) != null ? _ref : "/",
     Data: options.data
