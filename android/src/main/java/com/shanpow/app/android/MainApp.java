@@ -18,13 +18,14 @@ public class MainApp extends Application {
 
     @Override
     public void onCreate() {
+        CookieManager.setAcceptFileSchemeCookies(true);
+        
         super.onCreate();
 
         MainApp.conext = this.getApplicationContext();
 
         CookieSyncManager.createInstance(this);
         CookieManager.getInstance().setAcceptCookie(true);
-        CookieManager.setAcceptFileSchemeCookies(true);
 
         WebkitCookieManagerProxy coreCookieManager = new WebkitCookieManagerProxy(null, CookiePolicy.ACCEPT_ALL);
         CookieHandler.setDefault(coreCookieManager);
