@@ -8,16 +8,16 @@ $(document).ready(function() {
   $(".actionbar .channel").addClass("hide");
   $(".actionbar .slide-menu").addClass("hide");
   bookId = getQueryString("bookid");
-  RequestAjax("GET", "/mj/book/" + bookId + "/morecomments", {}, DidGetMoreComments, FailGetMoreComments);
+  RequestAjax("GET", "/mj/book/" + bookId + "/morereviews", {}, DidGetMoreComments, FailGetMoreComments);
 });
 
 DidGetMoreComments = function(data, rawData) {
   var bookDetail;
-  bookDetail = template("Book/MoreComments");
+  bookDetail = template("Book/MoreReviews");
   $(".spinner").replaceWith(bookDetail(data));
-  $(".actionbar .page-title").text("一句话评论");
+  $(".actionbar .page-title").text("书评");
   $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
-  $(".cmtScore").raty({
+  $(".reviewScore").raty({
     score: function() {
       return $(this).data("score");
     },

@@ -5,17 +5,17 @@ $(document).ready ()->
   $(".actionbar .slide-menu").addClass "hide"
 
   bookId = getQueryString "bookid"
-  RequestAjax "GET", "/mj/book/#{bookId}/morecomments", {}, DidGetMoreComments, FailGetMoreComments
+  RequestAjax "GET", "/mj/book/#{bookId}/morereviews", {}, DidGetMoreComments, FailGetMoreComments
   return
 
 DidGetMoreComments = (data, rawData)->
-  bookDetail = template "Book/MoreComments"
+  bookDetail = template "Book/MoreReviews"
   $(".spinner").replaceWith bookDetail data
 
-  $(".actionbar .page-title").text "一句话评论"
+  $(".actionbar .page-title").text "书评"
   $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2)
 
-  $(".cmtScore").raty {
+  $(".reviewScore").raty {
     score: -> return $(this).data("score"),
     halfShow: false,
     starOff: 'http://shanpowbookcover.qiniudn.com/star-off-small.png',

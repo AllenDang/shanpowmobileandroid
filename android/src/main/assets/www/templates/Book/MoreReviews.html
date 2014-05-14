@@ -1,0 +1,32 @@
+<div class="container">
+  {{each Data}}
+  <div class="review row-fluid">
+    <a href="../Review/Detail.html?id={{$value.Id}}"></a>
+    <div class="megaInfo row-fluid">
+      <div class="userAvatar pull-left"><a href="../People/Detail.html?nickname={{$value.Author.Nickname}}"><img src="{{$value.Author.AvatarUrl}}" alt=""></a></div>
+      <div class="otherInfo pull-left">
+        <div class="firstRow row-fluid">
+          <div class="nickname pull-left"><a href="/m/people/{{$value.Author.Nickname}}">{{$value.Author.Nickname}}</a></div>
+          <div class="reviewScore pull-left" data-score="{{$value.Score}}"></div>
+          <div class="mega pull-right">
+            <table>
+              <tr>
+                <td>
+                  <div class="glyphicons comments">{{$value.ResponseSum}}</div>
+                </td>
+                <td>
+                  <div class="glyphicons thumbs_up">{{$value.LikeSum}}</div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="secondRow row-fluid">
+          <div class="reviewTitle pull-left dotdotdotForLongText">{{$value.Title}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="content row-fluid">{{$substring $value.Content 0 80}}</div>
+  </div>
+  {{/each}}
+</div>
