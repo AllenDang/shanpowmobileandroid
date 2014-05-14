@@ -1,5 +1,7 @@
 package com.shanpow.app.util;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
@@ -41,6 +43,7 @@ public class WebkitCookieManagerProxy extends CookieManager {
 
             // process each of the headers
             for (String headerValue : responseHeaders.get(headerKey)) {
+                Log.d("DEBUG", headerValue);
                 this.webkitCookieManager.setCookie(url, headerValue);
             }
         }

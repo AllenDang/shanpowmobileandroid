@@ -18,8 +18,11 @@ public class MainApp extends Application {
 
     @Override
     public void onCreate() {
-        CookieManager.setAcceptFileSchemeCookies(true);
-        
+        try {
+            CookieManager.setAcceptFileSchemeCookies(true);
+        } catch (Throwable e) {
+            //如果在老版本的Android机器上运行因为没有上述方法会报错。
+        }
         super.onCreate();
 
         MainApp.conext = this.getApplicationContext();
