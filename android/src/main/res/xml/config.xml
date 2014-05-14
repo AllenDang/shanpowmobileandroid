@@ -1,12 +1,15 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.example.hello" version="0.0.1" xmlns="http://www.w3.org/ns/widgets">
-    <name>Hello</name>
+<widget id="com.shanpow.app.android" version="0.0.1" xmlns="http://www.w3.org/ns/widgets">
+    <name>山坡有书</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        山坡有书.
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="support@shanpow.com" href="http://www.shanpow.com">
+        Shanpow dev team
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <feature name="Dialog">
+        <param name="android-package" value="org.apache.cordova.dialogs.Notification" />
+    </feature>
 </widget>
