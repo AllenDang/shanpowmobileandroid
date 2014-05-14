@@ -137,7 +137,7 @@
     <div class="row-fluid">
       {{each book.Comments}}
       <div class="row-fluid comment" id="{{$value.Id}}">
-        <a href="Comment/Detail.html?id={{$value.Id}}"></a>
+        <a href="../Comment/Detail.html?id={{$value.Id}}"></a>
         <div class="row-fluid"><div class="author pull-left"><a href="../People/Detail.html?nickname={{$value.Author.Nickname}}">{{$value.Author.Nickname}}</a></div><div class="cmtScore pull-left" data-score="{{$value.Score}}"></div></div>
         <div class="row-fluid"><div class="content">{{$value.Content}}</div></div>
         <div class="row-fluid mega">
@@ -166,7 +166,7 @@
     <div class="row-fluid">
       {{each book.Reviews}}
       <div class="review row-fluid" id="{{$value.Id}}">
-        <a href="Review/Detail.html?id={{$value.Id}}"></a>
+        <a href="../Review/Detail.html?id={{$value.Id}}"></a>
         <div class="megaInfo row-fluid">
           <div class="userAvatar pull-left"><a href="../People/Detail.html?nickname={{$value.Author.Nickname}}"><img src="{{$value.Author.AvatarUrl}}" alt=""></a></div>
           <div class="otherInfo pull-left">

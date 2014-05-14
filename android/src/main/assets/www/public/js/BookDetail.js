@@ -13,7 +13,7 @@ $(document).ready(function() {
 
 DidGetBookDetailData = function(data, rawData) {
   var bookDetail;
-  bookDetail = template("Book/Main");
+  bookDetail = template("Book/Detail");
   $(".spinner").replaceWith(bookDetail(data.Data));
   $(".actionbar .page-title").text(data.Data.book.Title);
   $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);

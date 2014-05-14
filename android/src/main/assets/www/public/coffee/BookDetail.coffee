@@ -9,7 +9,7 @@ $(document).ready ()->
   return
 
 DidGetBookDetailData = (data, rawData)->
-  bookDetail = template "Book/Main"
+  bookDetail = template "Book/Detail"
   $(".spinner").replaceWith bookDetail data.Data
 
   $(".actionbar .page-title").text data.Data.book.Title
