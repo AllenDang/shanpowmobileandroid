@@ -40,7 +40,7 @@ RequestAjax = function(type, url, data, successCallback, failCallback, timeoutCa
   } else {
     RequestAjaxWithParam({
       type: "GET",
-      url: "http://www.shanpow.com/token",
+      url: "/token",
       successCallback: (function(resData) {
         window.localStorage.setItem("token", resData.Data);
         data.csrf_token = resData.Data;

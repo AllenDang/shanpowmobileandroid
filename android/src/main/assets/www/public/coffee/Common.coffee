@@ -32,7 +32,7 @@ RequestAjax = (type, url, data, successCallback, failCallback, timeoutCallback, 
   else
     RequestAjaxWithParam {
       type: "GET",
-      url: "http://www.shanpow.com/token",
+      url: "/token",
       successCallback: ((resData)->
         window.localStorage.setItem "token", resData.Data
         data.csrf_token = resData.Data
