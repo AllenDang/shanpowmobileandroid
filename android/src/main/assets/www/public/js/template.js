@@ -1,4 +1,4 @@
-/*TMODJS:{"debug":true,"build":1400041119435}*/
+/*TMODJS:{"debug":true,"build":1400046608884}*/
 !function(global) {
     "use strict";
     var template = function(uri, content) {
@@ -1201,7 +1201,7 @@
         return new String($out);
     });
     template("Comment/Detail", function($data, $id) {
-        var $helpers = this, $line = 0, $escape = $helpers.$escape, comment = $data.comment, $out = "";
+        var $helpers = this, $line = 0, $escape = $helpers.$escape, comment = $data.comment, isLogin = $data.isLogin, $out = "";
         try {
             $out += '<div class="container" data-bookid="';
             $line = 1;
@@ -1254,19 +1254,106 @@
             $out += '</span> </a> </td> <td class="thumbsUp"> <div><span class="glyphicons thumbs_up">';
             $line = 36;
             $out += $escape(comment.LikeSum);
-            $out += "</span></div> </td> </tr> </table> </div>";
+            $out += '</span></div> </td> </tr> </table> </div> <script type="text/javascript"> window.logined = ';
+            $line = 43;
+            if (isLogin === true) {
+                $out += "true";
+                $line = 43;
+            } else {
+                $out += "false";
+                $line = 43;
+            }
+            $out += "; </script>";
         } catch (e) {
             throw {
                 id: $id,
                 name: "Render Error",
                 message: e.message,
                 line: $line,
-                source: '<div class="container" data-bookid="{{comment.Book.Id}}">\n  <div class="info row-fluid">\n    <div class="user pull-left" id="{{comment.Author.Id}}">\n      <a href="../People/Detail.html?nickname={{comment.Author.Nickname}}">\n        <div class="avatar pull-left"><img src="{{comment.Author.AvatarUrl}}" alt="" class="img-circle"></div>\n        <div class="nickname pull-left">{{comment.Author.Nickname}}</div>\n      </a>\n    </div>\n    <div class="ratingStar pull-left" data-score="{{comment.Score}}"></div>\n  </div>\n  <div class="content">{{comment.Content}}</div>\n  <div class="book row-fluid" id="{{comment.Book}}">\n    <a href="../Book/Detail.html?id={{comment.Book.Id}}"></a>\n    <div class="megaInfo row-fluid">\n      <div class="bookCover span3">\n        <img src="{{comment.Book.ImageUrl}}" alt="" data-srcimg="{{comment.Book.ImageUrl}}">\n      </div>\n      <div class="bookMega span9">\n        <h4><strong>{{comment.Book.Title}}</strong></h4>\n        <div class="pull-left">{{comment.Book.Author}}</div>\n        <div class="clearfix"></div>\n        <div class="pull-left">{{comment.Book.Category}}</div>\n      </div>\n    </div>\n  </div>\n</div>\n<div class="row-fluid mega">\n  <table class="pull-right">\n    <tr>\n      <td class="response">\n        <a href="Response.html?commentId={{comment.Id}}">\n          <span class="glyphicons comments">{{comment.ResponseSum}}</span>\n        </a>\n      </td>\n      <td class="thumbsUp">\n        <div><span class="glyphicons thumbs_up">{{comment.LikeSum}}</span></div>\n      </td>\n    </tr>\n  </table>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
+                source: '<div class="container" data-bookid="{{comment.Book.Id}}">\n  <div class="info row-fluid">\n    <div class="user pull-left" id="{{comment.Author.Id}}">\n      <a href="../People/Detail.html?nickname={{comment.Author.Nickname}}">\n        <div class="avatar pull-left"><img src="{{comment.Author.AvatarUrl}}" alt="" class="img-circle"></div>\n        <div class="nickname pull-left">{{comment.Author.Nickname}}</div>\n      </a>\n    </div>\n    <div class="ratingStar pull-left" data-score="{{comment.Score}}"></div>\n  </div>\n  <div class="content">{{comment.Content}}</div>\n  <div class="book row-fluid" id="{{comment.Book}}">\n    <a href="../Book/Detail.html?id={{comment.Book.Id}}"></a>\n    <div class="megaInfo row-fluid">\n      <div class="bookCover span3">\n        <img src="{{comment.Book.ImageUrl}}" alt="" data-srcimg="{{comment.Book.ImageUrl}}">\n      </div>\n      <div class="bookMega span9">\n        <h4><strong>{{comment.Book.Title}}</strong></h4>\n        <div class="pull-left">{{comment.Book.Author}}</div>\n        <div class="clearfix"></div>\n        <div class="pull-left">{{comment.Book.Category}}</div>\n      </div>\n    </div>\n  </div>\n</div>\n<div class="row-fluid mega">\n  <table class="pull-right">\n    <tr>\n      <td class="response">\n        <a href="Response.html?commentId={{comment.Id}}">\n          <span class="glyphicons comments">{{comment.ResponseSum}}</span>\n        </a>\n      </td>\n      <td class="thumbsUp">\n        <div><span class="glyphicons thumbs_up">{{comment.LikeSum}}</span></div>\n      </td>\n    </tr>\n  </table>\n</div>\n\n<script type="text/javascript">\n  window.logined = {{if isLogin === true}}true{{else}}false{{/if}};\n</script>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
         return new String($out);
     });
     template("Book/MoreComments", "");
+    template("Review/Detail", function($data, $id) {
+        var $helpers = this, $line = 0, $escape = $helpers.$escape, review = $data.review, isLogin = $data.isLogin, $out = "";
+        try {
+            $out += '<div class="container" data-reviewid="';
+            $line = 1;
+            $out += $escape(review.Id);
+            $out += '" data-bookid="';
+            $line = 1;
+            $out += $escape(review.Book.Id);
+            $out += '"> <div class="row-fluid title">';
+            $line = 2;
+            $out += $escape(review.Title);
+            $out += '</div> <div class="info row-fluid"> <div class="user pull-left" id="';
+            $line = 4;
+            $out += $escape(review.Author.Id);
+            $out += '"> <a href="../People/Detail.html?nickname=';
+            $line = 5;
+            $out += $escape(review.Author.Nickname);
+            $out += '"> <div class="avatar pull-left"><img src="';
+            $line = 6;
+            $out += $escape(review.Author.AvatarUrl);
+            $out += '" alt="" class="img-circle"></div> <div class="nickname pull-left">';
+            $line = 7;
+            $out += $escape(review.Author.Nickname);
+            $out += '</div> </a> </div> <div class="ratingStar pull-left" data-score="';
+            $line = 10;
+            $out += $escape(review.Score);
+            $out += '"></div> </div> <div class="content">';
+            $line = 12;
+            $out += $escape(review.Content);
+            $out += '</div> <div class="book row-fluid" id="';
+            $line = 13;
+            $out += $escape(review.Book.Id);
+            $out += '"> <a href="../Book/Detail.html?id=';
+            $line = 14;
+            $out += $escape(review.Book.Id);
+            $out += '"></a> <div class="megaInfo row-fluid"> <div class="bookCover span3"> <img src="';
+            $line = 17;
+            $out += $escape(review.Book.ImageUrl);
+            $out += '" alt="" data-srcimg="';
+            $line = 17;
+            $out += $escape(review.Book.ImageUrl);
+            $out += '"> </div> <div class="bookMega span9"> <h4><strong>';
+            $line = 20;
+            $out += $escape(review.Book.Title);
+            $out += '</strong></h4> <div class="pull-left">';
+            $line = 21;
+            $out += $escape(review.Book.Category);
+            $out += '</div> </div> </div> </div> </div> <div class="row-fluid mega"> <table class="pull-right"> <tr> <td class="response"> <a href="Response.html?reviewId=';
+            $line = 30;
+            $out += $escape(review.Id);
+            $out += '"> <span class="glyphicons comments">';
+            $line = 31;
+            $out += $escape(review.ResponseSum);
+            $out += '</span> </a> </td> <td class="thumbsUp"> <div><span class="glyphicons thumbs_up text-center">';
+            $line = 35;
+            $out += $escape(review.LikeSum);
+            $out += '</span></div> </td> </tr> </table> </div> <script type="text/javascript"> window.logined = ';
+            $line = 42;
+            if (isLogin === true) {
+                $out += "true";
+                $line = 42;
+            } else {
+                $out += "false";
+                $line = 42;
+            }
+            $out += "; </script>";
+        } catch (e) {
+            throw {
+                id: $id,
+                name: "Render Error",
+                message: e.message,
+                line: $line,
+                source: '<div class="container" data-reviewid="{{review.Id}}" data-bookid="{{review.Book.Id}}">\n  <div class="row-fluid title">{{review.Title}}</div>\n  <div class="info row-fluid">\n    <div class="user pull-left" id="{{review.Author.Id}}">\n      <a href="../People/Detail.html?nickname={{review.Author.Nickname}}">\n        <div class="avatar pull-left"><img src="{{review.Author.AvatarUrl}}" alt="" class="img-circle"></div>\n        <div class="nickname pull-left">{{review.Author.Nickname}}</div>\n      </a>\n    </div>\n    <div class="ratingStar pull-left" data-score="{{review.Score}}"></div>\n  </div>\n  <div class="content">{{review.Content}}</div>\n  <div class="book row-fluid" id="{{review.Book.Id}}">\n    <a href="../Book/Detail.html?id={{review.Book.Id}}"></a>\n    <div class="megaInfo row-fluid">\n      <div class="bookCover span3">\n        <img src="{{review.Book.ImageUrl}}" alt="" data-srcimg="{{review.Book.ImageUrl}}">\n      </div>\n      <div class="bookMega span9">\n        <h4><strong>{{review.Book.Title}}</strong></h4>\n        <div class="pull-left">{{review.Book.Category}}</div>\n      </div>\n    </div>\n  </div>\n</div>\n<div class="row-fluid mega">\n  <table class="pull-right">\n    <tr>\n      <td class="response">\n        <a href="Response.html?reviewId={{review.Id}}">\n          <span class="glyphicons comments">{{review.ResponseSum}}</span>\n        </a>\n      </td>\n      <td class="thumbsUp">\n        <div><span class="glyphicons thumbs_up text-center">{{review.LikeSum}}</span></div>\n      </td>\n    </tr>\n  </table>\n</div>\n\n<script type="text/javascript">\n  window.logined = {{if isLogin === true}}true{{else}}false{{/if}};\n</script>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
+            };
+        }
+        return new String($out);
+    });
     if (typeof define === "function") {
         define(function() {
             return template;
