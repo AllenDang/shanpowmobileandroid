@@ -27,6 +27,10 @@ DidGetBooklistResponseData = function(data, rawData) {
       $(".cancelInput").addClass("hide");
     }
   });
+  $(".cancelInput").unbind("click").on("click", function(event) {
+    $("input").val("");
+    $(this).addClass("hide");
+  });
   $("button.submit").unbind("click").on("click", function(event) {
     var _ref, _ref1;
     event.preventDefault();
@@ -52,6 +56,7 @@ DidPostResponse = function(data) {
   var nickname, response, responseData;
   $("button").prop("disabled", false);
   $("input").val("");
+  $(".cancelInput").addClass("hide");
   nickname = $(".container").data("nickname");
   responseData = {
     Id: "",

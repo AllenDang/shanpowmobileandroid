@@ -5,7 +5,7 @@ $(document).ready ()->
   $(".actionbar .slide-menu").addClass "hide"
 
   articleId = getQueryString "id"
-  RequestAjax "GET", "/mj/article/#{articleId}/response", {}, DidGetArticleResponseData, FailGetArticleResponseData
+  RequestAjax "GET", "/mj/article/#{articleId}/response", {}, DidGetResponseData, FailGetResponseData
   return
 
 DidGetResponseData = (data, rawData)->
@@ -22,6 +22,11 @@ DidGetResponseData = (data, rawData)->
     else
       $(".button").prop "disabled", true
       $(".cancelInput").addClass "hide"
+    return
+
+  $(".cancelInput").unbind("click").on "click", (event)->
+    $("input").val ""
+    $(this).addClass("hide")
     return
 
   $("button.submit").unbind("click").on "click", (event)->
@@ -49,6 +54,7 @@ FailGetResponseData = (data, rawData)->
 DidPostResponse = (data)->
   $("button").prop("disabled", false)
   $("input").val ""
+  $(".cancelInput").addClass("hide")
   nickname = $(".container").data "nickname"
   
   responseData = {

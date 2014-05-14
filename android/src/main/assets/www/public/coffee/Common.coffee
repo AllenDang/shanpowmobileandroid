@@ -14,61 +14,53 @@ RequestAjax = (type, url, data, successCallback, failCallback, timeoutCallback, 
     Path: url,
     Data: data
   }
-  
-  $.ajax {
-    async: async ? true,
-    type: type,
-    url: "http://test.shanpow.com#{encodeURI(url ? "/")}",
-    cache: false,
-    data: data,
-    statusCode: {
-      400: (()->alert("400: 请求不正确") if not dontAlertOnStatusCode),
-      404: (()->alert("404: 该资源不存在") if not dontAlertOnStatusCode),
-      500: (()->alert("500: 服务器遇到一个内部错误，请稍等一会再试试") if not dontAlertOnStatusCode)
-    },
-    success: ((data)->
-      if data.Result is true
-        if successCallback?
-          successCallback(data, rawData)
-        else
-          location.reload()
-      else
-        if failCallback?
-          failCallback(data, rawData)
-        else
-          alert data.ErrorMsg ? "网络发生故障，请稍后重新尝试"
-      return
-    ),
-    dataType: "json",
-    timeout: 4000,
-    error: ((jqXHR, textStatus, errorThrown)->
-      if textStatus is "timeout"
-        if timeoutCallback?
-          timeoutCallback(errorThrown)
-        else
-          failCallback?(data, rawData)
-      if textStatus is "error"
-        failCallback?(errorThrown)
-      return
-    ),
-    beforeSend: ((jqXHR, settings)->
-      beforeAction?(jqXHR, settings)
-      return),
-    complete: ((jqXHR, textStatus)->
-      afterAction?(jqXHR, textStatus)
-      return),
-    xhrFields: {
-      withCredentials: true
+  if window.localStorage.getItem("token")
+    data.csrf_token = window.localStorage.getItem("token")
+    options = {
+      type: type,
+      url: url,
+      data: data,
+      successCallback: successCallback,
+      failCallback: failCallback,
+      timeoutCallback: timeoutCallback,
+      beforeAction: beforeAction,
+      afterAction: afterAction,
+      dontAlertOnStatusCode: dontAlertOnStatusCode,
+      async: async
     }
-  }
+    RequestAjaxWithParam options
+  else
+    RequestAjaxWithParam {
+      type: "GET",
+      url: "http://www.shanpow.com/token",
+      successCallback: ((resData)->
+        window.localStorage.setItem "token", resData.Data
+        data.csrf_token = resData.Data
+        options = {
+          type: type,
+          url: url,
+          data: data,
+          successCallback: successCallback,
+          failCallback: failCallback,
+          timeoutCallback: timeoutCallback,
+          beforeAction: beforeAction,
+          afterAction: afterAction,
+          dontAlertOnStatusCode: dontAlertOnStatusCode,
+          async: async
+        }
+        RequestAjaxWithParam options
+        return
+      ),
+      failCallback: failCallback
+    }
+  
   return
 
 RequestAjaxWithParam = (options)->
   rawData = {
-    Path: options.url ? "/",
+    Path: options.url,
     Data: options.data
   }
-  
   $.ajax {
     async: options.async ? true,
     type: options.type ? "GET",
@@ -117,5 +109,11 @@ RequestAjaxWithParam = (options)->
 $(document).ready ()->
   $(document).on("click tap", ".actionbar .back", null, ()->window.history.back(1))
   return
+
+IsUsernameMentioned = (content, username)->
+  str = "@#{username}"
+  return -1 if not content?
+  return content.indexOf str
+
 
 # END OF FILE

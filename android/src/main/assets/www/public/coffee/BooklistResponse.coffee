@@ -24,6 +24,11 @@ DidGetBooklistResponseData = (data, rawData)->
       $(".cancelInput").addClass "hide"
     return
 
+  $(".cancelInput").unbind("click").on "click", (event)->
+    $("input").val ""
+    $(this).addClass("hide")
+    return
+
   $("button.submit").unbind("click").on "click", (event)->
     event.preventDefault()
     event.stopPropagation()
@@ -48,6 +53,7 @@ FailGetBooklistResponseData = (data, rawData)->
 DidPostResponse = (data)->
   $("button").prop("disabled", false)
   $("input").val ""
+  $(".cancelInput").addClass("hide")
   nickname = $(".container").data "nickname"
   
   responseData = {

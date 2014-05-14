@@ -1,0 +1,20 @@
+<div class="container">
+  {{each mobileSimpleComments}}
+  <div class="row-fluid comment">
+    <div class="row-fluid"><div class="author pull-left"><a href="/m/people/{{.Author.Nickname}}">{{$value.Author.Nickname}}</a></div><div class="cmtScore pull-left" data-score="{{$value.Score}}"></div></div>
+    <div class="row-fluid"><div class="content">{{$value.Content}}</div></div>
+    <div class="row-fluid mega">
+      <table class="pull-right">
+        <tr>
+          <td>
+            <div class="glyphicons comments">{{$value.ResponseSum}}</div>
+          </td>
+          <td>
+            <div class="glyphicons thumbs_up">{{$value.LikeSum}}</div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  {{/each}}
+</div>

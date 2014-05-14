@@ -8,7 +8,7 @@ $(document).ready(function() {
   $(".actionbar .channel").addClass("hide");
   $(".actionbar .slide-menu").addClass("hide");
   articleId = getQueryString("id");
-  RequestAjax("GET", "/mj/article/" + articleId + "/response", {}, DidGetArticleResponseData, FailGetArticleResponseData);
+  RequestAjax("GET", "/mj/article/" + articleId + "/response", {}, DidGetResponseData, FailGetResponseData);
 });
 
 DidGetResponseData = function(data, rawData) {
@@ -26,6 +26,10 @@ DidGetResponseData = function(data, rawData) {
       $(".button").prop("disabled", true);
       $(".cancelInput").addClass("hide");
     }
+  });
+  $(".cancelInput").unbind("click").on("click", function(event) {
+    $("input").val("");
+    $(this).addClass("hide");
   });
   $("button.submit").unbind("click").on("click", function(event) {
     var articleId, _ref, _ref1;
@@ -53,6 +57,7 @@ DidPostResponse = function(data) {
   var nickname, response, responseData;
   $("button").prop("disabled", false);
   $("input").val("");
+  $(".cancelInput").addClass("hide");
   nickname = $(".container").data("nickname");
   responseData = {
     Id: "",
