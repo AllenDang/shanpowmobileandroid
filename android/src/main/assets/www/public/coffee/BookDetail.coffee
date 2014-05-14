@@ -3,7 +3,6 @@ $(document).ready ()->
   $("body").html actionbar()
   $(".actionbar .channel").addClass "hide"
   $(".actionbar .slide-menu").addClass "hide"
-  $(".actionbar .button.search").removeClass "hide"
 
   bookId = getQueryString "id"
   RequestAjax "GET", "/mj/book/#{bookId}", {}, DidGetBookDetailData, FailGetBookDetailData
