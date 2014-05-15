@@ -116,7 +116,7 @@ RequestAjaxWithParam = function(options) {
           options.timeoutCallback(errorThrown);
         } else {
           if (typeof options.failCallback === "function") {
-            options.failCallback(data, rawData);
+            options.failCallback(errorThrown);
           }
         }
       }

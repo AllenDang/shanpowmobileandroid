@@ -92,7 +92,7 @@ RequestAjaxWithParam = (options)->
         if options.timeoutCallback?
           options.timeoutCallback(errorThrown)
         else
-          options.failCallback?(data, rawData)
+          options.failCallback?(errorThrown)
       if textStatus is "error"
         options.failCallback?(errorThrown)
       return
