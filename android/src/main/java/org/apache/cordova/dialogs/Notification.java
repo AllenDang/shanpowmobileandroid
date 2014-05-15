@@ -73,6 +73,8 @@ public class Notification extends CordovaPlugin {
             this.activityStart(args.getString(0), args.getString(1));
         } else if (action.equals("activityStop")) {
             this.activityStop();
+        } else if (action.equals("progressSpinnerStart")) {
+            this.progressSpinnerStart(args.getString(0), args.getString(1));
         } else if (action.equals("progressStart")) {
             this.progressStart(args.getString(0), args.getString(1));
         } else if (action.equals("progressValue")) {
