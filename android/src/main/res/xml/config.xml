@@ -1,5 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.shanpow.app.android" version="0.0.1" xmlns="http://www.w3.org/ns/widgets">
+    <feature name="App">
+        <param name="android-package" value="org.apache.cordova.App" />
+    </feature>
+    <feature name="Notification">
+        <param name="android-package" value="org.apache.cordova.dialogs.Notification" />
+    </feature>
     <name>山坡有书</name>
     <description>
         山坡有书.
@@ -9,7 +15,4 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
-    <feature name="Dialog">
-        <param name="android-package" value="org.apache.cordova.dialogs.Notification" />
-    </feature>
 </widget>
