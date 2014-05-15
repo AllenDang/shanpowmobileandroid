@@ -3,6 +3,7 @@ var DidGetIndexData, FailGetIndexData;
 
 $(document).ready(function() {
   var actionbar, ch;
+  navigator.notification.alert("111", function() {});
   actionbar = template("public/ActionBar");
   $("body").html(actionbar());
   $(".actionbar .page-title").text("首页");

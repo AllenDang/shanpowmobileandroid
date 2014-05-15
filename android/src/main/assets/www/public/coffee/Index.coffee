@@ -1,4 +1,5 @@
 $(document).ready ()->
+  navigator.notification.alert("111", ()->)
   actionbar = template "public/ActionBar"
   $("body").html actionbar()
   $(".actionbar .page-title").text "首页"
