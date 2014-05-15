@@ -1,4 +1,4 @@
-/*TMODJS:{"debug":true,"build":1400120907334}*/
+/*TMODJS:{"debug":true,"build":1400133581754}*/
 !function(global) {
     "use strict";
     var template = function(uri, content) {
@@ -1487,6 +1487,154 @@
                 message: e.message,
                 line: $line,
                 source: '<div class="review" id="{{Id}}">\n  <a href="file:///android_asset/www/{{if Title}}Review{{else}}Comment{{/if}}/Detail.html?id={{Id}}"></a>\n  <div class="row-fluid reviewBasic">\n    <div class="reviewInfo pull-left">\n      {{if Title}}\n      <div class="reviewTitle dotdotdotForLongText"><strong>{{Title}}</strong></div>\n      {{/if}}\n      <div class="content">{{if Title}}{{$substring Content 0 45}}{{else}}{{$substring Content 0 55}}{{/if}}</div>\n    </div>\n    <div class="bookCover pull-left">\n      <a href="Book/Detail.html?id={{Book.Id}}"></a>\n      <img src="{{Book.ImageUrl}}" alt="">\n      <div class="bookTitle text-center">{{$substring Book.Title 0 10}}</div>\n    </div>\n  </div>\n  <div class="row-fluid reviewRelated">\n    <div class="user span8 row-fluid">\n      <div class="avatar span3">\n        <div class="arrow"></div>\n        <a href="People/Detail.html?nickname={{Author.Nickname}}"><img src="{{Author.AvatarUrl}}" alt="" class="img-circle"></a>\n      </div>\n      <div class="userInfo span9">\n        <div class="row-fluid dotdotdotForLongText"><a href="People/Detail.html?nickname={{Author.Nickname}}">{{$substring Author.Nickname 0 10}}</a></div>\n        <div class="row-fluid"><div class="ratingStar" data-score="{{Score}}"></div></div>\n      </div>\n    </div>\n    <div class="mega span4 row-fluid">\n      <div class="span6"><div class="glyphicons comments">{{ResponseSum}}</div></div>\n      <div class="span6"><div class="glyphicons thumbs_up">{{LikeSum}}</div></div>\n    </div>\n  </div>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
+            };
+        }
+        return new String($out);
+    });
+    template("People/Detail", function($data, $id) {
+        var $helpers = this, $line = 0, $escape = $helpers.$escape, userAvatarUrl = $data.userAvatarUrl, nickname = $data.nickname, followingsCnt = $data.followingsCnt, followersCnt = $data.followersCnt, reviewCnt = $data.reviewCnt, commentCnt = $data.commentCnt, $each = $helpers.$each, readHistories = $data.readHistories, $value = $data.$value, $index = $data.$index, isMySelf = $data.isMySelf, $out = "";
+        try {
+            $out += '<div class="container"> <div class="row-fluid section basicInfo"> <div class="whiteArea"></div> <div class="avatar"><img src="';
+            $line = 4;
+            $out += $escape(userAvatarUrl);
+            $out += '" alt="" class="img-circle"></div> <div class="nickname text-center">';
+            $line = 5;
+            $out += $escape(nickname);
+            $out += '</div> </div> <div class="row-fluid section advancedInfo"> <div class="info pull-left span3"> <div class="num text-center">';
+            $line = 9;
+            $out += $escape(followingsCnt);
+            $out += '</div> <div class="key text-center">关注</div> </div> <div class="info pull-left span3"> <div class="num text-center">';
+            $line = 13;
+            $out += $escape(followersCnt);
+            $out += '</div> <div class="key text-center">粉丝</div> </div> <div class="info pull-left span3"> <div class="num text-center">';
+            $line = 17;
+            $out += $escape(reviewCnt);
+            $out += '</div> <div class="key text-center">书评</div> </div> <div class="info pull-left span3"> <div class="num text-center">';
+            $line = 21;
+            $out += $escape(commentCnt);
+            $out += '</div> <div class="key text-center">短评</div> </div> </div> <div class="row-fluid section readRecord"> <div class="title row-fluid"> <span>我的阅读记录</span> <span class="badge pull-right"><a href="Books.html?nickname=';
+            $line = 28;
+            $out += $escape(nickname);
+            $out += '">更多&nbsp;&nbsp;&nbsp;&nbsp;></a></span> </div> <div class="row-fluid books"> ';
+            $line = 31;
+            $each(readHistories, function($value, $index) {
+                $out += ' <div class="span3 book"> <a href="../Book/Detail.html?id=';
+                $line = 33;
+                $out += $escape($value.Id);
+                $out += '"></a> <div class="bookCover"> <img src="';
+                $line = 35;
+                $out += $escape($value.ImageUrl);
+                $out += '" alt=""> <div class="readStatus text-center">已读完</div> </div> <div class="bookTitle text-center">';
+                $line = 38;
+                $out += $escape($value.Title);
+                $out += "</div> </div> ";
+                $line = 40;
+            });
+            $out += ' </div> </div> <div class="row-fluid section booklists"> <div class="span4 button"> <a href="FollowedBooks.html?nickname=';
+            $line = 45;
+            $out += $escape(nickname);
+            $out += '"> <div class="icon"><img src="../public/img/heart.png" alt=""></div> <div class="text-center">';
+            $line = 47;
+            if (isMySelf === true) {
+                $out += "我";
+                $line = 47;
+            } else {
+                $out += "Ta";
+                $line = 47;
+            }
+            $out += '关注的书</div> </a> </div> <div class="span4 button"> <a href="../Booklist/My.html?nickname=';
+            $line = 51;
+            $out += $escape(nickname);
+            $out += '&create=1"> <div class="icon"><img src="../public/img/CreateBooklist.png" alt=""></div> <div class="text-center">';
+            $line = 53;
+            if (isMySelf === true) {
+                $out += "我";
+                $line = 53;
+            } else {
+                $out += "Ta";
+                $line = 53;
+            }
+            $out += '创建的书单</div> </a> </div> <div class="span4 button"> <a href="../Booklist/My.html?nickname=';
+            $line = 57;
+            $out += $escape(nickname);
+            $out += '&subscribe=1"> <div class="icon"><img src="../public/img/SubscribeBooklist.png" alt=""></div> <div class="text-center">';
+            $line = 59;
+            if (isMySelf === true) {
+                $out += "我";
+                $line = 59;
+            } else {
+                $out += "Ta";
+                $line = 59;
+            }
+            $out += "收藏的书单</div> </a> </div> </div> </div>";
+        } catch (e) {
+            throw {
+                id: $id,
+                name: "Render Error",
+                message: e.message,
+                line: $line,
+                source: '<div class="container">\n  <div class="row-fluid section basicInfo">\n    <div class="whiteArea"></div>\n    <div class="avatar"><img src="{{userAvatarUrl}}" alt="" class="img-circle"></div>\n    <div class="nickname text-center">{{nickname}}</div>\n  </div>\n  <div class="row-fluid section advancedInfo">\n    <div class="info pull-left span3">\n      <div class="num text-center">{{followingsCnt}}</div>\n      <div class="key text-center">关注</div>\n    </div>\n    <div class="info pull-left span3">\n      <div class="num text-center">{{followersCnt}}</div>\n      <div class="key text-center">粉丝</div>\n    </div>\n    <div class="info pull-left span3">\n      <div class="num text-center">{{reviewCnt}}</div>\n      <div class="key text-center">书评</div>\n    </div>\n    <div class="info pull-left span3">\n      <div class="num text-center">{{commentCnt}}</div>\n      <div class="key text-center">短评</div>\n    </div>\n  </div>\n  <div class="row-fluid section readRecord">\n    <div class="title row-fluid">\n      <span>我的阅读记录</span>\n      <span class="badge pull-right"><a href="Books.html?nickname={{nickname}}">更多&nbsp;&nbsp;&nbsp;&nbsp;></a></span>\n    </div>\n    <div class="row-fluid books">\n      {{each readHistories}}\n      <div class="span3 book">\n        <a href="../Book/Detail.html?id={{$value.Id}}"></a>\n        <div class="bookCover">\n          <img src="{{$value.ImageUrl}}" alt="">\n          <div class="readStatus text-center">已读完</div>\n        </div>\n        <div class="bookTitle text-center">{{$value.Title}}</div>\n      </div>\n      {{/each}}\n    </div>\n  </div>\n  <div class="row-fluid section booklists">\n    <div class="span4 button">\n      <a href="FollowedBooks.html?nickname={{nickname}}">\n        <div class="icon"><img src="../public/img/heart.png" alt=""></div>\n        <div class="text-center">{{if isMySelf === true}}我{{else}}Ta{{/if}}关注的书</div>\n      </a>\n    </div>\n    <div class="span4 button">\n      <a href="../Booklist/My.html?nickname={{nickname}}&create=1">\n        <div class="icon"><img src="../public/img/CreateBooklist.png" alt=""></div>\n        <div class="text-center">{{if isMySelf === true}}我{{else}}Ta{{/if}}创建的书单</div>\n      </a>\n    </div>\n    <div class="span4 button">\n      <a href="../Booklist/My.html?nickname={{nickname}}&subscribe=1">\n        <div class="icon"><img src="../public/img/SubscribeBooklist.png" alt=""></div>\n        <div class="text-center">{{if isMySelf === true}}我{{else}}Ta{{/if}}收藏的书单</div>\n      </a>\n    </div>\n  </div>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
+            };
+        }
+        return new String($out);
+    });
+    template("Booklist/My", '<div class="container">\n  <div class="row-fluid tabs">\n    <div class="tab pull-left text-center active" data-target="mine"></div>\n    <div class="tab pull-left text-center" data-target="subscribed"></div>\n  </div>\n  <div class="row-fluid">\n    <div class="booklists">\n      <div class="row-fluid text-center none"></div>\n    </div>\n  </div>\n</div>');
+    template("public/Booklist", function($data, $id) {
+        var $helpers = this, $line = 0, $escape = $helpers.$escape, Id = $data.Id, Title = $data.Title, BookSum = $data.BookSum, LastUpdateTime = $data.LastUpdateTime, $each = $helpers.$each, BookCovers = $data.BookCovers, $value = $data.$value, $index = $data.$index, Description = $data.Description, ResponseSum = $data.ResponseSum, SubscribeSum = $data.SubscribeSum, $out = "";
+        try {
+            $out += '<div class="item"> <a href="file:///android_asset/www/Booklist/Detail.html?id=';
+            $line = 2;
+            $out += $escape(Id);
+            $out += '"> <div class="detail pull-left"> <h4 class="pull-left">';
+            $line = 4;
+            $out += $escape(Title);
+            $out += '</h4> <div class="pull-right small">(';
+            $line = 5;
+            $out += $escape(BookSum);
+            $out += ')</div> <div class="clearfix"></div> <div class="timestamp pull-right">';
+            $line = 7;
+            $out += $escape(LastUpdateTime);
+            $out += '前</div> <div class="clearfix"></div> ';
+            $line = 9;
+            if (BookSum > 0) {
+                $out += ' <div class="covers row-fluid"> ';
+                $line = 11;
+                $each(BookCovers, function($value, $index) {
+                    $out += ' <div class="pull-left bookCover span3"><img src="';
+                    $line = 12;
+                    $out += $escape($value);
+                    $out += '"></div> ';
+                    $line = 13;
+                });
+                $out += " </div> ";
+                $line = 15;
+            } else {
+                $out += ' <div class="covers">暂时还没有书籍被加入到本书单</div> ';
+                $line = 17;
+            }
+            $out += ' <div class="clearfix"></div> ';
+            $line = 19;
+            if (Description) {
+                $out += ' <div class="row-fluid desc"> <div class="descTitle">【书单简介】</div> <div class="descText">';
+                $line = 22;
+                $out += $escape(Description);
+                $out += "</div> </div> ";
+                $line = 24;
+            }
+            $out += ' </div> <div class="mega"> <table> <tr> <td class="span6"> <div class="glyphicons chat">';
+            $line = 30;
+            $out += $escape(ResponseSum);
+            $out += '</div> </td> <td class="span6"> <div class="glyphicons heart">';
+            $line = 33;
+            $out += $escape(SubscribeSum);
+            $out += "</div> </td> </tr> </table> </div> </a> </div>";
+        } catch (e) {
+            throw {
+                id: $id,
+                name: "Render Error",
+                message: e.message,
+                line: $line,
+                source: '<div class="item">\n  <a href="file:///android_asset/www/Booklist/Detail.html?id={{Id}}">\n    <div class="detail pull-left">\n      <h4 class="pull-left">{{Title}}</h4>\n      <div class="pull-right small">({{BookSum}})</div>\n      <div class="clearfix"></div>\n      <div class="timestamp pull-right">{{LastUpdateTime}}前</div>\n      <div class="clearfix"></div>\n      {{if BookSum > 0}}\n      <div class="covers row-fluid">\n        {{each BookCovers}}\n          <div class="pull-left bookCover span3"><img src="{{$value}}"></div>\n        {{/each}}\n      </div>\n      {{else}}\n      <div class="covers">暂时还没有书籍被加入到本书单</div>\n      {{/if}}\n      <div class="clearfix"></div>\n      {{if Description}}\n      <div class="row-fluid desc">\n        <div class="descTitle">【书单简介】</div>\n        <div class="descText">{{Description}}</div>\n      </div>\n      {{/if}}\n    </div>\n    <div class="mega">\n      <table>\n        <tr>\n          <td class="span6">\n            <div class="glyphicons chat">{{ResponseSum}}</div>\n          </td>\n          <td class="span6">\n            <div class="glyphicons heart">{{SubscribeSum}}</div>\n          </td>\n        </tr>\n      </table>\n    </div>\n  </a>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
         return new String($out);

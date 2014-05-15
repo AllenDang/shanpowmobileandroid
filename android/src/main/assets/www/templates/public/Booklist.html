@@ -1,0 +1,39 @@
+<div class="item">
+  <a href="file:///android_asset/www/Booklist/Detail.html?id={{Id}}">
+    <div class="detail pull-left">
+      <h4 class="pull-left">{{Title}}</h4>
+      <div class="pull-right small">({{BookSum}})</div>
+      <div class="clearfix"></div>
+      <div class="timestamp pull-right">{{LastUpdateTime}}前</div>
+      <div class="clearfix"></div>
+      {{if BookSum > 0}}
+      <div class="covers row-fluid">
+        {{each BookCovers}}
+          <div class="pull-left bookCover span3"><img src="{{$value}}"></div>
+        {{/each}}
+      </div>
+      {{else}}
+      <div class="covers">暂时还没有书籍被加入到本书单</div>
+      {{/if}}
+      <div class="clearfix"></div>
+      {{if Description}}
+      <div class="row-fluid desc">
+        <div class="descTitle">【书单简介】</div>
+        <div class="descText">{{Description}}</div>
+      </div>
+      {{/if}}
+    </div>
+    <div class="mega">
+      <table>
+        <tr>
+          <td class="span6">
+            <div class="glyphicons chat">{{ResponseSum}}</div>
+          </td>
+          <td class="span6">
+            <div class="glyphicons heart">{{SubscribeSum}}</div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </a>
+</div>
