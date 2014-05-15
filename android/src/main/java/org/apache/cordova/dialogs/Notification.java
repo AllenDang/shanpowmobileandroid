@@ -73,8 +73,6 @@ public class Notification extends CordovaPlugin {
             this.activityStart(args.getString(0), args.getString(1));
         } else if (action.equals("activityStop")) {
             this.activityStop();
-        } else if (action.equals("progressSpinnerStart")) {
-            this.progressSpinnerStart(args.getString(0), args.getString(1));
         } else if (action.equals("progressStart")) {
             this.progressStart(args.getString(0), args.getString(1));
         } else if (action.equals("progressValue")) {
@@ -415,38 +413,6 @@ public class Notification extends CordovaPlugin {
                 notification.progressDialog.setCancelable(true);
                 notification.progressDialog.setMax(100);
                 notification.progressDialog.setProgress(0);
-                notification.progressDialog.setOnCancelListener(
-                        new DialogInterface.OnCancelListener() {
-                            public void onCancel(DialogInterface dialog) {
-                                notification.progressDialog = null;
-                            }
-                        }
-                );
-                notification.progressDialog.show();
-            }
-        };
-        this.cordova.getActivity().runOnUiThread(runnable);
-    }
-
-    /**
-     * Show the progress dialog.
-     *
-     * @param title   Title of the dialog
-     * @param message The message of the dialog
-     */
-    public synchronized void progressSpinnerStart(final String title, final String message) {
-        if (this.progressDialog != null) {
-            this.progressDialog.dismiss();
-            this.progressDialog = null;
-        }
-        final Notification notification = this;
-        final CordovaInterface cordova = this.cordova;
-        Runnable runnable = new Runnable() {
-            public void run() {
-                notification.progressDialog = new ProgressDialog(cordova.getActivity());
-                notification.progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                notification.progressDialog.setTitle(title);
-                notification.progressDialog.setMessage(message);
                 notification.progressDialog.setOnCancelListener(
                         new DialogInterface.OnCancelListener() {
                             public void onCancel(DialogInterface dialog) {

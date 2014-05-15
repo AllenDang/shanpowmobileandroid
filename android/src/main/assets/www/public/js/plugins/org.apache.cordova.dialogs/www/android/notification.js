@@ -57,18 +57,6 @@ module.exports = {
     },
 
     /**
-     * Display a progress dialog with progress bar that goes from 0 to 100.
-     *
-     * @param {String}
-     *            title Title of the progress dialog.
-     * @param {String}
-     *            message Message to display in the dialog.
-     */
-    progressSpinnerStart : function(title, message) {
-        exec(null, null, 'Notification', 'progressSpinnerStart', [ title, message ]);
-    },
-
-    /**
      * Close the progress dialog.
      */
     progressStop : function() {
