@@ -133,7 +133,9 @@ RequestAjaxWithParam = function(options) {
       }
     }),
     complete: (function(jqXHR, textStatus) {
-      navigator.notification.activityStop();
+      setTimeout((function() {
+        return navigator.notification.activityStop();
+      }), 200);
       if (typeof options.afterAction === "function") {
         options.afterAction(jqXHR, textStatus);
       }

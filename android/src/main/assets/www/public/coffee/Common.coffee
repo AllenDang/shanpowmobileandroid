@@ -102,7 +102,7 @@ RequestAjaxWithParam = (options)->
       options.beforeAction?(jqXHR, settings)
       return),
     complete: ((jqXHR, textStatus)->
-      navigator.notification.activityStop()
+      setTimeout (()->navigator.notification.activityStop()), 200
       options.afterAction?(jqXHR, textStatus)
       return)
   }

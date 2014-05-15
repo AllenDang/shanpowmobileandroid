@@ -32,7 +32,6 @@ module.exports = {
             title = "Busy";
             message = 'Please wait...';
         }
-        console.log "aa"
         exec(null, null, 'Notification', 'activityStart', [ title, message ]);
     },
 
@@ -40,7 +39,6 @@ module.exports = {
      * Close an activity dialog
      */
     activityStop : function() {
-        console.log "bb"
         exec(null, null, 'Notification', 'activityStop', []);
     },
 
