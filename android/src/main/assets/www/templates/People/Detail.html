@@ -24,7 +24,7 @@
   </div>
   <div class="row-fluid section readRecord">
     <div class="title row-fluid">
-      <span>我的阅读记录</span>
+      <span>{{if isMySelf === true}}我{{else}}Ta{{/if}}的阅读记录</span>
       <span class="badge pull-right"><a href="Books.html?nickname={{nickname}}">更多&nbsp;&nbsp;&nbsp;&nbsp;></a></span>
     </div>
     <div class="row-fluid books">

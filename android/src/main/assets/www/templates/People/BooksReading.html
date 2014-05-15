@@ -1,0 +1,10 @@
+{{if readingBooks}}
+  {{each readingBooks}}
+  <div class="readingBook span4">
+    <div class="bookCover"><a href="file:///android_asset/www/Book/Detail.html?id={{$value.Id}}"><img src="{{$value.ImageUrl}}" alt=""></a></div>
+    <div class="bookTitle text-center dotdotdotForLongText">{{$value.Title}}</div>
+  </div>
+  {{/each}}
+{{else}}
+  <div class="readingBook span12 well">没有正在阅读的书籍</div>
+{{/if}}
