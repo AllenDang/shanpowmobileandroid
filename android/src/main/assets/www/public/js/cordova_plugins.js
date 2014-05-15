@@ -1,14 +1,14 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
-        "file": "plugins/org.apache.cordova.dialogs/www/notification.js",
+        "file": "notification.js",
         "id": "org.apache.cordova.dialogs.notification",
         "merges": [
             "navigator.notification"
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.dialogs/www/android/notification.js",
+        "file": "notification.js",
         "id": "org.apache.cordova.dialogs.notification_android",
         "merges": [
             "navigator.notification"
