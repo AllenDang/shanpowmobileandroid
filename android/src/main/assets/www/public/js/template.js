@@ -1,4 +1,4 @@
-/*TMODJS:{"debug":true,"build":1400142887034}*/
+/*TMODJS:{"debug":true,"build":1400144542214}*/
 !function(global) {
     "use strict";
     var template = function(uri, content) {
@@ -1809,6 +1809,44 @@
                 message: e.message,
                 line: $line,
                 source: '<div class="book row-fluid" id="{{BookId}}">\n  <a href="file:///android_asset/www/Book/Detail.html?id={{BookId}}"></a>\n  <div class="megaInfo row-fluid">\n    <div class="bookCover span3">\n      <img src="{{BookImageUrl}}" alt="">\n    </div>\n    <div class="bookMega span9">\n      <h4>{{BookTitle}}</h4>\n      <div class="pull-left time">{{CreationTime}}</div>\n      <div class="clearfix"></div>\n      <div class="pull-left author">{{BookAuthor}}</div>\n      <div class="clearfix"></div>\n      <div class="pull-left category">{{BookCategory}}</div>\n      <div class=\'pull-left ratingStar\' data-score=\'{{BookScore}}\'></div>\n    </div>\n  </div>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
+            };
+        }
+        return new String($out);
+    });
+    template("People/BookFollowed", function($data, $id) {
+        var $helpers = this, $line = 0, BooksCount = $data.BooksCount, $each = $helpers.$each, wantBooks = $data.wantBooks, $value = $data.$value, $index = $data.$index, include = function(id, data) {
+            data = data || $data;
+            var $text = $helpers.$include(id, data, $id);
+            $out += $text;
+            return $text;
+        }, $out = "";
+        try {
+            $out += '<div class="container"> ';
+            $line = 2;
+            if (BooksCount > 0) {
+                $out += " ";
+                $line = 3;
+                $each(wantBooks, function($value, $index) {
+                    $out += " ";
+                    $line = 4;
+                    include("../public/Book", $value);
+                    $out += " ";
+                    $line = 5;
+                });
+                $out += " ";
+                $line = 6;
+            } else {
+                $out += ' <div class="well">没有关注的书籍</div> ';
+                $line = 8;
+            }
+            $out += " </div>";
+        } catch (e) {
+            throw {
+                id: $id,
+                name: "Render Error",
+                message: e.message,
+                line: $line,
+                source: '<div class="container">\n  {{if BooksCount > 0}}\n    {{each wantBooks}}\n    {{include "../public/Book" $value}}\n    {{/each}}\n  {{else}}\n    <div class="well">没有关注的书籍</div>\n  {{/if}}\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
         return new String($out);

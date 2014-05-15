@@ -1,0 +1,9 @@
+<div class="container">
+  {{if BooksCount > 0}}
+    {{each wantBooks}}
+    {{include "../public/Book" $value}}
+    {{/each}}
+  {{else}}
+    <div class="well">没有关注的书籍</div>
+  {{/if}}
+</div>
