@@ -147,6 +147,9 @@ $(document).on("deviceready", function() {
   $(document).on("click tap", ".actionbar .back", null, function() {
     return window.history.back(1);
   });
+  $(document).on("backbutton", function() {
+    window.history.back(1);
+  });
 });
 
 IsUsernameMentioned = function(content, username) {
