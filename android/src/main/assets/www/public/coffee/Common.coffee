@@ -98,15 +98,17 @@ RequestAjaxWithParam = (options)->
       return
     ),
     beforeSend: ((jqXHR, settings)->
+      navigator.notification.activityStart("", "正在加载...")
       options.beforeAction?(jqXHR, settings)
       return),
     complete: ((jqXHR, textStatus)->
+      navigator.notification.activityStop()
       options.afterAction?(jqXHR, textStatus)
       return)
   }
   return
 
-$(document).ready ()->
+$(document).on "deviceready", ()->
   $(document).on("click tap", ".actionbar .back", null, ()->window.history.back(1))
   return
 

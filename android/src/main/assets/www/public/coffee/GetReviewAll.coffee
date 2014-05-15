@@ -7,7 +7,7 @@ LoadReview = ()->
   RequestAjax "GET", "/mj/review/morerecommendedreviews", data, DidGetReviews, FailGetReviews
   return
 
-$(document).ready ()->
+$(document).on "deviceready", ()->
   window.pageNum = 1
   $(".loadMore").removeClass "hide"
   actionbar = template "public/ActionBar"

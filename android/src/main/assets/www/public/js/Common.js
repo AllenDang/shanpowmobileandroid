@@ -127,11 +127,13 @@ RequestAjaxWithParam = function(options) {
       }
     }),
     beforeSend: (function(jqXHR, settings) {
+      navigator.notification.activityStart("", "正在加载...");
       if (typeof options.beforeAction === "function") {
         options.beforeAction(jqXHR, settings);
       }
     }),
     complete: (function(jqXHR, textStatus) {
+      navigator.notification.activityStop();
       if (typeof options.afterAction === "function") {
         options.afterAction(jqXHR, textStatus);
       }
@@ -139,7 +141,7 @@ RequestAjaxWithParam = function(options) {
   });
 };
 
-$(document).ready(function() {
+$(document).on("deviceready", function() {
   $(document).on("click tap", ".actionbar .back", null, function() {
     return window.history.back(1);
   });

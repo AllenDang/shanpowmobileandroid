@@ -11,7 +11,7 @@ LoadReview = function() {
   RequestAjax("GET", "/mj/review/morerecommendedreviews", data, DidGetReviews, FailGetReviews);
 };
 
-$(document).ready(function() {
+$(document).on("deviceready", function() {
   var actionbar;
   window.pageNum = 1;
   $(".loadMore").removeClass("hide");

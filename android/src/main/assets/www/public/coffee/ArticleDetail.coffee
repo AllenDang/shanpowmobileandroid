@@ -1,4 +1,4 @@
-$(document).ready ()->
+$(document).on "deviceready", ()->
   actionbar = template "public/ActionBar"
   $("body").html actionbar()
   $(".actionbar .channel").addClass "hide"
