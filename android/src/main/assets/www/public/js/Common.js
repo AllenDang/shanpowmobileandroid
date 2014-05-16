@@ -70,17 +70,17 @@ RequestAjaxWithParam = function(options) {
     statusCode: {
       400: (function() {
         if (!options.dontAlertOnStatusCode) {
-          return alert("400: 请求不正确");
+          return navigator.notification.alert("400: 请求不正确");
         }
       }),
       404: (function() {
         if (!options.dontAlertOnStatusCode) {
-          return alert("404: 该资源不存在");
+          return navigator.notification.alert("404: 该资源不存在");
         }
       }),
       500: (function() {
         if (!options.dontAlertOnStatusCode) {
-          return alert("500: 服务器遇到一个内部错误，请稍等一会再试试");
+          return navigator.notification.alert("500: 服务器遇到一个内部错误，请稍等一会再试试");
         }
       }),
       403: (function() {
@@ -102,27 +102,16 @@ RequestAjaxWithParam = function(options) {
         if (options.failCallback != null) {
           options.failCallback(data, rawData);
         } else {
-          alert((_ref3 = data.ErrorMsg) != null ? _ref3 : "网络发生故障，请稍后重新尝试");
+          navigator.notification.alert((_ref3 = data.ErrorMsg) != null ? _ref3 : "网络发生故障，请稍后重新尝试");
         }
       }
     }),
     dataType: "json",
-    timeout: 60000,
+    timeout: 10000,
     error: (function(jqXHR, textStatus, errorThrown) {
-      if (textStatus === "timeout") {
-        if (options.timeoutCallback != null) {
-          options.timeoutCallback(errorThrown);
-        } else {
-          if (typeof options.failCallback === "function") {
-            options.failCallback(errorThrown);
-          }
-        }
-      }
-      if (textStatus === "error") {
-        if (typeof options.failCallback === "function") {
-          options.failCallback(errorThrown);
-        }
-      }
+      navigator.notification.alert("加载失败，请重试", (function() {
+        RequestAjaxWithParam(options);
+      }), "提示", "重试");
     }),
     beforeSend: (function(jqXHR, settings) {
       navigator.notification.activityStart("", "正在加载...");

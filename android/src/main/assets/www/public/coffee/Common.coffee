@@ -60,9 +60,9 @@ RequestAjaxWithParam = (options)->
     cache: false,
     data: options.data,
     statusCode: {
-      400: (()->alert("400: 请求不正确") if not options.dontAlertOnStatusCode),
-      404: (()->alert("404: 该资源不存在") if not options.dontAlertOnStatusCode),
-      500: (()->alert("500: 服务器遇到一个内部错误，请稍等一会再试试") if not options.dontAlertOnStatusCode),
+      400: (()->navigator.notification.alert("400: 请求不正确") if not options.dontAlertOnStatusCode),
+      404: (()->navigator.notification.alert("404: 该资源不存在") if not options.dontAlertOnStatusCode),
+      500: (()->navigator.notification.alert("500: 服务器遇到一个内部错误，请稍等一会再试试") if not options.dontAlertOnStatusCode),
       403: (()->GetToken(options))
     },
     success: ((data)->
@@ -76,19 +76,15 @@ RequestAjaxWithParam = (options)->
         if options.failCallback?
           options.failCallback(data, rawData)
         else
-          alert data.ErrorMsg ? "网络发生故障，请稍后重新尝试"
+          navigator.notification.alert data.ErrorMsg ? "网络发生故障，请稍后重新尝试"
       return
     ),
     dataType: "json",
-    timeout: 60000,
+    timeout: 10000,
     error: ((jqXHR, textStatus, errorThrown)->
-      if textStatus is "timeout"
-        if options.timeoutCallback?
-          options.timeoutCallback(errorThrown)
-        else
-          options.failCallback?(errorThrown)
-      if textStatus is "error"
-        options.failCallback?(errorThrown)
+      navigator.notification.alert "加载失败，请重试", (()->
+        RequestAjaxWithParam options
+        return), "提示", "重试"
       return
     ),
     beforeSend: ((jqXHR, settings)->
