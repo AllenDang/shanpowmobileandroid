@@ -110,6 +110,9 @@ RequestAjaxWithParam = (options)->
 
 $(document).on "deviceready", ()->
   $(document).on("click tap", ".actionbar .back", null, ()->window.history.back(1))
+  $(document).on "backbutton", ()->
+    window.history.back(1)
+    return
   return
 
 IsUsernameMentioned = (content, username)->
