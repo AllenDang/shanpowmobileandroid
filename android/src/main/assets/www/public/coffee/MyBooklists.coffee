@@ -44,7 +44,7 @@ GetBooklist = ()->
   return
 
 DidGetBooklistsData = (data, rawData)->
-  if data.Data.booklists.length > 0
+  if data.Data.booklists?.length > 0
     $(".booklists .none").addClass("hide")
 
     for booklist in data.Data.booklists
@@ -56,12 +56,12 @@ DidGetBooklistsData = (data, rawData)->
   if data.Data.isMySelf
     $(".tab[data-target='mine']").text "我创建的"
     $(".tab[data-target='subscribed']").text "我收藏的"
-    $(".booklists .none").text "还没有创建书单"
+    $(".booklists .none").text "还没有#{if window.create is 1 then "创建" else "收藏"}书单"
     $(".actionbar .page-title").text "我#{if window.create is 1 then "创建" else "收藏"}的书单"
   else
     $(".tab[data-target='mine']").text "Ta创建的"
     $(".tab[data-target='subscribed']").text "Ta收藏的"
-    $(".booklists .none").text "Ta还没有创建书单"
+    $(".booklists .none").text "Ta还没有#{if window.create is 1 then "创建" else "收藏"}书单"
     $(".actionbar .page-title").text "Ta#{if window.create is 1 then "创建" else "收藏"}的书单"
 
   $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2)

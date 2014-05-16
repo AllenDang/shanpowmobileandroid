@@ -45,12 +45,12 @@ GetBooklist = function() {
 };
 
 DidGetBooklistsData = function(data, rawData) {
-  var booklist, booklistHTML, _i, _len, _ref;
-  if (data.Data.booklists.length > 0) {
+  var booklist, booklistHTML, _i, _len, _ref, _ref1;
+  if (((_ref = data.Data.booklists) != null ? _ref.length : void 0) > 0) {
     $(".booklists .none").addClass("hide");
-    _ref = data.Data.booklists;
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      booklist = _ref[_i];
+    _ref1 = data.Data.booklists;
+    for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+      booklist = _ref1[_i];
       booklistHTML = template("public/Booklist");
       $(".booklists").append(booklistHTML(booklist));
     }
@@ -60,12 +60,12 @@ DidGetBooklistsData = function(data, rawData) {
   if (data.Data.isMySelf) {
     $(".tab[data-target='mine']").text("我创建的");
     $(".tab[data-target='subscribed']").text("我收藏的");
-    $(".booklists .none").text("还没有创建书单");
+    $(".booklists .none").text("还没有" + (window.create === 1 ? "创建" : "收藏") + "书单");
     $(".actionbar .page-title").text("我" + (window.create === 1 ? "创建" : "收藏") + "的书单");
   } else {
     $(".tab[data-target='mine']").text("Ta创建的");
     $(".tab[data-target='subscribed']").text("Ta收藏的");
-    $(".booklists .none").text("Ta还没有创建书单");
+    $(".booklists .none").text("Ta还没有" + (window.create === 1 ? "创建" : "收藏") + "书单");
     $(".actionbar .page-title").text("Ta" + (window.create === 1 ? "创建" : "收藏") + "的书单");
   }
   $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
