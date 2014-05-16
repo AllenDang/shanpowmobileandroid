@@ -94,6 +94,9 @@ RequestAjaxWithParam = function(options) {
     },
     success: (function(data) {
       var _ref3;
+      (function() {
+        return navigator.notification.activityStop();
+      });
       if (data.Result === true) {
         if (options.successCallback != null) {
           options.successCallback(data, rawData);

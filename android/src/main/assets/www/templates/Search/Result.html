@@ -1,0 +1,104 @@
+<div class="container">
+  {{if books}}
+  <div class="row-fluid section books">
+    {{each books}}
+    <div class="book row-fluid" id="{{$value.Id}}">
+      <a href="/m/book/{{$value.Id}}"></a>
+      <div class="megaInfo row-fluid">
+        <div class="bookCover span3">
+          <img src="{{$value.ImageUrl}}" alt="" data-srcimg="{{$value.ImageUrl}}">
+        </div>
+        <div class="bookMega span9">
+          <h4><strong>{{$value.Title}}</strong></h4>
+          <div class="pull-left">{{$value.Author}}</div>
+          <div class="clearfix"></div>
+          <div class="pull-left">{{$value.Category}}</div>
+          <div class="pull-left ratingStar" data-score="{{$value.Score}}"></div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  {{/if}}
+  {{if billboards}}
+  <div class="row-fluid section billboards">
+    <div class="title">相关榜单</div>
+    <hr>
+    {{each billboards}}
+    <div class="ranking pull-left">
+      <a href="../Billboard/Detail.html?title={{$value.Title}}&version={{$value.Version}}">
+        <div class="rankingImage">
+          <img src="{{$value.ImageUrl}}" alt="">
+        </div>
+        <div class="rankingTitle text-center">{{$value.Title}}</div>
+      </a>
+    </div>
+    {{/each}}
+  </div>
+  {{/if}}
+  {{if booklists}}
+  <div class="row-fluid section booklists">
+    <div class="title">相关书单</div>
+    <hr>
+    <div class="bls">
+      {{each booklists}}
+      <div class="booklist">
+        <a href="../Booklist/Detail.html?id={{$value.Id}}">
+          <div class="detail pull-left">
+            <h4 class="pull-left">{{$value.Title}}</h4>
+            <div class="pull-right small">({{$value.BookSum}})</div>
+            <div class="clearfix"></div>
+            <div class="timestamp pull-right">{{$value.LastUpdateTime}}前</div>
+            <div class="clearfix"></div>
+            {{if BookSum > 0}}
+            <div class="covers row-fluid">
+              {{each $value.BookCovers as $c $i}}
+                <div class="pull-left bookCover span3"><img src="{{$c.ImageUrl}}" alt="{{$c.Title}}" title="{{$c.Title}}"></div>
+              {{/each}}
+            </div>
+            {{else}}
+            <div class="covers">暂时还没有书籍被加入到本书单</div>
+            {{/if}}
+            <div class="clearfix"></div>
+            {{if $value.Description}}
+            <div class="row-fluid desc">
+              <div class="descTitle">【书单简介】</div>
+              <div class="descText">{{$value.Description}}</div>
+            </div>
+            {{/if}}
+          </div>
+          <div class="mega">
+            <table>
+              <tr>
+                <td class="span6">
+                  <div class="glyphicons chat">{{$value.ResponseSum}}</div>
+                </td>
+                <td class="span6">
+                  <div class="glyphicons heart">{{$value.SubscribeSum}}</div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </a>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+  {{/if}}
+  {{if users}}
+  <div class="row-fluid section users">
+    <div class="title">相关用户</div>
+    <hr>
+    {{each users}}
+    <div class="user pull-left">
+      <a href="../People/Detail.html?nickname={{$value.Nickname}}">
+        <div class="userAvatar">
+          <img src="{{$value.AvatarUrl}}" alt="" class="img-circle">
+        </div>
+        <div class="nickname text-center">{{$value.Nickname}}</div>
+      </a>
+    </div>
+    {{/each}}
+  </div>
+  {{/if}}
+</div>

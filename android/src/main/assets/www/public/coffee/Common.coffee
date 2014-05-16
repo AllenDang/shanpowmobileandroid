@@ -73,6 +73,7 @@ RequestAjaxWithParam = (options)->
       500: (()->alert("500: 服务器遇到一个内部错误，请稍等一会再试试") if not options.dontAlertOnStatusCode)
     },
     success: ((data)->
+      ()->navigator.notification.activityStop()
       if data.Result is true
         if options.successCallback?
           options.successCallback(data, rawData)

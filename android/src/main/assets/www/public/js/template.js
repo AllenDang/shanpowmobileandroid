@@ -1,4 +1,4 @@
-/*TMODJS:{"debug":true,"build":1400209993693}*/
+/*TMODJS:{"debug":true,"build":1400214704781}*/
 !function(global) {
     "use strict";
     var template = function(uri, content) {
@@ -1877,6 +1877,165 @@
                 message: e.message,
                 line: $line,
                 source: "<div class='book row-fluid'>\n  <div class='bookCover span3'>\n    <img src='{{ImageUrl}}' alt=''>\n  </div>\n  <div class='bookMega span9'>\n    <div class='row-fluid'>\n      <div class='pull-left'>{{Title}}</div>\n      <div class='pull-left author'>{{Author}}</div>\n    </div>\n    <div class='row-fluid'>{{$substring Summary 0 50}}</div>\n  </div>\n  <a href='file:///android_asset/www/Book/Detail.html?id={{Id}}'></a>\n</div>".split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
+            };
+        }
+        return new String($out);
+    });
+    template("Search/Result", function($data, $id) {
+        var $helpers = this, $line = 0, books = $data.books, $each = $helpers.$each, $value = $data.$value, $index = $data.$index, $escape = $helpers.$escape, billboards = $data.billboards, booklists = $data.booklists, BookSum = $data.BookSum, $c = $data.$c, $i = $data.$i, users = $data.users, $out = "";
+        try {
+            $out += '<div class="container"> ';
+            $line = 2;
+            if (books) {
+                $out += ' <div class="row-fluid section books"> ';
+                $line = 4;
+                $each(books, function($value, $index) {
+                    $out += ' <div class="book row-fluid" id="';
+                    $line = 5;
+                    $out += $escape($value.Id);
+                    $out += '"> <a href="/m/book/';
+                    $line = 6;
+                    $out += $escape($value.Id);
+                    $out += '"></a> <div class="megaInfo row-fluid"> <div class="bookCover span3"> <img src="';
+                    $line = 9;
+                    $out += $escape($value.ImageUrl);
+                    $out += '" alt="" data-srcimg="';
+                    $line = 9;
+                    $out += $escape($value.ImageUrl);
+                    $out += '"> </div> <div class="bookMega span9"> <h4><strong>';
+                    $line = 12;
+                    $out += $escape($value.Title);
+                    $out += '</strong></h4> <div class="pull-left">';
+                    $line = 13;
+                    $out += $escape($value.Author);
+                    $out += '</div> <div class="clearfix"></div> <div class="pull-left">';
+                    $line = 15;
+                    $out += $escape($value.Category);
+                    $out += '</div> <div class="pull-left ratingStar" data-score="';
+                    $line = 16;
+                    $out += $escape($value.Score);
+                    $out += '"></div> </div> </div> </div> ';
+                    $line = 20;
+                });
+                $out += " </div> ";
+                $line = 22;
+            }
+            $out += " ";
+            $line = 23;
+            if (billboards) {
+                $out += ' <div class="row-fluid section billboards"> <div class="title">相关榜单</div> <hr> ';
+                $line = 27;
+                $each(billboards, function($value, $index) {
+                    $out += ' <div class="ranking pull-left"> <a href="../Billboard/Detail.html?title=';
+                    $line = 29;
+                    $out += $escape($value.Title);
+                    $out += "&version=";
+                    $line = 29;
+                    $out += $escape($value.Version);
+                    $out += '"> <div class="rankingImage"> <img src="';
+                    $line = 31;
+                    $out += $escape($value.ImageUrl);
+                    $out += '" alt=""> </div> <div class="rankingTitle text-center">';
+                    $line = 33;
+                    $out += $escape($value.Title);
+                    $out += "</div> </a> </div> ";
+                    $line = 36;
+                });
+                $out += " </div> ";
+                $line = 38;
+            }
+            $out += " ";
+            $line = 39;
+            if (booklists) {
+                $out += ' <div class="row-fluid section booklists"> <div class="title">相关书单</div> <hr> <div class="bls"> ';
+                $line = 44;
+                $each(booklists, function($value, $index) {
+                    $out += ' <div class="booklist"> <a href="../Booklist/Detail.html?id=';
+                    $line = 46;
+                    $out += $escape($value.Id);
+                    $out += '"> <div class="detail pull-left"> <h4 class="pull-left">';
+                    $line = 48;
+                    $out += $escape($value.Title);
+                    $out += '</h4> <div class="pull-right small">(';
+                    $line = 49;
+                    $out += $escape($value.BookSum);
+                    $out += ')</div> <div class="clearfix"></div> <div class="timestamp pull-right">';
+                    $line = 51;
+                    $out += $escape($value.LastUpdateTime);
+                    $out += '前</div> <div class="clearfix"></div> ';
+                    $line = 53;
+                    if (BookSum > 0) {
+                        $out += ' <div class="covers row-fluid"> ';
+                        $line = 55;
+                        $each($value.BookCovers, function($c, $i) {
+                            $out += ' <div class="pull-left bookCover span3"><img src="';
+                            $line = 56;
+                            $out += $escape($c.ImageUrl);
+                            $out += '" alt="';
+                            $line = 56;
+                            $out += $escape($c.Title);
+                            $out += '" title="';
+                            $line = 56;
+                            $out += $escape($c.Title);
+                            $out += '"></div> ';
+                            $line = 57;
+                        });
+                        $out += " </div> ";
+                        $line = 59;
+                    } else {
+                        $out += ' <div class="covers">暂时还没有书籍被加入到本书单</div> ';
+                        $line = 61;
+                    }
+                    $out += ' <div class="clearfix"></div> ';
+                    $line = 63;
+                    if ($value.Description) {
+                        $out += ' <div class="row-fluid desc"> <div class="descTitle">【书单简介】</div> <div class="descText">';
+                        $line = 66;
+                        $out += $escape($value.Description);
+                        $out += "</div> </div> ";
+                        $line = 68;
+                    }
+                    $out += ' </div> <div class="mega"> <table> <tr> <td class="span6"> <div class="glyphicons chat">';
+                    $line = 74;
+                    $out += $escape($value.ResponseSum);
+                    $out += '</div> </td> <td class="span6"> <div class="glyphicons heart">';
+                    $line = 77;
+                    $out += $escape($value.SubscribeSum);
+                    $out += "</div> </td> </tr> </table> </div> </a> </div> ";
+                    $line = 84;
+                });
+                $out += " </div> </div> ";
+                $line = 87;
+            }
+            $out += " ";
+            $line = 88;
+            if (users) {
+                $out += ' <div class="row-fluid section users"> <div class="title">相关用户</div> <hr> ';
+                $line = 92;
+                $each(users, function($value, $index) {
+                    $out += ' <div class="user pull-left"> <a href="../People/Detail.html?nickname=';
+                    $line = 94;
+                    $out += $escape($value.Nickname);
+                    $out += '"> <div class="userAvatar"> <img src="';
+                    $line = 96;
+                    $out += $escape($value.AvatarUrl);
+                    $out += '" alt="" class="img-circle"> </div> <div class="nickname text-center">';
+                    $line = 98;
+                    $out += $escape($value.Nickname);
+                    $out += "</div> </a> </div> ";
+                    $line = 101;
+                });
+                $out += " </div> ";
+                $line = 103;
+            }
+            $out += " </div>";
+        } catch (e) {
+            throw {
+                id: $id,
+                name: "Render Error",
+                message: e.message,
+                line: $line,
+                source: '<div class="container">\n  {{if books}}\n  <div class="row-fluid section books">\n    {{each books}}\n    <div class="book row-fluid" id="{{$value.Id}}">\n      <a href="/m/book/{{$value.Id}}"></a>\n      <div class="megaInfo row-fluid">\n        <div class="bookCover span3">\n          <img src="{{$value.ImageUrl}}" alt="" data-srcimg="{{$value.ImageUrl}}">\n        </div>\n        <div class="bookMega span9">\n          <h4><strong>{{$value.Title}}</strong></h4>\n          <div class="pull-left">{{$value.Author}}</div>\n          <div class="clearfix"></div>\n          <div class="pull-left">{{$value.Category}}</div>\n          <div class="pull-left ratingStar" data-score="{{$value.Score}}"></div>\n        </div>\n      </div>\n    </div>\n    {{/each}}\n  </div>\n  {{/if}}\n  {{if billboards}}\n  <div class="row-fluid section billboards">\n    <div class="title">相关榜单</div>\n    <hr>\n    {{each billboards}}\n    <div class="ranking pull-left">\n      <a href="../Billboard/Detail.html?title={{$value.Title}}&version={{$value.Version}}">\n        <div class="rankingImage">\n          <img src="{{$value.ImageUrl}}" alt="">\n        </div>\n        <div class="rankingTitle text-center">{{$value.Title}}</div>\n      </a>\n    </div>\n    {{/each}}\n  </div>\n  {{/if}}\n  {{if booklists}}\n  <div class="row-fluid section booklists">\n    <div class="title">相关书单</div>\n    <hr>\n    <div class="bls">\n      {{each booklists}}\n      <div class="booklist">\n        <a href="../Booklist/Detail.html?id={{$value.Id}}">\n          <div class="detail pull-left">\n            <h4 class="pull-left">{{$value.Title}}</h4>\n            <div class="pull-right small">({{$value.BookSum}})</div>\n            <div class="clearfix"></div>\n            <div class="timestamp pull-right">{{$value.LastUpdateTime}}前</div>\n            <div class="clearfix"></div>\n            {{if BookSum > 0}}\n            <div class="covers row-fluid">\n              {{each $value.BookCovers as $c $i}}\n                <div class="pull-left bookCover span3"><img src="{{$c.ImageUrl}}" alt="{{$c.Title}}" title="{{$c.Title}}"></div>\n              {{/each}}\n            </div>\n            {{else}}\n            <div class="covers">暂时还没有书籍被加入到本书单</div>\n            {{/if}}\n            <div class="clearfix"></div>\n            {{if $value.Description}}\n            <div class="row-fluid desc">\n              <div class="descTitle">【书单简介】</div>\n              <div class="descText">{{$value.Description}}</div>\n            </div>\n            {{/if}}\n          </div>\n          <div class="mega">\n            <table>\n              <tr>\n                <td class="span6">\n                  <div class="glyphicons chat">{{$value.ResponseSum}}</div>\n                </td>\n                <td class="span6">\n                  <div class="glyphicons heart">{{$value.SubscribeSum}}</div>\n                </td>\n              </tr>\n            </table>\n          </div>\n        </a>\n      </div>\n      {{/each}}\n    </div>\n  </div>\n  {{/if}}\n  {{if users}}\n  <div class="row-fluid section users">\n    <div class="title">相关用户</div>\n    <hr>\n    {{each users}}\n    <div class="user pull-left">\n      <a href="../People/Detail.html?nickname={{$value.Nickname}}">\n        <div class="userAvatar">\n          <img src="{{$value.AvatarUrl}}" alt="" class="img-circle">\n        </div>\n        <div class="nickname text-center">{{$value.Nickname}}</div>\n      </a>\n    </div>\n    {{/each}}\n  </div>\n  {{/if}}\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
         return new String($out);
