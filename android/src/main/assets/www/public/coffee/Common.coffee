@@ -49,6 +49,7 @@ GetToken = (options)->
   return
 
 RequestAjaxWithParam = (options)->
+  timeoutInterval = 10000
   rawData = {
     Path: options.url,
     Data: options.data
@@ -80,7 +81,7 @@ RequestAjaxWithParam = (options)->
       return
     ),
     dataType: "json",
-    timeout: 10000,
+    timeout: timeoutInterval,
     error: ((jqXHR, textStatus, errorThrown)->
       navigator.notification.alert "加载失败，请重试", (()->
         RequestAjaxWithParam options
@@ -89,6 +90,9 @@ RequestAjaxWithParam = (options)->
     ),
     beforeSend: ((jqXHR, settings)->
       navigator.notification.activityStart("", "正在加载...")
+      setTimeout (()->
+        navigator.notification.activityStop()
+        return), timeoutInterval
       options.beforeAction?(jqXHR, settings)
       return),
     complete: ((jqXHR, textStatus)->

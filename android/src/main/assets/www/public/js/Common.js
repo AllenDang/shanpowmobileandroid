@@ -56,7 +56,8 @@ GetToken = function(options) {
 };
 
 RequestAjaxWithParam = function(options) {
-  var rawData, _ref, _ref1, _ref2;
+  var rawData, timeoutInterval, _ref, _ref1, _ref2;
+  timeoutInterval = 10000;
   rawData = {
     Path: options.url,
     Data: options.data
@@ -107,7 +108,7 @@ RequestAjaxWithParam = function(options) {
       }
     }),
     dataType: "json",
-    timeout: 10000,
+    timeout: timeoutInterval,
     error: (function(jqXHR, textStatus, errorThrown) {
       navigator.notification.alert("加载失败，请重试", (function() {
         RequestAjaxWithParam(options);
@@ -115,6 +116,9 @@ RequestAjaxWithParam = function(options) {
     }),
     beforeSend: (function(jqXHR, settings) {
       navigator.notification.activityStart("", "正在加载...");
+      setTimeout((function() {
+        navigator.notification.activityStop();
+      }), timeoutInterval);
       if (typeof options.beforeAction === "function") {
         options.beforeAction(jqXHR, settings);
       }
