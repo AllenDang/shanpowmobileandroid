@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.webkit.CookieSyncManager;
 
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.update.UmengUpdateAgent;
 
 import org.androidannotations.annotations.EActivity;
 import org.apache.cordova.Config;
@@ -19,6 +20,7 @@ public class MainActivity extends SlidingMenuBaseActivity {
         super.loadUrl(Config.getStartUrl());
 
         MobclickAgent.updateOnlineConfig(this);
+        UmengUpdateAgent.update(this);
     }
 
     @Override
