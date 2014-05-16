@@ -7,7 +7,7 @@
   <!-- Style Sheet -->
   <link rel="stylesheet" type="text/css" href="../public/css/glyphicons.css">
   <link rel="stylesheet" type="text/css" href="../public/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="../public/css/BookDetail.css">
+  <link rel="stylesheet" type="text/css" href="../public/css/Wizard.css">
 
   <!-- Javascript Libraries -->
   <script src="../public/js/jquery-1.10.1.min.js" charset="utf-8"></script>
@@ -18,25 +18,24 @@
   <script src="../public/js/Tocca.min.js"></script>
   <script src="../public/js/Common.js" charset="utf-8"></script>
   <script src="../public/js/template.js" charset="utf-8"></script>
-  <script src="../public/js/BookDetail.js" charset="utf-8"></script>
+  <script src="../public/js/Wizard.js" charset="utf-8"></script>
 </head>
 <body>
   <div class="actions">
     <div class="button row-fluid">
       <div class="img">
-        <img src="{{if eq .RunMode "prod"}}http://shanpowbookcover.qiniudn.com{{else}}/public/img{{end}}/mobile/circle_full.png" alt="" class="circle">
-        <div class="innerCircle"><img src="{{if eq .RunMode "prod"}}http://shanpowbookcover.qiniudn.com{{else}}/public/img{{end}}/mobile/wizard.png" alt=""></div>
+        <img src="../public/img/circle_full.png" alt="" class="circle">
+        <div class="innerCircle"><img src="../public/img/wizard.png" alt=""></div>
       </div>
       <div class="tip row-fluid text-center">猛戳上方按钮启动智能推书</div>
     </div>
     <hr>
     <div class="info row-fluid">
-      {{if gt .readBookCount 0}}
-        <div class="infoText">
-          <div class="row-fluid text-center">想让搜索结果更加精确？</div>
-          <div class="row-fluid text-center">您还需评价{{.readBookCount}}本书就能让智能推书火力全开！</div>
-        </div>
-      {{end}}
+    <!-- TODO: hide/show toggle -->
+      <div class="infoText">
+        <div class="row-fluid text-center">想让搜索结果更加精确？</div>
+        <div class="row-fluid text-center">您还需评价<span>{{.readBookCount}}</span>本书就能让智能推书火力全开！</div>
+      </div>
       <div class="searchButton">
         <a href="/m/search"></a>
         <div class="glyphicons search pull-left"></div>

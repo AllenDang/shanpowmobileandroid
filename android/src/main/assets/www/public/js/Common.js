@@ -109,7 +109,7 @@ RequestAjaxWithParam = function(options) {
       }
     }),
     dataType: "json",
-    timeout: 4000,
+    timeout: 60000,
     error: (function(jqXHR, textStatus, errorThrown) {
       if (textStatus === "timeout") {
         if (options.timeoutCallback != null) {
@@ -150,6 +150,9 @@ $(document).on("deviceready", function() {
   $(document).on("backbutton", function() {
     window.history.back(1);
   });
+  $(document).on("click", ".left-button .slide-menu", null, (function() {
+    cordova.exec(null, null, "ActivityLauncher", "toggleSlidingMenu", []);
+  }));
 });
 
 IsUsernameMentioned = function(content, username) {

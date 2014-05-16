@@ -86,7 +86,7 @@ RequestAjaxWithParam = (options)->
       return
     ),
     dataType: "json",
-    timeout: 4000,
+    timeout: 60000,
     error: ((jqXHR, textStatus, errorThrown)->
       if textStatus is "timeout"
         if options.timeoutCallback?
@@ -110,9 +110,14 @@ RequestAjaxWithParam = (options)->
 
 $(document).on "deviceready", ()->
   $(document).on("click tap", ".actionbar .back", null, ()->window.history.back(1))
+
   $(document).on "backbutton", ()->
     window.history.back(1)
     return
+
+  $(document).on "click", ".left-button .slide-menu", null, (()->
+    cordova.exec null, null, "ActivityLauncher", "toggleSlidingMenu", []
+    return)
   return
 
 IsUsernameMentioned = (content, username)->
