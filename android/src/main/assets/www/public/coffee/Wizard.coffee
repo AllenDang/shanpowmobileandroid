@@ -10,7 +10,7 @@ $(document).on "deviceready", ()->
   $(".innerCircle").height $(".innerCircle").width()
 
   $(".innerCircle").unbind("click").on "click", (event)->
-    if not $(".infoText").hasClass("hide")
+    if not $(".info").hasClass("hide")
       navigator.notification.alert "提示", "还需要标记更多书籍"
       return
 
@@ -33,9 +33,11 @@ DidGetMarkBookCnt = (data, rawData)->
   count = parseInt data.Data.needMarkCnt
   $(".infoText").children("div").children("span").text "#{count}"
   if count > 0
-    $(".infoText").removeClass("hide")
+    $(".info").removeClass("hide")
+    $(".info").prev("hr").removeClass("hide")
   else
-    $(".infoText").addClass("hide")
+    $(".info").addClass("hide")
+    $(".info").prev("hr").addClass("hide")
 
   return
 
