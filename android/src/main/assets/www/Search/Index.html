@@ -34,8 +34,8 @@
       $(".search").before(actionbar());
       $(".actionbar .channel").addClass("hide");
       $(".actionbar .slide-menu").addClass("hide");
-      articleId = getQueryString("id");
-      RequestAjax("GET", "/mj/article/" + articleId, {}, DidGetArticleDetailData, FailGetArticleDetailData);
+      $(".actionbar .page-title").text("搜索");
+      $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
     });
   </script>
 </body>
