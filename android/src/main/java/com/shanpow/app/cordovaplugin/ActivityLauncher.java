@@ -15,15 +15,20 @@ import org.json.JSONException;
  */
 public class ActivityLauncher extends CordovaPlugin {
     @Override
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+    public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
         if (action.equals("login")) {
             login();
+            cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    login();
+                    callbackContext.success();
+                }
+            });
+            return true;
         } else {
             return false;
         }
-
-        callbackContext.success();
-        return true;
     }
 
     public void login() {
