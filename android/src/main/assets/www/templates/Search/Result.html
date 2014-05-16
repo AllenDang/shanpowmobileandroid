@@ -3,7 +3,7 @@
   <div class="row-fluid section books">
     {{each books}}
     <div class="book row-fluid" id="{{$value.Id}}">
-      <a href="/m/book/{{$value.Id}}"></a>
+      <a href="../Book/Detail.html?id={{$value.Id}}"></a>
       <div class="megaInfo row-fluid">
         <div class="bookCover span3">
           <img src="{{$value.ImageUrl}}" alt="" data-srcimg="{{$value.ImageUrl}}">
