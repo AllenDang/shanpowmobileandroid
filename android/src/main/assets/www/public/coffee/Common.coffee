@@ -14,46 +14,38 @@ RequestAjax = (type, url, data, successCallback, failCallback, timeoutCallback, 
     Path: url,
     Data: data
   }
+  options = {
+    type: type,
+    url: url,
+    data: data,
+    successCallback: successCallback,
+    failCallback: failCallback,
+    timeoutCallback: timeoutCallback,
+    beforeAction: beforeAction,
+    afterAction: afterAction,
+    dontAlertOnStatusCode: dontAlertOnStatusCode,
+    async: async
+  }
   if window.localStorage.getItem("token")
-    data.csrf_token = window.localStorage.getItem("token")
-    options = {
-      type: type,
-      url: url,
-      data: data,
-      successCallback: successCallback,
-      failCallback: failCallback,
-      timeoutCallback: timeoutCallback,
-      beforeAction: beforeAction,
-      afterAction: afterAction,
-      dontAlertOnStatusCode: dontAlertOnStatusCode,
-      async: async
-    }
+    options.data.csrf_token = window.localStorage.getItem("token")
     RequestAjaxWithParam options
   else
-    RequestAjaxWithParam {
+    GetToken(options)
+  
+  return
+
+GetToken = (options)->
+  RequestAjaxWithParam {
       type: "GET",
       url: "/token",
       successCallback: ((resData)->
         window.localStorage.setItem "token", resData.Data
-        data.csrf_token = resData.Data
-        options = {
-          type: type,
-          url: url,
-          data: data,
-          successCallback: successCallback,
-          failCallback: failCallback,
-          timeoutCallback: timeoutCallback,
-          beforeAction: beforeAction,
-          afterAction: afterAction,
-          dontAlertOnStatusCode: dontAlertOnStatusCode,
-          async: async
-        }
+        options.data.csrf_token = resData.Data
         RequestAjaxWithParam options
         return
       ),
-      failCallback: failCallback
+      failCallback: null
     }
-  
   return
 
 RequestAjaxWithParam = (options)->
@@ -70,7 +62,8 @@ RequestAjaxWithParam = (options)->
     statusCode: {
       400: (()->alert("400: 请求不正确") if not options.dontAlertOnStatusCode),
       404: (()->alert("404: 该资源不存在") if not options.dontAlertOnStatusCode),
-      500: (()->alert("500: 服务器遇到一个内部错误，请稍等一会再试试") if not options.dontAlertOnStatusCode)
+      500: (()->alert("500: 服务器遇到一个内部错误，请稍等一会再试试") if not options.dontAlertOnStatusCode),
+      403: (()->GetToken(options))
     },
     success: ((data)->
       ()->navigator.notification.activityStop()

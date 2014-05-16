@@ -7,7 +7,7 @@
   <!-- Style Sheet -->
   <link rel="stylesheet" type="text/css" href="../public/css/glyphicons.css">
   <link rel="stylesheet" type="text/css" href="../public/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="../public/css/BookDetail.css">
+  <link rel="stylesheet" type="text/css" href="../public/css/WriteReview.css">
 
   <!-- Javascript Libraries -->
   <script src="../public/js/jquery-1.10.1.min.js" charset="utf-8"></script>
@@ -18,8 +18,27 @@
   <script src="../public/js/Tocca.min.js"></script>
   <script src="../public/js/Common.js" charset="utf-8"></script>
   <script src="../public/js/template.js" charset="utf-8"></script>
-  <script src="../public/js/BookDetail.js" charset="utf-8"></script>
+  <script src="../public/js/WriteReview.js" charset="utf-8"></script>
 </head>
 <body>
+  <div class="container">
+    <div class="row-fluid section">
+      <div class="ratingStar" data-score=""></div>
+    </div>
+    <div class="row-fluid section">
+      <input type="text" class="input-block-level title" placeholder="标题">
+      <textarea name="" id="" cols="30" rows="5" class="input-block-level" placeholder="评论正文"></textarea>
+    </div>
+    <div class="row-fluid section">
+      <label for="private">
+        <input type="checkbox" id="private">
+        <span>仅自己可见</span>
+      </label>
+    </div>
+    <div class="row-fluid section">
+      <div class="span5 text-center button cancel">取消</div>
+      <div class="span7 text-center button post">发布</div>
+    </div>
+  </div>
 </body>
 </html>
