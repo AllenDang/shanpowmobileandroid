@@ -50,16 +50,17 @@ FailGetPeopleBookData = (data, rawData)->
 RequestReadBooks = ()->
   data = {
     name: window.nickname,
-    pageNum: window.pageNum,
-    numPerPage: 10
+    p: window.pageNum,
+    n: 10
   }
   RequestAjax "GET", "/mj/people/#{window.nickname}/book/read", data, DidGetPeopleReadBookData, FailGetPeopleBookData, null, null, null
   return
 
 DidGetPeopleReadBookData = (data, rawData)->
   window.pageNum++
-  peopleReadBook = template "People/BooksRead"
-  $("#read").html peopleReadBook data.Data
+  if $(".loadMore").length <= 0
+    peopleReadBook = template "People/BooksRead"
+    $("#read").html peopleReadBook data.Data
 
   $(".loadMore").unbind("click").on "click", (event)->
     RequestReadBooks()

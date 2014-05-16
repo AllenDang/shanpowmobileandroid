@@ -48,8 +48,8 @@ RequestReadBooks = function() {
   var data;
   data = {
     name: window.nickname,
-    pageNum: window.pageNum,
-    numPerPage: 10
+    p: window.pageNum,
+    n: 10
   };
   RequestAjax("GET", "/mj/people/" + window.nickname + "/book/read", data, DidGetPeopleReadBookData, FailGetPeopleBookData, null, null, null);
 };
@@ -57,8 +57,10 @@ RequestReadBooks = function() {
 DidGetPeopleReadBookData = function(data, rawData) {
   var book, htmlToInsert, peopleReadBook, _i, _len, _ref;
   window.pageNum++;
-  peopleReadBook = template("People/BooksRead");
-  $("#read").html(peopleReadBook(data.Data));
+  if ($(".loadMore").length <= 0) {
+    peopleReadBook = template("People/BooksRead");
+    $("#read").html(peopleReadBook(data.Data));
+  }
   $(".loadMore").unbind("click").on("click", function(event) {
     RequestReadBooks();
   });
