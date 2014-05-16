@@ -27,5 +27,16 @@
       <button class="btn button text-center span3" type="submit">搜索</button>
     </form>
   </div>
+  <script>
+    $(document).on("deviceready", function() {
+      var actionbar, articleId;
+      actionbar = template("public/ActionBar");
+      $(".search").before(actionbar());
+      $(".actionbar .channel").addClass("hide");
+      $(".actionbar .slide-menu").addClass("hide");
+      articleId = getQueryString("id");
+      RequestAjax("GET", "/mj/article/" + articleId, {}, DidGetArticleDetailData, FailGetArticleDetailData);
+    });
+  </script>
 </body>
 </html>
