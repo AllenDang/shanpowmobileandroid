@@ -32,9 +32,6 @@ DidGetBookDetailData = (data, rawData)->
 
   $(".statusAction[data-statuscode='wanttoread']").unbind("tap").on "tap", (event)->
     return if $(this).hasClass "inactive"
-    if !window.isLogin
-      alert "尚未登录山坡账号，请登录后再试"
-      return
     bookId = $(".container").attr "id"
     data = {
       markType: "wanttoread",

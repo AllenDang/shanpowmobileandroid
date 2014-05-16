@@ -37,10 +37,6 @@ DidGetBookDetailData = function(data, rawData) {
     if ($(this).hasClass("inactive")) {
       return;
     }
-    if (!window.isLogin) {
-      alert("尚未登录山坡账号，请登录后再试");
-      return;
-    }
     bookId = $(".container").attr("id");
     data = {
       markType: "wanttoread",
