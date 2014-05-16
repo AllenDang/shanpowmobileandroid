@@ -50,8 +50,8 @@ FailGetPeopleBookData = (data, rawData)->
 RequestReadBooks = ()->
   data = {
     name: window.nickname,
-    p: window.pageNum,
-    n: 10
+    pageNum: window.pageNum,
+    numPerPage: 10
   }
   RequestAjax "GET", "/mj/people/#{window.nickname}/book/read", data, DidGetPeopleReadBookData, FailGetPeopleBookData, null, null, null
   return
