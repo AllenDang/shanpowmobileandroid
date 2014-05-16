@@ -18,22 +18,17 @@ public class ActivityLauncher extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
         if (action.equals("login")) {
             login();
-            cordova.getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    login();
-                    callbackContext.success();
-                }
-            });
-            return true;
         } else {
             return false;
         }
+        callbackContext.success();
+        return true;
     }
 
     public void login() {
         Context context = cordova.getActivity().getApplicationContext();
         Intent intent = new Intent(context, LoginActivity_.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 }
