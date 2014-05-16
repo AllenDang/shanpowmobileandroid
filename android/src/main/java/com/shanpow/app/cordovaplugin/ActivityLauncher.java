@@ -19,7 +19,7 @@ public class ActivityLauncher extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
         if (action.equals("login")) {
             login();
-        } else if (action.equals("toggleslidingmenu")) {
+        } else if (action.equals("toggleSlidingMenu")) {
             toggleSlidingMenu();
         } else {
             return false;
