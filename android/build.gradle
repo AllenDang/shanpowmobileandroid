@@ -18,7 +18,7 @@ android {
         minSdkVersion 12
         targetSdkVersion 19
         versionCode 1
-        versionName "0.2"
+        versionName "0.2.1"
     }
 
     signingConfigs {
@@ -66,22 +66,22 @@ configurations.compile {
 }
 
 dependencies {
-    compile 'com.fasterxml.jackson.core:jackson-core:2.2.3'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.2.3'
-    compile 'com.fasterxml.jackson.core:jackson-annotations:2.2.3'
-    compile 'com.android.support:support-v4:+'
-    compile 'com.android.support:appcompat-v7:+'
     apt "org.androidannotations:androidannotations:3.0+"
-    compile 'org.androidannotations:androidannotations-api:3.0+'
     compile project(':libraries:SlidingMenu')
     compile project(':libraries:PullToRefresh')
     compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
     compile 'org.springframework.android:spring-android-auth:1.0.1.RELEASE'
     compile 'org.springframework.android:spring-android-core:1.0.1.RELEASE'
-    compile 'de.hdodenhof:circleimageview:1.1.0'
-    compile 'com.squareup:otto:1.3.4'
-    compile 'com.squareup.picasso:picasso:2.2.0'
     compile files('../libraries/umeng-sdk-analytics_v5.2.2_update_v2.4.1.jar')
     compile files('../libraries/cordova-3.4.0.jar')
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.fasterxml.jackson.core:jackson-core:2.2.3'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.2.3'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.2.3'
+    compile 'com.android.support:support-v4:19.+'
+    compile 'com.android.support:appcompat-v7:+'
+    compile 'org.androidannotations:androidannotations-api:3.0.+'
+    compile 'de.hdodenhof:circleimageview:1.1.0'
+    compile 'com.squareup:otto:1.3.4'
+    compile 'com.squareup.picasso:picasso:2.2.0'
 }

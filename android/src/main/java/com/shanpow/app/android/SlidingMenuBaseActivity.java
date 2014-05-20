@@ -1,5 +1,6 @@
 package com.shanpow.app.android;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -162,6 +163,10 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
             }
             if (item.equals("专栏文章")) {
                 activity.gotoUrl(Constant.URL_ARTICLE_LIST);
+            }
+            if (item.equals("Reader")) {
+                Intent intent = new Intent(this, ReaderActivity.class);
+                startActivity(intent);
             }
         }
 
