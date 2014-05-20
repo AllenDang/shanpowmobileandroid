@@ -9,6 +9,9 @@ $(document).on "deviceready", ()->
 
 DidGetArticleListData = (data, rawData)->
   articles = template "Article/List"
+  for article in data.Data
+    article.Content = $("<div>#{article.Content}</div>").text()
+  
   $(".spinner").replaceWith articles(data)
 
   $(".actionbar .page-title").text "文章列表"

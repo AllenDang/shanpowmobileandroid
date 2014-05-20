@@ -2,7 +2,7 @@
     "name": "template",
     "version": "1.0.0",
     "dependencies": {
-        "tmodjs": "~0.1.1"
+        "tmodjs": "1.0.1-rc2"
     },
     "tmodjs-config": {
         "output": "../public/js",
@@ -10,9 +10,11 @@
         "syntax": "simple",
         "helpers": "./config/template-helper.js",
         "escape": true,
-        "engine": false,
+        "compress": true,
         "type": "default",
+        "runtime": "template.js",
         "combo": true,
-        "minify": true
+        "minify": true,
+        "cache": true
     }
 }

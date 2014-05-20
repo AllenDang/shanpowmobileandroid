@@ -11,8 +11,13 @@ $(document).on("deviceready", function() {
 });
 
 DidGetArticleListData = function(data, rawData) {
-  var articles;
+  var article, articles, _i, _len, _ref;
   articles = template("Article/List");
+  _ref = data.Data;
+  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+    article = _ref[_i];
+    article.Content = $("<div>" + article.Content + "</div>").text();
+  }
   $(".spinner").replaceWith(articles(data));
   $(".actionbar .page-title").text("文章列表");
   $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
