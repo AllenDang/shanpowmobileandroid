@@ -34,13 +34,14 @@ public class WebkitCookieManagerProxy extends CookieManager {
         String url = uri.toString();
 
         // go over the headers
-        for (String headerKey : responseHeaders.keySet()) {
+        for (Map.Entry<String, List<String>> entry : responseHeaders.entrySet()) {
+            String headerKey = entry.getKey();
             // ignore headers which aren't cookie related
             if ((headerKey == null) || !(headerKey.equalsIgnoreCase("Set-Cookie2") || headerKey.equalsIgnoreCase("Set-Cookie")))
                 continue;
 
             // process each of the headers
-            for (String headerValue : responseHeaders.get(headerKey)) {
+            for (String headerValue : entry.getValue()) {
                 this.webkitCookieManager.setCookie(url, headerValue);
             }
         }

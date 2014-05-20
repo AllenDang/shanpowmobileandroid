@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.shanpow.app.android"
-    android:hardwareAccelerated="true">
+    android:hardwareAccelerated="true" >
 
     <supports-screens
         android:anyDensity="true"
@@ -19,17 +19,18 @@
     <application
         android:name="com.shanpow.app.android.MainApp"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@drawable/ic_app"
         android:label="@string/app_name"
-        android:theme="@style/Theme.AppCompat"
-        android:hardwareAccelerated="true">
+        android:theme="@style/Theme.AppCompat" >
         <activity
-            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
             android:name="com.shanpow.app.android.MainActivity_"
-            android:theme="@android:style/Theme.Black.NoTitleBar"
-            android:label="@string/app_name">
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -37,22 +38,30 @@
             android:name="com.shanpow.app.android.SlidingMenuBaseActivity_"
             android:label="@string/title_activity_sliding_menu_base" />
         <activity
-            android:name=".LoginActivity_"
+            android:name="com.shanpow.app.android.LoginActivity_"
             android:label="@string/title_activity_login" />
 
         <service
             android:name="com.umeng.common.net.DownloadingService"
             android:process=":DownloadingService" />
+
         <activity
             android:name="com.umeng.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <meta-data
-            android:value="53608cd456240bd7de0061f9"
-            android:name="UMENG_APPKEY" />
+            android:name="UMENG_APPKEY"
+            android:value="53608cd456240bd7de0061f9" />
         <meta-data
-            android:value="Default"
-            android:name="UMENG_CHANNEL" />
+            android:name="UMENG_CHANNEL"
+            android:value="Default" />
+
+        <activity
+            android:name="com.shanpow.app.android.ReaderActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_reader"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
     </application>
 
 </manifest>
