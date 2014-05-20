@@ -1,9 +1,9 @@
-<div class="container" data-authorid="{{AuthorId}}" data-id="{{Id}}" data-avatar="{{avatarUrl}}" data-nickname="{{nickname}}" data-bookid="{{bookId}}">
-  {{each responses}}
+<div class="container" data-authorid="{{AuthorId}}" data-id="{{Id}}" data-avatar="{{AvatarUrl}}" data-nickname="{{Nickname}}" data-bookid="{{BookId}}">
+  {{each Responses}}
   {{include "./Response" $value}}
   {{/each}}
 </div>
-{{if isLogin === true}}
+{{if IsLogin === true}}
 <div class="postResponse row-fluid">
   <div class="replyInput span9">
     <input type="text" class="input-block-level" name="q">

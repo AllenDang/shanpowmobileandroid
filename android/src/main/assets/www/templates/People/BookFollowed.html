@@ -1,6 +1,6 @@
 <div class="container">
   {{if BooksCount > 0}}
-    {{each wantBooks}}
+    {{each Books}}
     {{include "../public/Book" $value}}
     {{/each}}
   {{else}}

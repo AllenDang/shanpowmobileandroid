@@ -31,7 +31,7 @@ $(document).on("deviceready", function() {
 
 DidGetMarkBookCnt = function(data, rawData) {
   var count;
-  count = parseInt(data.Data.needMarkCnt);
+  count = parseInt(data.Data.NeedMarkCnt);
   $(".infoText").children("div").children("span").text("" + count);
   if (count > 0) {
     $(".info").removeClass("hide");

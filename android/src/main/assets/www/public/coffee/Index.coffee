@@ -21,7 +21,7 @@ DidGetIndexData = (data, rawData)->
   else
     $(".actionbar .channel").find("img.current-channel").attr "src", "public/img/Crown.png"
 
-  if data.Data.isLogin
+  if data.Data.IsLogin
     $(".wizard h4 .more").removeClass "hide"
 
   $(".slides").slidesjs {

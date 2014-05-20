@@ -46,9 +46,9 @@ GetBooklist = function() {
 
 DidGetBooklistsData = function(data, rawData) {
   var booklist, booklistHTML, _i, _len, _ref, _ref1;
-  if (((_ref = data.Data.booklists) != null ? _ref.length : void 0) > 0) {
+  if (((_ref = data.Data.Booklists) != null ? _ref.length : void 0) > 0) {
     $(".booklists .none").addClass("hide");
-    _ref1 = data.Data.booklists;
+    _ref1 = data.Data.Booklists;
     for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
       booklist = _ref1[_i];
       booklistHTML = template("public/Booklist");
@@ -57,7 +57,7 @@ DidGetBooklistsData = function(data, rawData) {
   } else {
     $(".booklists .none").removeClass("hide");
   }
-  if (data.Data.isMySelf) {
+  if (data.Data.IsMySelf) {
     $(".tab[data-target='mine']").text("我创建的");
     $(".tab[data-target='subscribed']").text("我收藏的");
     $(".booklists .none").text("还没有" + (window.create === 1 ? "创建" : "收藏") + "书单");

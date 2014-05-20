@@ -1,24 +1,24 @@
-<div class="container" data-reviewid="{{review.Id}}" data-bookid="{{review.Book.Id}}">
-  <div class="row-fluid title">{{review.Title}}</div>
+<div class="container" data-reviewid="{{Review.Id}}" data-bookid="{{Review.Book.Id}}">
+  <div class="row-fluid title">{{Review.Title}}</div>
   <div class="info row-fluid">
-    <div class="user pull-left" id="{{review.Author.Id}}">
-      <a href="../People/Detail.html?nickname={{review.Author.Nickname}}">
-        <div class="avatar pull-left"><img src="{{review.Author.AvatarUrl}}" alt="" class="img-circle"></div>
-        <div class="nickname pull-left">{{review.Author.Nickname}}</div>
+    <div class="user pull-left" id="{{Review.Author.Id}}">
+      <a href="../People/Detail.html?nickname={{Review.Author.Nickname}}">
+        <div class="avatar pull-left"><img src="{{Review.Author.AvatarUrl}}" alt="" class="img-circle"></div>
+        <div class="nickname pull-left">{{Review.Author.Nickname}}</div>
       </a>
     </div>
-    <div class="ratingStar pull-left" data-score="{{review.Score}}"></div>
+    <div class="ratingStar pull-left" data-score="{{Review.Score}}"></div>
   </div>
-  <div class="content">{{review.Content}}</div>
-  <div class="book row-fluid" id="{{review.Book.Id}}">
-    <a href="../Book/Detail.html?id={{review.Book.Id}}"></a>
+  <div class="content">{{Review.Content}}</div>
+  <div class="book row-fluid" id="{{Review.Book.Id}}">
+    <a href="../Book/Detail.html?id={{Review.Book.Id}}"></a>
     <div class="megaInfo row-fluid">
       <div class="bookCover span3">
-        <img src="{{review.Book.ImageUrl}}" alt="" data-srcimg="{{review.Book.ImageUrl}}">
+        <img src="{{Review.Book.ImageUrl}}" alt="" data-srcimg="{{Review.Book.ImageUrl}}">
       </div>
       <div class="bookMega span9">
-        <h4><strong>{{review.Book.Title}}</strong></h4>
-        <div class="pull-left">{{review.Book.Category}}</div>
+        <h4><strong>{{Review.Book.Title}}</strong></h4>
+        <div class="pull-left">{{Review.Book.Category}}</div>
       </div>
     </div>
   </div>
@@ -27,17 +27,17 @@
   <table class="pull-right">
     <tr>
       <td class="response">
-        <a href="Response.html?reviewId={{review.Id}}">
-          <span class="glyphicons comments">{{review.ResponseSum}}</span>
+        <a href="Response.html?reviewId={{Review.Id}}">
+          <span class="glyphicons comments">{{Review.ResponseSum}}</span>
         </a>
       </td>
       <td class="thumbsUp">
-        <div><span class="glyphicons thumbs_up text-center">{{review.LikeSum}}</span></div>
+        <div><span class="glyphicons thumbs_up text-center">{{Review.LikeSum}}</span></div>
       </td>
     </tr>
   </table>
 </div>
 
 <script type="text/javascript">
-  window.logined = {{if isLogin === true}}true{{else}}false{{/if}};
+  window.logined = {{if IsLogin === true}}true{{else}}false{{/if}};
 </script>

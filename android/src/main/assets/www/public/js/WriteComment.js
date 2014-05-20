@@ -32,10 +32,10 @@ $(document).on("deviceready", function() {
 });
 
 DidGetComment = function(data, rawData) {
-  $("textarea").val(data.Data.content);
-  $(".ratingStar").data("score", data.Data.score);
+  $("textarea").val(data.Data.Content);
+  $(".ratingStar").data("score", data.Data.Score);
   $(".ratingStar").raty({
-    score: data.Data.score,
+    score: data.Data.Score,
     halfShow: false,
     starOff: 'http://shanpowbookcover.qiniudn.com/star-off.png',
     starOn: 'http://shanpowbookcover.qiniudn.com/star-on.png',

@@ -1,34 +1,34 @@
 <div class="container">
   <div class="row-fluid section basicInfo">
     <div class="whiteArea"></div>
-    <div class="avatar"><img src="{{userAvatarUrl}}" alt="" class="img-circle"></div>
-    <div class="nickname text-center">{{nickname}}</div>
+    <div class="avatar"><img src="{{UserAvatarUrl}}" alt="" class="img-circle"></div>
+    <div class="nickname text-center">{{Nickname}}</div>
   </div>
   <div class="row-fluid section advancedInfo">
     <div class="info pull-left span3">
-      <div class="num text-center">{{followingsCnt}}</div>
+      <div class="num text-center">{{FollowingsCnt}}</div>
       <div class="key text-center">关注</div>
     </div>
     <div class="info pull-left span3">
-      <div class="num text-center">{{followersCnt}}</div>
+      <div class="num text-center">{{FollowersCnt}}</div>
       <div class="key text-center">粉丝</div>
     </div>
     <div class="info pull-left span3">
-      <div class="num text-center">{{reviewCnt}}</div>
+      <div class="num text-center">{{ReviewCnt}}</div>
       <div class="key text-center">书评</div>
     </div>
     <div class="info pull-left span3">
-      <div class="num text-center">{{commentCnt}}</div>
+      <div class="num text-center">{{CommentCnt}}</div>
       <div class="key text-center">短评</div>
     </div>
   </div>
   <div class="row-fluid section readRecord">
     <div class="title row-fluid">
-      <span>{{if isMySelf === true}}我{{else}}Ta{{/if}}的阅读记录</span>
-      <span class="badge pull-right"><a href="Books.html?nickname={{nickname}}">更多&nbsp;&nbsp;&nbsp;&nbsp;></a></span>
+      <span>{{if IsMySelf === true}}我{{else}}Ta{{/if}}的阅读记录</span>
+      <span class="badge pull-right"><a href="Books.html?nickname={{Nickname}}">更多&nbsp;&nbsp;&nbsp;&nbsp;></a></span>
     </div>
     <div class="row-fluid books">
-      {{each readHistories}}
+      {{each ReadHistories}}
       <div class="span3 book">
         <a href="../Book/Detail.html?id={{$value.Id}}"></a>
         <div class="bookCover">
@@ -42,21 +42,21 @@
   </div>
   <div class="row-fluid section booklists">
     <div class="span4 button">
-      <a href="FollowedBooks.html?nickname={{nickname}}">
+      <a href="FollowedBooks.html?nickname={{Nickname}}">
         <div class="icon"><img src="../public/img/heart.png" alt=""></div>
-        <div class="text-center">{{if isMySelf === true}}我{{else}}Ta{{/if}}关注的书</div>
+        <div class="text-center">{{if IsMySelf === true}}我{{else}}Ta{{/if}}关注的书</div>
       </a>
     </div>
     <div class="span4 button">
-      <a href="../Booklist/My.html?nickname={{nickname}}&create=1">
+      <a href="../Booklist/My.html?nickname={{Nickname}}&create=1">
         <div class="icon"><img src="../public/img/CreateBooklist.png" alt=""></div>
-        <div class="text-center">{{if isMySelf === true}}我{{else}}Ta{{/if}}创建的书单</div>
+        <div class="text-center">{{if IsMySelf === true}}我{{else}}Ta{{/if}}创建的书单</div>
       </a>
     </div>
     <div class="span4 button">
-      <a href="../Booklist/My.html?nickname={{nickname}}&subscribe=1">
+      <a href="../Booklist/My.html?nickname={{Nickname}}&subscribe=1">
         <div class="icon"><img src="../public/img/SubscribeBooklist.png" alt=""></div>
-        <div class="text-center">{{if isMySelf === true}}我{{else}}Ta{{/if}}收藏的书单</div>
+        <div class="text-center">{{if IsMySelf === true}}我{{else}}Ta{{/if}}收藏的书单</div>
       </a>
     </div>
   </div>

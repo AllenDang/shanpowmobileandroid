@@ -1,7 +1,7 @@
 <div class="container">
-  {{if books}}
+  {{if Books}}
   <div class="row-fluid section books">
-    {{each books}}
+    {{each Books}}
     <div class="book row-fluid" id="{{$value.Id}}">
       <a href="../Book/Detail.html?id={{$value.Id}}"></a>
       <div class="megaInfo row-fluid">
@@ -20,11 +20,11 @@
     {{/each}}
   </div>
   {{/if}}
-  {{if billboards}}
+  {{if Billboards}}
   <div class="row-fluid section billboards">
     <div class="title">相关榜单</div>
     <hr>
-    {{each billboards}}
+    {{each Billboards}}
     <div class="ranking pull-left">
       <a href="../Billboard/Detail.html?title={{$value.Title}}&version={{$value.Version}}">
         <div class="rankingImage">
@@ -36,12 +36,12 @@
     {{/each}}
   </div>
   {{/if}}
-  {{if booklists}}
+  {{if Booklists}}
   <div class="row-fluid section booklists">
     <div class="title">相关书单</div>
     <hr>
     <div class="bls">
-      {{each booklists}}
+      {{each Booklists}}
       <div class="booklist">
         <a href="../Booklist/Detail.html?id={{$value.Id}}">
           <div class="detail pull-left">
@@ -85,11 +85,11 @@
     </div>
   </div>
   {{/if}}
-  {{if users}}
+  {{if Users}}
   <div class="row-fluid section users">
     <div class="title">相关用户</div>
     <hr>
-    {{each users}}
+    {{each Users}}
     <div class="user pull-left">
       <a href="../People/Detail.html?nickname={{$value.Nickname}}">
         <div class="userAvatar">

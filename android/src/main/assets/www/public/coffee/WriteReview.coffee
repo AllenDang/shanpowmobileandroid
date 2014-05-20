@@ -49,9 +49,9 @@ $(document).on "deviceready", ()->
   return
 
 DidGetComment = (data, rawData)->
-  $("input.title").val data.Data.title
-  $("textarea").val data.Data.content
-  $(".ratingStar").data "score", data.Data.score
+  $("input.title").val data.Data.Title
+  $("textarea").val data.Data.Content
+  $(".ratingStar").data "score", data.Data.Score
   $(".ratingStar").raty {
     score: -> return $(this).data("score"),
     halfShow: false,

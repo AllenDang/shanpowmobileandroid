@@ -31,7 +31,7 @@ DidGetPeopleBookData = (data, rawData)->
   peopleWantBook = template "People/BooksReading"
   $("#reading").html peopleWantBook(data.Data)
 
-  if data.Data.isMySelf
+  if data.Data.IsMySelf
     $("#readTab").text "我读过的"
     $("#wantTab").text "我想读的"
   else
@@ -66,7 +66,7 @@ DidGetPeopleReadBookData = (data, rawData)->
     RequestReadBooks()
     return
   
-  for book in data.Data.readBooks
+  for book in data.Data.Books
     htmlToInsert = template "public/Book"
     $(".loadMore").before htmlToInsert book
 

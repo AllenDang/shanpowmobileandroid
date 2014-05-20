@@ -1,5 +1,5 @@
-{{if readingBooks}}
-  {{each readingBooks}}
+{{if Books}}
+  {{each Books}}
   <div class="readingBook span4">
     <div class="bookCover"><a href="file:///android_asset/www/Book/Detail.html?id={{$value.Id}}"><img src="{{$value.ImageUrl}}" alt=""></a></div>
     <div class="bookTitle text-center dotdotdotForLongText">{{$value.Title}}</div>

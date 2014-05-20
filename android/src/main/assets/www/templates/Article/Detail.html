@@ -1,21 +1,21 @@
-<div class="container" data-reviewid="{{article.Id}}">
-  <div class="row-fluid title">{{article.Title}}</div>
+<div class="container" data-reviewid="{{Article.Id}}">
+  <div class="row-fluid title">{{Article.Title}}</div>
   <div class="info row-fluid">
-    <div class="user pull-left" id="{{article.Author.Id}}">
-      <a href="../People/Detail.html?nickname={{article.Author.Nickname}}">
-        <div class="avatar pull-left"><img src="{{article.Author.AvatarUrl}}" alt="" class="img-circle"></div>
-        <div class="nickname pull-left">{{article.Author.Nickname}}</div>
+    <div class="user pull-left" id="{{Article.Author.Id}}">
+      <a href="../People/Detail.html?nickname={{Article.Author.Nickname}}">
+        <div class="avatar pull-left"><img src="{{Article.Author.AvatarUrl}}" alt="" class="img-circle"></div>
+        <div class="nickname pull-left">{{Article.Author.Nickname}}</div>
       </a>
     </div>
   </div>
-  <div class="content">{{#article.Content}}</div>
-  {{if relatedBooks}}
+  <div class="content">{{#Article.Content}}</div>
+  {{if RelatedBooks}}
   <div class="section row-fluid similarBooks">
     <div class="row-fluid title">
       <span>相关书籍</span>
     </div>
     <div class="row-fluid">
-      {{each relatedBooks}}
+      {{each RelatedBooks}}
       <div class="book span3">
         <a href="../Book/Detail.html?id={{$value.Id}}">
           <div class="bookCover">
@@ -33,12 +33,12 @@
   <table class="pull-right">
     <tr>
       <td class="response">
-        <a href="Response.html?id={{article.Id}}">
-          <span class="glyphicons comments">{{article.ResponseSum}}</span>
+        <a href="Response.html?id={{Article.Id}}">
+          <span class="glyphicons comments">{{Article.ResponseSum}}</span>
         </a>
       </td>
       <td class="viewcount">
-        <div><span class="glyphicons eye_open">{{article.ViewCount}}</span></div>
+        <div><span class="glyphicons eye_open">{{Article.ViewCount}}</span></div>
       </td>
     </tr>
   </table>

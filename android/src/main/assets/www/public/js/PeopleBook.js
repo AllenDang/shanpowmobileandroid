@@ -30,7 +30,7 @@ DidGetPeopleBookData = function(data, rawData) {
   var peopleWantBook;
   peopleWantBook = template("People/BooksReading");
   $("#reading").html(peopleWantBook(data.Data));
-  if (data.Data.isMySelf) {
+  if (data.Data.IsMySelf) {
     $("#readTab").text("我读过的");
     $("#wantTab").text("我想读的");
   } else {
@@ -64,7 +64,7 @@ DidGetPeopleReadBookData = function(data, rawData) {
   $(".loadMore").unbind("click").on("click", function(event) {
     RequestReadBooks();
   });
-  _ref = data.Data.readBooks;
+  _ref = data.Data.Books;
   for (_i = 0, _len = _ref.length; _i < _len; _i++) {
     book = _ref[_i];
     htmlToInsert = template("public/Book");

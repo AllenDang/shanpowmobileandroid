@@ -44,16 +44,16 @@ GetBooklist = ()->
   return
 
 DidGetBooklistsData = (data, rawData)->
-  if data.Data.booklists?.length > 0
+  if data.Data.Booklists?.length > 0
     $(".booklists .none").addClass("hide")
 
-    for booklist in data.Data.booklists
+    for booklist in data.Data.Booklists
       booklistHTML = template "public/Booklist"
       $(".booklists").append booklistHTML(booklist)
   else
     $(".booklists .none").removeClass("hide")
 
-  if data.Data.isMySelf
+  if data.Data.IsMySelf
     $(".tab[data-target='mine']").text "我创建的"
     $(".tab[data-target='subscribed']").text "我收藏的"
     $(".booklists .none").text "还没有#{if window.create is 1 then "创建" else "收藏"}书单"
