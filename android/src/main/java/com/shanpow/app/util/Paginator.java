@@ -8,7 +8,6 @@ import android.graphics.Typeface;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
-import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -109,7 +108,6 @@ public class Paginator {
         Bitmap bmp = Bitmap.createBitmap(mWidth, mHeight, Bitmap.Config.ARGB_4444);
         Canvas c = new Canvas(bmp);
         String content = readOnePage(pi);
-        Log.d("DEBUG", content);
         StaticLayout sl = new StaticLayout(
                 content, mPaint, mVisibleWidth, Layout.Alignment.ALIGN_NORMAL,
                 1, mLineSpace, false);
@@ -120,12 +118,10 @@ public class Paginator {
 
     //获取下一页的内容，如果已经到文件尾，返回null
     private String getNextPage() {
-        String content = "";
-
-        int currentPos = mBufEnd;
+        StringBuffer content = new StringBuffer();
 
         if (mBufEnd >= mContentLength) {
-            return content;
+            return content.toString();
         }
 
         //预读5行
@@ -134,7 +130,7 @@ public class Paginator {
             mBufEnd += buf.length;
             try {
                 String s = new String(buf, mCharset);
-                content += s;
+                content.append(s);
             } catch (UnsupportedEncodingException e) {
                 //TODO: handle error here
                 e.printStackTrace();
@@ -152,7 +148,7 @@ public class Paginator {
                 mBufEnd += buf.length;
                 try {
                     String s = new String(buf, mCharset);
-                    content += s;
+                    content.append(s);
                 } catch (UnsupportedEncodingException e) {
                     //TODO: handle error here
                     e.printStackTrace();
@@ -169,15 +165,15 @@ public class Paginator {
             int lineBreakPos = sl.getLineEnd(sl.getLineForVertical(mVisibleHeight));
             //把mBufEnd设置到分页的位置
             try {
-                mBufEnd -= content.substring(lineBreakPos).getBytes(mCharset).length;
+                mBufEnd -= content.toString().substring(lineBreakPos).getBytes(mCharset).length;
             } catch (UnsupportedEncodingException e) {
                 //TODO: handle error here
                 e.printStackTrace();
             }
-            content = content.substring(0, lineBreakPos);
+            content = content.delete(lineBreakPos, content.length());
         }
 
-        return content;
+        return content.toString();
     }
 
     private PageInfo findPageByStartPos(int startPos) {
