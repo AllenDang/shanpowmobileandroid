@@ -27,10 +27,6 @@ body {
   word-break: break-all;
 }
 
-.container {
-  width: 100%;
-}
-
 .clearafter {
   &:after {
     clear: both;
@@ -206,6 +202,8 @@ body {
 }
 
 .container {
+  position: relative;
+  width: 100%;
   margin-top: @actionbarheight;
 }
 
@@ -222,4 +220,14 @@ body {
       border-radius: 500px;
     }
   }
+}
+
+.pullbar {
+  position: absolute;
+  top: @actionbarheight;
+
+  height: 4px;
+  margin: 0 auto;
+
+  background-color: @base;
 }

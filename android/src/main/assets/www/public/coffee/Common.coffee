@@ -116,6 +116,7 @@ $(document).on "deviceready", ()->
     cordova.exec null, null, "ActivityLauncher", "toggleSlidingMenu", []
     return)
 
+  PullToRefresh()
   return
 
 IsUsernameMentioned = (content, username)->
@@ -181,5 +182,40 @@ autoTextarea = (elem, extra, maxHeight)->
   addEvent('input', change)
   addEvent('focus', change)
   change()
+
+PullToRefresh = ()->
+  $("body").unbind("touchstart").on "touchstart", (event)->
+    window.startY = event.originalEvent.touches[0].screenY
+    window.startYOffset = $("body").scrollTop()
+    window.zeroY = null
+    return
+
+  $("body").unbind("touchmove").on "touchmove", (event)->
+    event.preventDefault()
+    window.lastY = event.originalEvent.touches[0].screenY
+
+    if (window.lastY - window.startY) > 60
+      window.needRefresh = true
+    else
+      window.needRefresh = false
+
+    $("body").scrollTop window.startY - window.lastY + window.startYOffset
+    if $("body").scrollTop() <= 0
+      return if window.lastY - window.startY < 0
+      if window.zeroY?
+        $(".actionbar .pullbar").width $(window).width() * ($(window).width() / 60) * (window.lastY - window.zeroY) / $(window).height()
+        $(".actionbar .pullbar").css "left", ($(window).width() - $(".actionbar .pullbar").width()) / 2
+      else
+        window.zeroY = window.lastY
+
+    return
+
+  $("body").unbind("touchend").on "touchend", (event)->
+    if window.needRefresh is true and $(".actionbar .pullbar").width() >= $(window).width()
+      location.reload()
+    $(".actionbar .pullbar").width 0
+    return
+
+  return
 
 # END OF FILE

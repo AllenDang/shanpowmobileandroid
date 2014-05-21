@@ -38,3 +38,5 @@ android/src/main/assets/www/shanpowlocalweb.sublime-project
 android/src/main/assets/www/shanpowlocalweb.sublime-workspace
 android/src/main/assets/www/public/js/jquery-1.10.1.min.map
 android/src/main/assets/www/public/js/.cache
+
+/android/src/main/assets/www/public/js/jquery-1.10.1.js
