@@ -17,7 +17,7 @@ DidGetResponseData = function(data, rawData) {
   $(".spinner").replaceWith(articleResponseMain(data.Data));
   $(".actionbar .page-title").text("回复");
   $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
-  $("button.submit").unbind("click").on("click", function(event) {
+  $("#submit").unbind("click").on("click", function(event) {
     var authorId, bookId, _ref, _ref1;
     event.preventDefault();
     event.stopPropagation();
