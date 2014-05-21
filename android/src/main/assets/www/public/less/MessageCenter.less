@@ -1,0 +1,30 @@
+@import (once) "General.less";
+@import (once) "MCResponse.less";
+@import (once) "MCUpdate.less";
+
+.tabs {
+  box-sizing: border-box;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  height: 48px;
+  line-height: 40px;
+
+  .tab {
+    background-color: rgba(255, 255, 255, 0.9);
+    width: 33%;
+
+    &:nth-child(2) {
+      width: 34%;
+    }
+
+    &.active {
+      background-color: @base;
+      color: white;
+    }
+  }
+}
+
+.payload {
+  margin-top: 48px;
+}

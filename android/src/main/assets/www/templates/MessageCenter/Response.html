@@ -1,0 +1,17 @@
+{{each Data}}
+  <div class="row-fluid msg {{if $value.IsRead === false}}unread{{/if}}">
+    <a href="{{$value.AnchorUrl}}"></a>
+    {{if $value.IsRead === false}}<div class="unread-indicator"></div>{{/if}}
+    <div class="userAvatar span2">
+      <a href="file:///android_asset/www/People/Detail.html?nickname={{$value.FromUser.Nickname}}"><img src="{{$value.FromUser.AvatarUrl}}" alt="" class="img-circle"></a>
+    </div>
+    <div class="info span9">
+      <div class="row-fluid info">
+        <div class="span9 dotdotdotForLongText"><a href="file:///android_asset/www/People/Detail.html?nickname={{$value.FromUser.Nickname}}">{{$value.FromUser.Nickname}}</a>&nbsp;{{$value.Message}}</div>
+        <div class="span3 text-right">{{$value.CreationTime}}前</div>
+      </div>
+      <div class="content {{if $value.Action === 6}}glyphicons thumbs_up{{/if}} {{if $value.Action === 7}}glyphicons thumbs_down{{/if}}">{{$value.Content}}</div>
+    </div>
+  </div>
+  <hr>
+{{/each}}
