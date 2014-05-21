@@ -15,20 +15,6 @@ DidGetResponseData = (data, rawData)->
   $(".actionbar .page-title").text "回复"
   $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2)
 
-  $("input").unbind("keyup").on "keyup", (event)->
-    if $("input").val()?.length > 0
-      $(".button").prop "disabled", false
-      $(".cancelInput").removeClass "hide"
-    else
-      $(".button").prop "disabled", true
-      $(".cancelInput").addClass "hide"
-    return
-
-  $(".cancelInput").unbind("click").on "click", (event)->
-    $("input").val ""
-    $(this).addClass("hide")
-    return
-
   $("button.submit").unbind("click").on "click", (event)->
     event.preventDefault()
     event.stopPropagation()
@@ -36,7 +22,7 @@ DidGetResponseData = (data, rawData)->
       alert "请输入回复内容"
     else
       $(this).prop "disabled", true
-      window.responseContent = $("input").val()
+      window.responseContent = $("#replyInput").val()
       data = {
         bookId: $(".container").data("bookid"),
         reviewId: window.reviewId,
@@ -58,9 +44,8 @@ PostReviewAjaxRequest = (reviewId, command, type, data, successCallBack, failCal
   return
 
 DidPostResponse = (data)->
-  $("button").prop("disabled", false)
-  $("input").val ""
-  $(".cancelInput").addClass("hide")
+  $("#replyInput").val("").blur().focus()
+  $("button").prop("disabled", true)
   nickname = $(".container").data "nickname"
   
   responseData = {
@@ -92,10 +77,10 @@ RegisterResponseBtn = ()->
       event.preventDefault()
       event.stopPropagation()
       username = $(this).closest(".response").find(".author a strong").text()
-      content = $("input").val()
+      content = $("#replyInput").val()
       if IsUsernameMentioned(content, username) < 0
-        $("input").val("@#{username} #{content}")
-      $("input").focus().MoveToEnd()
+        $("#replyInput").val("@#{username} #{content}")
+      $("#replyInput").focus().MoveToEnd()
       return
     return
   return
