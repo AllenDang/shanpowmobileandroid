@@ -17,20 +17,6 @@ DidGetResponseData = function(data, rawData) {
   $(".spinner").replaceWith(articleResponseMain(data.Data));
   $(".actionbar .page-title").text("回复");
   $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
-  $("input").unbind("keyup").on("keyup", function(event) {
-    var _ref;
-    if (((_ref = $("input").val()) != null ? _ref.length : void 0) > 0) {
-      $(".button").prop("disabled", false);
-      $(".cancelInput").removeClass("hide");
-    } else {
-      $(".button").prop("disabled", true);
-      $(".cancelInput").addClass("hide");
-    }
-  });
-  $(".cancelInput").unbind("click").on("click", function(event) {
-    $("input").val("");
-    $(this).addClass("hide");
-  });
   $("button.submit").unbind("click").on("click", function(event) {
     var _ref;
     event.preventDefault();
@@ -39,7 +25,7 @@ DidGetResponseData = function(data, rawData) {
       alert("请输入回复内容");
     } else {
       $(this).prop("disabled", true);
-      window.responseContent = $("input").val();
+      window.responseContent = $("#replyInput").val();
       data = {
         bookId: $(".container").data("bookid"),
         reviewId: window.reviewId,
@@ -61,9 +47,8 @@ PostReviewAjaxRequest = function(reviewId, command, type, data, successCallBack,
 
 DidPostResponse = function(data) {
   var nickname, response, responseData;
-  $("button").prop("disabled", false);
-  $("input").val("");
-  $(".cancelInput").addClass("hide");
+  $("#replyInput").val("").blur().focus();
+  $("button").prop("disabled", true);
   nickname = $(".container").data("nickname");
   responseData = {
     Id: "",
@@ -92,11 +77,11 @@ RegisterResponseBtn = function() {
       event.preventDefault();
       event.stopPropagation();
       username = $(this).closest(".response").find(".author a strong").text();
-      content = $("input").val();
+      content = $("#replyInput").val();
       if (IsUsernameMentioned(content, username) < 0) {
-        $("input").val("@" + username + " " + content);
+        $("#replyInput").val("@" + username + " " + content);
       }
-      $("input").focus().MoveToEnd();
+      $("#replyInput").focus().MoveToEnd();
     });
   });
 };

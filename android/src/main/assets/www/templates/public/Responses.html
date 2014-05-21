@@ -4,11 +4,5 @@
   {{/each}}
 </div>
 {{if IsLogin === true}}
-<div class="postResponse row-fluid">
-  <div class="replyInput span9">
-    <input type="text" class="input-block-level" name="q">
-    <div class="cancelInput hide">x</div>
-  </div>
-  <button class="btn button text-center span3 submit" disabled="disabled">回复</button>
-</div>
+{{include "./InputGroup"}}
 {{/if}}
