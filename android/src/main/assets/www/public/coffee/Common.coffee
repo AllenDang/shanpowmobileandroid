@@ -205,6 +205,9 @@ PullToRefresh = ()->
       if window.zeroY?
         $(".actionbar .pullbar").width $(window).width() * ($(window).width() / 60) * (window.lastY - window.zeroY) / $(window).height()
         $(".actionbar .pullbar").css "left", ($(window).width() - $(".actionbar .pullbar").width()) / 2
+        $(".actionbar .center").addClass "hide"
+        $(".actionbar .loading").removeClass "hide"
+        $(".actionbar").find(".loading").css("left", ($(window).width() - $(".actionbar .center").find(".pullingText").width()) / 2)
       else
         window.zeroY = window.lastY
 
@@ -214,6 +217,8 @@ PullToRefresh = ()->
     if window.needRefresh is true and $(".actionbar .pullbar").width() >= $(window).width()
       location.reload()
     $(".actionbar .pullbar").width 0
+    $(".actionbar .center").removeClass "hide"
+    $(".actionbar .loading").addClass "hide"
     return
 
   return
