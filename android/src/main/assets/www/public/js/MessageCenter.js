@@ -32,7 +32,7 @@ $(document).on("deviceready", function() {
 });
 
 GetDirectMessages = function() {
-  RequestAjax("GET", "/mj/msgcenter/response", {}, DidGetDirectMessageData, null);
+  RequestAjax("GET", "/mj/people/conversations", {}, DidGetDirectMessageData, null);
 };
 
 GetResponses = function() {
@@ -44,9 +44,9 @@ GetUpdate = function() {
 };
 
 DidGetDirectMessageData = function(data, rawData) {
-  var responses;
-  responses = template("MessageCenter/DirectMessage");
-  $(".payload").html(responses(data));
+  var directmessage;
+  directmessage = template("MessageCenter/DirectMessage");
+  $(".payload").html(directmessage(data));
 };
 
 DidGetResponseData = function(data, rawData) {
@@ -56,7 +56,7 @@ DidGetResponseData = function(data, rawData) {
 };
 
 DidGetUpdateData = function(data, rawData) {
-  var responses;
-  responses = template("MessageCenter/Update");
-  $(".payload").html(responses(data));
+  var update;
+  update = template("MessageCenter/Update");
+  $(".payload").html(update(data));
 };
