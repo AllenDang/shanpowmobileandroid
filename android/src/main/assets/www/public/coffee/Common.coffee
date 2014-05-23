@@ -188,10 +188,8 @@ PullToRefresh = ()->
     window.startY = event.originalEvent.touches[0].screenY
     window.startYOffset = $("body").scrollTop()
     window.zeroY = null
-    return
 
   $("body").unbind("touchmove").on "touchmove", (event)->
-    event.preventDefault()
     window.lastY = event.originalEvent.touches[0].screenY
 
     if (window.lastY - window.startY) > 60
@@ -202,6 +200,7 @@ PullToRefresh = ()->
     $("body").scrollTop window.startY - window.lastY + window.startYOffset
     if $("body").scrollTop() <= 0
       return if window.lastY - window.startY < 0
+      event.preventDefault()
       if window.zeroY?
         $(".actionbar .pullbar").width $(window).width() * ($(window).width() / 60) * (window.lastY - window.zeroY) / $(window).height()
         $(".actionbar .pullbar").css "left", ($(window).width() - $(".actionbar .pullbar").width()) / 2
@@ -211,16 +210,11 @@ PullToRefresh = ()->
       else
         window.zeroY = window.lastY
 
-    return
-
   $("body").unbind("touchend").on "touchend", (event)->
     if window.needRefresh is true and $(".actionbar .pullbar").width() >= $(window).width()
       location.reload()
     $(".actionbar .pullbar").width 0
     $(".actionbar .center").removeClass "hide"
     $(".actionbar .loading").addClass "hide"
-    return
-
-  return
 
 # END OF FILE
