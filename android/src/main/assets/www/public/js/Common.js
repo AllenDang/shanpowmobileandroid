@@ -224,10 +224,9 @@ PullToRefresh = function() {
   $("body").unbind("touchstart").on("touchstart", function(event) {
     window.startY = event.originalEvent.touches[0].screenY;
     window.startYOffset = $("body").scrollTop();
-    window.zeroY = null;
+    return window.zeroY = null;
   });
   $("body").unbind("touchmove").on("touchmove", function(event) {
-    event.preventDefault();
     window.lastY = event.originalEvent.touches[0].screenY;
     if ((window.lastY - window.startY) > 60) {
       window.needRefresh = true;
@@ -239,23 +238,24 @@ PullToRefresh = function() {
       if (window.lastY - window.startY < 0) {
         return;
       }
+      event.preventDefault();
       if (window.zeroY != null) {
         $(".actionbar .pullbar").width($(window).width() * ($(window).width() / 60) * (window.lastY - window.zeroY) / $(window).height());
         $(".actionbar .pullbar").css("left", ($(window).width() - $(".actionbar .pullbar").width()) / 2);
         $(".actionbar .center").addClass("hide");
         $(".actionbar .loading").removeClass("hide");
-        $(".actionbar").find(".loading").css("left", ($(window).width() - $(".actionbar .center").find(".pullingText").width()) / 2);
+        return $(".actionbar").find(".loading").css("left", ($(window).width() - $(".actionbar .center").find(".pullingText").width()) / 2);
       } else {
-        window.zeroY = window.lastY;
+        return window.zeroY = window.lastY;
       }
     }
   });
-  $("body").unbind("touchend").on("touchend", function(event) {
+  return $("body").unbind("touchend").on("touchend", function(event) {
     if (window.needRefresh === true && $(".actionbar .pullbar").width() >= $(window).width()) {
       location.reload();
     }
     $(".actionbar .pullbar").width(0);
     $(".actionbar .center").removeClass("hide");
-    $(".actionbar .loading").addClass("hide");
+    return $(".actionbar .loading").addClass("hide");
   });
 };

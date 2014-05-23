@@ -26,7 +26,7 @@ $(document).on "deviceready", ()->
   return
 
 GetDirectMessages = ()->
-  RequestAjax "GET", "/mj/msgcenter/response", {}, DidGetDirectMessageData, null
+  RequestAjax "GET", "/mj/people/conversations", {}, DidGetDirectMessageData, null
   return
 
 GetResponses = ()->
@@ -38,8 +38,8 @@ GetUpdate = ()->
   return
 
 DidGetDirectMessageData = (data, rawData)->
-  responses = template "MessageCenter/DirectMessage"
-  $(".payload").html responses data
+  directmessage = template "MessageCenter/DirectMessage"
+  $(".payload").html directmessage data
   return
 
 DidGetResponseData = (data, rawData)->
@@ -48,6 +48,6 @@ DidGetResponseData = (data, rawData)->
   return
 
 DidGetUpdateData = (data, rawData)->
-  responses = template "MessageCenter/Update"
-  $(".payload").html responses data
+  update = template "MessageCenter/Update"
+  $(".payload").html update data
   return
