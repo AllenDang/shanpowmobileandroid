@@ -14,6 +14,7 @@ import com.shanpow.app.service.ShanpowErrorHandler;
 import com.shanpow.app.service.ShanpowRestClient;
 import com.shanpow.app.util.AppPref_;
 import com.shanpow.app.util.Constant;
+import com.tencent.tauth.Tencent;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
@@ -33,6 +34,8 @@ import java.util.Set;
  */
 @EActivity(R.layout.activity_login)
 public class LoginActivity extends Activity {
+
+    Tencent mTencent;
 
     @ViewById
     EditText edt_email;
@@ -58,6 +61,7 @@ public class LoginActivity extends Activity {
     @AfterViews
     void init() {
         restClient.setCookie(Constant.CSRF_TOKEN, pref.csrfToken().get());
+        mTencent = Tencent.createInstance(Constant.TENCENT_APPID, getApplicationContext());
     }
 
     @AfterInject
@@ -119,7 +123,7 @@ public class LoginActivity extends Activity {
     @UiThread
     void afterLogin(boolean isSucceeded, int resId) {
         if (isSucceeded) {
-            MainActivity_.intent(this).start();
+            finish();
         } else {
             btn_login.setText(R.string.action_sign_in);
             btn_login.setEnabled(true);

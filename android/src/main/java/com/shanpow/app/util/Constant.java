@@ -17,4 +17,7 @@ public final class Constant {
 
     //Intent Extra参数
     public final static String EXTRA_FILEPATH = "EXTRA_FILEPATH";
+
+    //Tencent AppId
+    public final static String TENCENT_APPID = "100511288";
 }

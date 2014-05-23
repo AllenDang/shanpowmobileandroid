@@ -37,6 +37,8 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
 
     private SimpleUser currentUser;
 
+    private final static int REQUEST_CODE_LOGIN = 1;
+
     @ViewById
     Button btn_login;
 
@@ -103,13 +105,26 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+
+        if (requestCode == REQUEST_CODE_LOGIN) {
+            //如果是MainActivity，则刷新webview
+            if (this instanceof MainActivity_) {
+                MainActivity_ activity = (MainActivity_) this;
+                activity.reload();
+            }
+        }
+    }
+
     @Click
     void btn_loginClicked() {
         String login = getResources().getString(R.string.action_sign_in);
 
         if (btn_login.getText().toString().equals(login)) {
             //登陆
-            LoginActivity_.intent(this).start();
+            LoginActivity_.intent(this).startForResult(REQUEST_CODE_LOGIN);
         } else {
             //退出
             btn_login.setText(R.string.action_signing_out);
