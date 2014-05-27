@@ -22,7 +22,7 @@
       <ul class="unstyled">
         {{each Books}}
         <li class="book row-fluid" data-cat="{{$value.GeneralCategory}}" id="{{$value.Id}}">
-          <a href="/m/book/{{$value.Id | toobjectidstring}}"></a>
+          <a href="/m/book/{{$value.Id}}"></a>
           <div class="megaInfo row-fluid">
             <div class="bookCover span3">
               <img src="{{$value.ImageUrl}}" alt="" data-srcimg="{{$value.ImageUrl}}">

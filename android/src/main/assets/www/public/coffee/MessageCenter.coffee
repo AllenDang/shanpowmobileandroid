@@ -23,6 +23,7 @@ $(document).on "deviceready", ()->
       return
     return
 
+  GetDirectMessages()
   return
 
 GetDirectMessages = ()->
@@ -40,6 +41,7 @@ GetUpdate = ()->
 DidGetDirectMessageData = (data, rawData)->
   directmessage = template "MessageCenter/DirectMessage"
   $(".payload").html directmessage data
+  PositionUnreadIndicator()
   return
 
 DidGetResponseData = (data, rawData)->
@@ -50,4 +52,11 @@ DidGetResponseData = (data, rawData)->
 DidGetUpdateData = (data, rawData)->
   update = template "MessageCenter/Update"
   $(".payload").html update data
+  return
+
+PositionUnreadIndicator = ()->
+  $(".unread-indicator").each (index)->
+    offsetTop = ($(this).closest(".msg").find("img").height() - $(this).height()) / 2
+    $(this).css "top", "#{offsetTop}px"
+    return
   return

@@ -1,0 +1,90 @@
+@import (once) "General.less";
+
+.container {
+  padding-bottom: 56px;
+}
+
+.message {
+  margin-bottom: 16px;
+  
+  .info {
+    position: relative;
+
+    .time {
+      margin-bottom: 8px;
+    }
+
+    .content {
+      box-sizing: border-box;
+      padding: 8px 10px 16px 10px;
+
+      background-color: @base;
+
+      &:before {
+        content: "";
+
+        position: absolute;
+        top: 28px;
+        left: -8px;
+
+        display: block;
+        width: 0;
+        height: 0;
+        font-size: 0;
+
+        border-width: 4px;
+        border-style: solid;
+        border-color: @base @base transparent transparent;
+      }
+    }
+  }
+
+  .avatar {
+    margin-top: 8px;
+
+    a {
+      display: block;
+      width: 100%;
+
+      img {
+        width: 80%;
+      }
+    }
+  }
+
+  &.mine {
+    .content {
+      background-color: white;
+
+      &:before {
+        left: auto;
+        right: -8px;
+        border-color: white transparent transparent white;
+      }
+    }
+  }
+}
+
+.postResponse {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+
+  box-sizing: border-box;
+  width: 100%;
+  padding-top: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+
+  background-color: @base;
+}
+
+.replyInput {
+  position: relative;
+
+  .cancelInput {
+    position: absolute;
+    right: 16px;
+    top: 4px;
+  }
+}

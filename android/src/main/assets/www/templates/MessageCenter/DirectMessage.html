@@ -1,17 +1,17 @@
 {{each Data}}
   <div class="row-fluid msg {{if $value.IsNewMessages === true}}unread{{/if}}">
-    <a href="DirectMessage/Conversation.html?id={{$value.Id}}"></a>
-    {{if $value.IsNewMessages === true}}<div class="unread-indicator"></div>{{/if}}
     <div class="userAvatar span2">
       <a href="file:///android_asset/www/People/Detail.html?nickname={{$value.Contacter.Nickname}}"><img src="{{$value.Contacter.AvatarUrl}}" alt="" class="img-circle"></a>
     </div>
-    <div class="info span9">
+    <div class="info span10">
       <div class="row-fluid info">
-        <div class="span9 dotdotdotForLongText"><a href="file:///android_asset/www/People/Detail.html?nickname={{$value.Contacter.Nickname}}">{{$value.Contacter.Nickname}}</a></div>
-        <div class="span3 text-right">{{$value.CreationTime}}前</div>
+        <div class="span8 dotdotdotForLongText"><a href="file:///android_asset/www/People/Detail.html?nickname={{$value.Contacter.Nickname}}">{{$value.Contacter.Nickname}}</a></div>
+        <div class="span4 text-right">{{$value.LatestMessageTime}}前</div>
       </div>
       <div class="content">{{$value.LatestMessage}}</div>
     </div>
+    <a href="file:///android_asset/www/DirectMessage/Conversation.html?id={{$value.Id}}&other={{$value.Contacter.Nickname}}"></a>
+    {{if $value.IsNewMessages === true}}<div class="unread-indicator"></div>{{/if}}
   </div>
   <hr>
 {{/each}}
