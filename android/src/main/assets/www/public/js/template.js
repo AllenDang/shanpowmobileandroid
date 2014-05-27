@@ -492,11 +492,11 @@
                 source: '<div class="container">\n  <div class="messages">\n    {{each Messages}}\n    {{if $value.IsMySelf === true}}\n    {{include "./MineMsg" $value}}\n    {{else}}\n    {{include "./TheirMsg" $value}}\n    {{/if}}\n    {{/each}}\n  </div>\n  {{include "../public/InputGroup"}}\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:3*/
+    }), /*v:4*/
     template("DirectMessage/MineMsg", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), $escape = $utils.$escape, CreationTime = $data.CreationTime, Content = $data.Content, Poster = $data.Poster, $out = "";
-            return $out += '<div class="row-fluid message mine"> <div class="info span10"> <div class="row-fluid time text-center">', 
+            return $out += '<div class="row-fluid message mine"> <div class="info span10"> <div class="row-fluid time text-center muted">', 
             $line = 3, $out += $escape(CreationTime), $out += '前</div> <div class="row-fluid content">', 
             $line = 4, $out += $escape(Content), $out += '</div> </div> <div class="avatar span2"> <a href="file:///android_asset/www/People/Detail.html?nickname=', 
             $line = 7, $out += $escape(Poster.Nickname), $out += '"><img src="', $line = 7, 
@@ -508,16 +508,16 @@
                 name: "Render Error",
                 message: e.message,
                 line: $line,
-                source: '<div class="row-fluid message mine">\n  <div class="info span10">\n    <div class="row-fluid time text-center">{{CreationTime}}前</div>\n    <div class="row-fluid content">{{Content}}</div>\n  </div>\n  <div class="avatar span2">\n    <a href="file:///android_asset/www/People/Detail.html?nickname={{Poster.Nickname}}"><img src="{{Poster.AvatarUrl}}" class="img-circle pull-right"></a>\n  </div>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
+                source: '<div class="row-fluid message mine">\n  <div class="info span10">\n    <div class="row-fluid time text-center muted">{{CreationTime}}前</div>\n    <div class="row-fluid content">{{Content}}</div>\n  </div>\n  <div class="avatar span2">\n    <a href="file:///android_asset/www/People/Detail.html?nickname={{Poster.Nickname}}"><img src="{{Poster.AvatarUrl}}" class="img-circle pull-right"></a>\n  </div>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:3*/
+    }), /*v:5*/
     template("DirectMessage/TheirMsg", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), $escape = $utils.$escape, Poster = $data.Poster, CreationTime = $data.CreationTime, Content = $data.Content, $out = "";
             return $out += '<div class="row-fluid message"> <div class="avatar span2"> <a href="file:///android_asset/www/People/Detail.html?nickname=', 
             $line = 3, $out += $escape(Poster.Nickname), $out += '"><img src="', $line = 3, 
-            $out += $escape(Poster.AvatarUrl), $out += '" class="img-circle"></a> </div> <div class="info span10"> <div class="row-fluid time text-center">', 
+            $out += $escape(Poster.AvatarUrl), $out += '" class="img-circle"></a> </div> <div class="info span10 row-fluid"> <div class="row-fluid time text-center muted">', 
             $line = 6, $out += $escape(CreationTime), $out += '前</div> <div class="row-fluid content">', 
             $line = 7, $out += $escape(Content), $out += "</div> </div> </div>", new String($out);
         } catch (e) {
@@ -526,7 +526,7 @@
                 name: "Render Error",
                 message: e.message,
                 line: $line,
-                source: '<div class="row-fluid message">\n  <div class="avatar span2">\n    <a href="file:///android_asset/www/People/Detail.html?nickname={{Poster.Nickname}}"><img src="{{Poster.AvatarUrl}}" class="img-circle"></a>\n  </div>\n  <div class="info span10">\n    <div class="row-fluid time text-center">{{CreationTime}}前</div>\n    <div class="row-fluid content">{{Content}}</div>\n  </div>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
+                source: '<div class="row-fluid message">\n  <div class="avatar span2">\n    <a href="file:///android_asset/www/People/Detail.html?nickname={{Poster.Nickname}}"><img src="{{Poster.AvatarUrl}}" class="img-circle"></a>\n  </div>\n  <div class="info span10 row-fluid">\n    <div class="row-fluid time text-center muted">{{CreationTime}}前</div>\n    <div class="row-fluid content">{{Content}}</div>\n  </div>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
     }), /*v:2*/
