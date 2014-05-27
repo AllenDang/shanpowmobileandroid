@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="messages">
+    {{each Messages}}
+    {{if $value.IsMySelf === true}}
+    {{include "./MineMsg" $value}}
+    {{else}}
+    {{include "./TheirMsg" $value}}
+    {{/if}}
+    {{/each}}
+  </div>
+  {{include "../public/InputGroup"}}
+</div>

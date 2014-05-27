@@ -7,6 +7,7 @@ $(document).on("deviceready", function() {
   $("body").html(actionbar());
   $(".actionbar .channel").addClass("hide");
   $(".actionbar .slide-menu").addClass("hide");
+  $(".actionbar .message-center").removeClass("hide");
   window.nickname = getQueryString("nickname");
   RequestAjax("GET", "/mj/people/" + (unescape(window.nickname)), {}, DidGetPeopleDetailData, FailGetPeopleDetailData);
 });

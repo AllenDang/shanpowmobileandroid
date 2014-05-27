@@ -1,18 +1,20 @@
 {{each Data}}
   <div class="row-fluid msg {{if $value.IsRead === false}}unread{{/if}}">
-    {{if $value.IsRead === false}}<div class="unread-indicator"></div>{{/if}}
     <div class="bookcover span2">
       <a href="file:///android_asset/www/Book/Detail.html?id={{$value.Book.Id}}"><img src="{{$value.Book.ImageUrl}}" alt="" class=""></a>
     </div>
     <div class="info span10">
       <div class="row-fluid info">
         <div class="span9 dotdotdotForLongText"><a href="file:///android_asset/www/People/Detail.html?nickname={{$value.FromUser.Nickname}}">{{$value.FromUser.Nickname}}</a>{{$value.Message}}</div>
-        <div class="span3 text-right">{{$value.CreationTime}}</div>
+        <div class="span3 text-right">{{$value.CreationTime}}前</div>
       </div>
       <div class="content">
-        <h5 class="title">{{$value.Title}}</h5>
-        <div class="summary">{{$value.Content}}</div>
+        <h5 class="contentTitle">{{$value.Title}}</h5>
+        <div class="summary">{{$substring $value.Content 0 50}}</div>
       </div>
     </div>
+    <a href="{{$value.AnchorUrl}}"></a>
+    {{if $value.IsRead === false}}<div class="unread-indicator"></div>{{/if}}
   </div>
+  <hr>
 {{/each}}
