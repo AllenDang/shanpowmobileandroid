@@ -15,14 +15,7 @@ $(document).on "deviceready", ()->
   return
 
 DidGetNewestMessageData = (data, rawData)->
-  window.conversations = data.Data
-  newestId = data.Data.Id
-
-  RequestAjax "GET", "/mj/people/conversation/#{window.conversationId}/message/#{data.Data[0].Id}/before", {}, DidGetOlderMessageData, null
-  return
-
-DidGetOlderMessageData = (data, rawData)->
-  window.conversations = data.Data.concat window.conversations if data.Data?
+  window.conversations = data.Data if data.Data?
 
   messagesHTML = template "DirectMessage/Messages"
   $(".spinner").replaceWith messagesHTML({Messages: window.conversations})
