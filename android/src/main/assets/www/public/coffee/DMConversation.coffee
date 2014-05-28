@@ -15,7 +15,9 @@ $(document).on "deviceready", ()->
   return
 
 DidGetNewestMessageData = (data, rawData)->
-  window.conversations = data.Data if data.Data?
+  window.conversations = data.Data.Messages if data.Data.Messages?
+  window.oldestId = window.conversations[0].Id
+  window.TotalSum = data.Data.TotalSum
 
   messagesHTML = template "DirectMessage/Messages"
   $(".spinner").replaceWith messagesHTML({Messages: window.conversations})
@@ -34,6 +36,11 @@ DidGetNewestMessageData = (data, rawData)->
         content: window.responseContent
       }
       RequestAjax "POST", "/mj/people/conversation/#{window.conversationId}/message/post", data, DidPostMessage, null
+
+  $(".loadMore").removeClass("hide").unbind("click").on "click", (event)->
+    RequestAjax "GET", "/mj/people/conversation/#{window.conversationId}/message/#{window.oldestId}/before", {}, DidGetPastMessageData, null
+    return
+
   return
 
 DidPostMessage = (data, rawData)->
@@ -53,5 +60,25 @@ DidPostMessage = (data, rawData)->
   $(".messages").append messageHTML(msgData)
 
   window.scrollTo(0, document.body.scrollHeight);
+  return
+
+DidGetPastMessageData = (data, rawData)->
+  mineMessageHTML = template "DirectMessage/MineMsg"
+  theirMessageHTML = template "DirectMessage/TheirMsg"
+
+  for msg in data.Data.reverse()
+    if msg.IsMySelf
+      msgToInsert = mineMessageHTML msg
+    else
+      msgToInsert = theirMessageHTML msg
+
+    $(".messages").prepend msgToInsert
+
+  if $(".message").length >= window.TotalSum
+    $(".loadMore").addClass("hide")
+
+  $('html, body').scrollTop $("##{window.oldestId}").offset().top - $(".actionbar").height()
+
+  window.oldestId = $(".message").first().attr "id"
   return
 
