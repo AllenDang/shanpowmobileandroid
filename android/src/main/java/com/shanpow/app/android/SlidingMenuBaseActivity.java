@@ -17,6 +17,7 @@ import com.shanpow.app.service.ShanpowRestClient;
 import com.shanpow.app.util.AppPref_;
 import com.shanpow.app.util.Constant;
 import com.squareup.picasso.Picasso;
+import com.tencent.tauth.Tencent;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Background;
@@ -147,6 +148,11 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
     void doLogout() {
         restClient.Logout();
         pref.csrfToken().remove();
+        Tencent mTencent = Tencent.createInstance(Constant.TENCENT_APPID, getApplicationContext());
+        if (mTencent.isSessionValid()) {
+            mTencent.logout(getApplicationContext());
+        }
+
         afterLogout();
     }
 

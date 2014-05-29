@@ -22,5 +22,8 @@
     <string name="toast_prompt_quit">再按一次退出应用</string>
     <string name="title_activity_reader">ReaderActivity</string>
     <string name="img_content_contentdescription">Book text viewer</string>
+    <string name="title_activity_qqregister">QQRegisterActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

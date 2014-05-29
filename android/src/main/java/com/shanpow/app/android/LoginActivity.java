@@ -1,10 +1,12 @@
 package com.shanpow.app.android;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,7 +16,9 @@ import com.shanpow.app.service.ShanpowErrorHandler;
 import com.shanpow.app.service.ShanpowRestClient;
 import com.shanpow.app.util.AppPref_;
 import com.shanpow.app.util.Constant;
+import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
+import com.tencent.tauth.UiError;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
@@ -26,6 +30,7 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.rest.RestService;
 import org.androidannotations.annotations.sharedpreferences.Pref;
+import org.json.JSONObject;
 
 import java.util.Set;
 
@@ -86,8 +91,30 @@ public class LoginActivity extends Activity {
         doLogin(email, password);
     }
 
-    @Background
-    void doLogin(String email, String password) {
+    @Click
+    void btn_qqloginClicked() {
+        if (!mTencent.isSessionValid()) {
+            mTencent.login(this, "get_user_info", new IUiListener() {
+                @Override
+                public void onComplete(Object o) {
+                    JSONObject jso = (JSONObject) o;
+                    doQQLogin(mTencent.getOpenId());
+                }
+
+                @Override
+                public void onError(UiError uiError) {
+                    Toast.makeText(getApplicationContext(), uiError.errorMessage, Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onCancel() {
+
+                }
+            });
+        }
+    }
+
+    void checkCsrfToken() {
         //检查Cookie和CsrfToken是否存在，如果没有则通过发起获取Token的请求
         SharedPreferences sharedPref = pref.getSharedPreferences();
         Set<String> cookies = sharedPref.getStringSet(Constant.PREF_COOKIES, null);
@@ -100,13 +127,9 @@ public class LoginActivity extends Activity {
         }
 
         restClient.setCookie(Constant.CSRF_TOKEN, pref.csrfToken().get());
+    }
 
-        LoginResult result = restClient.Login(email, password);
-        if (result == null || !result.Result) {
-            afterLogin(false, R.string.error_invalid_email_or_password);
-            return;
-        }
-
+    void saveUserInfo(LoginResult result) {
         //登陆成功
         //保存用户信息
         ObjectMapper mapper = new ObjectMapper();
@@ -118,6 +141,43 @@ public class LoginActivity extends Activity {
             //序列化失败
             afterLogin(false, R.string.error_failed_to_save);
         }
+    }
+
+    @Background
+    void doQQLogin(String openId, String accessToken, String nickname, String avatarUrl, boolean sex) {
+        checkCsrfToken();
+
+        LoginResult result = restClient.QQLogin(openId);
+        if (result == null) {
+            afterLogin(false, R.string.error_qqlogin_failed);
+            return;
+        }
+
+        //不能用openId找到对应用户，代表着用户是第一次用QQ账号登陆，开始注册过程
+        if (!result.Result) {
+            Intent intent = new Intent(this, QQRegisterActivity_.class);
+            intent.putExtra("openid", openId);
+            intent.putExtra("accesstoken", accessToken);
+            intent.putExtra("nickname", nickname);
+            intent.putExtra("avatarurl", avatarUrl);
+            intent.putExtra("sex", sex);
+            startActivityForResult(intent, 0);
+        }
+
+        saveUserInfo(result);
+    }
+
+    @Background
+    void doLogin(String email, String password) {
+        checkCsrfToken();
+
+        LoginResult result = restClient.Login(email, password);
+        if (result == null || !result.Result) {
+            afterLogin(false, R.string.error_invalid_email_or_password);
+            return;
+        }
+
+        saveUserInfo(result);
     }
 
     @UiThread

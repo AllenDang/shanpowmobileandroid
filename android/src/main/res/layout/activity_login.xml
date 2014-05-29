@@ -50,6 +50,14 @@
             android:text="@string/action_sign_in"
             android:textStyle="bold" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="QQ账号登陆"
+            android:drawableLeft="@drawable/ic_qq"
+            android:id="@+id/btn_qqlogin"
+            style="?android:textAppearanceSmall" />
+
     </LinearLayout>
 
 </LinearLayout>
