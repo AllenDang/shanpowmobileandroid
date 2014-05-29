@@ -15,6 +15,8 @@ $(document).on "deviceready", ()->
         $(".active").removeClass "active"
         $(this).addClass "active"
 
+        $(".payload").html ""
+
         switch $(this).data("target")
           when "directmessage" then GetDirectMessages()
           when "response" then GetResponses()

@@ -16,6 +16,7 @@ $(document).on("deviceready", function() {
       if (!$(this).hasClass("active")) {
         $(".active").removeClass("active");
         $(this).addClass("active");
+        $(".payload").html("");
         switch ($(this).data("target")) {
           case "directmessage":
             GetDirectMessages();
