@@ -34,6 +34,13 @@
         android:hint="昵称" />
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_errormsg"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@android:color/holo_red_dark" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -41,21 +48,27 @@
         android:id="@+id/textView2"
         android:layout_marginTop="10dp" />
 
-    <RadioButton
+    <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="男"
-        android:id="@+id/rb_male"
-        android:checked="false"
-        android:layout_marginTop="10dp" />
+        android:layout_gravity="center_horizontal">
 
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="女"
-        android:id="@+id/rb_female"
-        android:checked="false"
-        android:layout_marginTop="10dp" />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="男"
+            android:id="@+id/rb_male"
+            android:checked="false"
+            android:layout_marginTop="10dp" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="女"
+            android:id="@+id/rb_female"
+            android:checked="false"
+            android:layout_marginTop="10dp" />
+    </RadioGroup>
 
     <Button
         android:layout_width="match_parent"

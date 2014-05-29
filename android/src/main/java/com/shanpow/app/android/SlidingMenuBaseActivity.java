@@ -40,6 +40,8 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
 
     private final static int REQUEST_CODE_LOGIN = 1;
 
+    private Tencent mTencent;
+
     @ViewById
     Button btn_login;
 
@@ -76,6 +78,8 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
         String[] menuItems = {"首页", "专栏文章", "Reader"};
         ListView list = (ListView) findViewById(R.id.lv_menu);
         list.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menuItems));
+
+        mTencent = Tencent.createInstance(Constant.TENCENT_APPID, getApplicationContext());
     }
 
     @Override
@@ -148,7 +152,6 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
     void doLogout() {
         restClient.Logout();
         pref.csrfToken().remove();
-        Tencent mTencent = Tencent.createInstance(Constant.TENCENT_APPID, getApplicationContext());
         if (mTencent.isSessionValid()) {
             mTencent.logout(getApplicationContext());
         }
