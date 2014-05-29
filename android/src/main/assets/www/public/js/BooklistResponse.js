@@ -60,7 +60,6 @@ DidPostResponse = function(data) {
 
 DidFailPostResponse = function(data) {
   $("button").prop("disabled", false);
-  alert(data.ErrorMsg);
 };
 
 RegisterResponseBtn = function() {

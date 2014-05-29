@@ -2,7 +2,7 @@
 var DidGetIndexData, FailGetIndexData;
 
 $(document).on("deviceready", function() {
-  var actionbar, ch;
+  var actionbar, ch, node;
   actionbar = template("public/ActionBar");
   $("body").html(actionbar());
   $(".actionbar .page-title").text("首页");
@@ -10,6 +10,13 @@ $(document).on("deviceready", function() {
   $(".actionbar .button.search").removeClass("hide");
   $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
   ch = getQueryString("ch");
+  if (ch === "f") {
+    node = document.createElement('link');
+    node.rel = 'stylesheet';
+    node.type = 'text/css';
+    node.href = 'public/css/Index_F.css';
+    document.getElementsByTagName('head')[0].appendChild(node);
+  }
   RequestAjax("GET", "/mj", {
     ch: ch != null ? ch : "m"
   }, DidGetIndexData, FailGetIndexData);
@@ -28,15 +35,6 @@ DidGetIndexData = function(data, rawData) {
   if (data.Data.IsLogin) {
     $(".wizard h4 .more").removeClass("hide");
   }
-  $(".slides").slidesjs({
-    width: $(".container").width() - 16,
-    height: ($(".container").width() - 16) * 270 / 790 + 52,
-    navigation: false,
-    pagination: {
-      active: true,
-      effect: "slide"
-    }
-  });
   $("ul.slidesjs-pagination").css({
     "right": "auto",
     "left": ($(".slides").width() - $("ul.slidesjs-pagination").width()) / 2

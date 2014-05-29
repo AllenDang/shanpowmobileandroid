@@ -17,7 +17,7 @@ getQueryString = function(name) {
   return null;
 };
 
-RequestAjax = function(type, url, data, successCallback, failCallback, timeoutCallback, beforeAction, afterAction, dontAlertOnStatusCode, async, shouldSpin) {
+RequestAjax = function(type, url, data, successCallback, failCallback, beforeAction, afterAction, dontAlertOnStatusCode, async, shouldSpin) {
   var options, rawData;
   rawData = {
     Path: url,
@@ -29,7 +29,6 @@ RequestAjax = function(type, url, data, successCallback, failCallback, timeoutCa
     data: data,
     successCallback: successCallback,
     failCallback: failCallback,
-    timeoutCallback: timeoutCallback,
     beforeAction: beforeAction,
     afterAction: afterAction,
     dontAlertOnStatusCode: dontAlertOnStatusCode,
@@ -106,16 +105,18 @@ RequestAjaxWithParam = function(options) {
         if (options.failCallback != null) {
           options.failCallback(data, rawData);
         } else {
-          navigator.notification.alert((_ref4 = data.ErrorMsg) != null ? _ref4 : "网络发生故障，请稍后重新尝试");
+          navigator.notification.alert((_ref4 = data.ErrorMsg) != null ? _ref4 : "网络发生故障，请稍后重新尝试", null, "错误");
         }
       }
     }),
     dataType: "json",
     timeout: timeoutInterval,
     error: (function(jqXHR, textStatus, errorThrown) {
-      navigator.notification.alert("加载失败，请重试", (function() {
-        RequestAjaxWithParam(options);
-      }), "提示", "重试");
+      if (options.type === "GET") {
+        navigator.notification.alert("加载失败，请重试", (function() {
+          RequestAjaxWithParam(options);
+        }), "提示", "重试");
+      }
     }),
     beforeSend: (function(jqXHR, settings) {
       if (shouldSpin) {

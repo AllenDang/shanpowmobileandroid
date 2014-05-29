@@ -9,7 +9,7 @@ getQueryString = (name)->
     return escape(r[2])
   return null
 
-RequestAjax = (type, url, data, successCallback, failCallback, timeoutCallback, beforeAction, afterAction, dontAlertOnStatusCode, async, shouldSpin)->
+RequestAjax = (type, url, data, successCallback, failCallback, beforeAction, afterAction, dontAlertOnStatusCode, async, shouldSpin)->
   rawData = {
     Path: url,
     Data: data
@@ -20,7 +20,6 @@ RequestAjax = (type, url, data, successCallback, failCallback, timeoutCallback, 
     data: data,
     successCallback: successCallback,
     failCallback: failCallback,
-    timeoutCallback: timeoutCallback,
     beforeAction: beforeAction,
     afterAction: afterAction,
     dontAlertOnStatusCode: dontAlertOnStatusCode,
@@ -79,15 +78,16 @@ RequestAjaxWithParam = (options)->
         if options.failCallback?
           options.failCallback(data, rawData)
         else
-          navigator.notification.alert data.ErrorMsg ? "网络发生故障，请稍后重新尝试"
+          navigator.notification.alert data.ErrorMsg ? "网络发生故障，请稍后重新尝试", null, "错误"
       return
     ),
     dataType: "json",
     timeout: timeoutInterval,
     error: ((jqXHR, textStatus, errorThrown)->
-      navigator.notification.alert "加载失败，请重试", (()->
-        RequestAjaxWithParam options
-        return), "提示", "重试"
+      if options.type is "GET"
+        navigator.notification.alert "加载失败，请重试", (()->
+          RequestAjaxWithParam options
+          return), "提示", "重试"
       return
     ),
     beforeSend: ((jqXHR, settings)->

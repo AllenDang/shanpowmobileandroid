@@ -1,0 +1,43 @@
+@import (once) "Index.less";
+
+.titleWrapper {
+  background-color: @femalebase !important;
+}
+
+ul.slidesjs-pagination {
+  background-color: fadeout(@femalebase, 50%);
+}
+
+.title {
+  .more {
+    background-color: @femalebase;
+
+    &:after {
+      border-color: darken(@femalebase, 20%) transparent transparent darken(@femalebase, 20%);
+    }
+  }
+}
+
+.ranking {
+  .rankingImage .updateInfo {
+    background-color: fadeout(@femalebase, 40%);
+  }
+
+  .rankingTitle {
+    background-color: @femalebase;
+  }
+}
+
+.review {
+  .reviewBasic {
+    background-color: @femalebase;
+  }
+
+  .arrow {
+    border-color:@femalebase transparent transparent transparent;
+  }
+
+  .bookCover .bookTitle {
+    background-color: fadeout(@femalebase, 30%);
+  }
+}

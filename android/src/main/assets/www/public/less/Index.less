@@ -1,23 +1,48 @@
 @import (once) "General.less";
 
-.section {
-  margin-bottom: 16px;
-}
-
 .title {
+  position: relative;
   box-sizing: border-box;
-  border-bottom: 1px solid #999;
   width: 100%;
+  padding: 4px;
+  font-weight: normal;
+  border-bottom: none;
   
   .more {
+    position: absolute;
+    right: -10px;
+    top: 6px;
+
+    box-sizing: border-box;
+    padding: 8px;
+    
+    border-radius: 0;
     background-color: @base;
-    border-radius: 10px;
-    color: white;
-    font-size: 12px;
-    height: 20px;
-    line-height: 20px;
-    padding: 0 8px;
+    font-size: 0.8em;
+    height: auto;
+    line-height: auto;
+
+    a {
+      color: white;
+    }
+
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      right: 0;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 5px;
+      border-color: darken(@base, 20%) transparent transparent darken(@base, 20%);
+      font-size: 0;
+    }
   }
+}
+
+.section {
+  margin-bottom: 16px;
 }
 
 .bookCover {
@@ -43,18 +68,84 @@
   }
 }
 
-.hot_ranking {
-  .rankinglist {
-    box-sizing: border-box;
-    padding: 8px 0;
+.articles {
+  .mainArticleItem {
     position: relative;
+    width: 100%;
+    height: 100%;
+
+    & > a {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+
+    img {
+      width: 100%;
+      min-height: 126px;
+    }
+
+    .titleWrapper {
+      display: block;
+      width: 100%;
+      height: 48px;
+      padding: 4px 8px;
+      box-sizing: border-box;
+
+      color: white;
+      background-color: @base;
+
+      .articleTitle {
+        display: table-cell;
+        vertical-align: middle;
+        height: 40px;
+      }
+    }
   }
+
+  .articleItem {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: 16px;
+    padding: 8px;
+    background-color: white;
+    color: black;
+
+    .articleTitleText {
+      .dotdotdotForLongText;
+      height: 25px;
+      line-height: 25px;
+    }
+
+    .row-fluid:first-child {
+      margin-bottom: 8px;
+    }
+
+    .author, .time {
+      font-size: 0.8em;
+    }
+
+    & > a {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+  }
+}
+
+.hot_ranking {
+  background-color: white;
 }
 
 .ranking {
   position: relative;
-  width: 42%;
-  margin: 0 3% 0 5%;
+  width: 47%;
+  margin-right: 3%;
 
   & > a {
     position: absolute;
@@ -121,6 +212,11 @@
       }
     }
   }
+
+  &:last-child {
+    margin-right: 0;
+    margin-left: 3%;
+  }
 }
 
 .book {
@@ -174,6 +270,8 @@
 }
 
 .wizard {
+  background-color: white;
+
   .tip {
     font-size: 18px;
     margin: 20px 16px 20px 0;
@@ -231,6 +329,8 @@
 }
 
 .reviews {
+  background-color: white;
+
   .title {
     margin-bottom: 8px;
   }
@@ -373,7 +473,7 @@
 
   .mega {
     margin-top: 26px;
-    opacity: 0.5;
+    opacity: 0.3;
     
     .glyphicons {
       padding-left: 24px;
@@ -388,92 +488,3 @@
   }
 }
 
-.slides {
-  position: relative;
-
-  .slide {
-    position: relative;
-    width: 100%;
-    height: 100%;
-
-    & > a {
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-    }
-
-    img {
-      width: 100%;
-      min-height: 126px;
-    }
-
-    .titleWrapper {
-      display: block;
-      width: 100%;
-      height: 48px;
-      padding: 4px;
-      box-sizing: border-box;
-
-      color: white;
-      background-color: @indexarticle;
-
-      .articleTitle {
-        display: table-cell;
-        vertical-align: middle;
-        height: 40px;
-      }
-    }
-  }
-
-  .slidesjs-container {
-    z-index: 1;
-  }
-
-  ul.slidesjs-pagination {
-    position: absolute;
-    bottom: 52px;
-    right: 0;
-    margin: 0;
-    z-index: 2;
-    padding: 4px;
-
-    background-color: fadeout(@indexarticle, 50%);
-    border-radius: 500px;
-
-    li {
-      display: block;
-      float: left;
-
-      a {
-        display: block;
-        width: 10px;
-        height: 10px;
-        overflow: hidden;
-        margin: 0 4px;
-        color: white;
-
-        &:before {
-          display: block;
-          box-sizing: border-box;
-          background-color: fadeout(white, 40%);
-          border-radius: 50%;
-          content: "";
-          width: 10px;
-          height: 10px;
-        }
-
-        &.active:before {
-          background-color: white;
-        }
-      }
-    }
-  }
-}
-
-.more {
-  a {
-    color: white;
-  }
-}

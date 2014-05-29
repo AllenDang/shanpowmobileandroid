@@ -62,7 +62,6 @@ DidPostResponse = (data)->
 
 DidFailPostResponse = (data)->
   $("#submit").prop("disabled", false)
-  alert data.ErrorMsg
   return
 
 RegisterResponseBtn = ()->
