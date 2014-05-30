@@ -1,0 +1,15 @@
+<div class="articleItem row-fluid">
+  <div class="row-fluid">
+    <div class="articleTitleText">{{$substring Title 0 50}}</div>
+  </div>
+  <div class="row-fluid">
+    <div class="info span8">
+      <div class="author pull-left muted dotdotdotForLongText">{{Author}}</div>
+      <div class="time pull-right muted">{{OnlineTime}}前</div>
+    </div>
+    <div class="span4">
+      <img src="{{if ImageUrl}}{{ImageUrl}}?imageView/2/h/34{{else}}http://shanpowbookcover.qiniudn.com/%E5%B0%8F%E7%BC%96%E5%81%B7%E6%87%92%E6%B2%A1%E9%85%8D%E5%9B%BE.png{{/if}}" alt="">
+    </div>
+  </div>
+  <a href="Article/Detail.html?id={{Id}}"></a>
+</div>

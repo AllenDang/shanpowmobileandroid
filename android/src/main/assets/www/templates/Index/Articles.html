@@ -6,20 +6,6 @@
   <div class="titleWrapper"><div class="articleTitle">{{$substring $value.Title 0 50}}</div></div>
 </div>
 {{else}}
-<div class="articleItem row-fluid">
-  <div class="row-fluid">
-    <div class="span9">
-      <div class="articleTitleText">{{$substring $value.Title 0 50}}</div>
-    </div>
-    <div class="span3">
-      <img src="{{if $value.ImageUrl}}{{$value.ImageUrl}}{{else}}http://shanpowbookcover.qiniudn.com/%E5%B0%8F%E7%BC%96%E5%81%B7%E6%87%92%E6%B2%A1%E9%85%8D%E5%9B%BE.png{{/if}}" alt="">
-    </div>
-  </div>
-  <div class="row-fluid">
-    <div class="author pull-left muted">{{$value.Author}}</div>
-    <div class="time pull-right muted">{{$value.OnlineTime}}前</div>
-  </div>
-  <a href="Article/Detail.html?id={{$value.Id}}"></a>
-</div>
+{{include "../public/ArticleItem" $value}}
 {{/if}}
 {{/each}}

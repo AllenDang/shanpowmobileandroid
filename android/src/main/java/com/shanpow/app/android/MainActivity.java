@@ -17,6 +17,7 @@ public class MainActivity extends SlidingMenuBaseActivity {
         super.onCreate(savedInstanceState);
         super.init();
 
+
         super.loadUrl(Config.getStartUrl());
 
         MobclickAgent.updateOnlineConfig(this);
