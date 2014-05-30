@@ -17,6 +17,7 @@ import com.shanpow.app.service.ShanpowRestClient;
 import com.shanpow.app.util.AppPref_;
 import com.shanpow.app.util.Constant;
 import com.squareup.picasso.Picasso;
+import com.tencent.tauth.Tencent;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Background;
@@ -38,6 +39,8 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
     private SimpleUser currentUser;
 
     private final static int REQUEST_CODE_LOGIN = 1;
+
+    private Tencent mTencent;
 
     @ViewById
     Button btn_login;
@@ -75,6 +78,8 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
         String[] menuItems = {"首页", "专栏文章", "Reader"};
         ListView list = (ListView) findViewById(R.id.lv_menu);
         list.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menuItems));
+
+        mTencent = Tencent.createInstance(Constant.TENCENT_APPID, getApplicationContext());
     }
 
     @Override
@@ -147,6 +152,10 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
     void doLogout() {
         restClient.Logout();
         pref.csrfToken().remove();
+        if (mTencent.isSessionValid()) {
+            mTencent.logout(getApplicationContext());
+        }
+
         afterLogout();
     }
 

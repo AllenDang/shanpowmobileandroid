@@ -24,6 +24,14 @@ public interface ShanpowRestClient extends RestClientErrorHandling {
     @RequiresCookieInUrl("csrf_token")
     LoginResult Login(String email, String password);
 
+    @Post("/cooperate/mobileqqlogin?openId={openId}&csrf_token={csrf_token}")
+    @RequiresCookieInUrl("csrf_token")
+    LoginResult QQLogin(String openId);
+
+    @Post("/cooperate/mobileqqregister?nickname={nickname}&email={email}&openId={openId}&accessToken={accessToken}&avatarUrl={avatarUrl}&sex={sex}&csrf_token={csrf_token}")
+    @RequiresCookieInUrl("csrf_token")
+    LoginResult QQRegister(String nickname, String email, String openId, String accessToken, String avatarUrl, boolean sex);
+
     @Get("/account/mobilelogout")
     void Logout();
 
