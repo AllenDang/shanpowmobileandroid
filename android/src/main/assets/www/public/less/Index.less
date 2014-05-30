@@ -250,6 +250,7 @@
 }
 
 .wizard {
+  position: relative;
   background-color: white;
 
   .title .icon {
@@ -259,11 +260,24 @@
   .tip {
     font-size: 18px;
     margin: 20px 16px 20px 0;
+    padding-left: 16px;
   }
 
   .login {
     .title .more;
     
+    top: auto;
+    left: -10px;
+    right: auto;
+    bottom: 0;
+    font-size: 0.9em;
+
+    &:after {
+      left: 0;
+      right: auto;
+      border-color: darken(@base, 20%) darken(@base, 20%) transparent transparent; 
+    }
+
     margin-bottom: 16px;
     margin-top: 30%;
     text-align: center;
