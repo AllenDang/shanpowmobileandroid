@@ -42,7 +42,7 @@
             android:label="@string/title_activity_login" />
 
         <service
-            android:name="com.umeng.common.net.DownloadingService"
+            android:name="com.umeng.update.net.DownloadingService"
             android:process=":DownloadingService" />
 
         <activity
