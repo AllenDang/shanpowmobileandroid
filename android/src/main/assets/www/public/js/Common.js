@@ -237,7 +237,6 @@ PullToRefresh = function() {
     } else {
       window.needRefresh = false;
     }
-    $("body").scrollTop(window.startY - window.lastY + window.startYOffset);
     if ($("body").scrollTop() <= 0) {
       if (window.lastY - window.startY < 0) {
         return;

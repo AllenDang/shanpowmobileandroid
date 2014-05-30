@@ -199,7 +199,6 @@ PullToRefresh = ()->
     else
       window.needRefresh = false
 
-    $("body").scrollTop window.startY - window.lastY + window.startYOffset
     if $("body").scrollTop() <= 0
       return if window.lastY - window.startY < 0
       event.preventDefault()
