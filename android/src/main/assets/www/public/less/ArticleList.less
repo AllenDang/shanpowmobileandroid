@@ -2,23 +2,27 @@
 
 .article {
   position: relative;
-
+  display: block;
   box-sizing: border-box;
-  margin-bottom: 16px;
+  width: 100%;
+  margin-top: 16px;
   padding: 8px;
+  background-color: white;
+  color: black;
 
-  background-color: @base;
-  color: white;
+  .row-fluid:first-child {
+    margin-bottom: 8px;
+  }
+
+  .author, .time {
+    font-size: 0.8em;
+  }
 
   & > a {
     position: absolute;
-    top: 0;
     left: 0;
     right: 0;
+    top: 0;
     bottom: 0;
   }
-}
-
-.badge {
-  background-color: fadeout(black, 70%);
 }

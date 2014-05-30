@@ -43,7 +43,7 @@ GetUpdate = ()->
 DidGetDirectMessageData = (data, rawData)->
   directmessage = template "MessageCenter/DirectMessage"
   $(".payload").html directmessage data
-  PositionUnreadIndicator()
+  setTimeout PositionUnreadIndicator, 10
   return
 
 DidGetResponseData = (data, rawData)->

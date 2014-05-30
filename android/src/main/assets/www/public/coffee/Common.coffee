@@ -88,6 +88,8 @@ RequestAjaxWithParam = (options)->
         navigator.notification.alert "加载失败，请重试", (()->
           RequestAjaxWithParam options
           return), "提示", "重试"
+      if options.failCallback?
+        options.failCallback(null, rawData)
       return
     ),
     beforeSend: ((jqXHR, settings)->
@@ -216,5 +218,9 @@ PullToRefresh = ()->
     $(".actionbar .pullbar").width 0
     $(".actionbar .center").removeClass "hide"
     $(".actionbar .loading").addClass "hide"
+
+TimeStamp = ()->
+  date = new Date()
+  return Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds())
 
 # END OF FILE

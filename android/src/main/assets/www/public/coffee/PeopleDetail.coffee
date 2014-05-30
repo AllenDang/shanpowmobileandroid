@@ -12,7 +12,10 @@ DidGetPeopleDetailData = (data, rawData)->
   peopledetail = template "People/Detail"
   $(".spinner").replaceWith peopledetail(data.Data)
 
-  $(".actionbar .message-center").removeClass "hide" if data.Data.IsMySelf
+  if data.Data.IsMySelf
+    $(".actionbar .message-center").removeClass "hide"
+    localStorage.SelfAvatarUrl = data.Data.UserAvatarUrl
+    localStorage.SelfNickname = data.Data.Nickname
 
   $(".actionbar .page-title").text unescape(window.nickname)
   $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2)

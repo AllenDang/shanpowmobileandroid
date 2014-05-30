@@ -49,7 +49,7 @@ DidGetDirectMessageData = function(data, rawData) {
   var directmessage;
   directmessage = template("MessageCenter/DirectMessage");
   $(".payload").html(directmessage(data));
-  PositionUnreadIndicator();
+  setTimeout(PositionUnreadIndicator, 10);
 };
 
 DidGetResponseData = function(data, rawData) {

@@ -16,7 +16,7 @@ $(document).on "deviceready", ()->
 
 DidGetNewestMessageData = (data, rawData)->
   window.conversations = data.Data.Messages if data.Data.Messages?
-  window.oldestId = window.conversations[0].Id
+  window.oldestId = window.conversations[0].Id if window.conversations.length > 0
   window.TotalSum = data.Data.TotalSum
 
   messagesHTML = template "DirectMessage/Messages"
@@ -33,25 +33,29 @@ DidGetNewestMessageData = (data, rawData)->
       $(this).prop "disabled", true
       window.responseContent = $("#replyInput").val()
       data = {
+        id: TimeStamp(),
         content: window.responseContent
       }
-      RequestAjax "POST", "/mj/people/conversation/#{window.conversationId}/message/post", data, DidPostMessage, null
+      PostMessage data
 
   $(".loadMore").removeClass("hide").unbind("click").on "click", (event)->
     RequestAjax "GET", "/mj/people/conversation/#{window.conversationId}/message/#{window.oldestId}/before", {}, DidGetPastMessageData, null
     return
 
+  $(".loadMore").addClass("hide") if $(".message").length >= window.TotalSum
+
   return
 
-DidPostMessage = (data, rawData)->
+PostMessage = (data)->
   $("#replyInput").val("").blur().focus()
   $("button").prop("disabled", true)
 
   messageHTML = template "DirectMessage/MineMsg"
   msgData = {
+      Id: data.id,
       Poster: {
-        Nickname: "木一",
-        AvatarUrl: data.Data.AvatarUrl
+        Nickname: localStorage.SelfNickname ? "",
+        AvatarUrl: localStorage.SelfAvatarUrl ? "http://shanpowbookcover.qiniudn.com/user-normal.jpg"
       },
       CreationTime: "1秒",
       Content: window.responseContent,
@@ -59,7 +63,27 @@ DidPostMessage = (data, rawData)->
     }
   $(".messages").append messageHTML(msgData)
 
+  $("##{data.id}").find(".status").removeClass("hide")
+
   window.scrollTo(0, document.body.scrollHeight);
+
+  RequestAjax "POST", "/mj/people/conversation/#{window.conversationId}/message/post", data, DidPostMessage, FailPostMessage, null, null, null, null, false
+  return
+
+DidPostMessage = (data, rawData)->
+  $("##{rawData.Data.id}").find(".status").removeClass().addClass("status glyphicons circle_ok")
+  $("##{rawData.Data.id}").find(".status").animate {opacity: 0}, 1000, (()->
+    $(this).css "opacity", 1
+    $(this).addClass("hide")
+    )
+  return
+
+FailPostMessage = (data, rawData)->
+  $("##{rawData.Data.id}").find(".status").removeClass().addClass("status glyphicons circle_exclamation_mark")
+  $("##{rawData.Data.id}").find(".status").unbind("click").on "click", (event)->
+    $("##{rawData.Data.id}").remove()
+    PostMessage rawData.Data
+    return
   return
 
 DidGetPastMessageData = (data, rawData)->
