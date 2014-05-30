@@ -4,7 +4,7 @@
   position: relative;
   box-sizing: border-box;
   width: 100%;
-  padding: 4px;
+  padding: 4px 8px;
   font-weight: normal;
   border-bottom: none;
   
@@ -38,6 +38,13 @@
       border-color: darken(@base, 20%) transparent transparent darken(@base, 20%);
       font-size: 0;
     }
+  }
+
+  .icon {
+    float: left;
+    margin: 0 8px 0 4px;
+    width: 20px;
+    height: 20px;
   }
 }
 
@@ -141,6 +148,10 @@
 
 .hot_ranking {
   background-color: white;
+
+  .title .icon {
+    content: url(../img/Index_Billboard.png);
+  }
 }
 
 .ranking {
@@ -273,6 +284,10 @@
 .wizard {
   background-color: white;
 
+  .title .icon {
+    content: url(../img/Index_Wizard.png);
+  }
+
   .tip {
     font-size: 18px;
     margin: 20px 16px 20px 0;
@@ -332,8 +347,8 @@
 .reviews {
   background-color: white;
 
-  .title {
-    margin-bottom: 8px;
+  .title .icon{
+    content: url(../img/Index_Review.png);
   }
 }
 
