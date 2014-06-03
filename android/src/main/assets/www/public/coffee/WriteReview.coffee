@@ -83,10 +83,15 @@ SaveReadingStatus = (statusCode, event)->
   return
 
 DidSaveReadingStatus = (data, rawData)->
-  $(".button.post").text "发布"
-  $(".button.post").attr "disabled", false
+  EnableButton()
   navigator.notification.alert "评论已经发布成功！", (->window.history.go(-2)), "", "好的"
   return
 
 DidFailSaveReadingStatus = (data, rawData)->
+  EnableButton()
+  return
+
+EnableButton = ()->
+  $(".button.post").text "发布"
+  $(".button.post").attr "disabled", false
   return
