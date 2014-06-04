@@ -190,15 +190,12 @@ body {
 
     .write {
       margin-top: 8px;
+      margin-right: 8px;
 
-      .left, .right {
-        padding: 4px 16px;
-        background-color: #959798;
+      .button.post {
+        padding: 4px 20px;
+        background-color: @base;
         color: white;
-
-        &.active {
-          background-color: @base;
-        }
       }
     }
   }
@@ -234,11 +231,18 @@ body {
   background-color: @base;
 }
 
-input, textarea, input:focus, textarea:focus {
-  box-shadow: none;
-  transition: none;
-  border-color: #777;
-  outline: none;
+input, textarea, input:focus, textarea:focus, 
+input[type="text"], input[type="password"], input[type="datetime"], 
+input[type="datetime-local"], input[type="date"], input[type="month"], 
+input[type="time"], input[type="week"], input[type="number"], 
+input[type="email"], input[type="url"], input[type="search"], 
+input[type="tel"], input[type="color"] {
+  &, &:focus {
+    box-shadow: none;
+    transition: none;
+    border-color: #777;
+    outline: none;
+  }
 }
 
 .articleItem {

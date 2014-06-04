@@ -56,13 +56,13 @@ SaveReadingStatus = (statusCode, event)->
   PostMarkAjaxRequest "mark", "POST", data, (()->
     DidSaveReadingStatus(statusCode)
     return), (()->
+      EnableButton()
       DidFailSaveReadingStatus()
       return)
   return
 
 DidSaveReadingStatus = (data, rawData)->
-  $(".button.post").text "发布"
-  $(".button.post").attr "disabled", false
+  EnableButton()
   navigator.notification.alert "评论已经发布成功！", (->window.history.back()), "", "好的"
   return
 
@@ -72,6 +72,10 @@ DidFailSaveReadingStatus = (data, rawData)->
 PostMarkAjaxRequest = (command, type, data, successCallback, failCallback)->
   data.isShareToQQ = false
   data.isShareToWeibo = false
-  RequestAjax type, "/book/#{window.bookid}/#{command}", data, DidSaveReadingStatus, DidFailSaveReadingStatus, null
+  RequestAjax type, "/book/#{window.bookid}/#{command}", data, successCallback, failCallback, null
   return
 
+EnableButton = ()->
+  $(".button.post").text "发布"
+  $(".button.post").attr "disabled", false
+  return

@@ -52,8 +52,8 @@ DidGetBookDetailData = function(data, rawData) {
       return $(this).data("score") / 2;
     },
     halfShow: false,
-    starOff: 'http://shanpowbookcover.qiniudn.com/star-off-small.png',
-    starOn: 'http://shanpowbookcover.qiniudn.com/star-on-small.png',
+    starOff: '../public/img/Star_Small_Off_Green.png',
+    starOn: '../public/img/Star_Small_On_Green.png',
     hints: window.scoreHints,
     noRatedMsg: window.scoreNoRatedMsg,
     readOnly: true,

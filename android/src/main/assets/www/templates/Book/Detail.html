@@ -32,7 +32,7 @@
         </a>
       </div>
       <div class="span4 text-center statusAction" data-statuscode="read">
-        <a href="WriteComment.html?bookid={{Book.Id}}&status=read&category={{Book.Category}}&bookcover={{Book.ImageUrl}}&isforman={{Book.ForMan}}&booktitle={{Book.Title}}">
+        <a href="WriteReview.html?bookid={{Book.Id}}&status=read&category={{Book.Category}}&bookcover={{Book.ImageUrl}}&isforman={{Book.ForMan}}&booktitle={{Book.Title}}">
           <div class="read">
             <img src="../public/img/Read{{if UserBookStatus}}{{if UserBookStatus.Status === 4}}_Active{{/if}}{{/if}}.png" alt="" class="pull-left">
             <div class="pull-left" id="read">我读过</div>
@@ -40,7 +40,7 @@
         </a>
       </div>
       <div class="span4 text-center statusAction" data-statuscode="giveup">
-        <a href="WriteComment.html?bookid={{Book.Id}}&status=giveup&category={{Book.Category}}&bookcover={{Book.ImageUrl}}&isforman={{Book.ForMan}}&booktitle={{Book.Title}}">
+        <a href="WriteReview.html?bookid={{Book.Id}}&status=giveup&category={{Book.Category}}&bookcover={{Book.ImageUrl}}&isforman={{Book.ForMan}}&booktitle={{Book.Title}}">
           <div class="giveup">
             <img src="../public/img/GiveUp{{if UserBookStatus}}{{if UserBookStatus.Status === 3}}_Active{{/if}}{{/if}}.png" alt="" class="pull-left">
             <div class="pull-left" id="giveup">弃读</div>
@@ -113,7 +113,7 @@
         </div>
       </div>
       <div class="span6 text-center write">
-        <a href="WriteComment.html?status=read&bookid={{Book.Id}}&category={{Book.Category}}&bookcover={{Book.ImageUrl}}&isforman={{Book.ForMan}}&booktitle={{Book.Title}}"></a>
+        <a href="WriteReview.html?status=read&bookid={{Book.Id}}&category={{Book.Category}}&bookcover={{Book.ImageUrl}}&isforman={{Book.ForMan}}&booktitle={{Book.Title}}"></a>
         <div class="writeComment">
           <img src="../public/img/Pencil.png" alt="" class="pull-left">
           <div class="pull-left">写评论</div>
@@ -132,7 +132,7 @@
   <div class="section row-fluid comments">
     <div class="row-fluid title">
       <span>短评（{{Book.CommentSum}}）</span>
-      <span class="more pull-right"><a href="MoreComments.html?bookid={{Book.Id}}">更多&nbsp;&nbsp;&nbsp;&nbsp;></a></span>
+      <span class="more pull-right"><a href="MoreComments.html?bookid={{Book.Id}}">更多&nbsp;...</a></span>
     </div>
     <div class="row-fluid">
       {{each Book.Comments}}
@@ -161,7 +161,7 @@
   <div class="section row-fluid reviews">
     <div class="row-fluid title">
       <span>书评（{{Book.ReviewSum}}）</span>
-      <span class="more pull-right"><a href="MoreReviews.html?bookid={{Book.Id}}">更多&nbsp;&nbsp;&nbsp;&nbsp;></a></span>
+      <span class="more pull-right"><a href="MoreReviews.html?bookid={{Book.Id}}">更多&nbsp;...</a></span>
     </div>
     <div class="row-fluid">
       {{each Book.Reviews}}

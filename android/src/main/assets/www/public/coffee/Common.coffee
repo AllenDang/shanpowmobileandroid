@@ -194,25 +194,24 @@ PullToRefresh = ()->
   $("body").unbind("touchmove").on "touchmove", (event)->
     window.lastY = event.originalEvent.touches[0].screenY
 
-    if (window.lastY - window.startY) > 60
-      window.needRefresh = true
-    else
-      window.needRefresh = false
-
     if $("body").scrollTop() <= 0
       return if window.lastY - window.startY < 0
       event.preventDefault()
       if window.zeroY?
-        $(".actionbar .pullbar").width $(window).width() * ($(window).width() / 60) * (window.lastY - window.zeroY) / $(window).height()
+        $(".actionbar .pullbar").width $(window).width() * (window.lastY - window.zeroY) / ($(window).height() * 0.4)
         $(".actionbar .pullbar").css "left", ($(window).width() - $(".actionbar .pullbar").width()) / 2
         $(".actionbar .center").addClass "hide"
         $(".actionbar .loading").removeClass "hide"
         $(".actionbar").find(".loading").css("left", ($(window).width() - $(".actionbar .center").find(".pullingText").width()) / 2)
+        if $(".actionbar .pullbar").width() >= $(window).width()
+          $(".actionbar .loading .pullingText").text "松开以刷新"
+        else
+          $(".actionbar .loading .pullingText").text "下拉刷新..."
       else
         window.zeroY = window.lastY
 
   $("body").unbind("touchend").on "touchend", (event)->
-    if window.needRefresh is true and $(".actionbar .pullbar").width() >= $(window).width()
+    if $(".actionbar .pullbar").width() >= $(window).width()
       location.reload()
     $(".actionbar .pullbar").width 0
     $(".actionbar .center").removeClass "hide"
