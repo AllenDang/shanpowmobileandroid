@@ -118,7 +118,7 @@
       }
 
       .ratingStar {
-        margin: 0 auto;
+        margin: 8px auto;
       }
 
       span {
@@ -129,6 +129,10 @@
           font-size: 18px;
           margin-bottom: 8px;
         }
+
+        &.reading {
+          margin-top: 12px;
+        }
       }
 
       &:before {
@@ -136,7 +140,7 @@
         content: "";
         display: block;
         float: left;
-        height: 50px;
+        height: 66px;
         margin-left: -2px;
         margin-top: 4px;
         width: 1px;
@@ -548,15 +552,10 @@
     }
   }
 
-  .timeStamp {
-    width: 46%;
-    color: rgba(0, 0, 0, 0.4);
-  }
-
   .reviewTitle {
     font-size: 1.05em;
     font-weight: bold;
-    width: 54%;
+    width: 100%;
   }
 }
 
@@ -564,4 +563,8 @@
   a {
     color: white;
   }
+}
+
+.reviewScore, .cmtScore {
+  margin-top: -2px;
 }

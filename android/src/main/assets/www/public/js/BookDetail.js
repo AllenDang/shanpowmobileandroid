@@ -52,21 +52,21 @@ DidGetBookDetailData = function(data, rawData) {
       return $(this).data("score") / 2;
     },
     halfShow: false,
-    starOff: '../public/img/Star_Small_Off_Green.png',
-    starOn: '../public/img/Star_Small_On_Green.png',
+    starOff: '../public/img/Star_Big_Off_Green.png',
+    starOn: '../public/img/Star_Big_On_Green.png',
     hints: window.scoreHints,
     noRatedMsg: window.scoreNoRatedMsg,
     readOnly: true,
     size: 10,
-    width: 70
+    width: false
   });
   $(".cmtScore").raty({
     score: function() {
       return $(this).data("score");
     },
     halfShow: false,
-    starOff: 'http://shanpowbookcover.qiniudn.com/star-off-small.png',
-    starOn: 'http://shanpowbookcover.qiniudn.com/star-on-small.png',
+    starOff: '../public/img/Star_Small_Off_White.png',
+    starOn: '../public/img/Star_Small_On_White.png',
     hints: window.scoreHints,
     noRatedMsg: window.scoreNoRatedMsg,
     readOnly: true,
@@ -78,8 +78,8 @@ DidGetBookDetailData = function(data, rawData) {
       return $(this).data("score");
     },
     halfShow: false,
-    starOff: 'http://shanpowbookcover.qiniudn.com/star-off-small.png',
-    starOn: 'http://shanpowbookcover.qiniudn.com/star-on-small.png',
+    starOff: '../public/img/Star_Small_Off_White.png',
+    starOn: '../public/img/Star_Small_On_White.png',
     hints: window.scoreHints,
     noRatedMsg: window.scoreNoRatedMsg,
     readOnly: true,
