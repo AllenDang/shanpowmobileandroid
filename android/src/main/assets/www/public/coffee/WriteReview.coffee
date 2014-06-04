@@ -73,12 +73,7 @@ WriteComment = (statusCode)->
     score: parseInt($(".ratingStar").data("score") ? 0),
     content: $("textarea").val() ? ""
   }
-  PostMarkAjaxRequest "mark", "POST", data, (()->
-    DidSaveReadingStatus(statusCode)
-    return), (()->
-      EnableButton()
-      DidFailSaveReadingStatus()
-      return)
+  PostMarkAjaxRequest "mark", "POST", data, DidSaveReadingStatus, DidFailSaveReadingStatus
   return
 
 WriteReview = (statusCode)->
@@ -99,11 +94,12 @@ WriteReview = (statusCode)->
 
 DidSaveReadingStatus = (data, rawData)->
   EnableButton()
-  navigator.notification.alert "评论已经发布成功！", (->window.history.back()), "", "好的"
+  navigator.notification.alert "评论已经发布成功！", (->window.history.back()), "成功", "好的"
   return
 
 DidFailSaveReadingStatus = (data, rawData)->
   EnableButton()
+  navigator.notification.alert data.ErrorMsg, null, "失败", "好的"
   return
 
 PostMarkAjaxRequest = (command, type, data, successCallback, failCallback)->

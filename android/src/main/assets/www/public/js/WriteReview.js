@@ -75,12 +75,7 @@ WriteComment = function(statusCode) {
     score: parseInt((_ref = $(".ratingStar").data("score")) != null ? _ref : 0),
     content: (_ref1 = $("textarea").val()) != null ? _ref1 : ""
   };
-  PostMarkAjaxRequest("mark", "POST", data, (function() {
-    DidSaveReadingStatus(statusCode);
-  }), (function() {
-    EnableButton();
-    DidFailSaveReadingStatus();
-  }));
+  PostMarkAjaxRequest("mark", "POST", data, DidSaveReadingStatus, DidFailSaveReadingStatus);
 };
 
 WriteReview = function(statusCode) {
@@ -104,11 +99,12 @@ DidSaveReadingStatus = function(data, rawData) {
   EnableButton();
   navigator.notification.alert("评论已经发布成功！", (function() {
     return window.history.back();
-  }), "", "好的");
+  }), "成功", "好的");
 };
 
 DidFailSaveReadingStatus = function(data, rawData) {
   EnableButton();
+  navigator.notification.alert(data.ErrorMsg, null, "失败", "好的");
 };
 
 PostMarkAjaxRequest = function(command, type, data, successCallback, failCallback) {
