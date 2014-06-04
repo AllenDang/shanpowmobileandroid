@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="欢迎爬上山坡，再填写一下Email地址就行了"
-        android:id="@+id/textView"
+        android:id="@+id/txtv_chaptername"
         android:singleLine="false" />
 
     <EditText
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="性别将影响推荐书籍的准确性，慎重选择哦"
-        android:id="@+id/textView2"
+        android:id="@+id/txtv_host"
         android:layout_marginTop="10dp" />
 
     <RadioGroup
