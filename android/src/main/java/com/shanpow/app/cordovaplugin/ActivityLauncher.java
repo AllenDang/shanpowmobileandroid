@@ -44,6 +44,7 @@ public class ActivityLauncher extends CordovaPlugin {
         Intent intent = new Intent(context, BookSourcesActivity_.class);
         intent.putExtra(Constant.EXTRA_BOOKTITLE, bookTitle);
         intent.putExtra(Constant.EXTRA_BOOKAUTHOR, bookAuthor);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 
