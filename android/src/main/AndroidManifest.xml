@@ -17,14 +17,14 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name="com.shanpow.app.android.MainApp"
+        android:name=".MainApp"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@drawable/ic_app"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat">
         <activity
-            android:name="com.shanpow.app.android.MainActivity_"
+            android:name=".MainActivity_"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Black.NoTitleBar">
@@ -35,10 +35,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.shanpow.app.android.SlidingMenuBaseActivity_"
+            android:name=".SlidingMenuBaseActivity_"
             android:label="@string/title_activity_sliding_menu_base" />
         <activity
-            android:name="com.shanpow.app.android.LoginActivity_"
+            android:name=".LoginActivity_"
             android:label="@string/title_activity_login" />
 
         <service
@@ -57,7 +57,7 @@
             android:value="Default" />
 
         <activity
-            android:name="com.shanpow.app.android.ReaderActivity_"
+            android:name=".ReaderActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_reader"
             android:theme="@style/FullscreenTheme" />
@@ -79,8 +79,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.shanpow.app.android.QQRegisterActivity_"
+            android:name=".QQRegisterActivity_"
             android:label="@string/title_activity_qqregister" />
+        <activity
+            android:name=".BookSourcesActivity_"
+            android:label="@string/title_activity_book_sources" />
     </application>
 
 </manifest>

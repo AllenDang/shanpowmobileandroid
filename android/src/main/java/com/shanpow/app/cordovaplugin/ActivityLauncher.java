@@ -3,8 +3,10 @@ package com.shanpow.app.cordovaplugin;
 import android.content.Context;
 import android.content.Intent;
 
+import com.shanpow.app.android.BookSourcesActivity_;
 import com.shanpow.app.android.LoginActivity_;
 import com.shanpow.app.android.MainActivity_;
+import com.shanpow.app.util.Constant;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
@@ -21,6 +23,8 @@ public class ActivityLauncher extends CordovaPlugin {
             login();
         } else if (action.equals("toggleSlidingMenu")) {
             toggleSlidingMenu();
+        } else if (action.equals("bookSources")) {
+            bookSources(args.getString(0), args.getString(1));
         } else {
             return false;
         }
@@ -32,6 +36,14 @@ public class ActivityLauncher extends CordovaPlugin {
         Context context = cordova.getActivity().getApplicationContext();
         Intent intent = new Intent(context, LoginActivity_.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    public void bookSources(String bookTitle, String bookAuthor) {
+        Context context = cordova.getActivity().getApplicationContext();
+        Intent intent = new Intent(context, BookSourcesActivity_.class);
+        intent.putExtra(Constant.EXTRA_BOOKTITLE, bookTitle);
+        intent.putExtra(Constant.EXTRA_BOOKAUTHOR, bookAuthor);
         context.startActivity(intent);
     }
 
