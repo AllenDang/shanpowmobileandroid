@@ -78,6 +78,10 @@ DidGetBookDetailData = (data, rawData)->
     width: 70
   }
 
+  $(".readButton").unbind("click").click (event)->
+    cordova.exec null, null, "ActivityLauncher", "bookSources", [data.Data.Book.Title, data.Data.Book.Author]
+    return
+
   return
 
 FailGetBookDetailData = (data, rawData)->

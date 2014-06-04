@@ -86,6 +86,9 @@ DidGetBookDetailData = function(data, rawData) {
     size: 10,
     width: 70
   });
+  $(".readButton").unbind("click").click(function(event) {
+    cordova.exec(null, null, "ActivityLauncher", "bookSources", [data.Data.Book.Title, data.Data.Book.Author]);
+  });
 };
 
 FailGetBookDetailData = function(data, rawData) {};
