@@ -125,7 +125,15 @@
     </div>
   </div>
   {{/if}}
+  {{if IsLogin === true}}
+  <div class="readButton text-center login">
+    <span class="before"></span>
+    <span>开始阅读</span>
+    <span class="after"></span>
+  </div>
+  {{else}}
   <div class="readButton text-center">开始阅读</div>
+  {{/if}}
   <div class="section row-fluid summary">
     <div class="row-fluid title">内容简介</div>
     <div class="row-fluid summaryContent">{{Book.Summary}}</div>
