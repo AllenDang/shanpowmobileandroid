@@ -7,7 +7,7 @@ $(document).on "deviceready", ()->
   $(".actionbar .write").removeClass "hide"
   $(".actionbar .write .left").removeClass "active"
   $(".actionbar .write .right").addClass "active"
-  $(".actionbar .page-title").text ""
+  $(".actionbar .page-title").text "写书评"
   $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2)
 
   window.status = getQueryString "status"
@@ -17,19 +17,11 @@ $(document).on "deviceready", ()->
   window.isforman = getQueryString "isforman"
   window.booktitle = unescape(getQueryString("booktitle"))
 
-  $("textarea").height $(window).height() - 310
+  $("textarea").height $(window).height() - $("input").height() - $(".actionbar").height() - 128
 
   $(".button.post").unbind("tap").on "tap", (event)->
     return if $(this).attr("disabled")
-    if $("input.title").val() is "" or $("input.title").val().length <= 0
-      navigator.notification.alert "请输入评论标题", null
-    else
-      SaveReadingStatus window.status, event
-    return
-
-  $(".actionbar .write").unbind("click").on "click", (event)->
-    longLocation = location.href
-    location.href = longLocation.replace "Review", "Comment"
+    SaveReadingStatus window.status, event
     return
 
   RequestAjax "GET", "/mj/review/write/#{window.bookid}", {}, DidGetComment, null, null
@@ -55,8 +47,8 @@ DidGetComment = (data, rawData)->
   $(".ratingStar").raty {
     score: -> return $(this).data("score"),
     halfShow: false,
-    starOff: 'http://shanpowbookcover.qiniudn.com/star-off.png',
-    starOn: 'http://shanpowbookcover.qiniudn.com/star-on.png',
+    starOff: '../public/img/Star_Big_Off_Green.png',
+    starOn: '../public/img/Star_Big_On_Green.png',
     size: 16,
     click: ((score, evt)->
         $(this).data "score", score
@@ -65,8 +57,31 @@ DidGetComment = (data, rawData)->
   return
 
 SaveReadingStatus = (statusCode, event)->
-  $(event?.target).text "正在发布..."
+  $(event?.target).text "正在发送..."
   $(event?.target).attr "disabled", true
+
+  if $("input.title").val() is "" or $("input.title").val().length <= 0
+    WriteComment statusCode
+  else
+    WriteReview statusCode
+  
+  return
+
+WriteComment = (statusCode)->
+  data = {
+    markType: statusCode,
+    score: parseInt($(".ratingStar").data("score") ? 0),
+    content: $("textarea").val() ? ""
+  }
+  PostMarkAjaxRequest "mark", "POST", data, (()->
+    DidSaveReadingStatus(statusCode)
+    return), (()->
+      EnableButton()
+      DidFailSaveReadingStatus()
+      return)
+  return
+
+WriteReview = (statusCode)->
   data = {
     reviewTitle: $("input.title").val() ? "",
     reviewContent: $("textarea").val() ? "",
@@ -84,14 +99,20 @@ SaveReadingStatus = (statusCode, event)->
 
 DidSaveReadingStatus = (data, rawData)->
   EnableButton()
-  navigator.notification.alert "评论已经发布成功！", (->window.history.go(-2)), "", "好的"
+  navigator.notification.alert "评论已经发布成功！", (->window.history.back()), "", "好的"
   return
 
 DidFailSaveReadingStatus = (data, rawData)->
   EnableButton()
   return
 
+PostMarkAjaxRequest = (command, type, data, successCallback, failCallback)->
+  data.isShareToQQ = false
+  data.isShareToWeibo = false
+  RequestAjax type, "/book/#{window.bookid}/#{command}", data, successCallback, failCallback, null
+  return
+
 EnableButton = ()->
-  $(".button.post").text "发布"
+  $(".button.post").text "发送"
   $(".button.post").attr "disabled", false
   return
