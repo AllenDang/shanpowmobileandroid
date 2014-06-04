@@ -232,29 +232,29 @@ PullToRefresh = function() {
   });
   $("body").unbind("touchmove").on("touchmove", function(event) {
     window.lastY = event.originalEvent.touches[0].screenY;
-    if ((window.lastY - window.startY) > 60) {
-      window.needRefresh = true;
-    } else {
-      window.needRefresh = false;
-    }
     if ($("body").scrollTop() <= 0) {
       if (window.lastY - window.startY < 0) {
         return;
       }
       event.preventDefault();
       if (window.zeroY != null) {
-        $(".actionbar .pullbar").width($(window).width() * ($(window).width() / 60) * (window.lastY - window.zeroY) / $(window).height());
+        $(".actionbar .pullbar").width($(window).width() * (window.lastY - window.zeroY) / ($(window).height() * 0.4));
         $(".actionbar .pullbar").css("left", ($(window).width() - $(".actionbar .pullbar").width()) / 2);
         $(".actionbar .center").addClass("hide");
         $(".actionbar .loading").removeClass("hide");
-        return $(".actionbar").find(".loading").css("left", ($(window).width() - $(".actionbar .center").find(".pullingText").width()) / 2);
+        $(".actionbar").find(".loading").css("left", ($(window).width() - $(".actionbar .center").find(".pullingText").width()) / 2);
+        if ($(".actionbar .pullbar").width() >= $(window).width()) {
+          return $(".actionbar .loading .pullingText").text("松开以刷新");
+        } else {
+          return $(".actionbar .loading .pullingText").text("下拉刷新...");
+        }
       } else {
         return window.zeroY = window.lastY;
       }
     }
   });
   return $("body").unbind("touchend").on("touchend", function(event) {
-    if (window.needRefresh === true && $(".actionbar .pullbar").width() >= $(window).width()) {
+    if ($(".actionbar .pullbar").width() >= $(window).width()) {
       location.reload();
     }
     $(".actionbar .pullbar").width(0);
