@@ -268,3 +268,23 @@ TimeStamp = function() {
   date = new Date();
   return Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds());
 };
+
+$.fn.MoveToEnd = function() {
+  var len, obj, sel;
+  obj = $(this)[0];
+  obj.focus();
+  len = 0;
+  if (obj.value != null) {
+    len = obj.value.length;
+  } else {
+    len = obj.textContent.length;
+  }
+  if (document.selection) {
+    sel = obj.createTextRange();
+    sel.moveStart('character', len);
+    sel.collapse();
+    sel.select();
+  } else if (typeof obj.selectionStart === 'number' && typeof obj.selectionEnd === 'number') {
+    obj.selectionStart = obj.selectionEnd = len;
+  }
+};
