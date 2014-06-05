@@ -1,15 +1,16 @@
-<div class="response row-fluid" id="{{Id}}">
-  <div class="avatar pull-left span2">
-    <a href="../People/Detail.html?nickname={{Author.Nickname}}"><img src="{{Author.AvatarUrl}}" alt="" class="img-circle"></a>
-  </div>
-  <div class="responseContent pull-left span10">
-    <div class="author row-fluid">
-      <a href="../People/Detail.html?nickname={{Author.Nickname}}" class="pull-left"><strong>{{Author.Nickname}}</strong></a>说：
+<div class="responseItem row-fluid" id="{{Id}}">
+  <div class="author row-fluid">
+    <div class="avatar pull-left span2">
+      <a href="../People/Detail.html?nickname={{Author.Nickname}}"><img src="{{Author.AvatarUrl}}" alt="" class="img-circle"></a>
+    </div>
+    <div class="name span10">
+      <a href="../People/Detail.html?nickname={{Author.Nickname}}" class="pull-left">{{Author.Nickname}}</a>说：
       <a href="#" class="responseBtn pull-right">回复</a>
     </div>
-    <div class="mega row-fluid">
-      <div class="responseText">{{Content}}</div>
-      <div class="timestamp pull-right">{{CreationTime}}前</div>
-    </div>
+  </div>
+  <div class="responseContent row-fluid">
+    <div class="responseText">{{Content}}</div>
+    <div class="timestamp pull-right">{{CreationTime}}前</div>
+    <div class="status loading hide pull-right"></div>
   </div>
 </div>

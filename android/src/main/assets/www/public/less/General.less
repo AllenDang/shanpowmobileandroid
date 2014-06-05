@@ -206,6 +206,54 @@ body {
   margin-top: @actionbarheight;
 }
 
+.responseItem {
+  position: relative;
+  box-sizing: border-box;
+  margin-bottom: 16px;
+  padding: 8px;
+  background-color: @base;
+  color: white;
+
+  .timestamp {
+    color: black;
+    opacity: 0.3;
+  }
+
+  .name {
+    line-height: 46px;
+
+    a {
+      color: white;
+      margin-right: 4px;
+      line-height: 46px;
+    }
+  }
+
+  .responseContent {
+    margin-top: 8px;
+  }
+
+  .status {
+    margin-right: -15px;
+    margin-bottom: 20px;
+
+    &.loading {
+      content: url(../img/loading.gif);
+      margin-right: 12px;
+      margin-bottom: 7px;
+      margin-top: 8px;
+    }
+
+    &.circle_exclamation_mark:before {
+      color: @femalebase;
+    }
+
+    &.circle_ok:before {
+      color: white;
+    }
+  }
+}
+
 .postResponse {
   #submit {
     height: 48px;
