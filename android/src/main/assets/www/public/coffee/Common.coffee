@@ -78,7 +78,7 @@ RequestAjaxWithParam = (options)->
         if options.failCallback?
           options.failCallback(data, rawData)
         else
-          navigator.notification.alert data.ErrorMsg ? "网络发生故障，请稍后重新尝试", null, "错误"
+          navigator.notification.alert data.ErrorMsg ? "网络发生故障，您可以下拉刷新页面以重试", null, "错误"
       return
     ),
     dataType: "json",

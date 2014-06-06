@@ -105,7 +105,7 @@ RequestAjaxWithParam = function(options) {
         if (options.failCallback != null) {
           options.failCallback(data, rawData);
         } else {
-          navigator.notification.alert((_ref4 = data.ErrorMsg) != null ? _ref4 : "网络发生故障，请稍后重新尝试", null, "错误");
+          navigator.notification.alert((_ref4 = data.ErrorMsg) != null ? _ref4 : "网络发生故障，您可以下拉刷新页面以重试", null, "错误");
         }
       }
     }),
