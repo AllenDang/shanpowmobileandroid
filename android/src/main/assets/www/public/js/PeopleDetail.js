@@ -19,6 +19,8 @@ DidGetPeopleDetailData = function(data, rawData) {
     $(".actionbar .message-center").removeClass("hide");
     localStorage.SelfAvatarUrl = data.Data.UserAvatarUrl;
     localStorage.SelfNickname = data.Data.Nickname;
+  } else {
+    $(".actionbar .follow").removeClass("hide");
   }
   $(".actionbar .page-title").text(unescape(window.nickname));
   $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
@@ -29,6 +31,9 @@ DidGetPeopleDetailData = function(data, rawData) {
     RequestAjax("POST", "/mj/people/conversation/create", {
       name: unescape(window.nickname)
     }, DidCreateConversation, null);
+  });
+  $(".actionbar .follow").unbind("click").click(function(event) {
+    RequestAjax("POST", "/people/" + data.Data.Nickname + "/follow", {}, null, null);
   });
 };
 
