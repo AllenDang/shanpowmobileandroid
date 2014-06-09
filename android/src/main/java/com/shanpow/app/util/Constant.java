@@ -22,4 +22,7 @@ public final class Constant {
 
     //Tencent AppId
     public final static String TENCENT_APPID = "100511288";
+
+    //MemoryCache key
+    public final static String MK_UNREADCOUNT = "MK_UNREAD_NOTIFICATION_COUNT";
 }

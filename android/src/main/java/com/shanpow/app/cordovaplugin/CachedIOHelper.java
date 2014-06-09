@@ -31,6 +31,10 @@ public class CachedIOHelper extends CordovaPlugin {
             String key = args.getString(0);
             remove(key);
             callbackContext.success();
+        } else if (action.equals("getInt") && args.length() == 1) {
+            String key = args.getString(0);
+            int result = getInt(key);
+            callbackContext.success(result);
         } else {
             return false;
         }
@@ -40,6 +44,10 @@ public class CachedIOHelper extends CordovaPlugin {
 
     public JSONObject get(String key) {
         return MemoryCache.getInstance().get(key);
+    }
+
+    public int getInt(String key) {
+        return MemoryCache.getInstance().getInt(key);
     }
 
     public void set(String key, JSONObject obj) {
