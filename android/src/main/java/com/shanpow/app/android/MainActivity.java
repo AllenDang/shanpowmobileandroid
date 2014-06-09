@@ -35,19 +35,11 @@ public class MainActivity extends SlidingMenuBaseActivity {
 
     @AfterViews
     void afterViews() {
-        //设置UnReadNotificationCount为0
-        try {
-            JSONObject obj = new JSONObject();
-            obj.put(Constant.MK_UNREADCOUNT, 0);
-            MemoryCache.getInstance().set(Constant.MK_UNREADCOUNT, obj);
-        } catch (Exception e) {
-            //Nothing to do.
-        }
-
         //每30秒获取一次是否有新的通知消息
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
+                //如果已登录并且网络连接有效
                 if (pref.currentUserInJsonFormat().exists() && Util.isNetworkAvailable()) {
                     try {
                         IntResult result = restClient.GetUnreadNotificationCount();
@@ -62,6 +54,9 @@ public class MainActivity extends SlidingMenuBaseActivity {
                 }
             }
         };
+
+        //启动后主动检查一次
+        task.run();
 
         mTimer = new Timer();
         mTimer.schedule(task, 30000);
