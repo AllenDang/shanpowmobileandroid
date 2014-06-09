@@ -18,7 +18,7 @@ public class CachedIOHelper extends CordovaPlugin {
             String key = args.getString(0);
             JSONObject obj = get(key);
             if (obj == null) {
-                callbackContext.success();
+                callbackContext.error(0);
             } else {
                 callbackContext.success(obj);
             }
