@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.webkit.CookieSyncManager;
 
 import com.shanpow.app.entity.IntResult;
-import com.shanpow.app.service.ShanpowRestClient;
-import com.shanpow.app.util.AppPref_;
 import com.shanpow.app.util.Constant;
 import com.shanpow.app.util.MemoryCache;
 import com.shanpow.app.util.Util;
@@ -14,8 +12,6 @@ import com.umeng.update.UmengUpdateAgent;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.rest.RestService;
-import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.apache.cordova.Config;
 import org.json.JSONObject;
 
@@ -26,12 +22,6 @@ import java.util.TimerTask;
 public class MainActivity extends SlidingMenuBaseActivity {
 
     private Timer mTimer;
-
-    @RestService
-    ShanpowRestClient restClient;
-
-    @Pref
-    AppPref_ pref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,8 +35,6 @@ public class MainActivity extends SlidingMenuBaseActivity {
 
     @AfterViews
     void afterViews() {
-        restClient.setCookie(Constant.CSRF_TOKEN, pref.csrfToken().get());
-
         //设置UnReadNotificationCount为0
         try {
             JSONObject obj = new JSONObject();
@@ -60,7 +48,7 @@ public class MainActivity extends SlidingMenuBaseActivity {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (Util.isNetworkAvailable()) {
+                if (pref.currentUserInJsonFormat().exists() && Util.isNetworkAvailable()) {
                     try {
                         IntResult result = restClient.GetUnreadNotificationCount();
                         if (result != null && result.Result) {
