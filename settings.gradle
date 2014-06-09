@@ -1,3 +1,2 @@
-include ':android'
-include ':libraries:SlidingMenu', ':App'
-include ':libraries:PullToRefresh', ':App'
+include ':android', ':SlidingMenu'
+project(":SlidingMenu").projectDir = new File('./libraries/SlidingMenu')

@@ -30,7 +30,6 @@
             android:theme="@android:style/Theme.Black.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -56,11 +55,6 @@
             android:name="UMENG_CHANNEL"
             android:value="Default" />
 
-        <activity
-            android:name=".ReaderActivity_"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_reader"
-            android:theme="@style/FullscreenTheme" />
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
             android:screenOrientation="portrait"
