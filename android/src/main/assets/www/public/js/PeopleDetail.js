@@ -35,6 +35,13 @@ DidGetPeopleDetailData = function(data, rawData) {
   $(".actionbar .follow").unbind("click").click(function(event) {
     RequestAjax("POST", "/people/" + data.Data.Nickname + "/follow", {}, null, null);
   });
+  $(document).unbind("didGetUnreadCount").on("didGetUnreadCount", function() {
+    if (parseInt(localStorage.getItem("unreadMsgCount")) > 0) {
+      $(".actionbar .message-center").find("span.badge").text(localStorage.getItem("unreadMsgCount"));
+    } else {
+      $(".actionbar .message-center").find("span.badge").text("");
+    }
+  });
 };
 
 FailGetPeopleDetailData = function(data, rawData) {};

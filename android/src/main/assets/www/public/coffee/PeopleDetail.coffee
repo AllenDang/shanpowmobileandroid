@@ -33,6 +33,13 @@ DidGetPeopleDetailData = (data, rawData)->
   $(".actionbar .follow").unbind("click").click (event)->
     RequestAjax "POST", "/people/#{data.Data.Nickname}/follow", {}, null, null
     return
+
+  $(document).unbind("didGetUnreadCount").on "didGetUnreadCount", ()->
+    if parseInt(localStorage.getItem("unreadMsgCount")) > 0
+      $(".actionbar .message-center").find("span.badge").text localStorage.getItem("unreadMsgCount")
+    else
+      $(".actionbar .message-center").find("span.badge").text ""
+    return
   return
 
 FailGetPeopleDetailData = (data, rawData)->

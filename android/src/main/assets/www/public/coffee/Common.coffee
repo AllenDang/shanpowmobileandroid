@@ -240,6 +240,7 @@ GetUnreadMessageCount = ()->
 
 DidGetUnreadCount = (data, rawData)->
   localStorage.setItem("unreadMsgCount", "#{data.Data}")
+  $(document).trigger "didGetUnreadCount"
   return
 
 $(document).on "deviceready", ()->

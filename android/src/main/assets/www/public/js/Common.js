@@ -293,6 +293,7 @@ GetUnreadMessageCount = function() {
 
 DidGetUnreadCount = function(data, rawData) {
   localStorage.setItem("unreadMsgCount", "" + data.Data);
+  $(document).trigger("didGetUnreadCount");
 };
 
 $(document).on("deviceready", function() {
