@@ -17,6 +17,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.rest.RestService;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.apache.cordova.Config;
+import org.json.JSONObject;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -47,7 +48,13 @@ public class MainActivity extends SlidingMenuBaseActivity {
         restClient.setCookie(Constant.CSRF_TOKEN, pref.csrfToken().get());
 
         //设置UnReadNotificationCount为0
-        MemoryCache.getInstance().setInt(Constant.MK_UNREADCOUNT, 0);
+        try {
+            JSONObject obj = new JSONObject();
+            obj.put(Constant.MK_UNREADCOUNT, 0);
+            MemoryCache.getInstance().set(Constant.MK_UNREADCOUNT, obj);
+        } catch (Exception e) {
+            //Nothing to do.
+        }
 
         //每30秒获取一次是否有新的通知消息
         TimerTask task = new TimerTask() {
@@ -57,7 +64,9 @@ public class MainActivity extends SlidingMenuBaseActivity {
                     try {
                         IntResult result = restClient.GetUnreadNotificationCount();
                         if (result != null && result.Result) {
-                            MemoryCache.getInstance().setInt(Constant.MK_UNREADCOUNT, result.Data);
+                            JSONObject obj = new JSONObject();
+                            obj.put(Constant.MK_UNREADCOUNT, result.Data);
+                            MemoryCache.getInstance().set(Constant.MK_UNREADCOUNT, obj);
                         }
                     } catch (Exception e) {
                         //Nothing to do.

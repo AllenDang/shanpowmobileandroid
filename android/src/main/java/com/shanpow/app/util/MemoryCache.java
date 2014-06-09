@@ -13,11 +13,8 @@ public class MemoryCache {
 
     private static HashMap<String, JSONObject> mObjMap;
 
-    private static HashMap<String, Integer> mIntMap;
-
     private MemoryCache() {
         mObjMap = new HashMap<String, JSONObject>();
-        mIntMap = new HashMap<String, Integer>();
     }
 
     public static MemoryCache getInstance() {
@@ -34,19 +31,8 @@ public class MemoryCache {
         return null;
     }
 
-    public int getInt(String key) {
-        if (mIntMap.containsKey(key)) {
-            return mIntMap.get(key);
-        }
-        return 0;
-    }
-
     public void set(String key, JSONObject obj) {
         mObjMap.put(key, obj);
-    }
-
-    public void setInt(String key, int value) {
-        mIntMap.put(key, value);
     }
 
     public void remove(String key) {
@@ -55,6 +41,5 @@ public class MemoryCache {
 
     public void clear() {
         mObjMap.clear();
-        mIntMap.clear();
     }
 }
