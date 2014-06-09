@@ -28,27 +28,27 @@ RequestAjax = (type, url, data, successCallback, failCallback, beforeAction, aft
   }
   if window.localStorage.getItem("token")
     options.data.csrf_token = window.localStorage.getItem("token")
-    RequestAjaxWithParam options
+    RequestDataWithParam options
   else
     GetToken(options)
   
   return
 
 GetToken = (options)->
-  RequestAjaxWithParam {
+  RequestDataWithParam {
       type: "GET",
       url: "/token",
       successCallback: ((resData)->
         window.localStorage.setItem "token", resData.Data
         options.data.csrf_token = resData.Data
-        RequestAjaxWithParam options
+        RequestDataWithParam options
         return
       ),
       failCallback: null
     }
   return
 
-RequestAjaxWithParam = (options)->
+RequestDataWithParam = (options)->
   timeoutInterval = 10000
   shouldSpin = options.shouldSpin ? true
 
@@ -71,6 +71,7 @@ RequestAjaxWithParam = (options)->
     },
     success: ((data)->
       ()->navigator.notification.activityStop()
+      cordova.exec ((data)->console.log(data)), null, "CachedIOHelper", "set", [options.url, data]
       if data.Result is true
         if options.successCallback?
           options.successCallback(data, rawData)
@@ -88,7 +89,7 @@ RequestAjaxWithParam = (options)->
     error: ((jqXHR, textStatus, errorThrown)->
       if options.type is "GET"
         navigator.notification.alert "加载失败，请重试", (()->
-          RequestAjaxWithParam options
+          RequestDataWithParam options
           return), "提示", "重试"
       if options.failCallback?
         options.failCallback(null, rawData)
@@ -235,11 +236,11 @@ $.fn.MoveToEnd = ()->
   return
 
 GetUnreadMessageCount = ()->
-  RequestAjax "GET", "/mj/msgcenter/unreadcnt", {}, DidGetUnreadCount, ((data, rawData)->), null, null, null, null, false
+  cordova.exec DidGetUnreadCount, null, "CachedIOHelper", "get", ["MK_UNREAD_NOTIFICATION_COUNT"]
   return
 
-DidGetUnreadCount = (data, rawData)->
-  localStorage.setItem("unreadMsgCount", "#{data.Data}")
+DidGetUnreadCount = (data)->
+  localStorage.setItem("unreadMsgCount", "#{data.MK_UNREAD_NOTIFICATION_COUNT}")
   $(document).trigger "didGetUnreadCount"
   return
 

@@ -17,43 +17,54 @@ $(document).on "deviceready", ()->
 
         $(".payload").html ""
 
-        switch $(this).data("target")
-          when "directmessage" then GetDirectMessages()
-          when "response" then GetResponses()
-          when "update" then GetUpdate()
+        switch $(this).attr("id")
+          when "directmessage" then SwitchToDirectMessage()
+          when "response" then SwitchToResponse()
+          when "update" then SwitchToUpdate()
 
       return
     return
 
-  GetDirectMessages()
+  GetMessages()
+  window.initClick = true
   return
 
-GetDirectMessages = ()->
+GetMessages = ()->
   RequestAjax "GET", "/mj/people/conversations", {}, DidGetDirectMessageData, null
-  return
-
-GetResponses = ()->
-  RequestAjax "GET", "/mj/msgcenter/response", {}, DidGetResponseData, null
-  return
-
-GetUpdate = ()->
-  RequestAjax "GET", "/mj/msgcenter/update", {}, DidGetUpdateData, null
+  RequestAjax "GET", "/mj/msgcenter/response", {}, DidGetResponseData, null, null, null, null, null, false
+  RequestAjax "GET", "/mj/msgcenter/update", {}, DidGetUpdateData, null, null, null, null, null, false
   return
 
 DidGetDirectMessageData = (data, rawData)->
+  $("#directmessage").find(".newMsgIndicator").removeClass("hide") if parseInt(data.Data.MessagesUnreadSum) > 0
+  window.directMessageData = data
+  SwitchToDirectMessage() if window.initClick
+  return
+
+SwitchToDirectMessage = ()->
   directmessage = template "MessageCenter/DirectMessage"
-  $(".payload").html directmessage data
+  $(".payload").html directmessage window.directMessageData
   setTimeout PositionUnreadIndicator, 10
   return
 
 DidGetResponseData = (data, rawData)->
+  $("#response").find(".newMsgIndicator").removeClass("hide") if parseInt(data.Data.MessagesUnreadSum) > 0
+  window.responseData = data.Data
+  return
+
+SwitchToResponse = ()->
   responses = template "MessageCenter/Response"
-  $(".payload").html responses data
+  $(".payload").html responses window.responseData
   return
 
 DidGetUpdateData = (data, rawData)->
+  $("#update").find(".newMsgIndicator").removeClass("hide") if parseInt(data.Data.MessagesUnreadSum) > 0
+  window.updateData = data.Data
+  return
+
+SwitchToUpdate = ()->
   update = template "MessageCenter/Update"
-  $(".payload").html update data
+  $(".payload").html update window.updateData
   return
 
 PositionUnreadIndicator = ()->
