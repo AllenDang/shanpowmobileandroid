@@ -2,7 +2,6 @@ package com.shanpow.app.android;
 
 import android.os.Bundle;
 import android.webkit.CookieSyncManager;
-import android.webkit.WebSettings;
 
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
@@ -17,13 +16,7 @@ public class MainActivity extends SlidingMenuBaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.init();
-
-
         super.loadUrl(Config.getStartUrl());
-
-        WebSettings settings = this.appView.getSettings();
-        settings.setAllowFileAccess(true);
-        settings.setAppCacheEnabled(true);
 
         MobclickAgent.updateOnlineConfig(this);
         UmengUpdateAgent.update(this);
