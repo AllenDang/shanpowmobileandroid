@@ -12,6 +12,7 @@
   z-index: 1;
 
   .tab {
+    position: relative;
     background-color: white;
     width: 33%;
 
@@ -22,6 +23,21 @@
     &.active {
       background-color: @base;
       color: white;
+
+      .newMsgIndicator {
+        background-color: white;
+      }
+    }
+
+    .newMsgIndicator {
+      position: absolute;
+      top: 50%;
+      margin-top: -4px;
+      height: 8px;
+      width: 8px;
+      right: 30px;
+      background-color: @base;
+      border-radius: 4px;
     }
   }
 }
