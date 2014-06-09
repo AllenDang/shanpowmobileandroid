@@ -241,6 +241,7 @@ GetUnreadMessageCount = ()->
 
 DidGetUnreadCount = (data)->
   localStorage.setItem("unreadMsgCount", "#{data.MK_UNREAD_NOTIFICATION_COUNT}")
+  $(".actionbar .slide-menu").find(".newMsgIndicator").removeClass("hide") if parseInt(data.MK_UNREAD_NOTIFICATION_COUNT) > 0
   $(document).trigger "didGetUnreadCount"
   return
 
