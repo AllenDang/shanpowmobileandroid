@@ -1,6 +1,7 @@
 package com.shanpow.app.service;
 
 import com.shanpow.app.entity.GetCsrfTokenResult;
+import com.shanpow.app.entity.IntResult;
 import com.shanpow.app.entity.LoginResult;
 
 import org.androidannotations.annotations.rest.Get;
@@ -34,6 +35,9 @@ public interface ShanpowRestClient extends RestClientErrorHandling {
 
     @Get("/account/mobilelogout")
     void Logout();
+
+    @Get("/mj/msgcenter/unreadcnt")
+    IntResult GetUnreadNotificationCount();
 
     void setCookie(String name, String value);
 

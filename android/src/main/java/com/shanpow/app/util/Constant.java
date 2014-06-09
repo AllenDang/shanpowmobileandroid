@@ -16,10 +16,12 @@ public final class Constant {
     public final static String URL_ARTICLE_LIST = "file:///android_asset/www/Article/List.html";
 
     //Intent Extra参数
-    public final static String EXTRA_FILEPATH = "EXTRA_FILEPATH";
     public final static String EXTRA_BOOKTITLE = "EXTRA_BOOKTITLE";
     public final static String EXTRA_BOOKAUTHOR = "EXTRA_BOOKAUTHOR";
 
     //Tencent AppId
     public final static String TENCENT_APPID = "100511288";
+
+    //MemoryCache key
+    public final static String MK_UNREADCOUNT = "MK_UNREAD_NOTIFICATION_COUNT";
 }

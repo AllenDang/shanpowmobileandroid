@@ -1,7 +1,11 @@
 package com.shanpow.app.util;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
+import com.shanpow.app.android.MainApp;
 import com.shanpow.app.entity.GetCsrfTokenResult;
 import com.shanpow.app.service.ShanpowRestClient;
 
@@ -24,5 +28,12 @@ public final class Util {
         }
 
         restClient.setCookie(Constant.CSRF_TOKEN, pref.csrfToken().get());
+    }
+
+    public static boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) MainApp.getAppContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }
