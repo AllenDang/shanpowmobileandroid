@@ -51,10 +51,12 @@ GetToken = (options)->
 RequestAjaxWithParam = (options)->
   timeoutInterval = 10000
   shouldSpin = options.shouldSpin ? true
+
   rawData = {
     Path: options.url,
     Data: options.data
   }
+
   $.ajax {
     async: options.async ? true,
     type: options.type ? "GET",
@@ -78,7 +80,7 @@ RequestAjaxWithParam = (options)->
         if options.failCallback?
           options.failCallback(data, rawData)
         else
-          navigator.notification.alert data.ErrorMsg ? "网络发生故障，请稍后重新尝试", null, "错误"
+          navigator.notification.alert data.ErrorMsg ? "网络发生故障，您可以下拉刷新页面以重试", null, "错误"
       return
     ),
     dataType: "json",
@@ -107,24 +109,17 @@ RequestAjaxWithParam = (options)->
   }
   return
 
-$(document).on "deviceready", ()->
-  $(document).on("click tap", ".actionbar .back", null, ()->window.history.back(1))
-
-  $(document).on "backbutton", ()->
-    window.history.back(1)
-    return
-
-  $(document).on "click", ".left-button .slide-menu", null, (()->
-    cordova.exec null, null, "ActivityLauncher", "toggleSlidingMenu", []
-    return)
-
-  PullToRefresh()
-  return
-
 IsUsernameMentioned = (content, username)->
   str = "@#{username}"
   return -1 if not content?
   return content.indexOf str
+
+AddUrlToLocalStorage = (url)->
+  urls = jQuery.parseJSON(localStorage.getItem("urls"))
+  urls = new Array() if not urls?
+  urls.push url
+  localStorage.setItem "urls", JSON.stringify(urls)
+  return
 
 # 文本框根据输入内容自适应高度
 # @author      tang bin
@@ -212,14 +207,15 @@ PullToRefresh = ()->
 
   $("body").unbind("touchend").on "touchend", (event)->
     if $(".actionbar .pullbar").width() >= $(window).width()
-      location.reload()
+      $("body").html ""
+      $(document).trigger("deviceready")
     $(".actionbar .pullbar").width 0
     $(".actionbar .center").removeClass "hide"
     $(".actionbar .loading").addClass "hide"
 
 TimeStamp = ()->
   date = new Date()
-  return Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds())
+  return Number(date)
 
 $.fn.MoveToEnd = ()->
   obj = $(this)[0]
@@ -238,5 +234,30 @@ $.fn.MoveToEnd = ()->
     obj.selectionStart = obj.selectionEnd = len
   return
 
+GetUnreadMessageCount = ()->
+  RequestAjax "GET", "/mj/msgcenter/unreadcnt", {}, DidGetUnreadCount, ((data, rawData)->), null, null, null, null, false
+  return
+
+DidGetUnreadCount = (data, rawData)->
+  localStorage.setItem("unreadMsgCount", "#{data.Data}")
+  return
+
+$(document).on "deviceready", ()->
+  $(document).on("click tap", ".actionbar .back", null, ()->window.history.back(1))
+
+  $(document).on "backbutton", ()->
+    window.history.back(1)
+    return
+
+  $(document).on "click", ".left-button .slide-menu", null, (()->
+    cordova.exec null, null, "ActivityLauncher", "toggleSlidingMenu", []
+    return)
+
+  PullToRefresh()
+
+  clearInterval getUnreadCountTimer
+  getUnreadCountTimer = setInterval (()->GetUnreadMessageCount()), 30000
+  GetUnreadMessageCount()
+  return
 
 # END OF FILE
