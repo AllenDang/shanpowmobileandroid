@@ -15,8 +15,12 @@ DidGetBillboardIndexData = (data, rawData)->
 
   $(".billboard").each ()->
     $(this).find(".ver").each (index)->
-      $(this).addClass("hide") if index > 3 and not $(this).hasClass("more")
+      if index > (if $(this).closest(".billboard").find(".ver").length > 5 then 3 else 4) and not $(this).hasClass("more")
+        $(this).addClass("hide") 
       return
+
+    $(this).find(".span8").height $(this).find(".span4 img").width()
+
     return
 
   $(".actionbar .page-title").text "热辣榜单"

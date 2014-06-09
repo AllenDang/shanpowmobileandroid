@@ -2,7 +2,6 @@ package com.shanpow.app.android;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -188,13 +187,6 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
             }
             if (item.equals("专栏文章")) {
                 activity.gotoUrl(Constant.URL_ARTICLE_LIST);
-            }
-            if (item.equals("Reader")) {
-                Intent intent = new Intent(this, ReaderActivity_.class);
-                String downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath();
-                String filePath = downloadDir + "/test.txt";
-                intent.putExtra(Constant.EXTRA_FILEPATH, filePath);
-                startActivity(intent);
             }
         }
 

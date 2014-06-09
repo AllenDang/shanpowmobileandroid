@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.2+'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.3'
     }
 }
 
@@ -12,24 +12,21 @@ apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.0.3"
-
+    buildToolsVersion '19.1'
     defaultConfig {
         minSdkVersion 12
         targetSdkVersion 19
         versionCode 6
-        versionName "0.2.5"
+        versionName '0.2.5'
     }
-
     signingConfigs {
         releaseConfig {
-            storeFile file("../key.jks")
-            storePassword "Support@890AD"
-            keyAlias "shanpowmobileandroid"
-            keyPassword "Support@890AD"
+            storeFile file('../key.jks')
+            storePassword 'Support@890AD'
+            keyAlias 'shanpowmobileandroid'
+            keyPassword 'Support@890AD'
         }
     }
-
     buildTypes {
         release {
             runProguard false
@@ -37,7 +34,6 @@ android {
             signingConfig signingConfigs.releaseConfig
         }
     }
-
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'
         exclude 'META-INF/LICENSE.txt'
@@ -49,6 +45,8 @@ android {
         exclude 'META-INF/license.txt'
         exclude 'META-INF/dependencies.txt'
         exclude 'META-INF/LGPL2.1'
+    }
+    productFlavors {
     }
 }
 
@@ -67,14 +65,13 @@ configurations.compile {
 
 dependencies {
     apt "org.androidannotations:androidannotations:3.0+"
-    compile project(':libraries:SlidingMenu')
-    compile project(':libraries:PullToRefresh')
+    compile 'org.androidannotations:androidannotations-api:3.0.+'
+    compile project(':SlidingMenu')
     compile files('../libraries/umeng-analytics-v5.2.3.jar')
     compile files('../libraries/umeng-update-v2.4.2.jar')
     compile files('../libraries/mta-sdk-1.0.0.jar')
     compile files('../libraries/tencent_open_sdk.jar')
     compile files('../libraries/cordova-3.4.0.jar')
-    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
     compile 'org.springframework.android:spring-android-auth:1.0.1.RELEASE'
     compile 'org.springframework.android:spring-android-core:1.0.1.RELEASE'
@@ -83,9 +80,9 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.2.3'
     compile 'com.android.support:support-v4:19.+'
     compile 'com.android.support:appcompat-v7:19.+'
-    compile 'org.androidannotations:androidannotations-api:3.0.+'
     compile 'de.hdodenhof:circleimageview:1.1.0'
     compile 'com.squareup:otto:1.3.4'
     compile 'com.squareup.picasso:picasso:2.2.0'
     compile 'com.android.support:appcompat-v7:19.+'
+    compile fileTree(dir: 'libs', include: ['*.jar'])
 }

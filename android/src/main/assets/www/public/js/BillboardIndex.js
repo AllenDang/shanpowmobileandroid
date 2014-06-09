@@ -21,10 +21,11 @@ DidGetBillboardIndexData = function(data, rawData) {
   $(".spinner").replaceWith(billboardIndex(data));
   $(".billboard").each(function() {
     $(this).find(".ver").each(function(index) {
-      if (index > 3 && !$(this).hasClass("more")) {
+      if (index > ($(this).closest(".billboard").find(".ver").length > 5 ? 3 : 4) && !$(this).hasClass("more")) {
         $(this).addClass("hide");
       }
     });
+    $(this).find(".span8").height($(this).find(".span4 img").width());
   });
   $(".actionbar .page-title").text("热辣榜单");
   $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
