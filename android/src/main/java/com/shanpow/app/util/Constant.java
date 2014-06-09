@@ -16,7 +16,6 @@ public final class Constant {
     public final static String URL_ARTICLE_LIST = "file:///android_asset/www/Article/List.html";
 
     //Intent Extra参数
-    public final static String EXTRA_FILEPATH = "EXTRA_FILEPATH";
     public final static String EXTRA_BOOKTITLE = "EXTRA_BOOKTITLE";
     public final static String EXTRA_BOOKAUTHOR = "EXTRA_BOOKAUTHOR";
 
