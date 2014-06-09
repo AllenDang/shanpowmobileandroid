@@ -314,6 +314,6 @@ $(document).on("deviceready", function() {
   clearInterval(getUnreadCountTimer);
   getUnreadCountTimer = setInterval((function() {
     return GetUnreadMessageCount();
-  }), 30000);
+  }), 10000);
   GetUnreadMessageCount();
 });

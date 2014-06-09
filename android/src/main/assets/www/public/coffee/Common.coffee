@@ -258,7 +258,7 @@ $(document).on "deviceready", ()->
   PullToRefresh()
 
   clearInterval getUnreadCountTimer
-  getUnreadCountTimer = setInterval (()->GetUnreadMessageCount()), 30000
+  getUnreadCountTimer = setInterval (()->GetUnreadMessageCount()), 10000
   GetUnreadMessageCount()
   return
 
