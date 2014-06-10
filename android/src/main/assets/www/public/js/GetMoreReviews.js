@@ -2,9 +2,8 @@
 var DidGetMoreComments, FailGetMoreComments;
 
 $(document).on("deviceready", function() {
-  var bookId;
-  bookId = getQueryString("bookid");
-  RequestAjax("GET", "/mj/book/" + bookId + "/morereviews", {}, DidGetMoreComments, FailGetMoreComments);
+  window.bookId = getQueryString("bookid");
+  RequestAjax("GET", "/mj/book/" + window.bookId + "/morereviews", {}, DidGetMoreComments, FailGetMoreComments);
 });
 
 DidGetMoreComments = function(data, rawData) {

@@ -38,6 +38,7 @@ DidGetReviews = (data, rawData)->
   }
 
   window.pageNum++
+  window.shouldCache = false
 
   $(".loadMore").unbind("click").on "click", (event)->
     return if not $(event.target).hasClass "loadMore"
@@ -48,5 +49,4 @@ DidGetReviews = (data, rawData)->
   return
 
 FailGetReviews = (data, rawData)->
-  alert "获取更多书评出错，请重试"
   return

@@ -1,6 +1,6 @@
 $(document).on "deviceready", ()->  
-  bookId = getQueryString "bookid"
-  RequestAjax "GET", "/mj/book/#{bookId}/morereviews", {}, DidGetMoreComments, FailGetMoreComments
+  window.bookId = getQueryString "bookid"
+  RequestAjax "GET", "/mj/book/#{window.bookId}/morereviews", {}, DidGetMoreComments, FailGetMoreComments
   return
 
 DidGetMoreComments = (data, rawData)->

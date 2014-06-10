@@ -42,6 +42,7 @@ DidGetReviews = function(data, rawData) {
     size: 10
   });
   window.pageNum++;
+  window.shouldCache = false;
   $(".loadMore").unbind("click").on("click", function(event) {
     if (!$(event.target).hasClass("loadMore")) {
       return;
@@ -52,6 +53,4 @@ DidGetReviews = function(data, rawData) {
   });
 };
 
-FailGetReviews = function(data, rawData) {
-  alert("获取更多书评出错，请重试");
-};
+FailGetReviews = function(data, rawData) {};

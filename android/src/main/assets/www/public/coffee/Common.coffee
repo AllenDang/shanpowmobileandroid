@@ -17,7 +17,7 @@ RequestAjax = (type, url, data, successCallback, failCallback, beforeAction, aft
   options = {
     type: type,
     url: url,
-    data: data,
+    data: data ? {},
     successCallback: successCallback,
     failCallback: failCallback,
     beforeAction: beforeAction,
@@ -26,11 +26,17 @@ RequestAjax = (type, url, data, successCallback, failCallback, beforeAction, aft
     async: async,
     shouldSpin: shouldSpin
   }
-  if window.localStorage.getItem("token")
-    options.data.csrf_token = window.localStorage.getItem("token")
-    RequestDataWithParam options
+
+  if localStorage.shouldFetchDataFromCache is "YES"
+    cordova.exec ((data)->
+      successCallback(data, rawData)
+      localStorage.shouldFetchDataFromCache = "NO"), null, "CachedIOHelper", "get", ["#{type}:#{url}"]
   else
-    GetToken(options)
+    if window.localStorage.getItem("token")
+      options.data.csrf_token = window.localStorage.getItem("token")
+      RequestDataWithParam options
+    else
+      GetToken(options)
   
   return
 
@@ -71,7 +77,8 @@ RequestDataWithParam = (options)->
     },
     success: ((data)->
       ()->navigator.notification.activityStop()
-      cordova.exec ((data)->console.log(data)), null, "CachedIOHelper", "set", [options.url, data]
+      if window.shouldCache ? true
+        cordova.exec ((data)->console.log(data)), null, "CachedIOHelper", "set", ["#{options.type}:#{options.url}", data]
       if data.Result is true
         if options.successCallback?
           options.successCallback(data, rawData)
@@ -249,14 +256,21 @@ DidGetUnreadCount = (data)->
   $(document).trigger "didGetUnreadCount"
   return
 
+GetBack = ()->
+  localStorage.shouldFetchDataFromCache = "YES"
+  window.history.back()
+  return
+
 $(document).on "deviceready", ()->
   actionbar = template "public/ActionBar"
   $("body").prepend actionbar()
   
-  $(document).on("click tap", ".actionbar .back", null, ()->window.history.back(1))
+  $(document).on("click tap", ".actionbar .back", null, (()->
+    GetBack()
+    return))
 
   $(document).on "backbutton", ()->
-    window.history.back(1)
+    GetBack()
     return
 
   $(document).on "click", ".left-button .slide-menu", null, (()->
