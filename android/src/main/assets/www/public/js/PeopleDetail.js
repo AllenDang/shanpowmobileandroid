@@ -32,7 +32,7 @@ DidGetPeopleDetailData = function(data, rawData) {
     RequestAjax("POST", "/people/" + data.Data.Nickname + "/follow", {}, null, null);
   });
   $("#logout").unbind("click").click(function(event) {
-    console.log("logout");
+    cordova.exec(null, null, "ActivityLauncher", "logout", []);
   });
   $(document).unbind("didGetUnreadCount").on("didGetUnreadCount", function() {
     if (parseInt(localStorage.getItem("unreadMsgCount")) > 0) {

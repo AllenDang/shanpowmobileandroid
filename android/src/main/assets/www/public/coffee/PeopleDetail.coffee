@@ -31,7 +31,7 @@ DidGetPeopleDetailData = (data, rawData)->
     return
 
   $("#logout").unbind("click").click (event)->
-    console.log "logout"
+    cordova.exec null, null, "ActivityLauncher", "logout", []
     return
 
   $(document).unbind("didGetUnreadCount").on "didGetUnreadCount", ()->
