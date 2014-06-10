@@ -37,12 +37,12 @@
             android:id="@+id/tv_unreadcount"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:text="99+"
+            android:text=""
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="false"
             android:background="@drawable/ic_badge"
             android:layout_marginTop="10dp"
-            android:gravity="center_vertical"
+            android:gravity="center_vertical|center_horizontal"
             android:textColor="@android:color/white"
             android:visibility="invisible" />
 
