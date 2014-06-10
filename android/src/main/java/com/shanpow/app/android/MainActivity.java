@@ -56,7 +56,18 @@ public class MainActivity extends SlidingMenuBaseActivity {
         };
 
         //启动后主动检查一次
-        task.run();
+        if (pref.currentUserInJsonFormat().exists() && Util.isNetworkAvailable()) {
+            try {
+                IntResult result = restClient.GetUnreadNotificationCount();
+                if (result != null && result.Result) {
+                    JSONObject obj = new JSONObject();
+                    obj.put(Constant.MK_UNREADCOUNT, result.Data);
+                    MemoryCache.getInstance().set(Constant.MK_UNREADCOUNT, obj);
+                }
+            } catch (Exception e) {
+                //Nothing to do.
+            }
+        }
 
         mTimer = new Timer();
         mTimer.schedule(task, 30000);
