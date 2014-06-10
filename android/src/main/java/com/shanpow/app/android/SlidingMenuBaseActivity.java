@@ -110,6 +110,13 @@ public class SlidingMenuBaseActivity extends SlidingActivity
     void afterLogout() {
         //删除保存的信息
         pref.currentUserInJsonFormat().remove();
+
+        //返回首页
+        if (this instanceof MainActivity_) {
+            MainActivity_ activity = (MainActivity_) this;
+            activity.gotoUrl(Constant.URL_MAIN);
+        }
+
         //载入LoginFragment
         LoginFragment_ fragment = new LoginFragment_();
         getFragmentManager().beginTransaction().replace(R.id.loginContainer, fragment).commit();
