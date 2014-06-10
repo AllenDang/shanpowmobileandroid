@@ -1,0 +1,50 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.shanpow.app.android.LogoutFragment">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_profile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_user_normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_nickname"
+            android:text="@string/text_user_doesnt_signedin"
+            android:layout_toRightOf="@id/img_profile"
+            android:layout_centerVertical="true"
+            android:paddingLeft="5dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/img_bell"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_bell"
+            android:contentDescription="@string/ic_bell_description"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp" />
+
+        <TextView
+            android:id="@+id/tv_unreadcount"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:text="99+"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="false"
+            android:background="@drawable/ic_badge"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/white" />
+
+    </RelativeLayout>
+
+</FrameLayout>
