@@ -9,6 +9,7 @@ DidGetPeopleDetailData = (data, rawData)->
 
   if data.Data.IsMySelf
     $(".actionbar .message-center").removeClass "hide"
+    $(".actionbar .side-menu").removeClass "hide"
     localStorage.SelfAvatarUrl = data.Data.UserAvatarUrl
     localStorage.SelfNickname = data.Data.Nickname
   else
@@ -27,6 +28,10 @@ DidGetPeopleDetailData = (data, rawData)->
 
   $(".actionbar .follow").unbind("click").click (event)->
     RequestAjax "POST", "/people/#{data.Data.Nickname}/follow", {}, null, null
+    return
+
+  $("#logout").unbind("click").click (event)->
+    console.log "logout"
     return
 
   $(document).unbind("didGetUnreadCount").on "didGetUnreadCount", ()->
