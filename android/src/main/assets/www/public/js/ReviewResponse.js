@@ -37,6 +37,7 @@ FailGetResponseData = function(data, rawData) {};
 
 PostResponse = function(data) {
   var nickname, response, responseData;
+  $("#replyInput").val("").blur().focus();
   nickname = $(".container").data("nickname");
   responseData = {
     Id: data.id,
@@ -63,7 +64,6 @@ PostReviewAjaxRequest = function(reviewId, command, type, data, successCallBack,
 };
 
 DidPostResponse = function(data, rawData) {
-  $("#replyInput").val("").blur().focus();
   $("button").prop("disabled", true);
   $("#" + rawData.Data.id).find(".status").removeClass().addClass("status pull-right glyphicons circle_ok");
   $("#" + rawData.Data.id).find(".status").animate({
