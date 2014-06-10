@@ -1,54 +1,35 @@
 package com.shanpow.app.android;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
-import com.shanpow.app.entity.SimpleUser;
 import com.shanpow.app.service.ShanpowErrorHandler;
 import com.shanpow.app.service.ShanpowRestClient;
 import com.shanpow.app.util.AppPref_;
 import com.shanpow.app.util.Constant;
-import com.squareup.picasso.Picasso;
 import com.tencent.tauth.Tencent;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.UiThread;
-import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.rest.RestService;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 @EActivity
-public class SlidingMenuBaseActivity extends SlidingActivity {
-
-    private SimpleUser currentUser;
+public class SlidingMenuBaseActivity extends SlidingActivity implements LoginFragment.OnLoginListener, LogoutFragment.OnLogoutActionListener {
 
     private final static int REQUEST_CODE_LOGIN = 1;
 
     private Tencent mTencent;
-
-    @ViewById
-    Button btn_login;
-
-    @ViewById
-    TextView tv_nickname;
-
-    @ViewById
-    CircleImageView img_profile;
 
     @Pref
     AppPref_ pref;
@@ -58,11 +39,6 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
 
     @Bean
     ShanpowErrorHandler errorHandler;
-
-    @AfterInject
-    void afterInject() {
-        restClient.setRestErrorHandler(errorHandler);
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,76 +50,42 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
         menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
         menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
 
+        //TODO: 临时方案
         String[] menuItems = {"首页", "专栏文章"};
         ListView list = (ListView) findViewById(R.id.lv_menu);
         list.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menuItems));
 
         mTencent = Tencent.createInstance(Constant.TENCENT_APPID, getApplicationContext());
+
+        Fragment fragment;
+        //判断是否已登录
+        if (pref.currentUserInJsonFormat().exists()) {
+            fragment = new LogoutFragment_();
+        } else {
+            fragment = new LoginFragment_();
+        }
+        getFragmentManager().beginTransaction().replace(R.id.loginContainer, fragment).commit();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        //判断是否已登录
-        if (currentUser == null && pref.currentUserInJsonFormat().exists()) {
-            ObjectMapper mapper = new ObjectMapper();
-            try {
-                SimpleUser user = mapper.readValue(pref.currentUserInJsonFormat().get(), SimpleUser.class);
-                tv_nickname.setText(user.Nickname);
-                btn_login.setText(R.string.action_sign_out);
-
-                //读取用户头像
-                //TODO:将下载过来的头像保存起来
-                if (!user.AvatarUrl.isEmpty()) {
-                    Picasso.with(this)
-                            .load(user.AvatarUrl)
-                            .placeholder(R.drawable.ic_user_normal)
-                            .into(img_profile);
-                }
-
-                currentUser = user;
-            } catch (Exception e) {
-                //TODO: 处理序列化错误
-            }
-        }
+    @AfterInject
+    void afterInject() {
+        restClient.setRestErrorHandler(errorHandler);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
 
+        //Login完成
         if (requestCode == REQUEST_CODE_LOGIN) {
             //如果是MainActivity，则刷新webview
             if (this instanceof MainActivity_) {
                 MainActivity_ activity = (MainActivity_) this;
                 activity.reload();
             }
-        }
-    }
-
-    @Click
-    void btn_loginClicked() {
-        String login = getResources().getString(R.string.action_sign_in);
-
-        if (btn_login.getText().toString().equals(login)) {
-            //登陆
-            LoginActivity_.intent(this).startForResult(REQUEST_CODE_LOGIN);
-        } else {
-            //退出
-            btn_login.setText(R.string.action_signing_out);
-            btn_login.setEnabled(false);
-            //清除Cookie
-            doLogout();
-        }
-    }
-
-    @Click
-    void img_profileClicked() {
-        if (this instanceof MainActivity_ && currentUser != null) {
-            MainActivity_ activity = (MainActivity_) this;
-            activity.gotoUrl(Constant.URL_PEOPLE + currentUser.Nickname);
-            toggle();
+            //载入LogoutFragment
+            LogoutFragment_ fragment = new LogoutFragment_();
+            getFragmentManager().beginTransaction().replace(R.id.loginContainer, fragment).commit();
         }
     }
 
@@ -162,19 +104,9 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
     void afterLogout() {
         //删除保存的信息
         pref.currentUserInJsonFormat().remove();
-        currentUser = null;
-
-        //更新UI
-        btn_login.setText(R.string.action_sign_in);
-        btn_login.setEnabled(true);
-        tv_nickname.setText(getResources().getString(R.string.text_user_doesnt_signedin));
-        img_profile.setImageResource(R.drawable.ic_user_normal);
-
-        //如果是MainActivity，则刷新webview
-        if (this instanceof MainActivity_) {
-            MainActivity_ activity = (MainActivity_) this;
-            activity.reload();
-        }
+        //载入LoginFragment
+        LoginFragment_ fragment = new LoginFragment_();
+        getFragmentManager().beginTransaction().replace(R.id.loginContainer, fragment).commit();
     }
 
     @ItemClick
@@ -196,5 +128,28 @@ public class SlidingMenuBaseActivity extends SlidingActivity {
     @OptionsItem(android.R.id.home)
     void homeAsUpClicked() {
         getSlidingMenu().toggle();
+    }
+
+    @Override
+    public void onLogin() {
+        LoginActivity_.intent(this).startForResult(REQUEST_CODE_LOGIN);
+    }
+
+    @Override
+    public void onClickAvatar(String currentUserNickname) {
+        if (this instanceof MainActivity_) {
+            MainActivity_ activity = (MainActivity_) this;
+            activity.gotoUrl(Constant.URL_PEOPLE + currentUserNickname);
+            toggle();
+        }
+    }
+
+    @Override
+    public void onClickBell() {
+        if (this instanceof MainActivity_) {
+            MainActivity_ activity = (MainActivity_) this;
+            activity.gotoUrl(Constant.URL_NOTIFICATION_CENTER);
+            toggle();
+        }
     }
 }

@@ -78,6 +78,7 @@
         <activity
             android:name=".BookSourcesActivity_"
             android:label="@string/title_activity_book_sources" />
+        <activity android:name=".ReaderActivity_" />
     </application>
 
 </manifest>

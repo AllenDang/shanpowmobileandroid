@@ -14,6 +14,7 @@ public final class Constant {
     public final static String URL_MAIN = "file:///android_asset/www/index.html";
     public final static String URL_PEOPLE = "file:///android_asset/www/People/Detail.html?nickname=";
     public final static String URL_ARTICLE_LIST = "file:///android_asset/www/Article/List.html";
+    public final static String URL_NOTIFICATION_CENTER = "file:///android_asset/www/MessageCenter/Index.html";
 
     //Intent Extra参数
     public final static String EXTRA_BOOKTITLE = "EXTRA_BOOKTITLE";
