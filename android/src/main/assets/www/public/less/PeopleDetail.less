@@ -85,6 +85,8 @@
 }
 
 .advancedInfo {
+  position: absolute;
+  left: 0;
 
   .overlay {
     display: block;
@@ -92,9 +94,8 @@
   }
 
   .info {
-    padding: 16px;
-
     border-right: 1px solid @base;
+    padding-right: 7px;
 
     &:last-child {
       padding-right: 0;
@@ -106,6 +107,7 @@
     }
 
     .num {
+      .dotdotdotForLongText;
       height: 40px;
       margin-bottom: 8px;
 
@@ -116,7 +118,7 @@
 }
 
 .readRecord {
-  margin-top: 32px;
+  margin-top: 115px;
   background-color: white;
 
   .books {

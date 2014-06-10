@@ -34,13 +34,12 @@ GetMessages = ()->
 DidGetDirectMessageData = (data, rawData)->
   $("#directmessage").find(".newMsgIndicator").removeClass("hide") if parseInt(data.Data.MessagesUnreadSum) > 0
   window.directMessageData = data
-  SwitchToDirectMessage() if window.initClick
+  SwitchToDirectMessage() if window.initClick ? true
   return
 
 SwitchToDirectMessage = ()->
   directmessage = template "MessageCenter/DirectMessage"
   $(".payload").html directmessage window.directMessageData
-  setTimeout PositionUnreadIndicator, 10
   return
 
 DidGetResponseData = (data, rawData)->
@@ -61,11 +60,4 @@ DidGetUpdateData = (data, rawData)->
 SwitchToUpdate = ()->
   update = template "MessageCenter/Update"
   $(".payload").html update window.updateData
-  return
-
-PositionUnreadIndicator = ()->
-  $(".unread-indicator").each (index)->
-    offsetTop = ($(this).closest(".msg").find("img").height() - $(this).height()) / 2
-    $(this).css "top", "#{offsetTop}px"
-    return
   return

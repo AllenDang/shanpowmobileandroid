@@ -12,6 +12,7 @@ DidGetPeopleDetailData = function(data, rawData) {
   $(".spinner").replaceWith(peopledetail(data.Data));
   if (data.Data.IsMySelf) {
     $(".actionbar .message-center").removeClass("hide");
+    $(".actionbar .side-menu").removeClass("hide");
     localStorage.SelfAvatarUrl = data.Data.UserAvatarUrl;
     localStorage.SelfNickname = data.Data.Nickname;
   } else {
@@ -29,6 +30,9 @@ DidGetPeopleDetailData = function(data, rawData) {
   });
   $(".actionbar .follow").unbind("click").click(function(event) {
     RequestAjax("POST", "/people/" + data.Data.Nickname + "/follow", {}, null, null);
+  });
+  $("#logout").unbind("click").click(function(event) {
+    console.log("logout");
   });
   $(document).unbind("didGetUnreadCount").on("didGetUnreadCount", function() {
     if (parseInt(localStorage.getItem("unreadMsgCount")) > 0) {
