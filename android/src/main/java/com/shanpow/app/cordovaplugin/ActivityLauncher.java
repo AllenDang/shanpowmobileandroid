@@ -25,6 +25,8 @@ public class ActivityLauncher extends CordovaPlugin {
             toggleSlidingMenu();
         } else if (action.equals("bookSources")) {
             bookSources(args.getString(0), args.getString(1));
+        } else if (action.equals("logout")) {
+            logout();
         } else {
             return false;
         }
@@ -37,6 +39,13 @@ public class ActivityLauncher extends CordovaPlugin {
         Intent intent = new Intent(context, LoginActivity_.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
+    }
+
+    public void logout() {
+        if (webView.getContext() instanceof MainActivity_) {
+            MainActivity_ activity = (MainActivity_) webView.getContext();
+            activity.logout();
+        }
     }
 
     public void bookSources(String bookTitle, String bookAuthor) {

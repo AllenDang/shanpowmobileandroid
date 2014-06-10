@@ -25,7 +25,8 @@ import org.androidannotations.annotations.rest.RestService;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 @EActivity
-public class SlidingMenuBaseActivity extends SlidingActivity implements LoginFragment.OnLoginListener, LogoutFragment.OnLogoutActionListener {
+public class SlidingMenuBaseActivity extends SlidingActivity
+        implements LoginFragment.OnLoginListener, LogoutFragment.OnLogoutActionListener {
 
     private final static int REQUEST_CODE_LOGIN = 1;
 
@@ -87,6 +88,11 @@ public class SlidingMenuBaseActivity extends SlidingActivity implements LoginFra
             LogoutFragment_ fragment = new LogoutFragment_();
             getFragmentManager().beginTransaction().replace(R.id.loginContainer, fragment).commit();
         }
+    }
+
+    //用于给CordovaPlugin调用
+    public void logout() {
+        doLogout();
     }
 
     @Background
