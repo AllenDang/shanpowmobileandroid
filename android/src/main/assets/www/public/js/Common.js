@@ -296,6 +296,9 @@ GetUnreadMessageCount = function() {
 
 DidGetUnreadCount = function(data) {
   localStorage.setItem("unreadMsgCount", "" + data.MK_UNREAD_NOTIFICATION_COUNT);
+  if (parseInt(data.MK_UNREAD_NOTIFICATION_COUNT) > 0) {
+    $(".actionbar .slide-menu").find(".newMsgIndicator").removeClass("hide");
+  }
   $(document).trigger("didGetUnreadCount");
 };
 
@@ -314,6 +317,6 @@ $(document).on("deviceready", function() {
   clearInterval(getUnreadCountTimer);
   getUnreadCountTimer = setInterval((function() {
     return GetUnreadMessageCount();
-  }), 30000);
+  }), 10000);
   GetUnreadMessageCount();
 });
