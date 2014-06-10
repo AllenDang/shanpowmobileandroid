@@ -241,7 +241,11 @@ GetUnreadMessageCount = ()->
 
 DidGetUnreadCount = (data)->
   localStorage.setItem("unreadMsgCount", "#{data.MK_UNREAD_NOTIFICATION_COUNT}")
-  $(".actionbar .slide-menu").find(".newMsgIndicator").removeClass("hide") if parseInt(data.MK_UNREAD_NOTIFICATION_COUNT) > 0
+  if parseInt(data.MK_UNREAD_NOTIFICATION_COUNT) > 0
+    $(".actionbar .slide-menu").find(".badge").text "#{data.MK_UNREAD_NOTIFICATION_COUNT}"
+  else
+    $(".actionbar .slide-menu").find(".badge").text ""
+
   $(document).trigger "didGetUnreadCount"
   return
 
@@ -253,7 +257,10 @@ $(document).on "deviceready", ()->
     return
 
   $(document).on "click", ".left-button .slide-menu", null, (()->
-    cordova.exec null, null, "ActivityLauncher", "toggleSlidingMenu", []
+    if $(".actionbar .slide-menu").find(".badge").text() is ""
+      cordova.exec null, null, "ActivityLauncher", "toggleSlidingMenu", []
+    else
+      location.href = "file:///android_asset/www/MessageCenter/Index.html"
     return)
 
   PullToRefresh()

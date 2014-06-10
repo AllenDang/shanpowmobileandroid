@@ -297,7 +297,9 @@ GetUnreadMessageCount = function() {
 DidGetUnreadCount = function(data) {
   localStorage.setItem("unreadMsgCount", "" + data.MK_UNREAD_NOTIFICATION_COUNT);
   if (parseInt(data.MK_UNREAD_NOTIFICATION_COUNT) > 0) {
-    $(".actionbar .slide-menu").find(".newMsgIndicator").removeClass("hide");
+    $(".actionbar .slide-menu").find(".badge").text("" + data.MK_UNREAD_NOTIFICATION_COUNT);
+  } else {
+    $(".actionbar .slide-menu").find(".badge").text("");
   }
   $(document).trigger("didGetUnreadCount");
 };
@@ -311,7 +313,11 @@ $(document).on("deviceready", function() {
     window.history.back(1);
   });
   $(document).on("click", ".left-button .slide-menu", null, (function() {
-    cordova.exec(null, null, "ActivityLauncher", "toggleSlidingMenu", []);
+    if ($(".actionbar .slide-menu").find(".badge").text() === "") {
+      cordova.exec(null, null, "ActivityLauncher", "toggleSlidingMenu", []);
+    } else {
+      location.href = "file:///android_asset/www/MessageCenter/Index.html";
+    }
   }));
   PullToRefresh();
   clearInterval(getUnreadCountTimer);
