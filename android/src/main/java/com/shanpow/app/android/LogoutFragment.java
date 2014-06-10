@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shanpow.app.entity.SimpleUser;
 import com.shanpow.app.util.Constant;
-import com.shanpow.app.util.MemoryCache;
 import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.AfterViews;
@@ -20,11 +19,6 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 /**
@@ -39,8 +33,6 @@ public class LogoutFragment extends Fragment {
     private OnLogoutActionListener mListener;
 
     private SimpleUser mCurrentUser;
-
-    private Timer mTimer;
 
     @ViewById
     TextView tv_nickname;
@@ -88,33 +80,11 @@ public class LogoutFragment extends Fragment {
                 //TODO: 处理序列化错误
             }
         }
-
-        //启动每10秒检查一次的Timer，用于检查未读消息数
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                JSONObject obj = MemoryCache.getInstance().get(Constant.MK_UNREADCOUNT);
-                if (obj != null) {
-                    try {
-                        int unReadCount = obj.getInt(Constant.MK_UNREADCOUNT);
-                        updateUnReadCount(unReadCount);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        };
-
-        task.run();
-
-        mTimer = new Timer();
-        mTimer.schedule(task, 10000);
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mTimer.cancel();
         mListener = null;
     }
 
