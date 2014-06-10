@@ -11,6 +11,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 import org.apache.cordova.Config;
 import org.json.JSONObject;
@@ -49,28 +50,22 @@ public class MainActivity extends SlidingMenuBaseActivity {
                             MemoryCache.getInstance().set(Constant.MK_UNREADCOUNT, obj);
                         }
                     } catch (Exception e) {
+                        e.printStackTrace();
                         //Nothing to do.
                     }
                 }
             }
         };
 
-        //启动后主动检查一次
-        if (pref.currentUserInJsonFormat().exists() && Util.isNetworkAvailable()) {
-            try {
-                IntResult result = restClient.GetUnreadNotificationCount();
-                if (result != null && result.Result) {
-                    JSONObject obj = new JSONObject();
-                    obj.put(Constant.MK_UNREADCOUNT, result.Data);
-                    MemoryCache.getInstance().set(Constant.MK_UNREADCOUNT, obj);
-                }
-            } catch (Exception e) {
-                //Nothing to do.
-            }
-        }
+        runAtBackground(task);
 
         mTimer = new Timer();
         mTimer.schedule(task, 30000);
+    }
+
+    @Background
+    void runAtBackground(Runnable runnable) {
+        runnable.run();
     }
 
     @Override
