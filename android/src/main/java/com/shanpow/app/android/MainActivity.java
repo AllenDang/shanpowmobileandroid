@@ -13,6 +13,7 @@ import com.umeng.update.UmengUpdateAgent;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.UiThread;
 import org.apache.cordova.Config;
 import org.json.JSONObject;
 
@@ -88,10 +89,12 @@ public class MainActivity extends SlidingMenuBaseActivity {
         mTimer.cancel();
     }
 
+    @UiThread
     public void gotoUrl(String url) {
         super.loadUrl(url);
     }
 
+    @UiThread
     public void reload() {
         appView.reload();
     }
