@@ -1,8 +1,4 @@
 $(document).on "deviceready", ()->
-  actionbar = template "public/ActionBar"
-  $("body").html actionbar()
-  $(".actionbar .channel").addClass "hide"
-  $(".actionbar .slide-menu").addClass "hide"
   $(".actionbar .page-title").text "读书记录和书评"
   $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2)
 

@@ -2,11 +2,6 @@
 var DidCreateConversation, DidGetPeopleDetailData, FailGetPeopleDetailData;
 
 $(document).on("deviceready", function() {
-  var actionbar;
-  actionbar = template("public/ActionBar");
-  $("body").html(actionbar());
-  $(".actionbar .channel").addClass("hide");
-  $(".actionbar .slide-menu").addClass("hide");
   window.nickname = getQueryString("nickname");
   RequestAjax("GET", "/mj/people/" + (unescape(window.nickname)), {}, DidGetPeopleDetailData, FailGetPeopleDetailData);
 });

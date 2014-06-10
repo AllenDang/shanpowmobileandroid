@@ -1,9 +1,5 @@
 $(document).on "deviceready", ()->
-  actionbar = template "public/ActionBar"
-  $(".container").before actionbar()
   $(".spinner").remove()
-  $(".actionbar .channel").addClass "hide"
-  $(".actionbar .slide-menu").addClass "hide"
   $(".actionbar .write").removeClass "hide"
   $(".actionbar .write .left").removeClass "active"
   $(".actionbar .write .right").addClass "active"

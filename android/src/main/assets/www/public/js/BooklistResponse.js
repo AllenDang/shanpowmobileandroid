@@ -2,11 +2,7 @@
 var DidFailPostResponse, DidGetBooklistResponseData, DidPostResponse, FailGetBooklistResponseData, PostResponse, RegisterResponseBtn;
 
 $(document).on("deviceready", function() {
-  var actionbar, booklistId;
-  actionbar = template("public/ActionBar");
-  $("body").html(actionbar());
-  $(".actionbar .channel").addClass("hide");
-  $(".actionbar .slide-menu").addClass("hide");
+  var booklistId;
   booklistId = getQueryString("booklistid");
   RequestAjax("GET", "/mj/booklist/" + booklistId + "/response", {}, DidGetBooklistResponseData, FailGetBooklistResponseData);
 });

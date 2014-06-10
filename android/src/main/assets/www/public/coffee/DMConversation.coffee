@@ -1,9 +1,4 @@
-$(document).on "deviceready", ()->
-  actionbar = template "public/ActionBar"
-  $("body").html actionbar()
-  $(".actionbar .channel").addClass "hide"
-  $(".actionbar .slide-menu").addClass "hide"
-
+$(document).on "deviceready", ()->  
   window.conversations = new Array()
 
   otherName = getQueryString "other"

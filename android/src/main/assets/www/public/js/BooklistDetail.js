@@ -2,11 +2,7 @@
 var DidGetBooklistDetailData, FailGetBooklistDetailData, HideMoreCategories;
 
 $(document).on("deviceready", function() {
-  var actionbar, booklistId;
-  actionbar = template("public/ActionBar");
-  $("body").html(actionbar());
-  $(".actionbar .channel").addClass("hide");
-  $(".actionbar .slide-menu").addClass("hide");
+  var booklistId;
   booklistId = getQueryString("id");
   RequestAjax("GET", "/mj/booklist/" + booklistId, {}, DidGetBooklistDetailData, FailGetBooklistDetailData);
 });

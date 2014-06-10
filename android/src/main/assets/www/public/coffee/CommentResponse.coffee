@@ -1,9 +1,4 @@
-$(document).on "deviceready", ()->
-  actionbar = template "public/ActionBar"
-  $("body").html actionbar()
-  $(".actionbar .channel").addClass "hide"
-  $(".actionbar .slide-menu").addClass "hide"
-
+$(document).on "deviceready", ()->  
   commentId = getQueryString "commentId"
   RequestAjax "GET", "/mj/comment/#{commentId}/response", {}, DidGetResponseData, FailGetResponseData
   return

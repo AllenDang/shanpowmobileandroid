@@ -1,8 +1,4 @@
 $(document).on "deviceready", ()->
-  actionbar = template "public/ActionBar"
-  $(".actions").before actionbar()
-  $(".actionbar .channel").addClass "hide"
-  $(".actionbar .slide-menu").addClass "hide"
   $(".spinner").remove()
   $(".actionbar .page-title").text "一键治书荒"
   $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2)

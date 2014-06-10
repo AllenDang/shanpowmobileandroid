@@ -1,9 +1,4 @@
 $(document).on "deviceready", ()->
-  actionbar = template "public/ActionBar"
-  $("body").html actionbar()
-  $(".actionbar .channel").addClass "hide"
-  $(".actionbar .slide-menu").addClass "hide"
-
   articleId = getQueryString "id"
   RequestAjax "GET", "/mj/article/#{articleId}", {}, DidGetArticleDetailData, FailGetArticleDetailData
   return

@@ -1,9 +1,4 @@
 $(document).on "deviceready", ()->
-  actionbar = template "public/ActionBar"
-  $("body").html actionbar()
-  $(".actionbar .channel").addClass "hide"
-  $(".actionbar .slide-menu").addClass "hide"
-
   nickname = unescape getQueryString "nickname"
   RequestAjax "GET", "/mj/people/#{nickname}/book/followed", {}, DidGetBooksData, FailGetBooksData
   return

@@ -1,7 +1,7 @@
 $(document).on "deviceready", ()->
-  actionbar = template "public/ActionBar"
-  $("body").html actionbar()
   $(".actionbar .page-title").text "首页"
+  $(".actionbar .channel").removeClass "hide"
+  $(".actionbar .slide-menu").removeClass "hide"
   $(".actionbar .back").addClass "hide"
   $(".actionbar .button.search").removeClass "hide"
 
@@ -15,7 +15,6 @@ $(document).on "deviceready", ()->
     node.type = 'text/css'
     node.href = 'public/css/Index_F.css'
     document.getElementsByTagName('head')[0].appendChild(node)
-  
 
   RequestAjax "GET", "/mj", {ch: ch ? "m"}, DidGetIndexData, FailGetIndexData
   return

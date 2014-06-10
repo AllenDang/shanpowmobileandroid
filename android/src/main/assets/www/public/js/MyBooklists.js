@@ -2,11 +2,7 @@
 var DidGetBooklistsData, FailGetBooklistsData, GetBooklist;
 
 $(document).on("deviceready", function() {
-  var actionbar, mybooklist;
-  actionbar = template("public/ActionBar");
-  $("body").html(actionbar());
-  $(".actionbar .channel").addClass("hide");
-  $(".actionbar .slide-menu").addClass("hide");
+  var mybooklist;
   window.nickname = unescape(getQueryString("nickname"));
   window.create = parseInt(getQueryString("create"));
   mybooklist = template("Booklist/My");

@@ -2,11 +2,7 @@
 var DidGetBookDetailData, DidMarkWantToRead, FailGetBookDetailData;
 
 $(document).on("deviceready", function() {
-  var actionbar, bookId;
-  actionbar = template("public/ActionBar");
-  $("body").html(actionbar());
-  $(".actionbar .channel").addClass("hide");
-  $(".actionbar .slide-menu").addClass("hide");
+  var bookId;
   bookId = getQueryString("id");
   RequestAjax("GET", "/mj/book/" + bookId, {}, DidGetBookDetailData, FailGetBookDetailData);
 });

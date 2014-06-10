@@ -2,11 +2,6 @@
 var DidGetSearchResultData, FailGetSearchResultData;
 
 $(document).on("deviceready", function() {
-  var actionbar;
-  actionbar = template("public/ActionBar");
-  $("body").html(actionbar());
-  $(".actionbar .channel").addClass("hide");
-  $(".actionbar .slide-menu").addClass("hide");
   window.query = unescape(getQueryString("q"));
   RequestAjax("GET", "/mj/search/result", {
     q: window.query

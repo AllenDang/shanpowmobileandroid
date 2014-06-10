@@ -12,13 +12,8 @@ LoadReview = function() {
 };
 
 $(document).on("deviceready", function() {
-  var actionbar;
   window.pageNum = 1;
   $(".loadMore").removeClass("hide");
-  actionbar = template("public/ActionBar");
-  $("body").html(actionbar());
-  $(".actionbar .channel").addClass("hide");
-  $(".actionbar .slide-menu").addClass("hide");
   LoadReview();
 });
 

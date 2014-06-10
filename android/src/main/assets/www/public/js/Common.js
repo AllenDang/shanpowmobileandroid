@@ -305,7 +305,9 @@ DidGetUnreadCount = function(data) {
 };
 
 $(document).on("deviceready", function() {
-  var getUnreadCountTimer;
+  var actionbar, getUnreadCountTimer;
+  actionbar = template("public/ActionBar");
+  $("body").prepend(actionbar());
   $(document).on("click tap", ".actionbar .back", null, function() {
     return window.history.back(1);
   });

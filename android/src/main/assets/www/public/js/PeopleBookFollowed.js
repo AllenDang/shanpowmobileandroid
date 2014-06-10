@@ -2,11 +2,7 @@
 var DidGetBooksData, FailGetBooksData;
 
 $(document).on("deviceready", function() {
-  var actionbar, nickname;
-  actionbar = template("public/ActionBar");
-  $("body").html(actionbar());
-  $(".actionbar .channel").addClass("hide");
-  $(".actionbar .slide-menu").addClass("hide");
+  var nickname;
   nickname = unescape(getQueryString("nickname"));
   RequestAjax("GET", "/mj/people/" + nickname + "/book/followed", {}, DidGetBooksData, FailGetBooksData);
 });

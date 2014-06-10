@@ -250,6 +250,9 @@ DidGetUnreadCount = (data)->
   return
 
 $(document).on "deviceready", ()->
+  actionbar = template "public/ActionBar"
+  $("body").prepend actionbar()
+  
   $(document).on("click tap", ".actionbar .back", null, ()->window.history.back(1))
 
   $(document).on "backbutton", ()->

@@ -2,11 +2,7 @@
 var DidFailLikeReview, DidGetReviewDetailData, DidLikeReview, FailGetReviewDetailData, PostReviewAjaxRequest;
 
 $(document).on("deviceready", function() {
-  var actionbar, reviewId;
-  actionbar = template("public/ActionBar");
-  $("body").html(actionbar());
-  $(".actionbar .channel").addClass("hide");
-  $(".actionbar .slide-menu").addClass("hide");
+  var reviewId;
   reviewId = getQueryString("id");
   RequestAjax("GET", "/mj/review/" + reviewId, {}, DidGetReviewDetailData, FailGetReviewDetailData);
 });

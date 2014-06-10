@@ -2,11 +2,7 @@
 var DidGetMoreComments, FailGetMoreComments;
 
 $(document).on("deviceready", function() {
-  var actionbar, bookId;
-  actionbar = template("public/ActionBar");
-  $("body").html(actionbar());
-  $(".actionbar .channel").addClass("hide");
-  $(".actionbar .slide-menu").addClass("hide");
+  var bookId;
   bookId = getQueryString("bookid");
   RequestAjax("GET", "/mj/book/" + bookId + "/morecomments", {}, DidGetMoreComments, FailGetMoreComments);
 });

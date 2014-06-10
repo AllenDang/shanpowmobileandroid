@@ -2,11 +2,7 @@
 var DidGetDirectMessageData, DidGetResponseData, DidGetUpdateData, GetMessages, PositionUnreadIndicator, SwitchToDirectMessage, SwitchToResponse, SwitchToUpdate;
 
 $(document).on("deviceready", function() {
-  var actionbar, main;
-  actionbar = template("public/ActionBar");
-  $("body").html(actionbar());
-  $(".actionbar .channel").addClass("hide");
-  $(".actionbar .slide-menu").addClass("hide");
+  var main;
   $(".actionbar .page-title").text("消息中心");
   $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
   main = template("MessageCenter/Index");

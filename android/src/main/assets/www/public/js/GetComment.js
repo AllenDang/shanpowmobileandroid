@@ -2,11 +2,7 @@
 var DidFailLikeComment, DidGetCommentDetailData, DidLikeComment, FailGetCommentDetailData;
 
 $(document).on("deviceready", function() {
-  var actionbar, commentId;
-  actionbar = template("public/ActionBar");
-  $("body").html(actionbar());
-  $(".actionbar .channel").addClass("hide");
-  $(".actionbar .slide-menu").addClass("hide");
+  var commentId;
   commentId = getQueryString("id");
   RequestAjax("GET", "/mj/comment/" + commentId, {}, DidGetCommentDetailData, FailGetCommentDetailData);
 });

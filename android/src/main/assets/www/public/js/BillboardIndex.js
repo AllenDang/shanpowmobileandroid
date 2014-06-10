@@ -2,11 +2,6 @@
 var DidGetBillboardIndexData, FailGetBillboardIndexData;
 
 $(document).on("deviceready", function() {
-  var actionbar;
-  actionbar = template("public/ActionBar");
-  $("body").html(actionbar());
-  $(".actionbar .channel").addClass("hide");
-  $(".actionbar .slide-menu").addClass("hide");
   RequestAjax("GET", "/mj/billboard", {}, DidGetBillboardIndexData, FailGetBillboardIndexData);
 });
 

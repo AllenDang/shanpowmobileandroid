@@ -1,9 +1,4 @@
-$(document).on "deviceready", ()->
-  actionbar = template "public/ActionBar"
-  $("body").html actionbar()
-  $(".actionbar .channel").addClass "hide"
-  $(".actionbar .slide-menu").addClass "hide"
-
+$(document).on "deviceready", ()->  
   title = getQueryString "title"
   ver = getQueryString "version"
   RequestAjax "GET", "/mj/billboard/detail", {title: unescape(title), version: ver}, DidGetBillboardDetailData, FailGetBillboardDetailData

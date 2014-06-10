@@ -2,11 +2,7 @@
 var DidGetPeopleBookData, DidGetPeopleReadBookData, DidGetPeopleWantBookData, FailGetPeopleBookData, RequestReadBooks, RequestReadingBooks, RequestWantBooks;
 
 $(document).on("deviceready", function() {
-  var actionbar, peopleWantBook;
-  actionbar = template("public/ActionBar");
-  $("body").html(actionbar());
-  $(".actionbar .channel").addClass("hide");
-  $(".actionbar .slide-menu").addClass("hide");
+  var peopleWantBook;
   $(".actionbar .page-title").text("读书记录和书评");
   $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
   window.nickname = unescape(getQueryString("nickname"));

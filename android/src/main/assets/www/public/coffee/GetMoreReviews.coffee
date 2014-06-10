@@ -1,9 +1,4 @@
-$(document).on "deviceready", ()->
-  actionbar = template "public/ActionBar"
-  $("body").html actionbar()
-  $(".actionbar .channel").addClass "hide"
-  $(".actionbar .slide-menu").addClass "hide"
-
+$(document).on "deviceready", ()->  
   bookId = getQueryString "bookid"
   RequestAjax "GET", "/mj/book/#{bookId}/morereviews", {}, DidGetMoreComments, FailGetMoreComments
   return

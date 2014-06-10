@@ -2,10 +2,10 @@
 var DidGetIndexData, FailGetIndexData;
 
 $(document).on("deviceready", function() {
-  var actionbar, ch, node;
-  actionbar = template("public/ActionBar");
-  $("body").html(actionbar());
+  var ch, node;
   $(".actionbar .page-title").text("首页");
+  $(".actionbar .channel").removeClass("hide");
+  $(".actionbar .slide-menu").removeClass("hide");
   $(".actionbar .back").addClass("hide");
   $(".actionbar .button.search").removeClass("hide");
   $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);

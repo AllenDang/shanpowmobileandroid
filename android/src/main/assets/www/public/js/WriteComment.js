@@ -2,12 +2,7 @@
 var DidFailSaveReadingStatus, DidGetComment, DidSaveReadingStatus, EnableButton, PostMarkAjaxRequest, SaveReadingStatus;
 
 $(document).on("deviceready", function() {
-  var actionbar;
-  actionbar = template("public/ActionBar");
-  $(".container").before(actionbar());
   $(".spinner").remove();
-  $(".actionbar .channel").addClass("hide");
-  $(".actionbar .slide-menu").addClass("hide");
   $(".actionbar .write").removeClass("hide");
   $(".actionbar .page-title").text("");
   $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);

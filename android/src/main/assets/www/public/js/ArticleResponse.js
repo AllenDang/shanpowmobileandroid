@@ -2,11 +2,7 @@
 var DidFailPostResponse, DidGetResponseData, DidPostResponse, FailGetResponseData, PostResponse, RegisterResponseBtn;
 
 $(document).on("deviceready", function() {
-  var actionbar, articleId;
-  actionbar = template("public/ActionBar");
-  $("body").html(actionbar());
-  $(".actionbar .channel").addClass("hide");
-  $(".actionbar .slide-menu").addClass("hide");
+  var articleId;
   articleId = getQueryString("id");
   RequestAjax("GET", "/mj/article/" + articleId + "/response", {}, DidGetResponseData, FailGetResponseData);
 });

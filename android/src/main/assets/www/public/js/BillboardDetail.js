@@ -2,11 +2,7 @@
 var DidGetBillboardDetailData, FailGetBillboardDetailData;
 
 $(document).on("deviceready", function() {
-  var actionbar, title, ver;
-  actionbar = template("public/ActionBar");
-  $("body").html(actionbar());
-  $(".actionbar .channel").addClass("hide");
-  $(".actionbar .slide-menu").addClass("hide");
+  var title, ver;
   title = getQueryString("title");
   ver = getQueryString("version");
   RequestAjax("GET", "/mj/billboard/detail", {

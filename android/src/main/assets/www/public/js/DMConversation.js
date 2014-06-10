@@ -2,11 +2,7 @@
 var DidGetNewestMessageData, DidGetPastMessageData, DidPostMessage, FailPostMessage, PostMessage;
 
 $(document).on("deviceready", function() {
-  var actionbar, otherName;
-  actionbar = template("public/ActionBar");
-  $("body").html(actionbar());
-  $(".actionbar .channel").addClass("hide");
-  $(".actionbar .slide-menu").addClass("hide");
+  var otherName;
   window.conversations = new Array();
   otherName = getQueryString("other");
   $(".actionbar .page-title").text(unescape(otherName));
