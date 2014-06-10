@@ -18,6 +18,7 @@ import com.squareup.picasso.Picasso;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -96,18 +97,7 @@ public class LogoutFragment extends Fragment {
                 if (obj != null) {
                     try {
                         int unReadCount = obj.getInt(Constant.MK_UNREADCOUNT);
-                        if (unReadCount > 0) {
-                            tv_unreadcount.setVisibility(View.VISIBLE);
-                            String strCount;
-                            if (unReadCount > 99) {
-                                strCount = "99+";
-                            } else {
-                                strCount = String.valueOf(unReadCount);
-                            }
-                            tv_unreadcount.setText(strCount);
-                        } else {
-                            tv_unreadcount.setVisibility(View.INVISIBLE);
-                        }
+                        updateUnReadCount(unReadCount);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -126,6 +116,22 @@ public class LogoutFragment extends Fragment {
         super.onDetach();
         mTimer.cancel();
         mListener = null;
+    }
+
+    @UiThread
+    void updateUnReadCount(int count) {
+        if (count > 0) {
+            tv_unreadcount.setVisibility(View.VISIBLE);
+            String strCount;
+            if (count > 99) {
+                strCount = "99+";
+            } else {
+                strCount = String.valueOf(count);
+            }
+            tv_unreadcount.setText(strCount);
+        } else {
+            tv_unreadcount.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Click
