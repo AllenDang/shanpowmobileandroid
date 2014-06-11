@@ -31,6 +31,7 @@ public class MainActivity extends SlidingMenuBaseActivity {
         super.init();
         super.loadUrl(Config.getStartUrl());
 
+        UmengUpdateAgent.setUpdateCheckConfig(false);
         MobclickAgent.updateOnlineConfig(this);
         UmengUpdateAgent.update(this);
     }

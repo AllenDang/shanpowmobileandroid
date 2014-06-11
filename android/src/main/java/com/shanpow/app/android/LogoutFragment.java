@@ -69,7 +69,7 @@ public class LogoutFragment extends Fragment {
 
                 //读取用户头像
                 if (!user.AvatarUrl.isEmpty()) {
-                    Picasso.with(this.getActivity())
+                    Picasso.with(this.getActivity().getApplicationContext())
                             .load(user.AvatarUrl)
                             .placeholder(R.drawable.ic_user_normal)
                             .into(img_profile);
