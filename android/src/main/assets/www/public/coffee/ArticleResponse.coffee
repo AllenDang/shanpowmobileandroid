@@ -34,6 +34,7 @@ FailGetResponseData = (data, rawData)->
   return
 
 PostResponse = (data)->
+  $("#replyInput").val("").blur().focus()
   nickname = $(".container").data "nickname"
   
   responseData = {
@@ -61,7 +62,6 @@ PostResponse = (data)->
   return
 
 DidPostResponse = (data, rawData)->
-  $("#replyInput").val("").blur().focus()
   $("#submit").prop("disabled", true)
   $("##{rawData.Data.id}").find(".status").removeClass().addClass("status pull-right glyphicons circle_ok")
   $("##{rawData.Data.id}").find(".status").animate {opacity: 0}, 1000, (()->
