@@ -1,5 +1,6 @@
 package com.shanpow.app.service;
 
+import com.shanpow.app.entity.GetArticleListResult;
 import com.shanpow.app.entity.GetCsrfTokenResult;
 import com.shanpow.app.entity.IntResult;
 import com.shanpow.app.entity.LoginResult;
@@ -38,6 +39,9 @@ public interface ShanpowRestClient extends RestClientErrorHandling {
 
     @Get("/mj/msgcenter/unreadcnt")
     IntResult GetUnreadNotificationCount();
+
+    @Get("/mj/article/list?tag={tag}&pageNum={pageNum}&numPerPage={numPerPage}")
+    GetArticleListResult GetArticlesByTag(String tag, int pageNum, int numPerPage);
 
     void setCookie(String name, String value);
 

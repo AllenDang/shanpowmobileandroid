@@ -131,7 +131,8 @@ public class SlidingMenuBaseActivity extends SlidingActivity
                 activity.gotoUrl(Constant.URL_MAIN);
             }
             if (item.equals("专栏文章")) {
-                activity.gotoUrl(Constant.URL_ARTICLE_LIST);
+                //activity.gotoUrl(Constant.URL_ARTICLE_LIST);
+                ArticleListActivity_.intent(this).start();
             }
         }
 
