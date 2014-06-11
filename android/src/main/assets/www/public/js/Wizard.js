@@ -4,7 +4,7 @@ var DidGetMarkBookCnt, DidGetRecommendBooks;
 $(document).on("deviceready", function() {
   $(".spinner").remove();
   $(".actionbar .page-title").text("一键治书荒");
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
+  CenterTitle();
   $(".innerCircle").height($(".innerCircle").width());
   $(".innerCircle").unbind("click").on("click", function(event) {
     var imgUrl;

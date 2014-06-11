@@ -1,5 +1,5 @@
 {{each Data}}
-  <div class="row-fluid msg {{if $value.IsNewMessages === true}}unread{{/if}}">
+  <div class="row-fluid msg {{if $value.IsNewMessages === true}}unread{{/if}} dm" id="{{$value.Id}}">
     <div class="userAvatar span2">
       <a href="file:///android_asset/www/People/Detail.html?nickname={{$value.Contacter.Nickname}}"><img src="{{$value.Contacter.AvatarUrl}}" alt="" class="img-circle"></a>
     </div>

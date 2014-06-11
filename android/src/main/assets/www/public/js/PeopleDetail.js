@@ -19,7 +19,7 @@ DidGetPeopleDetailData = function(data, rawData) {
     $(".actionbar .follow").removeClass("hide");
   }
   $(".actionbar .page-title").text(unescape(window.nickname));
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
+  CenterTitle();
   $(".book").each(function(index) {
     $(this).find(".bookCover").height($(this).find(".bookCover").width() * 4 / 3);
   });

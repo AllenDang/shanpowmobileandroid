@@ -78,7 +78,7 @@ RequestDataWithParam = (options)->
     success: ((data)->
       ()->navigator.notification.activityStop()
       if window.shouldCache ? true
-        cordova.exec ((data)->console.log(data)), null, "CachedIOHelper", "set", ["#{options.type}:#{options.url}", data]
+        cordova.exec ((data)->), null, "CachedIOHelper", "set", ["#{options.type}:#{options.url}", data]
       if data.Result is true
         if options.successCallback?
           options.successCallback(data, rawData)
@@ -136,7 +136,6 @@ AddUrlToLocalStorage = (url)->
 # @param       {HTMLElement}   输入框元素
 # @param       {Number}        设置光标与输入框保持的距离(默认20)
 # @param       {Number}        设置最大高度(可选)
-
 autoTextarea = (elem, extra, maxHeight)->
   extra = extra || 20;
   isFirefox = !!document.getBoxObjectFor || 'mozInnerScreenX' in window
@@ -203,9 +202,9 @@ PullToRefresh = ()->
       if window.zeroY?
         $(".actionbar .pullbar").width $(window).width() * (window.lastY - window.zeroY) / ($(window).height() * 0.4)
         $(".actionbar .pullbar").css "left", ($(window).width() - $(".actionbar .pullbar").width()) / 2
-        $(".actionbar .center").addClass "hide"
+        $(".actionbar .title-section").addClass "hide"
         $(".actionbar .loading").removeClass "hide"
-        $(".actionbar").find(".loading").css("left", ($(window).width() - $(".actionbar .center").find(".pullingText").width()) / 2)
+        CenterTitle()
         if $(".actionbar .pullbar").width() >= $(window).width()
           $(".actionbar .loading .pullingText").text "松开以刷新"
         else
@@ -215,10 +214,12 @@ PullToRefresh = ()->
 
   $("body").unbind("touchend").on "touchend", (event)->
     if $(".actionbar .pullbar").width() >= $(window).width()
-      $("body").html ""
+      window.pullToRefresh = true
+      $("body").children().not(".actionbar").remove()
+      $(".actionbar").after "<div class='spinner'></div>"
       $(document).trigger("deviceready")
     $(".actionbar .pullbar").width 0
-    $(".actionbar .center").removeClass "hide"
+    $(".actionbar .title-section").removeClass "hide"
     $(".actionbar .loading").addClass "hide"
 
 TimeStamp = ()->
@@ -261,11 +262,23 @@ GetBack = ()->
   window.history.back()
   return
 
+CenterTitle = ()->
+  allWidth = 0
+  $(".actionbar .actionbar-section").each (index)->
+    allWidth += $(this).width() if not $(this).hasClass("hide")
+    return
+  $(".actionbar").children(".center").not(".hide").css("left", ($(".actionbar").width() - allWidth) / 2)
+  return
+
 $(document).on "deviceready", ()->
+  if window.pullToRefresh ? false
+    window.pullToRefresh = false
+    return
+  
   actionbar = template "public/ActionBar"
   $("body").prepend actionbar()
   
-  $(document).on("click tap", ".actionbar .back", null, (()->
+  $(document).on("click tap", ".actionbar .back", (()->
     GetBack()
     return))
 
@@ -273,7 +286,7 @@ $(document).on "deviceready", ()->
     GetBack()
     return
 
-  $(document).on "click", ".left-button .slide-menu", null, (()->
+  $(document).on "click", ".left-button .slide-menu", (()->
     if $(".actionbar .slide-menu").find(".badge").text() is ""
       cordova.exec null, null, "ActivityLauncher", "toggleSlidingMenu", []
     else

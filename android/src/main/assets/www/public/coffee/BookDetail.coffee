@@ -8,7 +8,7 @@ DidGetBookDetailData = (data, rawData)->
   $(".spinner").replaceWith bookDetail data.Data
 
   $(".actionbar .page-title").text data.Data.Book.Title
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2)
+  CenterTitle()
 
   if $(".summaryContent").height() <= 80
     $(".expand").hide()

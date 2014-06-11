@@ -16,40 +16,6 @@ body {
   }
 }
 
-.dotdotdotForLongText {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  word-break: break-all;
-}
-
-.clearafter {
-  &:after {
-    clear: both;
-    content: "";
-    display: table;
-    line-height: 0;
-  }
-}
-
-.clearbefore {
-  &:before {
-    clear: both;
-    content: "";
-    display: table;
-    line-height: 0;
-  }
-}
-
-.clearboth {
-  &:after, &:before {
-    clear: both;
-    content: "";
-    display: table;
-    line-height: 0;
-  }
-}
-
 .row-fluid [class*="span"] {
   min-height: 0;
 }
@@ -96,11 +62,10 @@ body {
     height: 100%;
 
     &.center {
-      position: absolute;
+      position: relative;
       top: 0;
       bottom: 0;
       
-      padding-top: 8px;
       height: 100%;
 
       .page-title, .pullingText {
@@ -116,14 +81,77 @@ body {
         display: none;
       }
     }
+    
+    &.left-button {
+      .back, .slide-menu {
+        height: 100%;
+      }
+    }
 
-    .back, .slide-menu {
-      height: 100%;
+    &.right-button {
+      min-width: 48px;
+
+      .buttons {
+        height: 100%;
+        
+        .glyphicons:before {
+          margin-left: 16px;
+        }
+
+        .message-center {
+          a {
+            position: relative;
+
+            img {
+              width: 28px;
+              height: 28px;
+              margin-top: 8px;
+              margin-right: 10px;
+            }
+
+            .unreadCount {
+              position: absolute;
+              bottom: -15px;
+              right: 0;
+              background-color: @base;
+            }
+          }
+        }
+
+        .side-menu {
+          margin-top: 11px;
+
+          .dropdown-toggle {
+            margin: 0 6px;
+          }
+
+          .dropdown-menu {
+            margin-top: 10px;
+          }
+
+          img {
+            width: 24px;
+            height: 24px;
+          }
+        }
+
+        .write {
+          margin-top: 8px;
+          margin-right: 8px;
+
+          .button.post {
+            padding: 4px 20px;
+            background-color: @base;
+            color: white;
+          }
+        }
+      }
     }
 
     .channel {
-      margin-top: 5px;
-      margin-left: 4px;
+      position: absolute;
+      right: -64px;
+      top: 4px;
 
       img {
         width: 28px;
@@ -161,15 +189,7 @@ body {
         }
       }
     }
-
-    .buttons {
-      height: 100%;
-      
-      .glyphicons:before {
-        margin-left: 16px;
-      }
-    }
-
+    
     .btn-group.open {
       .btn.dropdown-toggle {
         background-color: transparent;
@@ -186,54 +206,6 @@ body {
       min-width: 0;
       .border-radius(0);
       .box-shadow(none);
-    }
-
-    .write {
-      margin-top: 8px;
-      margin-right: 8px;
-
-      .button.post {
-        padding: 4px 20px;
-        background-color: @base;
-        color: white;
-      }
-    }
-
-    .message-center {
-      a {
-        position: relative;
-
-        img {
-          width: 28px;
-          height: 28px;
-          margin-top: 8px;
-          margin-right: 10px;
-        }
-
-        .unreadCount {
-          position: absolute;
-          bottom: -15px;
-          right: 0;
-          background-color: @base;
-        }
-      }
-    }
-
-    .side-menu {
-      margin-top: 11px;
-
-      .dropdown-toggle {
-        margin: 0 6px;
-      }
-
-      .dropdown-menu {
-        margin-top: 10px;
-      }
-
-      img {
-        width: 24px;
-        height: 24px;
-      }
     }
 
     .slide-menu {

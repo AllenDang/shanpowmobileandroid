@@ -12,7 +12,7 @@ DidGetBooklistResponseData = function(data, rawData) {
   booklistResponse = template("public/Responses");
   $(".spinner").replaceWith(booklistResponse(data.Data));
   $(".actionbar .page-title").text("回复");
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
+  CenterTitle();
   $("#submit").unbind("click").on("click", function(event) {
     var _ref, _ref1;
     event.preventDefault();

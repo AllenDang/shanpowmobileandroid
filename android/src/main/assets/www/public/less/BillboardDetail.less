@@ -1,4 +1,5 @@
-@import (once) "General.less";
+@import (reference) "prefixer.less";
+@import (reference) "Common.less";
 
 hr {
   border-color: @base;
@@ -82,6 +83,8 @@ hr {
     width: 100%;
 
     td {
+      width: 50%;
+      
       &:first-child {
         border-right: 1px solid rgba(255, 255, 255, 0.5);
       }
