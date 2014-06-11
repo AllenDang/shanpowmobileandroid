@@ -1,5 +1,5 @@
 {{each Messages}}
-  <div class="row-fluid msg {{if $value.IsRead === false}}unread{{/if}}">
+  <div class="row-fluid msg {{if $value.IsRead === false}}unread{{/if}} response" id="{{$value.Id}}">
     <a href="{{$value.AnchorUrl}}"></a>
     {{if $value.IsRead === false}}<div class="unread-indicator"></div>{{/if}}
     <div class="userAvatar span2">

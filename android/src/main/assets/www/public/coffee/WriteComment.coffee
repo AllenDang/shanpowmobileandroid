@@ -3,7 +3,7 @@ $(document).on "deviceready", ()->
 
   $(".actionbar .write").removeClass "hide"
   $(".actionbar .page-title").text ""
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2)
+  CenterTitle()
 
   window.status = getQueryString "status"
   window.bookid = getQueryString "bookid"

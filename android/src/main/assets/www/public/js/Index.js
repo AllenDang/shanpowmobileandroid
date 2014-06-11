@@ -8,7 +8,7 @@ $(document).on("deviceready", function() {
   $(".actionbar .slide-menu").removeClass("hide");
   $(".actionbar .back").addClass("hide");
   $(".actionbar .button.search").removeClass("hide");
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
+  CenterTitle();
   ch = getQueryString("ch");
   if (ch === "f") {
     node = document.createElement('link');

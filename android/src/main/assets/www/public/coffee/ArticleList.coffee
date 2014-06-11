@@ -10,7 +10,7 @@ DidGetArticleListData = (data, rawData)->
   $(".spinner").replaceWith articles(data)
 
   $(".actionbar .page-title").text "文章列表"
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2)
+  CenterTitle()
   return
 
 FailGetArticleListData = (data, rawData)->

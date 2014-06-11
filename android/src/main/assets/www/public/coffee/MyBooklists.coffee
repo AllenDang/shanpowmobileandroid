@@ -59,7 +59,7 @@ DidGetBooklistsData = (data, rawData)->
     $(".booklists .none").text "Ta还没有#{if window.create is 1 then "创建" else "收藏"}书单"
     $(".actionbar .page-title").text "Ta#{if window.create is 1 then "创建" else "收藏"}的书单"
 
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2)
+  CenterTitle()
 
   $(".item").each ()->
     $(this).width ($(window).width() - 48) / 2

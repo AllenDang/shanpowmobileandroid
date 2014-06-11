@@ -11,7 +11,7 @@ DidGetMoreComments = function(data, rawData) {
   bookDetail = template("Book/MoreReviews");
   $(".spinner").replaceWith(bookDetail(data));
   $(".actionbar .page-title").text("书评");
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
+  CenterTitle();
   $(".reviewScore").raty({
     score: function() {
       return $(this).data("score");

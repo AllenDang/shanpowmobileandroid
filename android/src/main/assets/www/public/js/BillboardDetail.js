@@ -16,7 +16,7 @@ DidGetBillboardDetailData = function(data, rawData) {
   billboardIndex = template("Billboard/Detail");
   $(".spinner").replaceWith(billboardIndex(data.Data));
   $(".actionbar .page-title").text(data.Data.Billboard.Title);
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
+  CenterTitle();
   $(".mega table td").each(function(index) {
     $(this).children("div").css({
       "left": ($(this).width() - $(this).children("div").width()) / 2

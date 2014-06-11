@@ -5,7 +5,7 @@ $(document).on "deviceready", ()->
   $(".actionbar .back").addClass "hide"
   $(".actionbar .button.search").removeClass "hide"
 
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2)
+  CenterTitle()
 
   ch = getQueryString "ch"
 
@@ -31,16 +31,6 @@ DidGetIndexData = (data, rawData)->
 
   if data.Data.IsLogin
     $(".wizard h4 .more").removeClass "hide"
-
-  # $(".slides").slidesjs {
-  #   width: $(".container").width() - 16,
-  #   height: ($(".container").width() - 16) * 270 / 790 + 52,
-  #   navigation: false,
-  #   pagination: {
-  #     active: true,
-  #     effect: "slide"
-  #   }
-  # }
 
   $("ul.slidesjs-pagination").css {
     "right": "auto",

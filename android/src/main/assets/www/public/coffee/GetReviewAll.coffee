@@ -26,7 +26,7 @@ DidGetReviews = (data, rawData)->
   $(".loadMore").removeClass("hide")
 
   $(".actionbar .page-title").text "所有评论"
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2)
+  CenterTitle()
 
   $(".ratingStar").raty {
     score: -> return $(this).data("score"),

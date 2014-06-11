@@ -12,7 +12,7 @@ DidGetCommentDetailData = function(data, rawData) {
   articles = template("Comment/Detail");
   $(".spinner").replaceWith(articles(data.Data));
   $(".actionbar .page-title").text("评论");
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
+  CenterTitle();
   $(".ratingStar").raty({
     score: (function() {
       return $(this).data("score");

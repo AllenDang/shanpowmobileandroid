@@ -13,7 +13,7 @@ DidGetSearchResultData = function(data, rawData) {
   sr = template("Search/Result");
   $(".spinner").replaceWith(sr(data.Data));
   $(".actionbar .page-title").text("" + window.query + "的搜索结果");
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
+  CenterTitle();
   $(".ratingStar").raty({
     score: function() {
       return $(this).data("score") / 2;

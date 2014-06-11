@@ -8,7 +8,7 @@ DidGetMoreComments = (data, rawData)->
   $(".spinner").replaceWith bookDetail data
 
   $(".actionbar .page-title").text "书评"
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2)
+  CenterTitle()
 
   $(".reviewScore").raty {
     score: -> return $(this).data("score"),

@@ -4,7 +4,7 @@ var DidGetPeopleBookData, DidGetPeopleReadBookData, DidGetPeopleWantBookData, Fa
 $(document).on("deviceready", function() {
   var peopleWantBook;
   $(".actionbar .page-title").text("读书记录和书评");
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
+  CenterTitle();
   window.nickname = unescape(getQueryString("nickname"));
   window.pageNum = 1;
   $(document).on("click", "#readTab", null, function() {

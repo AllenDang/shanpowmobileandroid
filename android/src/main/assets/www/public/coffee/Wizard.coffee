@@ -1,7 +1,7 @@
 $(document).on "deviceready", ()->
   $(".spinner").remove()
   $(".actionbar .page-title").text "一键治书荒"
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2)
+  CenterTitle()
 
   $(".innerCircle").height $(".innerCircle").width()
 

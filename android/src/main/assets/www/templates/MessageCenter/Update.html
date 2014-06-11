@@ -1,5 +1,5 @@
 {{each Messages}}
-  <div class="row-fluid msg {{if $value.IsRead === false}}unread{{/if}}">
+  <div class="row-fluid msg {{if $value.IsRead === false}}unread{{/if}} update" id="{{$value.Id}}">
     <div class="bookcover span2">
       <a href="file:///android_asset/www/Book/Detail.html?id={{$value.Book.Id}}"><img src="{{$value.Book.ImageUrl}}" alt="" class=""></a>
     </div>

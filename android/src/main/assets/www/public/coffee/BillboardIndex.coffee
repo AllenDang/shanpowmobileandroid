@@ -19,7 +19,7 @@ DidGetBillboardIndexData = (data, rawData)->
     return
 
   $(".actionbar .page-title").text "热辣榜单"
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2)
+  CenterTitle()
 
   $(".ver.more").unbind("click").on "click", (event)->
     if $(this).hasClass "nobkg"

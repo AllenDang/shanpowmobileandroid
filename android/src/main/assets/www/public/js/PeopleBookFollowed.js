@@ -12,7 +12,7 @@ DidGetBooksData = function(data, rawData) {
   books = template("People/BookFollowed");
   $(".spinner").replaceWith(books(data.Data));
   $(".actionbar .page-title").text("关注的书");
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
+  CenterTitle();
   $(".book").each(function(index) {
     $(this).find(".time").next(".clearfix").remove();
     $(this).find(".time").remove();

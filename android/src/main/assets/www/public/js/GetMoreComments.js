@@ -12,7 +12,7 @@ DidGetMoreComments = function(data, rawData) {
   bookDetail = template("Book/MoreComments");
   $(".spinner").replaceWith(bookDetail(data));
   $(".actionbar .page-title").text("一句话评论");
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
+  CenterTitle();
   $(".cmtScore").raty({
     score: function() {
       return $(this).data("score");

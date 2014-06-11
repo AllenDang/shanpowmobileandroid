@@ -23,7 +23,7 @@ DidGetBillboardIndexData = function(data, rawData) {
     $(this).find(".span8").height($(this).find(".span4 img").width());
   });
   $(".actionbar .page-title").text("热辣榜单");
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
+  CenterTitle();
   $(".ver.more").unbind("click").on("click", function(event) {
     if ($(this).hasClass("nobkg")) {
       $(this).removeClass("nobkg");

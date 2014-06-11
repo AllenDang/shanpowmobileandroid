@@ -12,7 +12,7 @@ DidGetBooklistDetailData = (data, rawData)->
   
 
   $(".actionbar .page-title").text data.Data.Title
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2)
+  CenterTitle()
 
   $(".ratingStar").raty {
     score: -> return $(this).data("score"),

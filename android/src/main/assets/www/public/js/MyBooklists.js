@@ -64,7 +64,7 @@ DidGetBooklistsData = function(data, rawData) {
     $(".booklists .none").text("Ta还没有" + (window.create === 1 ? "创建" : "收藏") + "书单");
     $(".actionbar .page-title").text("Ta" + (window.create === 1 ? "创建" : "收藏") + "的书单");
   }
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
+  CenterTitle();
   $(".item").each(function() {
     $(this).width(($(window).width() - 48) / 2);
     $(this).find(".bookCover").each(function() {

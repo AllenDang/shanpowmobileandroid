@@ -1,6 +1,6 @@
 $(document).on "deviceready", ()->  
   $(".actionbar .page-title").text "消息中心"
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2)
+  CenterTitle()
 
   main = template "MessageCenter/Index"
   $(".spinner").replaceWith main()
@@ -23,6 +23,10 @@ $(document).on "deviceready", ()->
 
   GetMessages()
   window.initClick = true
+  return
+
+$(document).on "click tap", "a", null, ()->
+  MarkMsgAsRead($(this))
   return
 
 GetMessages = ()->
@@ -60,4 +64,23 @@ DidGetUpdateData = (data, rawData)->
 SwitchToUpdate = ()->
   update = template "MessageCenter/Update"
   $(".payload").html update window.updateData
+  return
+
+MarkMsgAsRead = (target)->
+  id = target.closest(".msg").attr "id"
+
+  if target.closest(".msg").hasClass("dm")
+    cordova.exec ((data)->dmData = data), null, "CachedIOHelper", "get", ["GET:/mj/people/conversations"]
+
+    for msg in dmData.Data
+      if msg.Id is id
+        msg.IsNewMessages = false
+
+    cordova.exec ((data)->), null, "CachedIOHelper", "set", ["GET:/mj/people/conversations", dmData]
+
+  RequestAjax "POST", "/mj/msgcenter/markasread", {id: id}, DidMarkMsgAsRead, null, null, null, null, null, false
+  return
+
+DidMarkMsgAsRead = (data, rawData)->
+  console.log "marked"
   return

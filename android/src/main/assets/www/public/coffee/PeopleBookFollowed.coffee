@@ -8,7 +8,7 @@ DidGetBooksData = (data, rawData)->
   $(".spinner").replaceWith books(data.Data)
 
   $(".actionbar .page-title").text "关注的书"
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2)
+  CenterTitle()
   
   $(".book").each (index)->
     $(this).find(".time").next(".clearfix").remove()

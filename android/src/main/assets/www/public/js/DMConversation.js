@@ -6,7 +6,7 @@ $(document).on("deviceready", function() {
   window.conversations = new Array();
   otherName = getQueryString("other");
   $(".actionbar .page-title").text(unescape(otherName));
-  $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
+  CenterTitle();
   window.conversationId = getQueryString("id");
   RequestAjax("GET", "/mj/people/conversation/" + window.conversationId + "/message/newest", {}, DidGetNewestMessageData, null);
 });
