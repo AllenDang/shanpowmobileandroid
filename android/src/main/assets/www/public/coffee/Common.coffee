@@ -9,7 +9,7 @@ getQueryString = (name)->
     return escape(r[2])
   return null
 
-RequestAjax = (type, url, data, successCallback, failCallback, beforeAction, afterAction, dontAlertOnStatusCode, async, shouldSpin)->
+RequestAjax = (type, url, data, successCallback, failCallback, shouldSpin)->
   rawData = {
     Path: url,
     Data: data
@@ -20,10 +20,6 @@ RequestAjax = (type, url, data, successCallback, failCallback, beforeAction, aft
     data: data ? {},
     successCallback: successCallback,
     failCallback: failCallback,
-    beforeAction: beforeAction,
-    afterAction: afterAction,
-    dontAlertOnStatusCode: dontAlertOnStatusCode,
-    async: async,
     shouldSpin: shouldSpin
   }
 
@@ -56,7 +52,7 @@ GetToken = (options)->
 
 RequestDataWithParam = (options)->
   timeoutInterval = 10000
-  shouldSpin = options.shouldSpin ? true
+  shouldSpin = options.shouldSpin ? false
 
   rawData = {
     Path: options.url,
@@ -64,19 +60,16 @@ RequestDataWithParam = (options)->
   }
 
   $.ajax {
-    async: options.async ? true,
+    async: true,
     type: options.type ? "GET",
     url: "http://www.shanpow.com#{encodeURI(options.url ? "/")}",
     cache: false,
     data: options.data,
     statusCode: {
-      400: (()->navigator.notification.alert("400: 请求不正确") if not options.dontAlertOnStatusCode),
-      404: (()->navigator.notification.alert("404: 该资源不存在") if not options.dontAlertOnStatusCode),
-      500: (()->navigator.notification.alert("500: 服务器遇到一个内部错误，请稍等一会再试试") if not options.dontAlertOnStatusCode),
       403: (()->GetToken(options))
     },
     success: ((data)->
-      ()->navigator.notification.activityStop()
+      setTimeout (()->navigator.notification.activityStop()), 200
       if window.shouldCache ? true
         cordova.exec ((data)->), null, "CachedIOHelper", "set", ["#{options.type}:#{options.url}", data]
       if data.Result is true
@@ -95,9 +88,7 @@ RequestDataWithParam = (options)->
     timeout: timeoutInterval,
     error: ((jqXHR, textStatus, errorThrown)->
       if options.type is "GET"
-        navigator.notification.alert "加载失败，请重试", (()->
-          RequestDataWithParam options
-          return), "提示", "重试"
+        navigator.notification.alert "加载失败，请重试", (()->RequestDataWithParam options), "提示", "重试"
       if options.failCallback?
         options.failCallback(null, rawData)
       return
@@ -105,14 +96,10 @@ RequestDataWithParam = (options)->
     beforeSend: ((jqXHR, settings)->
       if shouldSpin
         navigator.notification.activityStart("", "正在加载...")
-        setTimeout (()->
-          navigator.notification.activityStop()
-          return), timeoutInterval
-      options.beforeAction?(jqXHR, settings)
+        setTimeout (()->navigator.notification.activityStop()), timeoutInterval
       return),
     complete: ((jqXHR, textStatus)->
       setTimeout (()->navigator.notification.activityStop()), 200
-      options.afterAction?(jqXHR, textStatus)
       return)
   }
   return
@@ -249,11 +236,6 @@ GetUnreadMessageCount = ()->
 
 DidGetUnreadCount = (data)->
   localStorage.setItem("unreadMsgCount", "#{data.MK_UNREAD_NOTIFICATION_COUNT}")
-  if parseInt(data.MK_UNREAD_NOTIFICATION_COUNT) > 0
-    $(".actionbar .slide-menu").find(".badge").text "#{data.MK_UNREAD_NOTIFICATION_COUNT}"
-  else
-    $(".actionbar .slide-menu").find(".badge").text ""
-
   $(document).trigger "didGetUnreadCount"
   return
 

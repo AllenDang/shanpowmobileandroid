@@ -54,7 +54,7 @@ PostResponse = function(data) {
   RegisterResponseBtn();
   $("#" + data.id).find(".timestamp").addClass("hide");
   $("#" + data.id).find(".status").removeClass("hide");
-  PostReviewAjaxRequest(window.reviewId, "response", "POST", data, DidPostResponse, DidFailPostResponse, null, null, null, null, false);
+  PostReviewAjaxRequest(window.reviewId, "response", "POST", data, DidPostResponse, DidFailPostResponse, false);
 };
 
 PostReviewAjaxRequest = function(reviewId, command, type, data, successCallBack, failCallBack) {

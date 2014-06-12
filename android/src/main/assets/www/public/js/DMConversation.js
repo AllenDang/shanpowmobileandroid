@@ -67,7 +67,7 @@ PostMessage = function(data) {
   $(".messages").append(messageHTML(msgData));
   $("#" + data.id).find(".status").removeClass("hide");
   window.scrollTo(0, document.body.scrollHeight);
-  RequestAjax("POST", "/mj/people/conversation/" + window.conversationId + "/message/post", data, DidPostMessage, FailPostMessage, null, null, null, null, false);
+  RequestAjax("POST", "/mj/people/conversation/" + window.conversationId + "/message/post", data, DidPostMessage, FailPostMessage, false);
 };
 
 DidPostMessage = function(data, rawData) {

@@ -24,14 +24,14 @@ $(document).on("deviceready", function() {
   RequestAjax("GET", "/mj/review/write/" + window.bookid, {}, DidGetComment, null, null);
   $(document).on("click tap", ".actionbar .back", null, (function(event) {
     event.preventDefault();
-    return window.history.go(-2);
+    return window.history.back();
   }));
   $(document).on("backbutton", function(event) {
     event.preventDefault();
-    window.history.go(-2);
+    window.history.back();
   });
   $(".button.cancel").unbind("click").on("click", function(event) {
-    window.history.go(-2);
+    window.history.back();
   });
 });
 

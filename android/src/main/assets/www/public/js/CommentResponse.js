@@ -55,7 +55,7 @@ PostResponse = function(data) {
   $("#" + data.id).find(".status").removeClass("hide");
   bookId = $(".container").data("bookid");
   authorId = $(".container").data("authorid");
-  RequestAjax("POST", "/book/" + bookId + "/" + authorId + "/response", data, DidPostResponse, DidFailPostResponse, null, null, null, null, false);
+  RequestAjax("POST", "/book/" + bookId + "/" + authorId + "/response", data, DidPostResponse, DidFailPostResponse, false);
 };
 
 DidPostResponse = function(data, rawData) {

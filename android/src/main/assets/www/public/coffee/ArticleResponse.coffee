@@ -58,7 +58,7 @@ PostResponse = (data)->
   $("##{data.id}").find(".status").removeClass("hide")
 
   articleId = getQueryString "id"
-  RequestAjax "POST", "/article/#{articleId}/addresponse", data, DidPostResponse, DidFailPostResponse, null, null, null, null, false
+  RequestAjax "POST", "/article/#{articleId}/addresponse", data, DidPostResponse, DidFailPostResponse, false
   return
 
 DidPostResponse = (data, rawData)->

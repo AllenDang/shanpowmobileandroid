@@ -16,6 +16,11 @@ $(document).on "deviceready", ()->
     node.href = 'public/css/Index_F.css'
     document.getElementsByTagName('head')[0].appendChild(node)
 
+  if parseInt(localStorage.getItem("unreadMsgCount")) > 0
+    $(".actionbar .slide-menu").find(".badge").text "#{localStorage.getItem("unreadMsgCount")}"
+  else
+    $(".actionbar .slide-menu").find(".badge").text ""
+
   RequestAjax "GET", "/mj", {ch: ch ? "m"}, DidGetIndexData, FailGetIndexData
   return
 

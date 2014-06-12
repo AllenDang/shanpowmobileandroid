@@ -24,15 +24,15 @@ $(document).on "deviceready", ()->
 
   $(document).on "click tap", ".actionbar .back", null, ((event)->
     event.preventDefault()
-    window.history.go(-2))
+    window.history.back())
 
   $(document).on "backbutton", (event)->
     event.preventDefault()
-    window.history.go(-2)
+    window.history.back()
     return
 
   $(".button.cancel").unbind("click").on "click", (event)->
-    window.history.go(-2)
+    window.history.back()
     return
   return
 

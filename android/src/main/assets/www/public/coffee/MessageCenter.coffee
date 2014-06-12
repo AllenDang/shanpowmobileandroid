@@ -21,53 +21,73 @@ $(document).on "deviceready", ()->
       return
     return
 
-  GetMessages()
-  window.initClick = true
+  InitRequest()
   return
 
 $(document).on "click tap", "a", null, ()->
   MarkMsgAsRead($(this))
   return
 
-GetMessages = ()->
-  RequestAjax "GET", "/mj/people/conversations", {}, DidGetDirectMessageData, null
-  RequestAjax "GET", "/mj/msgcenter/response", {}, DidGetResponseData, null, null, null, null, null, false
-  RequestAjax "GET", "/mj/msgcenter/update", {}, DidGetUpdateData, null, null, null, null, null, false
+InitRequest = ()->
+  RequestAjax "GET", "/mj/people/conversations/tab", {}, DidGetInitData, null
   return
 
-DidGetDirectMessageData = (data, rawData)->
-  $("#directmessage").find(".newMsgIndicator").removeClass("hide") if parseInt(data.Data.MessagesUnreadSum) > 0
-  window.directMessageData = data
-  SwitchToDirectMessage() if window.initClick ? true
+DidGetInitData = (data, rawData)->
+  DidGetDirectMessageData {Data: data.Data.Conversations}, null
+  $("#directmessage").find(".newMsgIndicator").removeClass("hide") if parseInt(data.Data.MessageUnreadSum) > 0
+  $("#response").find(".newMsgIndicator").removeClass("hide") if parseInt(data.Data.ResponseUnreadSum) > 0
+  $("#update").find(".newMsgIndicator").removeClass("hide") if parseInt(data.Data.UpdateUnreadSum) > 0
   return
 
 SwitchToDirectMessage = ()->
-  directmessage = template "MessageCenter/DirectMessage"
-  $(".payload").html directmessage window.directMessageData
+  $(".payload").html ""
+  GetMessages()
   return
 
-DidGetResponseData = (data, rawData)->
-  $("#response").find(".newMsgIndicator").removeClass("hide") if parseInt(data.Data.MessagesUnreadSum) > 0
-  window.responseData = data.Data
+GetMessages = ()->
+  RequestAjax "GET", "/mj/people/conversations", {}, DidGetDirectMessageData, null
+  return
+
+DidGetDirectMessageData = (data, rawData)->
+  $("#directmessage").find(".newMsgIndicator").removeClass("hide") if parseInt(data.Data?.MessagesUnreadSum ? 0) > 0
+  directmessage = template "MessageCenter/DirectMessage"
+  $(".payload").html directmessage data
   return
 
 SwitchToResponse = ()->
-  responses = template "MessageCenter/Response"
-  $(".payload").html responses window.responseData
+  $(".payload").html ""
+  GetResponses()
   return
 
-DidGetUpdateData = (data, rawData)->
-  $("#update").find(".newMsgIndicator").removeClass("hide") if parseInt(data.Data.MessagesUnreadSum) > 0
-  window.updateData = data.Data
+GetResponses = ()->
+  RequestAjax "GET", "/mj/msgcenter/response", {}, DidGetResponseData, null
+  return
+
+DidGetResponseData = (data, rawData)->
+  $("#response").find(".newMsgIndicator").removeClass("hide") if parseInt(data.Data?.MessagesUnreadSum ? 0) > 0
+  responses = template "MessageCenter/Response"
+  $(".payload").html responses data.Data
   return
 
 SwitchToUpdate = ()->
+  $(".payload").html ""
+  GetUpdates()
+  return
+
+GetUpdates = ()->
+  RequestAjax "GET", "/mj/msgcenter/update", {}, DidGetUpdateData, null
+  return
+
+DidGetUpdateData = (data, rawData)->
+  $("#update").find(".newMsgIndicator").removeClass("hide") if parseInt(data.Data?.MessagesUnreadSum ? 0) > 0
   update = template "MessageCenter/Update"
-  $(".payload").html update window.updateData
+  $(".payload").html update data.Data
   return
 
 MarkMsgAsRead = (target)->
   id = target.closest(".msg").attr "id"
+
+  localStorage.setItem("unreadMsgCount", "#{parseInt(localStorage.getItem("unreadMsgCount")) - 1}")
 
   if target.closest(".msg").hasClass("dm")
     cordova.exec ((data)->dmData = data), null, "CachedIOHelper", "get", ["GET:/mj/people/conversations"]
@@ -78,7 +98,7 @@ MarkMsgAsRead = (target)->
 
     cordova.exec ((data)->), null, "CachedIOHelper", "set", ["GET:/mj/people/conversations", dmData]
 
-  RequestAjax "POST", "/mj/msgcenter/markasread", {id: id}, DidMarkMsgAsRead, null, null, null, null, null, false
+  RequestAjax "POST", "/mj/msgcenter/markasread", {id: id}, DidMarkMsgAsRead, null, false
   return
 
 DidMarkMsgAsRead = (data, rawData)->
