@@ -15,16 +15,16 @@ public class ToastHelper extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        if (action.equals("toast") && args.length() == 1) {
+        if (action.equals("show") && args.length() == 1) {
             String message = args.getString(0);
-            toast(message);
+            show(message);
         }
 
         callbackContext.success();
         return true;
     }
 
-    public synchronized void toast(final String message) {
+    public synchronized void show(final String message) {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
