@@ -88,7 +88,6 @@ RequestDataWithParam = (options)->
     timeout: timeoutInterval,
     error: ((jqXHR, textStatus, errorThrown)->
       if options.type is "GET"
-        # navigator.notification.alert "加载失败，请重试", (()->RequestDataWithParam options), "提示", "重试"
         ShowLoadingError "加载失败，请下拉刷新以重试"
       if options.failCallback?
         options.failCallback(null, rawData)

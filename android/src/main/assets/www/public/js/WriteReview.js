@@ -87,25 +87,24 @@ WriteReview = function(statusCode) {
     isShareToQQ: false,
     isShareToWeibo: false
   };
-  RequestAjax("POST", "/book/" + window.bookid + "/addreview", data, DidSaveReadingStatus, DidFailSaveReadingStatus, null);
+  RequestAjax("POST", "/book/" + window.bookid + "/addreview", data, DidSaveReadingStatus, DidFailSaveReadingStatus, false);
 };
 
 DidSaveReadingStatus = function(data, rawData) {
   EnableButton();
-  navigator.notification.alert("评论已经发布成功！", (function() {
-    return GetBack();
-  }), "成功", "好的");
+  cordova.exec(null, null, "ToastHelper", "show", ["评论已经发布成功！"]);
+  GetBack();
 };
 
 DidFailSaveReadingStatus = function(data, rawData) {
   EnableButton();
-  navigator.notification.alert(data.ErrorMsg, null, "失败", "好的");
+  cordova.exec(null, null, "ToastHelper", "show", [data.ErrorMsg]);
 };
 
 PostMarkAjaxRequest = function(command, type, data, successCallback, failCallback) {
   data.isShareToQQ = false;
   data.isShareToWeibo = false;
-  RequestAjax(type, "/book/" + window.bookid + "/" + command, data, successCallback, failCallback, null);
+  RequestAjax(type, "/book/" + window.bookid + "/" + command, data, successCallback, failCallback, false);
 };
 
 EnableButton = function() {
