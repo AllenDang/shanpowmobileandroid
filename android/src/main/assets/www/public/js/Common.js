@@ -17,7 +17,7 @@ getQueryString = function(name) {
   return null;
 };
 
-RequestAjax = function(type, url, data, successCallback, failCallback, beforeAction, afterAction, dontAlertOnStatusCode, async, shouldSpin) {
+RequestAjax = function(type, url, data, successCallback, failCallback, shouldSpin) {
   var options, rawData;
   rawData = {
     Path: url,
@@ -29,10 +29,6 @@ RequestAjax = function(type, url, data, successCallback, failCallback, beforeAct
     data: data != null ? data : {},
     successCallback: successCallback,
     failCallback: failCallback,
-    beforeAction: beforeAction,
-    afterAction: afterAction,
-    dontAlertOnStatusCode: dontAlertOnStatusCode,
-    async: async,
     shouldSpin: shouldSpin
   };
   if (localStorage.shouldFetchDataFromCache === "YES") {
@@ -64,45 +60,30 @@ GetToken = function(options) {
 };
 
 RequestDataWithParam = function(options) {
-  var rawData, shouldSpin, timeoutInterval, _ref, _ref1, _ref2, _ref3;
+  var rawData, shouldSpin, timeoutInterval, _ref, _ref1, _ref2;
   timeoutInterval = 10000;
-  shouldSpin = (_ref = options.shouldSpin) != null ? _ref : true;
+  shouldSpin = (_ref = options.shouldSpin) != null ? _ref : false;
   rawData = {
     Path: options.url,
     Data: options.data
   };
   $.ajax({
-    async: (_ref1 = options.async) != null ? _ref1 : true,
-    type: (_ref2 = options.type) != null ? _ref2 : "GET",
-    url: "http://www.shanpow.com" + (encodeURI((_ref3 = options.url) != null ? _ref3 : "/")),
+    async: true,
+    type: (_ref1 = options.type) != null ? _ref1 : "GET",
+    url: "http://www.shanpow.com" + (encodeURI((_ref2 = options.url) != null ? _ref2 : "/")),
     cache: false,
     data: options.data,
     statusCode: {
-      400: (function() {
-        if (!options.dontAlertOnStatusCode) {
-          return navigator.notification.alert("400: 请求不正确");
-        }
-      }),
-      404: (function() {
-        if (!options.dontAlertOnStatusCode) {
-          return navigator.notification.alert("404: 该资源不存在");
-        }
-      }),
-      500: (function() {
-        if (!options.dontAlertOnStatusCode) {
-          return navigator.notification.alert("500: 服务器遇到一个内部错误，请稍等一会再试试");
-        }
-      }),
       403: (function() {
         return GetToken(options);
       })
     },
     success: (function(data) {
-      var _ref4, _ref5;
-      (function() {
+      var _ref3, _ref4;
+      setTimeout((function() {
         return navigator.notification.activityStop();
-      });
-      if ((_ref4 = window.shouldCache) != null ? _ref4 : true) {
+      }), 200);
+      if ((_ref3 = window.shouldCache) != null ? _ref3 : true) {
         cordova.exec((function(data) {}), null, "CachedIOHelper", "set", ["" + options.type + ":" + options.url, data]);
       }
       if (data.Result === true) {
@@ -115,7 +96,7 @@ RequestDataWithParam = function(options) {
         if (options.failCallback != null) {
           options.failCallback(data, rawData);
         } else {
-          navigator.notification.alert((_ref5 = data.ErrorMsg) != null ? _ref5 : "网络发生故障，您可以下拉刷新页面以重试", null, "错误");
+          navigator.notification.alert((_ref4 = data.ErrorMsg) != null ? _ref4 : "网络发生故障，您可以下拉刷新页面以重试", null, "错误");
         }
       }
     }),
@@ -124,7 +105,7 @@ RequestDataWithParam = function(options) {
     error: (function(jqXHR, textStatus, errorThrown) {
       if (options.type === "GET") {
         navigator.notification.alert("加载失败，请重试", (function() {
-          RequestDataWithParam(options);
+          return RequestDataWithParam(options);
         }), "提示", "重试");
       }
       if (options.failCallback != null) {
@@ -135,20 +116,14 @@ RequestDataWithParam = function(options) {
       if (shouldSpin) {
         navigator.notification.activityStart("", "正在加载...");
         setTimeout((function() {
-          navigator.notification.activityStop();
+          return navigator.notification.activityStop();
         }), timeoutInterval);
-      }
-      if (typeof options.beforeAction === "function") {
-        options.beforeAction(jqXHR, settings);
       }
     }),
     complete: (function(jqXHR, textStatus) {
       setTimeout((function() {
         return navigator.notification.activityStop();
       }), 200);
-      if (typeof options.afterAction === "function") {
-        options.afterAction(jqXHR, textStatus);
-      }
     })
   });
 };
@@ -305,11 +280,6 @@ GetUnreadMessageCount = function() {
 
 DidGetUnreadCount = function(data) {
   localStorage.setItem("unreadMsgCount", "" + data.MK_UNREAD_NOTIFICATION_COUNT);
-  if (parseInt(data.MK_UNREAD_NOTIFICATION_COUNT) > 0) {
-    $(".actionbar .slide-menu").find(".badge").text("" + data.MK_UNREAD_NOTIFICATION_COUNT);
-  } else {
-    $(".actionbar .slide-menu").find(".badge").text("");
-  }
   $(document).trigger("didGetUnreadCount");
 };
 
