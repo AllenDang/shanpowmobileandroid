@@ -2,7 +2,7 @@
 var DidFailPostResponse, DidGetResponseData, DidPostResponse, FailGetResponseData, PostResponse, PostReviewAjaxRequest, RegisterResponseBtn;
 
 $(document).on("deviceready", function() {
-  window.reviewId = getQueryString("reviewId");
+  window.reviewId = getQueryString("id");
   RequestAjax("GET", "/mj/review/" + window.reviewId + "/response", {}, DidGetResponseData, FailGetResponseData);
 });
 

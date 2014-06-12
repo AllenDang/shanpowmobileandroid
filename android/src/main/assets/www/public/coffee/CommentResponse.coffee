@@ -1,5 +1,5 @@
 $(document).on "deviceready", ()->  
-  commentId = getQueryString "commentId"
+  commentId = getQueryString "id"
   RequestAjax "GET", "/mj/comment/#{commentId}/response", {}, DidGetResponseData, FailGetResponseData
   return
 

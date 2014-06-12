@@ -13,7 +13,11 @@
         <div class="summary">{{$substring $value.Content 0 50}}</div>
       </div>
     </div>
-    <a href="{{$value.AnchorUrl}}"></a>
+    {{if $value.Type === 2}}
+    <a href="file:///android_asset/www/Review/Detail.html?id={{$value.AnchorId}}"></a>
+    {{else if $value.Type === 10}}
+    <a href="file:///android_asset/www/Comment/Detail.html?id={{$value.AnchorId}}"></a>
+    {{/if}}
     {{if $value.IsRead === false}}<div class="unread-indicator"></div>{{/if}}
   </div>
   <hr>

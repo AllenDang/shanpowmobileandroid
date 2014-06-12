@@ -3,7 +3,7 @@ var DidFailPostResponse, DidGetBooklistResponseData, DidPostResponse, FailGetBoo
 
 $(document).on("deviceready", function() {
   var booklistId;
-  booklistId = getQueryString("booklistid");
+  booklistId = getQueryString("id");
   RequestAjax("GET", "/mj/booklist/" + booklistId + "/response", {}, DidGetBooklistResponseData, FailGetBooklistResponseData);
 });
 

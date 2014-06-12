@@ -1,5 +1,5 @@
 $(document).on "deviceready", ()->
-  window.reviewId = getQueryString "reviewId"
+  window.reviewId = getQueryString "id"
   RequestAjax "GET", "/mj/review/#{window.reviewId}/response", {}, DidGetResponseData, FailGetResponseData
   return
 

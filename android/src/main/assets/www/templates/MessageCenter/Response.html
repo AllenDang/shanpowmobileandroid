@@ -11,7 +11,15 @@
       </div>
       <div class="content {{if $value.Action === 6}}glyphicons thumbs_up{{/if}} {{if $value.Action === 7}}glyphicons thumbs_down{{/if}}">{{$value.Content}}</div>
     </div>
-    <a href="{{$value.AnchorUrl}}"></a>
+    {{if $value.Type === 2}}
+    <a href="file:///android_asset/www/Review/{{if $value.Action === 6 || $value.Action === 7}}Detail{{else}}Response{{/if}}.html?id={{$value.AnchorId}}"></a>
+    {{else if $value.Type === 3}}
+    <a href="file:///android_asset/www/Booklist/Response.html?id={{$value.AnchorId}}"></a>
+    {{else if $value.Type === 9}}
+    <a href="file:///android_asset/www/Article/Response.html?id={{$value.AnchorId}}"></a>
+    {{else if $value.Type === 10}}
+    <a href="file:///android_asset/www/Comment/{{if $value.Action === 6 || $value.Action === 7}}Detail{{else}}Response{{/if}}.html?id={{$value.AnchorId}}"></a>
+    {{/if}}
   </div>
   <hr>
 {{/each}}

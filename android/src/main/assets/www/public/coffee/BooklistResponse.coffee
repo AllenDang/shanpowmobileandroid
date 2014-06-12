@@ -1,5 +1,5 @@
 $(document).on "deviceready", ()->  
-  booklistId = getQueryString "booklistid"
+  booklistId = getQueryString "id"
   RequestAjax "GET", "/mj/booklist/#{booklistId}/response", {}, DidGetBooklistResponseData, FailGetBooklistResponseData
   return
 

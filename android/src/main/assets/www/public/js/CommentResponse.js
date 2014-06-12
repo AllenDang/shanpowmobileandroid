@@ -3,7 +3,7 @@ var DidFailPostResponse, DidGetResponseData, DidPostResponse, FailGetResponseDat
 
 $(document).on("deviceready", function() {
   var commentId;
-  commentId = getQueryString("commentId");
+  commentId = getQueryString("id");
   RequestAjax("GET", "/mj/comment/" + commentId + "/response", {}, DidGetResponseData, FailGetResponseData);
 });
 
