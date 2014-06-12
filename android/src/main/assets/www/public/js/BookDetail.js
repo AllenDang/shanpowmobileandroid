@@ -10,7 +10,7 @@ $(document).on("deviceready", function() {
 DidGetBookDetailData = function(data, rawData) {
   var bookDetail;
   bookDetail = template("Book/Detail");
-  $(".spinner").replaceWith(bookDetail(data.Data));
+  $(".container").replaceWith(bookDetail(data.Data));
   $(".actionbar .page-title").text(data.Data.Book.Title);
   CenterTitle();
   if ($(".summaryContent").height() <= 80) {

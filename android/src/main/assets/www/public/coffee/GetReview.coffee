@@ -5,7 +5,7 @@ $(document).on "deviceready", ()->
 
 DidGetReviewDetailData = (data, rawData)->
   articles = template "Review/Detail"
-  $(".spinner").replaceWith articles(data.Data)
+  $(".container").replaceWith articles(data.Data)
 
   $(".actionbar .page-title").text "评论"
   CenterTitle()

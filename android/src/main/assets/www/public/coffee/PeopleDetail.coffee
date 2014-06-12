@@ -5,7 +5,7 @@ $(document).on "deviceready", ()->
 
 DidGetPeopleDetailData = (data, rawData)->
   peopledetail = template "People/Detail"
-  $(".spinner").replaceWith peopledetail(data.Data)
+  $(".container").replaceWith peopledetail(data.Data)
 
   if data.Data.IsMySelf
     $(".actionbar .message-center").removeClass "hide"

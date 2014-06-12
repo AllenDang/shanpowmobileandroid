@@ -5,7 +5,7 @@ $(document).on "deviceready", ()->
 
 DidGetBooksData = (data, rawData)->
   books = template "People/BookFollowed"
-  $(".spinner").replaceWith books(data.Data)
+  $(".container").replaceWith books(data.Data)
 
   $(".actionbar .page-title").text "关注的书"
   CenterTitle()

@@ -9,7 +9,7 @@ $(document).on("deviceready", function() {
 DidGetMoreComments = function(data, rawData) {
   var bookDetail;
   bookDetail = template("Book/MoreReviews");
-  $(".spinner").replaceWith(bookDetail(data));
+  $(".container").replaceWith(bookDetail(data));
   $(".actionbar .page-title").text("书评");
   CenterTitle();
   $(".reviewScore").raty({

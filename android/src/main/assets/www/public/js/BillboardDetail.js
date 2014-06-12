@@ -14,7 +14,7 @@ $(document).on("deviceready", function() {
 DidGetBillboardDetailData = function(data, rawData) {
   var billboardIndex;
   billboardIndex = template("Billboard/Detail");
-  $(".spinner").replaceWith(billboardIndex(data.Data));
+  $(".container").replaceWith(billboardIndex(data.Data));
   $(".actionbar .page-title").text(data.Data.Billboard.Title);
   CenterTitle();
   $(".mega table td").each(function(index) {

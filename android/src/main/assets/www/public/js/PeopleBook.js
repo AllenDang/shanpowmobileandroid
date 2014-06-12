@@ -14,7 +14,7 @@ $(document).on("deviceready", function() {
     RequestWantBooks();
   });
   peopleWantBook = template("People/Books");
-  $(".spinner").replaceWith(peopleWantBook());
+  $(".container").replaceWith(peopleWantBook());
   RequestReadingBooks();
 });
 

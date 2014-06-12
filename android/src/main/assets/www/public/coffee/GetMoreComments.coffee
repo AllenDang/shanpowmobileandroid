@@ -5,7 +5,7 @@ $(document).on "deviceready", ()->
 
 DidGetMoreComments = (data, rawData)->
   bookDetail = template "Book/MoreComments"
-  $(".spinner").replaceWith bookDetail data
+  $(".container").replaceWith bookDetail data
 
   $(".actionbar .page-title").text "一句话评论"
   CenterTitle()

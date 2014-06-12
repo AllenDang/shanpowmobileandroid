@@ -6,7 +6,7 @@ $(document).on("deviceready", function() {
   $(".actionbar .page-title").text("消息中心");
   CenterTitle();
   main = template("MessageCenter/Index");
-  $(".spinner").replaceWith(main());
+  $(".container").replaceWith(main());
   $(".tab").each(function() {
     $(this).unbind("click").on("click", function(event) {
       if (!$(this).hasClass("active")) {

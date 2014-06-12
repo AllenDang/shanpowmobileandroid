@@ -9,7 +9,7 @@ $(document).on("deviceready", function() {
 DidGetPeopleDetailData = function(data, rawData) {
   var peopledetail;
   peopledetail = template("People/Detail");
-  $(".spinner").replaceWith(peopledetail(data.Data));
+  $(".container").replaceWith(peopledetail(data.Data));
   if (data.Data.IsMySelf) {
     $(".actionbar .message-center").removeClass("hide");
     $(".actionbar .side-menu").removeClass("hide");

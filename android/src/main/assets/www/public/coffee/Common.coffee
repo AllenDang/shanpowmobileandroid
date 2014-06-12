@@ -81,14 +81,15 @@ RequestDataWithParam = (options)->
         if options.failCallback?
           options.failCallback(data, rawData)
         else
-          navigator.notification.alert data.ErrorMsg ? "网络发生故障，您可以下拉刷新页面以重试", null, "错误"
+          ShowLoadingError "加载失败，请下拉刷新以重试"
       return
     ),
     dataType: "json",
     timeout: timeoutInterval,
     error: ((jqXHR, textStatus, errorThrown)->
       if options.type is "GET"
-        navigator.notification.alert "加载失败，请重试", (()->RequestDataWithParam options), "提示", "重试"
+        # navigator.notification.alert "加载失败，请重试", (()->RequestDataWithParam options), "提示", "重试"
+        ShowLoadingError "加载失败，请下拉刷新以重试"
       if options.failCallback?
         options.failCallback(null, rawData)
       return
@@ -176,6 +177,10 @@ autoTextarea = (elem, extra, maxHeight)->
 
 PullToRefresh = ()->
   $("body").unbind("touchstart").on "touchstart", (event)->
+    if $(".actionbar").length > 0
+      $(".actionbar").append "<div class='pullbar' id='pullIndicator'></div>"
+    else
+      $("body").prepend "<div class='pullbar' id='pullIndicator'></div>"
     window.startY = event.originalEvent.touches[0].screenY
     window.startYOffset = $("body").scrollTop()
     window.zeroY = null
@@ -187,12 +192,12 @@ PullToRefresh = ()->
       return if window.lastY - window.startY < 0
       event.preventDefault()
       if window.zeroY?
-        $(".actionbar .pullbar").width $(window).width() * (window.lastY - window.zeroY) / ($(window).height() * 0.4)
-        $(".actionbar .pullbar").css "left", ($(window).width() - $(".actionbar .pullbar").width()) / 2
+        $("#pullIndicator").width $(window).width() * (window.lastY - window.zeroY) / ($(window).height() * 0.4)
+        $("#pullIndicator").css "left", ($(window).width() - $("#pullIndicator").width()) / 2
         $(".actionbar .title-section").addClass "hide"
         $(".actionbar .loading").removeClass "hide"
         CenterTitle()
-        if $(".actionbar .pullbar").width() >= $(window).width()
+        if $("#pullIndicator").width() >= $(window).width()
           $(".actionbar .loading .pullingText").text "松开以刷新"
         else
           $(".actionbar .loading .pullingText").text "下拉刷新..."
@@ -200,12 +205,11 @@ PullToRefresh = ()->
         window.zeroY = window.lastY
 
   $("body").unbind("touchend").on "touchend", (event)->
-    if $(".actionbar .pullbar").width() >= $(window).width()
+    if $("#pullIndicator").width() >= $(window).width()
       window.pullToRefresh = true
-      $("body").children().not(".actionbar").remove()
-      $(".actionbar").after "<div class='spinner'></div>"
+
       $(document).trigger("deviceready")
-    $(".actionbar .pullbar").width 0
+    $("#pullIndicator").width 0
     $(".actionbar .title-section").removeClass "hide"
     $(".actionbar .loading").addClass "hide"
 
@@ -252,14 +256,32 @@ CenterTitle = ()->
   $(".actionbar").children(".center").not(".hide").css("left", ($(".actionbar").width() - allWidth) / 2)
   return
 
+ShowLoadingError = (tipString)->
+  if $(".container").html().length <= 0
+    $(".error-msg").remove()
+    errMsg = template "public/ErrorMsg"
+    $("body").prepend errMsg {
+      tip: tipString,
+      onBlank: true
+    }
+    $(".container").height $(window).height() - 32
+  else
+    cordova.exec null, null, "ToastHelper", "show", ["加载失败，请下拉刷新以重试"]
+  return
+
 $(document).on "deviceready", ()->
   if window.pullToRefresh ? false
     window.pullToRefresh = false
     return
   
-  actionbar = template "public/ActionBar"
-  $("body").prepend actionbar()
+  try
+    actionbar = template "public/ActionBar"
+    $("body").prepend actionbar()
+  catch err
+    console.log err.description
   
+  PullToRefresh()
+
   $(document).on("click tap", ".actionbar .back", (()->
     GetBack()
     return))
@@ -274,8 +296,6 @@ $(document).on "deviceready", ()->
     else
       location.href = "file:///android_asset/www/MessageCenter/Index.html"
     return)
-
-  PullToRefresh()
 
   clearInterval getUnreadCountTimer
   getUnreadCountTimer = setInterval (()->GetUnreadMessageCount()), 10000

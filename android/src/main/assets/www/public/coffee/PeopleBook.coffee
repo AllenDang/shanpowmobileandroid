@@ -14,7 +14,7 @@ $(document).on "deviceready", ()->
     return)
 
   peopleWantBook = template "People/Books"
-  $(".spinner").replaceWith peopleWantBook()
+  $(".container").replaceWith peopleWantBook()
 
   RequestReadingBooks()
   return

@@ -7,7 +7,7 @@ DidGetArticleListData = (data, rawData)->
   for article in data.Data
     article.Content = $("<div>#{article.Content}</div>").text()
   
-  $(".spinner").replaceWith articles(data)
+  $(".container").replaceWith articles(data)
 
   $(".actionbar .page-title").text "文章列表"
   CenterTitle()

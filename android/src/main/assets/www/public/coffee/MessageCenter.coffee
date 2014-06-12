@@ -3,7 +3,7 @@ $(document).on "deviceready", ()->
   CenterTitle()
 
   main = template "MessageCenter/Index"
-  $(".spinner").replaceWith main()
+  $(".container").replaceWith main()
 
   $(".tab").each ()->
     $(this).unbind("click").on "click", (event)->

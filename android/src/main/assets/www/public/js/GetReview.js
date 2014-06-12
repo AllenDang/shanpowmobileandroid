@@ -10,7 +10,7 @@ $(document).on("deviceready", function() {
 DidGetReviewDetailData = function(data, rawData) {
   var articles;
   articles = template("Review/Detail");
-  $(".spinner").replaceWith(articles(data.Data));
+  $(".container").replaceWith(articles(data.Data));
   $(".actionbar .page-title").text("评论");
   CenterTitle();
   $(".ratingStar").raty({

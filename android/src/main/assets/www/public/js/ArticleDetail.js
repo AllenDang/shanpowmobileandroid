@@ -10,7 +10,7 @@ $(document).on("deviceready", function() {
 DidGetArticleDetailData = function(data, rawData) {
   var articles;
   articles = template("Article/Detail");
-  $(".spinner").replaceWith(articles(data.Data));
+  $(".container").replaceWith(articles(data.Data));
   $(".actionbar .page-title").text("文章");
   CenterTitle();
 };

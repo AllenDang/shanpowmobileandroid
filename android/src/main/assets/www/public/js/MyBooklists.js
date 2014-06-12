@@ -6,7 +6,7 @@ $(document).on("deviceready", function() {
   window.nickname = unescape(getQueryString("nickname"));
   window.create = parseInt(getQueryString("create"));
   mybooklist = template("Booklist/My");
-  $(".spinner").replaceWith(mybooklist());
+  $(".container").replaceWith(mybooklist());
   $(".active").removeClass("active");
   if (window.create === 1) {
     $(".tab[data-target='mine']").addClass("active");

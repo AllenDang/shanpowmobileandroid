@@ -10,7 +10,7 @@ $(document).on("deviceready", function() {
 DidGetBooklistDetailData = function(data, rawData) {
   var bookDetail;
   bookDetail = template("Booklist/Detail");
-  $(".spinner").replaceWith(bookDetail(data.Data));
+  $(".container").replaceWith(bookDetail(data.Data));
   if ($(".cat").length <= 9) {
     $(".cat.more").addClass("hide");
   }

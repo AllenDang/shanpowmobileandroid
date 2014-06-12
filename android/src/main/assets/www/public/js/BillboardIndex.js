@@ -13,7 +13,7 @@ DidGetBillboardIndexData = function(data, rawData) {
     billboard = _ref[_i];
     billboard.array = new Array(billboard.Version);
   }
-  $(".spinner").replaceWith(billboardIndex(data));
+  $(".container").replaceWith(billboardIndex(data));
   $(".billboard").each(function() {
     $(this).find(".ver").each(function(index) {
       if (index > ($(this).closest(".billboard").find(".ver").length > 5 ? 3 : 4) && !$(this).hasClass("more")) {

@@ -10,7 +10,7 @@ $(document).on("deviceready", function() {
 DidGetBooklistResponseData = function(data, rawData) {
   var booklistResponse;
   booklistResponse = template("public/Responses");
-  $(".spinner").replaceWith(booklistResponse(data.Data));
+  $(".container").replaceWith(booklistResponse(data.Data));
   $(".actionbar .page-title").text("回复");
   CenterTitle();
   $("#submit").unbind("click").on("click", function(event) {
