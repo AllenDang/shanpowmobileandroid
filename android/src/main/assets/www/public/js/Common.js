@@ -60,9 +60,9 @@ GetToken = function(options) {
 };
 
 RequestDataWithParam = function(options) {
-  var rawData, shouldSpin, timeoutInterval, _ref, _ref1, _ref2;
+  var rawData, shouldShowSpinner, timeoutInterval, _ref, _ref1, _ref2;
   timeoutInterval = 10000;
-  shouldSpin = (_ref = options.shouldSpin) != null ? _ref : false;
+  shouldShowSpinner = (_ref = options.shouldSpin) != null ? _ref : true;
   rawData = {
     Path: options.url,
     Data: options.data
@@ -113,7 +113,7 @@ RequestDataWithParam = function(options) {
       }
     }),
     beforeSend: (function(jqXHR, settings) {
-      if (shouldSpin) {
+      if (shouldShowSpinner) {
         navigator.notification.activityStart("", "正在加载...");
         setTimeout((function() {
           return navigator.notification.activityStop();

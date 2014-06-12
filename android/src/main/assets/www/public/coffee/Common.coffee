@@ -52,7 +52,7 @@ GetToken = (options)->
 
 RequestDataWithParam = (options)->
   timeoutInterval = 10000
-  shouldSpin = options.shouldSpin ? false
+  shouldShowSpinner = options.shouldSpin ? true
 
   rawData = {
     Path: options.url,
@@ -94,7 +94,7 @@ RequestDataWithParam = (options)->
       return
     ),
     beforeSend: ((jqXHR, settings)->
-      if shouldSpin
+      if shouldShowSpinner
         navigator.notification.activityStart("", "正在加载...")
         setTimeout (()->navigator.notification.activityStop()), timeoutInterval
       return),
