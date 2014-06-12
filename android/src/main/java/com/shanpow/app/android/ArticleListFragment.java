@@ -3,9 +3,10 @@ package com.shanpow.app.android;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -26,6 +27,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import uk.co.senab.actionbarpulltorefresh.extras.actionbarcompat.PullToRefreshLayout;
+import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
+import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,7 +39,8 @@ import java.util.List;
  * to handle interaction events.
  */
 @EFragment(R.layout.fragment_article_list)
-public class ArticleListFragment extends Fragment implements AbsListView.OnScrollListener {
+public class ArticleListFragment extends Fragment
+        implements AbsListView.OnScrollListener, OnRefreshListener {
 
     private OnArticleSelectedListener mListener;
 
@@ -54,6 +60,8 @@ public class ArticleListFragment extends Fragment implements AbsListView.OnScrol
     @ViewById
     ListView lv_articles;
 
+    PullToRefreshLayout mPullToRefreshLayout;
+
     public static ArticleListFragment newInstance(String tag) {
         ArticleListFragment_ fragment = new ArticleListFragment_();
         fragment.setTag(tag);
@@ -66,28 +74,64 @@ public class ArticleListFragment extends Fragment implements AbsListView.OnScrol
 
     @AfterViews
     void init() {
+        ViewGroup viewGroup = (ViewGroup) getView();
+        mPullToRefreshLayout = new PullToRefreshLayout(viewGroup.getContext());
+
+        ActionBarPullToRefresh.from(getActivity())
+                .insertLayoutInto(viewGroup)
+                .theseChildrenArePullable(lv_articles, lv_articles.getEmptyView())
+                .listener(this)
+                .setup(mPullToRefreshLayout);
+
         mFooter = ((LayoutInflater) this.getActivity()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE))
                 .inflate(R.layout.view_loading, lv_articles, false);
 
         lv_articles.setOnScrollListener(this);
 
-        getArticleList(mTag);
+        loadData();
     }
 
     @Background
-    void getArticleList(String tag) {
+    void loadData() {
+        currentPageNum = 1;
         try {
-            GetArticleListResult result = shanpowClient.GetArticlesByTag(tag, currentPageNum, 10);
+            GetArticleListResult result = shanpowClient.GetArticlesByTag(mTag, currentPageNum, 10);
             if (result != null && result.Result && result.Data.Articles.length > 0) {
                 totalPageNum = result.Data.PageSum;
                 fillData(result.Data.Articles);
             } else {
-                Toast.makeText(this.getActivity(), R.string.err_network_failed, Toast.LENGTH_SHORT).show();
+                showNetworkErrorToast();
             }
         } catch (Exception e) {
-            Toast.makeText(this.getActivity(), R.string.err_network_failed, Toast.LENGTH_SHORT).show();
+            showNetworkErrorToast();
+            e.printStackTrace();
         }
+    }
+
+    @Background
+    void loadMoreData() {
+        currentPageNum += 1;
+        try {
+            GetArticleListResult result = shanpowClient.GetArticlesByTag(mTag, currentPageNum, 10);
+            if (result != null && result.Result && result.Data.Articles.length > 0) {
+                fillMoreData(result.Data.Articles);
+            } else {
+                showNetworkErrorToast();
+            }
+        } catch (Exception e) {
+            //读取失败把currentPageNum复原
+            currentPageNum -= 1;
+            showNetworkErrorToast();
+            e.printStackTrace();
+        }
+    }
+
+    @UiThread
+    void showNetworkErrorToast() {
+        Toast toast = Toast.makeText(this.getActivity(), R.string.err_network_failed, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 
     @UiThread
@@ -97,11 +141,19 @@ public class ArticleListFragment extends Fragment implements AbsListView.OnScrol
             lv_articles.addFooterView(mFooter);
         }
 
-        //加载adapter
-        List<SimpleArticleInfo> list = new ArrayList<SimpleArticleInfo>(Arrays.asList(articles));
-        mAdapter = new ArticleListAdapter(
-                this.getActivity().getApplicationContext(), list);
-        lv_articles.setAdapter(mAdapter);
+        if (lv_articles.getAdapter() == null) {
+            //加载adapter
+            List<SimpleArticleInfo> list = new ArrayList<SimpleArticleInfo>(Arrays.asList(articles));
+            mAdapter = new ArticleListAdapter(
+                    this.getActivity().getApplicationContext(), list);
+            lv_articles.setAdapter(mAdapter);
+        } else {
+            mAdapter.clear();
+            for (SimpleArticleInfo info : articles) {
+                mAdapter.add(info);
+            }
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @UiThread
@@ -110,22 +162,6 @@ public class ArticleListFragment extends Fragment implements AbsListView.OnScrol
             mAdapter.add(info);
         }
         mAdapter.notifyDataSetChanged();
-    }
-
-    @Background
-    void loadMoreData() {
-        currentPageNum += 1;
-        Log.d("DEBUG", String.format("loading %s, for page %d", mTag, currentPageNum));
-        try {
-            GetArticleListResult result = shanpowClient.GetArticlesByTag(mTag, currentPageNum, 10);
-            if (result != null && result.Result && result.Data.Articles.length > 0) {
-                fillMoreData(result.Data.Articles);
-            }
-        } catch (Exception e) {
-            //读取失败把currentPageNum复原
-            currentPageNum -= 1;
-            Toast.makeText(this.getActivity(), R.string.err_network_failed, Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override
@@ -160,6 +196,11 @@ public class ArticleListFragment extends Fragment implements AbsListView.OnScrol
                 lv_articles.removeFooterView(mFooter);
             }
         }
+    }
+
+    @Override
+    public void onRefreshStarted(View view) {
+        loadData();
     }
 
     public interface OnArticleSelectedListener {

@@ -12,6 +12,9 @@
     <feature name="CachedIOHelper">
         <param name="android-package" value="com.shanpow.app.cordovaplugin.CachedIOHelper" />
     </feature>
+    <feature name="ToastHelper">
+        <param name="android-package" value="com.shanpow.app.cordovaplugin.ToastHelper" />
+    </feature>
     <name>山坡有书</name>
     <description>
         山坡有书.
