@@ -24,14 +24,14 @@ $(document).on("deviceready", function() {
   RequestAjax("GET", "/mj/review/write/" + window.bookid, {}, DidGetComment, null, null);
   $(document).on("click tap", ".actionbar .back", null, (function(event) {
     event.preventDefault();
-    return window.history.back();
+    return GetBack();
   }));
   $(document).on("backbutton", function(event) {
     event.preventDefault();
-    window.history.back();
+    GetBack();
   });
   $(".button.cancel").unbind("click").on("click", function(event) {
-    window.history.back();
+    GetBack();
   });
 });
 
@@ -87,25 +87,24 @@ WriteReview = function(statusCode) {
     isShareToQQ: false,
     isShareToWeibo: false
   };
-  RequestAjax("POST", "/book/" + window.bookid + "/addreview", data, DidSaveReadingStatus, DidFailSaveReadingStatus, null);
+  RequestAjax("POST", "/book/" + window.bookid + "/addreview", data, DidSaveReadingStatus, DidFailSaveReadingStatus, false);
 };
 
 DidSaveReadingStatus = function(data, rawData) {
   EnableButton();
-  navigator.notification.alert("评论已经发布成功！", (function() {
-    return window.history.back();
-  }), "成功", "好的");
+  cordova.exec(null, null, "ToastHelper", "show", ["评论已经发布成功！"]);
+  GetBack();
 };
 
 DidFailSaveReadingStatus = function(data, rawData) {
   EnableButton();
-  navigator.notification.alert(data.ErrorMsg, null, "失败", "好的");
+  cordova.exec(null, null, "ToastHelper", "show", [data.ErrorMsg]);
 };
 
 PostMarkAjaxRequest = function(command, type, data, successCallback, failCallback) {
   data.isShareToQQ = false;
   data.isShareToWeibo = false;
-  RequestAjax(type, "/book/" + window.bookid + "/" + command, data, successCallback, failCallback, null);
+  RequestAjax(type, "/book/" + window.bookid + "/" + command, data, successCallback, failCallback, false);
 };
 
 EnableButton = function() {

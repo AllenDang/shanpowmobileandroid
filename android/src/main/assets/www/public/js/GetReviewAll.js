@@ -20,7 +20,7 @@ $(document).on("deviceready", function() {
 DidGetReviews = function(data, rawData) {
   var review, reviews, singleReview, _i, _len, _ref;
   reviews = template("Review/All");
-  $(".spinner").replaceWith(reviews(data));
+  $(".container").replaceWith(reviews(data));
   _ref = data.Data;
   for (_i = 0, _len = _ref.length; _i < _len; _i++) {
     review = _ref[_i];

@@ -16,7 +16,7 @@ $(document).on("deviceready", function() {
     SaveReadingStatus(window.status, event);
   });
   $(".button.cancel").unbind("click").on("click", function(event) {
-    window.history.back();
+    GetBack();
   });
   $(".actionbar .write").unbind("click").on("click", function(event) {
     var shortLocation;
@@ -61,7 +61,7 @@ SaveReadingStatus = function(statusCode, event) {
 DidSaveReadingStatus = function(data, rawData) {
   EnableButton();
   navigator.notification.alert("评论已经发布成功！", (function() {
-    return window.history.back();
+    return GetBack();
   }), "", "好的");
 };
 

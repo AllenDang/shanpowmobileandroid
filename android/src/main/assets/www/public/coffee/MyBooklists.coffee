@@ -3,7 +3,7 @@ $(document).on "deviceready", ()->
   window.create = parseInt getQueryString "create"
 
   mybooklist = template "Booklist/My"
-  $(".spinner").replaceWith mybooklist()
+  $(".container").replaceWith mybooklist()
 
   $(".active").removeClass("active")
   if window.create is 1

@@ -16,7 +16,7 @@ $(document).on "deviceready", ()->
 
 DidGetReviews = (data, rawData)->
   reviews = template "Review/All"
-  $(".spinner").replaceWith reviews data
+  $(".container").replaceWith reviews data
 
   for review in data.Data
     singleReview = template "public/Review"

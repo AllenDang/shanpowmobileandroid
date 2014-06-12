@@ -26,7 +26,7 @@ $(document).on "deviceready", ()->
 
 DidGetIndexData = (data, rawData)->
   main = template "Index/Main"
-  $(".spinner").replaceWith main data.Data
+  $(".container").replaceWith main data.Data
 
   channel = getQueryString "ch"
   if channel is "f"

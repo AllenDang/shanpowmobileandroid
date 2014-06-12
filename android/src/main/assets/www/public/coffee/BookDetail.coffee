@@ -5,7 +5,7 @@ $(document).on "deviceready", ()->
 
 DidGetBookDetailData = (data, rawData)->
   bookDetail = template "Book/Detail"
-  $(".spinner").replaceWith bookDetail data.Data
+  $(".container").replaceWith bookDetail data.Data
 
   $(".actionbar .page-title").text data.Data.Book.Title
   CenterTitle()

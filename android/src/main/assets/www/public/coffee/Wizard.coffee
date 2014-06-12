@@ -7,7 +7,7 @@ $(document).on "deviceready", ()->
 
   $(".innerCircle").unbind("click").on "click", (event)->
     if not $(".info").hasClass("hide")
-      navigator.notification.alert "提示", "还需要标记更多书籍"
+      cordova.exec null, null, "ToastHelper", "show", ["还需要标记更多书籍"]
       return
 
     imgUrl = $(".circle").attr "src"

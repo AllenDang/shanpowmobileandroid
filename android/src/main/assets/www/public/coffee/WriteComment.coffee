@@ -16,7 +16,7 @@ $(document).on "deviceready", ()->
     return
 
   $(".button.cancel").unbind("click").on "click", (event)->
-    window.history.back()
+    GetBack()
     return
 
   $(".actionbar .write").unbind("click").on "click", (event)->
@@ -60,7 +60,7 @@ SaveReadingStatus = (statusCode, event)->
 
 DidSaveReadingStatus = (data, rawData)->
   EnableButton()
-  navigator.notification.alert "评论已经发布成功！", (->window.history.back()), "", "好的"
+  navigator.notification.alert "评论已经发布成功！", (->GetBack()), "", "好的"
   return
 
 DidFailSaveReadingStatus = (data, rawData)->

@@ -10,7 +10,7 @@ $(document).on("deviceready", function() {
 DidGetBooksData = function(data, rawData) {
   var books;
   books = template("People/BookFollowed");
-  $(".spinner").replaceWith(books(data.Data));
+  $(".container").replaceWith(books(data.Data));
   $(".actionbar .page-title").text("关注的书");
   CenterTitle();
   $(".book").each(function(index) {

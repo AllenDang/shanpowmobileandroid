@@ -5,7 +5,7 @@ $(document).on "deviceready", ()->
 
 DidGetBooklistDetailData = (data, rawData)->
   bookDetail = template "Booklist/Detail"
-  $(".spinner").replaceWith bookDetail data.Data
+  $(".container").replaceWith bookDetail data.Data
   
   if $(".cat").length <= 9
     $(".cat.more").addClass("hide")

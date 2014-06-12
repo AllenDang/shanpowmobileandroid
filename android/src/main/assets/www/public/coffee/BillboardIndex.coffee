@@ -6,7 +6,7 @@ DidGetBillboardIndexData = (data, rawData)->
   billboardIndex = template "Billboard/Index"
   for billboard in data.Data
     billboard.array = new Array(billboard.Version)
-  $(".spinner").replaceWith billboardIndex data
+  $(".container").replaceWith billboardIndex data
 
   $(".billboard").each ()->
     $(this).find(".ver").each (index)->

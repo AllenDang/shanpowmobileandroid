@@ -9,6 +9,7 @@ body {
   background-color: #F6F2ED;
   font-size: 14px;
   padding: 16px;
+  box-sizing: border-box;
 
   a, a:hover {
     color: black;
@@ -46,7 +47,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 999;
+  z-index: @actionbarzindex;
   
   width: 100%;
   height: @actionbarheight;
@@ -289,7 +290,7 @@ body {
   }
 }
 
-.pullbar {
+.pullbar#pullIndicator {
   position: absolute;
   top: @actionbarheight;
 
@@ -344,5 +345,40 @@ input[type="tel"], input[type="color"] {
     right: 0;
     top: 0;
     bottom: 0;
+  }
+}
+
+.error-msg {
+  position: fixed;
+  margin: 0 auto;
+  margin-top: 200px;
+  width: 100%;
+  left: 0;
+
+  img {
+    display: block;
+    margin: 0 auto;
+    width: 25px;
+    border-radius: 25px;
+    border: 1px solid black;
+    margin-bottom: 16px;
+  }
+
+  span {
+    color: black;
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+  &.black {
+    z-index: @actionbarzindex + 2;
+    background-color: black;
+    border-radius: 10px;
+    opacity: 0.8;
+
+    span {
+      color: white;
+    }
   }
 }

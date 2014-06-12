@@ -15,7 +15,7 @@ DidGetNewestMessageData = (data, rawData)->
   window.TotalSum = data.Data.TotalSum
 
   messagesHTML = template "DirectMessage/Messages"
-  $(".spinner").replaceWith messagesHTML({Messages: window.conversations})
+  $(".container").replaceWith messagesHTML({Messages: window.conversations})
 
   window.scrollTo(0, document.body.scrollHeight);
 

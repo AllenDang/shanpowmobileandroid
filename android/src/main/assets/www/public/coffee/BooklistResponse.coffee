@@ -5,7 +5,7 @@ $(document).on "deviceready", ()->
 
 DidGetBooklistResponseData = (data, rawData)->
   booklistResponse = template "public/Responses"
-  $(".spinner").replaceWith booklistResponse data.Data
+  $(".container").replaceWith booklistResponse data.Data
   
   $(".actionbar .page-title").text "回复"
   CenterTitle()

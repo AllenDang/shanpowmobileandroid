@@ -30,7 +30,7 @@ $(document).on("deviceready", function() {
 DidGetIndexData = function(data, rawData) {
   var channel, main;
   main = template("Index/Main");
-  $(".spinner").replaceWith(main(data.Data));
+  $(".container").replaceWith(main(data.Data));
   channel = getQueryString("ch");
   if (channel === "f") {
     $(".actionbar .channel").find("img.current-channel").attr("src", "public/img/Crown_Woman.png");
