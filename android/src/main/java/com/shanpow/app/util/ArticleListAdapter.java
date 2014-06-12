@@ -12,13 +12,16 @@ import com.shanpow.app.android.R;
 import com.shanpow.app.entity.SimpleArticleInfo;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 /**
  * Created by allendang on 14-6-11.
  */
 public class ArticleListAdapter extends ArrayAdapter<SimpleArticleInfo> {
-    public ArticleListAdapter(Context context, SimpleArticleInfo[] objects) {
+    public ArticleListAdapter(Context context, List<SimpleArticleInfo> objects) {
         super(context, R.layout.list_articles, objects);
     }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
