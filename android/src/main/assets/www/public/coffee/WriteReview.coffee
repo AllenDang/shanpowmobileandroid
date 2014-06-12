@@ -24,15 +24,15 @@ $(document).on "deviceready", ()->
 
   $(document).on "click tap", ".actionbar .back", null, ((event)->
     event.preventDefault()
-    window.history.back())
+    GetBack())
 
   $(document).on "backbutton", (event)->
     event.preventDefault()
-    window.history.back()
+    GetBack()
     return
 
   $(".button.cancel").unbind("click").on "click", (event)->
-    window.history.back()
+    GetBack()
     return
   return
 
@@ -90,7 +90,7 @@ WriteReview = (statusCode)->
 
 DidSaveReadingStatus = (data, rawData)->
   EnableButton()
-  navigator.notification.alert "评论已经发布成功！", (->window.history.back()), "成功", "好的"
+  navigator.notification.alert "评论已经发布成功！", (->GetBack()), "成功", "好的"
   return
 
 DidFailSaveReadingStatus = (data, rawData)->

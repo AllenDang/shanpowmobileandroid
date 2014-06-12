@@ -24,14 +24,14 @@ $(document).on("deviceready", function() {
   RequestAjax("GET", "/mj/review/write/" + window.bookid, {}, DidGetComment, null, null);
   $(document).on("click tap", ".actionbar .back", null, (function(event) {
     event.preventDefault();
-    return window.history.back();
+    return GetBack();
   }));
   $(document).on("backbutton", function(event) {
     event.preventDefault();
-    window.history.back();
+    GetBack();
   });
   $(".button.cancel").unbind("click").on("click", function(event) {
-    window.history.back();
+    GetBack();
   });
 });
 
@@ -93,7 +93,7 @@ WriteReview = function(statusCode) {
 DidSaveReadingStatus = function(data, rawData) {
   EnableButton();
   navigator.notification.alert("评论已经发布成功！", (function() {
-    return window.history.back();
+    return GetBack();
   }), "成功", "好的");
 };
 
