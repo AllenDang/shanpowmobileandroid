@@ -56,7 +56,7 @@ PostResponse = (data)->
   $("##{data.id}").find(".timestamp").addClass("hide")
   $("##{data.id}").find(".status").removeClass("hide")
 
-  RequestAjax "POST", "/booklist/#{$(".container").data('id')}/addresponse", data, DidPostResponse, DidFailPostResponse, null, null, null, null, false
+  RequestAjax "POST", "/booklist/#{$(".container").data('id')}/addresponse", data, DidPostResponse, DidFailPostResponse, false
   return
 
 DidPostResponse = (data, rawData)->

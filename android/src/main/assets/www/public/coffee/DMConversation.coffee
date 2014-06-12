@@ -62,7 +62,7 @@ PostMessage = (data)->
 
   window.scrollTo(0, document.body.scrollHeight);
 
-  RequestAjax "POST", "/mj/people/conversation/#{window.conversationId}/message/post", data, DidPostMessage, FailPostMessage, null, null, null, null, false
+  RequestAjax "POST", "/mj/people/conversation/#{window.conversationId}/message/post", data, DidPostMessage, FailPostMessage, false
   return
 
 DidPostMessage = (data, rawData)->
