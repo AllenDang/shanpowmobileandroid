@@ -154,6 +154,8 @@ public class ArticleListFragment extends Fragment
             }
             mAdapter.notifyDataSetChanged();
         }
+
+        mPullToRefreshLayout.setRefreshComplete();
     }
 
     @UiThread
