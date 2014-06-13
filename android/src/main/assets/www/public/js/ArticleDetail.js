@@ -4,6 +4,7 @@ var DidGetArticleDetailData, FailGetArticleDetailData;
 $(document).on("deviceready", function() {
   var articleId;
   articleId = getQueryString("id");
+  window.isArticleDetail = true;
   RequestAjax("GET", "/mj/article/" + articleId, {}, DidGetArticleDetailData, FailGetArticleDetailData);
 });
 

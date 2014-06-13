@@ -1,5 +1,6 @@
 $(document).on "deviceready", ()->
   articleId = getQueryString "id"
+  window.isArticleDetail = true
   RequestAjax "GET", "/mj/article/#{articleId}", {}, DidGetArticleDetailData, FailGetArticleDetailData
   return
 

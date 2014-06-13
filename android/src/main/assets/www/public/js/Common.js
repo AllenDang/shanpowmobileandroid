@@ -292,8 +292,14 @@ DidGetUnreadCount = function(data) {
 };
 
 GetBack = function() {
+  var count;
   localStorage.shouldFetchDataFromCache = "YES";
-  if (window.history.length > 1) {
+  count = parseInt(sessionStorage.getItem("historyCount"));
+  if (count === 0 && window.isArticleDetail) {
+    cordova.exec(null, null, "ActivityLauncher", "finishCurrentActivity", []);
+  } else {
+    count--;
+    sessionStorage.setItem("historyCount", "" + count);
     window.history.back();
   }
 };
@@ -325,11 +331,16 @@ ShowLoadingError = function(tipString) {
 };
 
 $(document).on("deviceready", function() {
-  var actionbar, err, getUnreadCountTimer, _ref;
+  var actionbar, count, err, getUnreadCountTimer, _ref;
   if ((_ref = window.pullToRefresh) != null ? _ref : false) {
     window.pullToRefresh = false;
     return;
   }
+  count = parseInt(sessionStorage.getItem("historyCount"));
+  if (isNaN(count)) {
+    count = 0;
+  }
+  sessionStorage.setItem("historyCount", "" + count);
   try {
     actionbar = template("public/ActionBar");
     $("body").prepend(actionbar());
@@ -350,6 +361,15 @@ $(document).on("deviceready", function() {
     } else {
       location.href = "file:///android_asset/www/MessageCenter/Index.html";
     }
+  }));
+  $(document).on("click tap", "a", (function() {
+    count = parseInt(sessionStorage.getItem("historyCount"));
+    if (isNaN(count)) {
+      count = 1;
+    } else {
+      count++;
+    }
+    sessionStorage.setItem("historyCount", "" + count);
   }));
   clearInterval(getUnreadCountTimer);
   getUnreadCountTimer = setInterval((function() {

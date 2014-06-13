@@ -249,7 +249,12 @@ DidGetUnreadCount = (data)->
 
 GetBack = ()->
   localStorage.shouldFetchDataFromCache = "YES"
-  if window.history.length > 1
+  count = parseInt sessionStorage.getItem "historyCount"
+  if count is 0 and window.isArticleDetail
+    cordova.exec null, null, "ActivityLauncher", "finishCurrentActivity", []
+  else
+    count--
+    sessionStorage.setItem "historyCount", "#{count}"
     window.history.back()
   return
 
@@ -278,6 +283,11 @@ $(document).on "deviceready", ()->
   if window.pullToRefresh ? false
     window.pullToRefresh = false
     return
+
+  count = parseInt sessionStorage.getItem "historyCount"
+  if isNaN(count)
+    count = 0
+  sessionStorage.setItem "historyCount", "#{count}"
   
   try
     actionbar = template "public/ActionBar"
@@ -300,6 +310,15 @@ $(document).on "deviceready", ()->
       cordova.exec null, null, "ActivityLauncher", "toggleSlidingMenu", []
     else
       location.href = "file:///android_asset/www/MessageCenter/Index.html"
+    return)
+
+  $(document).on "click tap", "a", (()->
+    count = parseInt sessionStorage.getItem "historyCount"
+    if isNaN(count)
+      count = 1
+    else
+      count++
+    sessionStorage.setItem "historyCount", "#{count}"
     return)
 
   clearInterval getUnreadCountTimer
