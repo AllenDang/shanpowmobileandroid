@@ -31,11 +31,11 @@ RequestAjax = function(type, url, data, successCallback, failCallback, shouldSpi
     failCallback: failCallback,
     shouldSpin: shouldSpin
   };
-  if (localStorage.shouldFetchDataFromCache === "YES") {
+  if (sessionStorage.shouldFetchDataFromCache === "YES") {
+    sessionStorage.shouldFetchDataFromCache = "NO";
     cordova.exec((function(data) {
-      successCallback(data, rawData);
-      return localStorage.shouldFetchDataFromCache = "NO";
-    }), null, "CachedIOHelper", "get", ["" + type + ":" + url]);
+      return successCallback(data, rawData);
+    }), (function() {}), "CachedIOHelper", "get", ["" + type + ":" + url]);
   } else {
     if (window.localStorage.getItem("token")) {
       options.data.csrf_token = window.localStorage.getItem("token");
@@ -242,6 +242,7 @@ PullToRefresh = function() {
     var actionbar;
     if ($("#pullIndicator").width() >= $(window).width()) {
       window.pullToRefresh = true;
+      sessionStorage.shouldFetchDataFromCache = "NO";
       $(".error-msg").remove();
       if ($(".container").length <= 0 && $("body").children().length <= 1) {
         actionbar = $(".actionbar");
@@ -293,7 +294,7 @@ DidGetUnreadCount = function(data) {
 
 GetBack = function() {
   var count;
-  localStorage.shouldFetchDataFromCache = "YES";
+  sessionStorage.shouldFetchDataFromCache = "YES";
   count = parseInt(sessionStorage.getItem("historyCount"));
   if (count === 0 && window.isArticleDetail) {
     cordova.exec(null, null, "ActivityLauncher", "finishCurrentActivity", []);
