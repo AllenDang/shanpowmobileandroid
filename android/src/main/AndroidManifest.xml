@@ -82,7 +82,12 @@
         <activity android:name=".ReaderActivity_" />
         <activity
             android:name=".ArticleListActivity_"
-            android:label="@string/title_activity_article_list"></activity>
+            android:parentActivityName=".MainActivity_"
+            android:label="@string/title_activity_article_list">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity_" />
+        </activity>
     </application>
 
 </manifest>

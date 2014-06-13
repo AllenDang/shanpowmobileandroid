@@ -42,7 +42,7 @@ public class ArticleListAdapter extends ArrayAdapter<SimpleArticleInfo> {
         txtv_onlinetime.setText(String.format("%s前", info.OnlineTime));
 
         Picasso.with(getContext())
-                .load(info.ImageUrl + "?imageView/2/h/68")
+                .load(info.ImageUrl + "?imageView/2/h/90")
                 .into(img_banner);
 
         return convertView;

@@ -23,6 +23,10 @@ public class ArticleListActivity extends ActionBarActivity implements ArticleLis
 
         PagerSlidingTabStrip indicator = (PagerSlidingTabStrip) findViewById(R.id.indicator);
         indicator.setViewPager(pager);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+
     }
 
     @Override
