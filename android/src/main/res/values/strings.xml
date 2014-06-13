@@ -28,5 +28,7 @@
     <string name="title_activity_book_sources">智能转码</string>
     <string name="ic_bell_description">未读消息</string>
     <string name="title_loading">正在加载数据……</string>
+    <string name="title_activity_cordova_view">CordovaViewActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

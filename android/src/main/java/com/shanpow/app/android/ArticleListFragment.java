@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -41,7 +42,7 @@ import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
  */
 @EFragment(R.layout.fragment_article_list)
 public class ArticleListFragment extends Fragment
-        implements AbsListView.OnScrollListener, OnRefreshListener {
+        implements AbsListView.OnScrollListener, OnRefreshListener, AdapterView.OnItemClickListener {
 
     private OnArticleSelectedListener mListener;
 
@@ -92,6 +93,7 @@ public class ArticleListFragment extends Fragment
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE))
                 .inflate(R.layout.view_loading, lv_articles, false);
 
+        lv_articles.setOnItemClickListener(this);
         lv_articles.setOnScrollListener(this);
 
         if (isVisible()) {
@@ -224,6 +226,12 @@ public class ArticleListFragment extends Fragment
     public void onRefreshStarted(View view) {
         loadData();
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        mListener.onArticleSelected(mAdapter.getItem(position).Id);
+    }
+
 
     public interface OnArticleSelectedListener {
         // TODO: Update argument type and name

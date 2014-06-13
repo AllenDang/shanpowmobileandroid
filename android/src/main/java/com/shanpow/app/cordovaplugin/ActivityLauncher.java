@@ -27,6 +27,8 @@ public class ActivityLauncher extends CordovaPlugin {
             bookSources(args.getString(0), args.getString(1));
         } else if (action.equals("logout")) {
             logout();
+        } else if (action.endsWith("finishCurrentActivity")) {
+            finishCurrentActivity();
         } else {
             return false;
         }
@@ -67,5 +69,9 @@ public class ActivityLauncher extends CordovaPlugin {
                 }
             }
         });
+    }
+
+    public void finishCurrentActivity() {
+        cordova.getActivity().finish();
     }
 }
