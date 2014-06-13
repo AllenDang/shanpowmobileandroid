@@ -28,7 +28,7 @@ $(document).on("deviceready", function() {
 });
 
 DidGetIndexData = function(data, rawData) {
-  var channel, main;
+  var channel, main, _ref;
   main = template("Index/Main");
   $(".container").replaceWith(main(data.Data));
   channel = getQueryString("ch");
@@ -37,7 +37,7 @@ DidGetIndexData = function(data, rawData) {
   } else {
     $(".actionbar .channel").find("img.current-channel").attr("src", "public/img/Crown.png");
   }
-  if (data.Data.IsLogin) {
+  if (data != null ? (_ref = data.Data) != null ? _ref.IsLogin : void 0 : void 0) {
     $(".wizard h4 .more").removeClass("hide");
   }
   $("ul.slidesjs-pagination").css({

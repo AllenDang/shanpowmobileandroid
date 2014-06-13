@@ -206,7 +206,11 @@ PullToRefresh = ()->
   $("body").unbind("touchend").on "touchend", (event)->
     if $("#pullIndicator").width() >= $(window).width()
       window.pullToRefresh = true
-
+      if $(".container").length <= 0
+        actionbar = $(".actionbar")
+        $("body").html actionbar
+        $("body").append "<div class='container spinner'></div>"
+      
       $(document).trigger("deviceready")
     $("#pullIndicator").width 0
     $(".actionbar .title-section").removeClass "hide"
