@@ -2,19 +2,17 @@
 var DidFailPostResponse, DidGetResponseData, DidPostResponse, FailGetResponseData, PostResponse, RegisterResponseBtn;
 
 $(document).on("deviceready", function() {
-  var articleId;
+  var articleId, inputGroup;
   articleId = getQueryString("id");
-  RequestAjax("GET", "/mj/article/" + articleId + "/response", {}, DidGetResponseData, FailGetResponseData);
-});
-
-DidGetResponseData = function(data, rawData) {
-  var articleResponseMain;
-  articleResponseMain = template("public/Responses");
-  $(".container").replaceWith(articleResponseMain(data.Data));
+  window.authorId = getQueryString("authorId");
   $(".actionbar .page-title").text("回复");
   CenterTitle();
+  inputGroup = template("public/InputGroup");
+  $(".container").replaceWith(inputGroup({
+    IsLogin: localStorage.IsLogin === "YES" ? true : false
+  }));
   $("#submit").unbind("click").on("click", function(event) {
-    var _ref, _ref1;
+    var data, _ref, _ref1;
     event.preventDefault();
     event.stopPropagation();
     if (((_ref = $(".sendResponseContent").val()) != null ? _ref.length : void 0) <= 0) {
@@ -25,11 +23,18 @@ DidGetResponseData = function(data, rawData) {
       data = {
         id: TimeStamp(),
         content: (_ref1 = $("#replyInput").val()) != null ? _ref1 : "",
-        authorId: $(".container").data("authorid")
+        authorId: window.authorId
       };
       PostResponse(data);
     }
   });
+  RequestAjax("GET", "/mj/article/" + articleId + "/response", {}, DidGetResponseData, FailGetResponseData, false);
+});
+
+DidGetResponseData = function(data, rawData) {
+  var articleResponseMain;
+  articleResponseMain = template("public/Responses");
+  $(".actionbar").after(articleResponseMain(data.Data));
   RegisterResponseBtn();
 };
 
@@ -37,7 +42,7 @@ FailGetResponseData = function(data, rawData) {};
 
 PostResponse = function(data) {
   var articleId, nickname, response, responseData;
-  $("#replyInput").val("").blur().focus();
+  $("#replyInput").val("");
   nickname = $(".container").data("nickname");
   responseData = {
     Id: data.id,
@@ -49,7 +54,11 @@ PostResponse = function(data) {
     CreationTime: "1秒"
   };
   response = template("public/Response");
-  $(".container").append(response(responseData));
+  if ($(".container").length > 0) {
+    $(".container").append(response(responseData));
+  } else {
+    $("#input-group").before(response(responseData));
+  }
   window.scrollTo(0, document.body.scrollHeight);
   RegisterResponseBtn();
   $("#" + data.id).find(".timestamp").addClass("hide");

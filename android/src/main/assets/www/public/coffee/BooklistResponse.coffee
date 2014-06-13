@@ -1,14 +1,12 @@
 $(document).on "deviceready", ()->  
   booklistId = getQueryString "id"
-  RequestAjax "GET", "/mj/booklist/#{booklistId}/response", {}, DidGetBooklistResponseData, FailGetBooklistResponseData
-  return
+  window.authorId = getQueryString "authorId"
 
-DidGetBooklistResponseData = (data, rawData)->
-  booklistResponse = template "public/Responses"
-  $(".container").replaceWith booklistResponse data.Data
-  
   $(".actionbar .page-title").text "回复"
   CenterTitle()
+
+  inputGroup = template "public/InputGroup"
+  $(".container").replaceWith inputGroup {IsLogin: if localStorage.IsLogin is "YES" then true else false}
 
   $("#submit").unbind("click").on "click", (event)->
     event.preventDefault()
@@ -21,11 +19,18 @@ DidGetBooklistResponseData = (data, rawData)->
       data = {
         id: TimeStamp(),
         content: $("#replyInput").val() ? "",
-        authorId: $(".container").data("authorid")
+        authorId: window.authorId
       }
       PostResponse data
     return
 
+  RequestAjax "GET", "/mj/booklist/#{booklistId}/response", {}, DidGetBooklistResponseData, FailGetBooklistResponseData, false
+  return
+
+DidGetBooklistResponseData = (data, rawData)->
+  booklistResponse = template "public/Responses"
+  $(".actionbar").after booklistResponse data.Data
+  
   RegisterResponseBtn()
   return
 
@@ -33,7 +38,7 @@ FailGetBooklistResponseData = (data, rawData)->
   return
 
 PostResponse = (data)->
-  $("#replyInput").val("").blur().focus()
+  $("#replyInput").val("")
   nickname = $(".container").data "nickname"
   
   responseData = {

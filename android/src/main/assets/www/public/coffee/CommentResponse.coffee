@@ -1,14 +1,11 @@
 $(document).on "deviceready", ()->  
-  commentId = getQueryString "id"
-  RequestAjax "GET", "/mj/comment/#{commentId}/response", {}, DidGetResponseData, FailGetResponseData
-  return
+  window.commentId = getQueryString "id"
 
-DidGetResponseData = (data, rawData)->
-  articleResponseMain = template "public/Responses"
-  $(".container").replaceWith articleResponseMain data.Data
-  
   $(".actionbar .page-title").text "回复"
   CenterTitle()
+
+  inputGroup = template "public/InputGroup"
+  $(".container").replaceWith inputGroup {IsLogin: if localStorage.IsLogin is "YES" then true else false}
 
   $("#submit").unbind("click").on "click", (event)->
     event.preventDefault()
@@ -24,6 +21,13 @@ DidGetResponseData = (data, rawData)->
       PostResponse(data)
     return
 
+  RequestAjax "GET", "/mj/comment/#{window.commentId}/response", {}, DidGetResponseData, FailGetResponseData, false
+  return
+
+DidGetResponseData = (data, rawData)->
+  articleResponseMain = template "public/Responses"
+  $(".actionbar").after articleResponseMain data.Data
+
   RegisterResponseBtn()
   return
 
@@ -31,7 +35,7 @@ FailGetResponseData = (data, rawData)->
   return
 
 PostResponse = (data)->
-  $("#replyInput").val("").blur().focus()
+  $("#replyInput").val("")
   nickname = $(".container").data "nickname"
   window.responseContent = $("#replyInput").val()
 
@@ -46,7 +50,10 @@ PostResponse = (data)->
   }
 
   response = template "public/Response"
-  $(".container").append response(responseData)
+  if $(".container").length > 0
+    $(".container").append response(responseData)
+  else
+    $("#input-group").before response responseData
 
   window.scrollTo(0, document.body.scrollHeight);
 

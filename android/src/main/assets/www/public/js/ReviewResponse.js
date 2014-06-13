@@ -2,18 +2,16 @@
 var DidFailPostResponse, DidGetResponseData, DidPostResponse, FailGetResponseData, PostResponse, PostReviewAjaxRequest, RegisterResponseBtn;
 
 $(document).on("deviceready", function() {
+  var inputGroup;
   window.reviewId = getQueryString("id");
-  RequestAjax("GET", "/mj/review/" + window.reviewId + "/response", {}, DidGetResponseData, FailGetResponseData);
-});
-
-DidGetResponseData = function(data, rawData) {
-  var articleResponseMain;
-  articleResponseMain = template("public/Responses");
-  $(".container").replaceWith(articleResponseMain(data.Data));
   $(".actionbar .page-title").text("回复");
   CenterTitle();
+  inputGroup = template("public/InputGroup");
+  $(".container").replaceWith(inputGroup({
+    IsLogin: localStorage.IsLogin === "YES" ? true : false
+  }));
   $("#submit").unbind("click").on("click", function(event) {
-    var _ref;
+    var data, _ref;
     event.preventDefault();
     event.stopPropagation();
     if (((_ref = $(".sendResponseContent").val()) != null ? _ref.length : void 0) <= 0) {
@@ -30,6 +28,13 @@ DidGetResponseData = function(data, rawData) {
       PostResponse(data);
     }
   });
+  RequestAjax("GET", "/mj/review/" + window.reviewId + "/response", {}, DidGetResponseData, FailGetResponseData, false);
+});
+
+DidGetResponseData = function(data, rawData) {
+  var reviewResponse;
+  reviewResponse = template("public/Responses");
+  $(".actionbar").after(reviewResponse(data.Data));
   RegisterResponseBtn();
 };
 
@@ -37,7 +42,7 @@ FailGetResponseData = function(data, rawData) {};
 
 PostResponse = function(data) {
   var nickname, response, responseData;
-  $("#replyInput").val("").blur().focus();
+  $("#replyInput").val("");
   nickname = $(".container").data("nickname");
   responseData = {
     Id: data.id,
@@ -49,18 +54,20 @@ PostResponse = function(data) {
     CreationTime: "1秒"
   };
   response = template("public/Response");
-  $(".container").append(response(responseData));
+  if ($(".container").length > 0) {
+    $(".container").append(response(responseData));
+  } else {
+    $("#input-group").before(response(responseData));
+  }
   window.scrollTo(0, document.body.scrollHeight);
   RegisterResponseBtn();
   $("#" + data.id).find(".timestamp").addClass("hide");
   $("#" + data.id).find(".status").removeClass("hide");
-  PostReviewAjaxRequest(window.reviewId, "response", "POST", data, DidPostResponse, DidFailPostResponse, false);
+  PostReviewAjaxRequest(window.reviewId, "response", "POST", data, DidPostResponse, DidFailPostResponse);
 };
 
 PostReviewAjaxRequest = function(reviewId, command, type, data, successCallBack, failCallBack) {
-  RequestAjax(type, "/review/" + reviewId + "/" + command, data, successCallBack, failCallBack, (function() {
-    $("button").prop("disabled", false);
-  }));
+  RequestAjax(type, "/review/" + reviewId + "/" + command, data, successCallBack, failCallBack, false);
 };
 
 DidPostResponse = function(data, rawData) {
@@ -80,7 +87,13 @@ DidFailPostResponse = function(data, rawData) {
   $("#" + rawData.Data.id).find(".status").removeClass().addClass("status pull-right glyphicons circle_exclamation_mark");
   $("#" + rawData.Data.id).find(".status").unbind("click").on("click", function(event) {
     $("#" + rawData.Data.id).remove();
-    PostResponse(rawData.Data);
+    data = {
+      id: rawData.Data.id,
+      bookId: $(".container").data("bookid"),
+      reviewId: window.reviewId,
+      content: rawData.Data.content
+    };
+    PostResponse(data);
   });
 };
 

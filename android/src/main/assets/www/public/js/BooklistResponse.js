@@ -2,19 +2,17 @@
 var DidFailPostResponse, DidGetBooklistResponseData, DidPostResponse, FailGetBooklistResponseData, PostResponse, RegisterResponseBtn;
 
 $(document).on("deviceready", function() {
-  var booklistId;
+  var booklistId, inputGroup;
   booklistId = getQueryString("id");
-  RequestAjax("GET", "/mj/booklist/" + booklistId + "/response", {}, DidGetBooklistResponseData, FailGetBooklistResponseData);
-});
-
-DidGetBooklistResponseData = function(data, rawData) {
-  var booklistResponse;
-  booklistResponse = template("public/Responses");
-  $(".container").replaceWith(booklistResponse(data.Data));
+  window.authorId = getQueryString("authorId");
   $(".actionbar .page-title").text("回复");
   CenterTitle();
+  inputGroup = template("public/InputGroup");
+  $(".container").replaceWith(inputGroup({
+    IsLogin: localStorage.IsLogin === "YES" ? true : false
+  }));
   $("#submit").unbind("click").on("click", function(event) {
-    var _ref, _ref1;
+    var data, _ref, _ref1;
     event.preventDefault();
     event.stopPropagation();
     if (((_ref = $(".sendResponseContent").val()) != null ? _ref.length : void 0) <= 0) {
@@ -25,11 +23,18 @@ DidGetBooklistResponseData = function(data, rawData) {
       data = {
         id: TimeStamp(),
         content: (_ref1 = $("#replyInput").val()) != null ? _ref1 : "",
-        authorId: $(".container").data("authorid")
+        authorId: window.authorId
       };
       PostResponse(data);
     }
   });
+  RequestAjax("GET", "/mj/booklist/" + booklistId + "/response", {}, DidGetBooklistResponseData, FailGetBooklistResponseData, false);
+});
+
+DidGetBooklistResponseData = function(data, rawData) {
+  var booklistResponse;
+  booklistResponse = template("public/Responses");
+  $(".actionbar").after(booklistResponse(data.Data));
   RegisterResponseBtn();
 };
 
@@ -37,7 +42,7 @@ FailGetBooklistResponseData = function(data, rawData) {};
 
 PostResponse = function(data) {
   var nickname, response, responseData;
-  $("#replyInput").val("").blur().focus();
+  $("#replyInput").val("");
   nickname = $(".container").data("nickname");
   responseData = {
     Id: data.id,

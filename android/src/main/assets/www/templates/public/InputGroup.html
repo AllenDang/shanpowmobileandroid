@@ -1,7 +1,9 @@
-<div class="postResponse row-fluid">
+{{if IsLogin === true}}
+<div class="postResponse row-fluid" id="input-group">
   <textarea id="replyInput" type="text" class="span10" name="q" rows="1"></textarea>
   <div id="submit" class="glyphicons ok_2"></div>
 </div>
 <script type="text/javascript">
   autoTextarea($("#replyInput")[0], 10, 200);
 </script>
+{{/if}}

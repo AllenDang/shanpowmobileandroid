@@ -242,7 +242,8 @@ PullToRefresh = function() {
     var actionbar;
     if ($("#pullIndicator").width() >= $(window).width()) {
       window.pullToRefresh = true;
-      if ($(".container").length <= 0) {
+      $(".error-msg").remove();
+      if ($(".container").length <= 0 && $("body").children().length <= 1) {
         actionbar = $(".actionbar");
         $("body").html(actionbar);
         $("body").append("<div class='container spinner'></div>");
@@ -292,7 +293,9 @@ DidGetUnreadCount = function(data) {
 
 GetBack = function() {
   localStorage.shouldFetchDataFromCache = "YES";
-  window.history.back();
+  if (window.history.length > 1) {
+    window.history.back();
+  }
 };
 
 CenterTitle = function() {

@@ -1,14 +1,11 @@
 $(document).on "deviceready", ()->
   window.reviewId = getQueryString "id"
-  RequestAjax "GET", "/mj/review/#{window.reviewId}/response", {}, DidGetResponseData, FailGetResponseData
-  return
-
-DidGetResponseData = (data, rawData)->
-  articleResponseMain = template "public/Responses"
-  $(".container").replaceWith articleResponseMain data.Data
   
   $(".actionbar .page-title").text "回复"
   CenterTitle()
+
+  inputGroup = template "public/InputGroup"
+  $(".container").replaceWith inputGroup {IsLogin: if localStorage.IsLogin is "YES" then true else false}
 
   $("#submit").unbind("click").on "click", (event)->
     event.preventDefault()
@@ -27,6 +24,13 @@ DidGetResponseData = (data, rawData)->
       PostResponse data
     return
 
+  RequestAjax "GET", "/mj/review/#{window.reviewId}/response", {}, DidGetResponseData, FailGetResponseData, false
+  return
+
+DidGetResponseData = (data, rawData)->
+  reviewResponse = template "public/Responses"
+  $(".actionbar").after reviewResponse data.Data
+
   RegisterResponseBtn()
   return
 
@@ -34,7 +38,7 @@ FailGetResponseData = (data, rawData)->
   return
 
 PostResponse = (data)->
-  $("#replyInput").val("").blur().focus()
+  $("#replyInput").val("")
   nickname = $(".container").data "nickname"
   
   responseData = {
@@ -48,7 +52,10 @@ PostResponse = (data)->
   }
 
   response = template "public/Response"
-  $(".container").append response(responseData)
+  if $(".container").length > 0
+    $(".container").append response(responseData)
+  else
+    $("#input-group").before response responseData
 
   window.scrollTo(0, document.body.scrollHeight);
 
@@ -57,13 +64,11 @@ PostResponse = (data)->
   $("##{data.id}").find(".timestamp").addClass("hide")
   $("##{data.id}").find(".status").removeClass("hide")
 
-  PostReviewAjaxRequest window.reviewId, "response", "POST", data, DidPostResponse, DidFailPostResponse, false
+  PostReviewAjaxRequest window.reviewId, "response", "POST", data, DidPostResponse, DidFailPostResponse
   return
 
 PostReviewAjaxRequest = (reviewId, command, type, data, successCallBack, failCallBack)->
-  RequestAjax type, "/review/#{reviewId}/#{command}", data, successCallBack, failCallBack, (()->
-    $("button").prop("disabled", false)
-    return)
+  RequestAjax type, "/review/#{reviewId}/#{command}", data, successCallBack, failCallBack, false
   return
 
 DidPostResponse = (data, rawData)->
@@ -81,7 +86,13 @@ DidFailPostResponse = (data, rawData)->
   $("##{rawData.Data.id}").find(".status").removeClass().addClass("status pull-right glyphicons circle_exclamation_mark")
   $("##{rawData.Data.id}").find(".status").unbind("click").on "click", (event)->
     $("##{rawData.Data.id}").remove()
-    PostResponse rawData.Data
+    data = {
+      id: rawData.Data.id,
+      bookId: $(".container").data("bookid"),
+      reviewId: window.reviewId,
+      content: rawData.Data.content
+    }
+    PostResponse data
     return
   return
 
