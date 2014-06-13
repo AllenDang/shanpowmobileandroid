@@ -1,6 +1,7 @@
 package com.shanpow.app.android;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -40,7 +42,7 @@ import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
  */
 @EFragment(R.layout.fragment_article_list)
 public class ArticleListFragment extends Fragment
-        implements AbsListView.OnScrollListener, OnRefreshListener {
+        implements AbsListView.OnScrollListener, OnRefreshListener, AdapterView.OnItemClickListener {
 
     private OnArticleSelectedListener mListener;
 
@@ -53,6 +55,10 @@ public class ArticleListFragment extends Fragment
     private ArticleListAdapter mAdapter;
 
     private View mFooter;
+
+    private ProgressDialog mProgressDialog;
+
+    private boolean mIsLoadingMoreData;
 
     @RestService
     ShanpowRestClient shanpowClient;
@@ -87,7 +93,12 @@ public class ArticleListFragment extends Fragment
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE))
                 .inflate(R.layout.view_loading, lv_articles, false);
 
+        lv_articles.setOnItemClickListener(this);
         lv_articles.setOnScrollListener(this);
+
+        if (isVisible()) {
+            mProgressDialog = ProgressDialog.show(getActivity(), "", getString(R.string.title_loading));
+        }
 
         loadData();
     }
@@ -111,19 +122,24 @@ public class ArticleListFragment extends Fragment
 
     @Background
     void loadMoreData() {
-        currentPageNum += 1;
-        try {
-            GetArticleListResult result = shanpowClient.GetArticlesByTag(mTag, currentPageNum, 10);
-            if (result != null && result.Result && result.Data.Articles.length > 0) {
-                fillMoreData(result.Data.Articles);
-            } else {
+        if (!mIsLoadingMoreData) {
+            mIsLoadingMoreData = true;
+            currentPageNum += 1;
+            try {
+                GetArticleListResult result = shanpowClient.GetArticlesByTag(mTag, currentPageNum, 10);
+                if (result != null && result.Result && result.Data.Articles.length > 0) {
+                    fillMoreData(result.Data.Articles);
+                } else {
+                    showNetworkErrorToast();
+                }
+            } catch (Exception e) {
+                //读取失败把currentPageNum复原
+                currentPageNum -= 1;
+                //重置标志位
+                mIsLoadingMoreData = false;
                 showNetworkErrorToast();
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            //读取失败把currentPageNum复原
-            currentPageNum -= 1;
-            showNetworkErrorToast();
-            e.printStackTrace();
         }
     }
 
@@ -136,6 +152,11 @@ public class ArticleListFragment extends Fragment
 
     @UiThread
     void fillData(SimpleArticleInfo[] articles) {
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+            mProgressDialog = null;
+        }
+
         //判断是否需要添加loading footer
         if (currentPageNum < totalPageNum) {
             lv_articles.addFooterView(mFooter);
@@ -160,6 +181,7 @@ public class ArticleListFragment extends Fragment
 
     @UiThread
     void fillMoreData(SimpleArticleInfo[] moreArticles) {
+        mIsLoadingMoreData = false;
         for (SimpleArticleInfo info : moreArticles) {
             mAdapter.add(info);
         }
@@ -204,6 +226,12 @@ public class ArticleListFragment extends Fragment
     public void onRefreshStarted(View view) {
         loadData();
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        mListener.onArticleSelected(mAdapter.getItem(position).Id);
+    }
+
 
     public interface OnArticleSelectedListener {
         // TODO: Update argument type and name

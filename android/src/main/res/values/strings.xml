@@ -16,7 +16,7 @@
     <string name="title_activity_billboard_detail">榜单</string>
     <string name="title_activity_comment">评论</string>
     <string name="title_activity_people">用户信息</string>
-    <string name="title_activity_article_list">文章列表</string>
+    <string name="title_activity_article_list">原创文章</string>
     <string name="title_activity_article">文章</string>
     <string name="title_activity_booklist">书单</string>
     <string name="toast_prompt_quit">再按一次退出应用</string>
@@ -28,5 +28,7 @@
     <string name="title_activity_book_sources">智能转码</string>
     <string name="ic_bell_description">未读消息</string>
     <string name="title_loading">正在加载数据……</string>
+    <string name="title_activity_cordova_view">CordovaViewActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

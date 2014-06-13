@@ -19,6 +19,7 @@ public final class Constant {
     //Intent Extra参数
     public final static String EXTRA_BOOKTITLE = "EXTRA_BOOKTITLE";
     public final static String EXTRA_BOOKAUTHOR = "EXTRA_BOOKAUTHOR";
+    public final static String EXTRA_URL = "EXTRA_URL";
 
     //Tencent AppId
     public final static String TENCENT_APPID = "100511288";

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.shanpow.app.android"
-    android:hardwareAccelerated="true">
+    android:hardwareAccelerated="true" >
 
     <supports-screens
         android:anyDensity="true"
@@ -22,12 +22,12 @@
         android:hardwareAccelerated="true"
         android:icon="@drawable/ic_app"
         android:label="@string/app_name"
-        android:theme="@style/Theme.AppCompat.Light">
+        android:theme="@style/Theme.AppCompat.Light" >
         <activity
             android:name=".MainActivity_"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Black.NoTitleBar">
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -63,7 +63,7 @@
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
-            android:noHistory="true">
+            android:noHistory="true" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -82,7 +82,16 @@
         <activity android:name=".ReaderActivity_" />
         <activity
             android:name=".ArticleListActivity_"
-            android:label="@string/title_activity_article_list"></activity>
+            android:label="@string/title_activity_article_list"
+            android:parentActivityName=".MainActivity_" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity_" />
+        </activity>
+        <activity
+            android:name=".CordovaViewActivity"
+            android:label="@string/title_activity_cordova_view" >
+        </activity>
     </application>
 
 </manifest>
