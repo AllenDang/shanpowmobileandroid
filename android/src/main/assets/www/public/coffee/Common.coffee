@@ -249,13 +249,8 @@ DidGetUnreadCount = (data)->
 
 GetBack = ()->
   sessionStorage.shouldFetchDataFromCache = "YES"
-  count = parseInt sessionStorage.getItem "historyCount"
-  if count is 0 and window.isArticleDetail
-    cordova.exec null, null, "ActivityLauncher", "finishCurrentActivity", []
-  else
-    count--
-    sessionStorage.setItem "historyCount", "#{count}"
-    window.history.back()
+  PopHistoryState()
+  window.history.back()
   return
 
 CenterTitle = ()->
@@ -277,6 +272,24 @@ ShowLoadingError = (tipString)->
     $(".container").height $(window).height() - 32
   else
     cordova.exec null, null, "ToastHelper", "show", [tipString ? "加载失败，请下拉刷新以重试"]
+  return
+
+PushHistoryState = ()->
+  count = parseInt sessionStorage.getItem "historyCount"
+  if isNaN(count)
+    count = 1
+  else
+    count++
+  sessionStorage.setItem "historyCount", "#{count}"
+  return
+
+PopHistoryState = ()->
+  count = parseInt sessionStorage.getItem "historyCount"
+  if count is 0 and window.isArticleDetail
+    cordova.exec null, null, "ActivityLauncher", "finishCurrentActivity", []
+  else
+    count-- if count > 0
+    sessionStorage.setItem "historyCount", "#{count}"
   return
 
 $(document).on "deviceready", ()->
@@ -311,14 +324,10 @@ $(document).on "deviceready", ()->
     else
       location.href = "file:///android_asset/www/MessageCenter/Index.html"
     return)
-
+  
+  # 自定义历史纪录
   $(document).on "click tap", "a", (()->
-    count = parseInt sessionStorage.getItem "historyCount"
-    if isNaN(count)
-      count = 1
-    else
-      count++
-    sessionStorage.setItem "historyCount", "#{count}"
+    PushHistoryState()
     return)
 
   clearInterval getUnreadCountTimer
