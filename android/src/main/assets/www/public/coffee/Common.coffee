@@ -260,16 +260,16 @@ CenterTitle = ()->
   return
 
 ShowLoadingError = (tipString)->
-  if $(".container").html().length <= 0
+  if $(".container").html()?.length <= 0
     $(".error-msg").remove()
     errMsg = template "public/ErrorMsg"
     $("body").prepend errMsg {
-      tip: tipString,
+      tip: tipString ? "加载失败，请下拉刷新以重试",
       onBlank: true
     }
     $(".container").height $(window).height() - 32
   else
-    cordova.exec null, null, "ToastHelper", "show", ["加载失败，请下拉刷新以重试"]
+    cordova.exec null, null, "ToastHelper", "show", [tipString ? "加载失败，请下拉刷新以重试"]
   return
 
 $(document).on "deviceready", ()->

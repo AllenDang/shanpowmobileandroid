@@ -4,9 +4,16 @@ $(document).on "deviceready", ()->
 
 DidGetBillboardIndexData = (data, rawData)->
   billboardIndex = template "Billboard/Index"
-  for billboard in data.Data
-    billboard.array = new Array(billboard.Version)
-  $(".container").replaceWith billboardIndex data
+  if data?.Data?
+    for billboard in data.Data
+      billboard.array = new Array(billboard.Version)
+
+    htmlString = billboardIndex data
+    if htmlString.search("Template Error") < 0
+      $(".container").replaceWith htmlString
+  else
+    ShowLoadingError()
+    return
 
   $(".billboard").each ()->
     $(this).find(".ver").each (index)->

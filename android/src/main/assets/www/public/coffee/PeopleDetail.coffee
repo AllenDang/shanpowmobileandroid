@@ -5,7 +5,12 @@ $(document).on "deviceready", ()->
 
 DidGetPeopleDetailData = (data, rawData)->
   peopledetail = template "People/Detail"
-  $(".container").replaceWith peopledetail(data.Data)
+  htmlString = peopledetail(data.Data)
+  if htmlString.search("Template Error") < 0
+    $(".container").replaceWith htmlString
+  else
+    ShowLoadingError()
+    return
 
   if data.Data.IsMySelf
     $(".actionbar .message-center").removeClass "hide"

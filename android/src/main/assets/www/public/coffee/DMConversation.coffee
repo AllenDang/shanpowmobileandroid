@@ -15,7 +15,12 @@ DidGetNewestMessageData = (data, rawData)->
   window.TotalSum = data.Data.TotalSum
 
   messagesHTML = template "DirectMessage/Messages"
-  $(".container").replaceWith messagesHTML({Messages: window.conversations})
+  htmlString = messagesHTML({Messages: window.conversations})
+  if htmlString.search("Template Error") < 0
+    $(".container").replaceWith htmlString
+  else
+    ShowLoadingError()
+    return
 
   window.scrollTo(0, document.body.scrollHeight);
 

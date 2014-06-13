@@ -5,7 +5,12 @@ $(document).on "deviceready", ()->
 
 DidGetArticleDetailData = (data, rawData)->
   articles = template "Article/Detail"
-  $(".container").replaceWith articles(data.Data)
+  htmlString = articles(data.Data)
+  if htmlString.search("Template Error") < 0
+    $(".container").replaceWith htmlString
+  else
+    ShowLoadingError()
+    return
 
   $(".actionbar .page-title").text "文章"
   CenterTitle()

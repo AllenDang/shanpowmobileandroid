@@ -5,7 +5,12 @@ $(document).on "deviceready", ()->
 
 DidGetBookDetailData = (data, rawData)->
   bookDetail = template "Book/Detail"
-  $(".container").replaceWith bookDetail data.Data
+  htmlString = bookDetail data.Data
+  if htmlString.search("Template Error") < 0
+    $(".container").replaceWith bookDetail data.Data
+  else
+    ShowLoadingError()
+    return
 
   $(".actionbar .page-title").text data.Data.Book.Title
   CenterTitle()

@@ -16,7 +16,12 @@ $(document).on "deviceready", ()->
 
 DidGetReviews = (data, rawData)->
   reviews = template "Review/All"
-  $(".container").replaceWith reviews data
+  htmlString = reviews data
+  if htmlString.search("Template Error") < 0
+    $(".container").replaceWith htmlString
+  else
+    ShowLoadingError()
+    return
 
   for review in data.Data
     singleReview = template "public/Review"

@@ -4,8 +4,13 @@ $(document).on "deviceready", ()->
   return
 
 DidGetBooklistDetailData = (data, rawData)->
-  bookDetail = template "Booklist/Detail"
-  $(".container").replaceWith bookDetail data.Data
+  booklistDetail = template "Booklist/Detail"
+  htmlString = booklistDetail data.Data
+  if htmlString.search("Template Error") < 0
+    $(".container").replaceWith htmlString
+  else
+    ShowLoadingError()
+    return
   
   if $(".cat").length <= 9
     $(".cat.more").addClass("hide")

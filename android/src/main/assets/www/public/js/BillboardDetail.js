@@ -12,9 +12,15 @@ $(document).on("deviceready", function() {
 });
 
 DidGetBillboardDetailData = function(data, rawData) {
-  var billboardIndex;
-  billboardIndex = template("Billboard/Detail");
-  $(".container").replaceWith(billboardIndex(data.Data));
+  var billboardDetail, htmlString;
+  billboardDetail = template("Billboard/Detail");
+  htmlString = billboardDetail(data.Data);
+  if (htmlString.search("Template Error") < 0) {
+    $(".container").replaceWith(htmlString);
+  } else {
+    ShowLoadingError();
+    return;
+  }
   $(".actionbar .page-title").text(data.Data.Billboard.Title);
   CenterTitle();
   $(".mega table td").each(function(index) {

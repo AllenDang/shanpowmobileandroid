@@ -18,9 +18,15 @@ $(document).on("deviceready", function() {
 });
 
 DidGetReviews = function(data, rawData) {
-  var review, reviews, singleReview, _i, _len, _ref;
+  var htmlString, review, reviews, singleReview, _i, _len, _ref;
   reviews = template("Review/All");
-  $(".container").replaceWith(reviews(data));
+  htmlString = reviews(data);
+  if (htmlString.search("Template Error") < 0) {
+    $(".container").replaceWith(htmlString);
+  } else {
+    ShowLoadingError();
+    return;
+  }
   _ref = data.Data;
   for (_i = 0, _len = _ref.length; _i < _len; _i++) {
     review = _ref[_i];

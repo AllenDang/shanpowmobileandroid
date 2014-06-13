@@ -12,7 +12,7 @@ $(document).on("deviceready", function() {
 });
 
 DidGetNewestMessageData = function(data, rawData) {
-  var messagesHTML;
+  var htmlString, messagesHTML;
   if (data.Data.Messages != null) {
     window.conversations = data.Data.Messages;
   }
@@ -21,9 +21,15 @@ DidGetNewestMessageData = function(data, rawData) {
   }
   window.TotalSum = data.Data.TotalSum;
   messagesHTML = template("DirectMessage/Messages");
-  $(".container").replaceWith(messagesHTML({
+  htmlString = messagesHTML({
     Messages: window.conversations
-  }));
+  });
+  if (htmlString.search("Template Error") < 0) {
+    $(".container").replaceWith(htmlString);
+  } else {
+    ShowLoadingError();
+    return;
+  }
   window.scrollTo(0, document.body.scrollHeight);
   $("#submit").unbind("click").on("click", function(event) {
     var _ref;

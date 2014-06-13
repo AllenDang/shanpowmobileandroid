@@ -5,7 +5,12 @@ $(document).on "deviceready", ()->
 
 DidGetSearchResultData = (data, rawData)->
   sr = template "Search/Result"
-  $(".container").replaceWith sr(data.Data)
+  htmlString = sr(data.Data)
+  if htmlString.search("Template Error") < 0
+    $(".container").replaceWith htmlString
+  else
+    ShowLoadingError()
+    return
 
   $(".actionbar .page-title").text "#{window.query}的搜索结果"
   CenterTitle()

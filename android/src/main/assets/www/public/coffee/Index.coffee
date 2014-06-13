@@ -26,7 +26,12 @@ $(document).on "deviceready", ()->
 
 DidGetIndexData = (data, rawData)->
   main = template "Index/Main"
-  $(".container").replaceWith main data.Data
+  htmlString = main data.Data
+  if htmlString.search("Template Error") < 0
+    $(".container").replaceWith htmlString
+  else
+    ShowLoadingError()
+    return
 
   channel = getQueryString "ch"
   if channel is "f"

@@ -5,7 +5,12 @@ $(document).on "deviceready", ()->
 
 DidGetBooksData = (data, rawData)->
   books = template "People/BookFollowed"
-  $(".container").replaceWith books(data.Data)
+  htmlString = books(data.Data)
+  if htmlString.search("Template Error") < 0
+    $(".container").replaceWith htmlString
+  else
+    ShowLoadingError()
+    return
 
   $(".actionbar .page-title").text "关注的书"
   CenterTitle()

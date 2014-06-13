@@ -6,14 +6,22 @@ $(document).on("deviceready", function() {
 });
 
 DidGetBillboardIndexData = function(data, rawData) {
-  var billboard, billboardIndex, _i, _len, _ref;
+  var billboard, billboardIndex, htmlString, _i, _len, _ref;
   billboardIndex = template("Billboard/Index");
-  _ref = data.Data;
-  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-    billboard = _ref[_i];
-    billboard.array = new Array(billboard.Version);
+  if ((data != null ? data.Data : void 0) != null) {
+    _ref = data.Data;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      billboard = _ref[_i];
+      billboard.array = new Array(billboard.Version);
+    }
+    htmlString = billboardIndex(data);
+    if (htmlString.search("Template Error") < 0) {
+      $(".container").replaceWith(htmlString);
+    }
+  } else {
+    ShowLoadingError();
+    return;
   }
-  $(".container").replaceWith(billboardIndex(data));
   $(".billboard").each(function() {
     $(this).find(".ver").each(function(index) {
       if (index > ($(this).closest(".billboard").find(".ver").length > 5 ? 3 : 4) && !$(this).hasClass("more")) {

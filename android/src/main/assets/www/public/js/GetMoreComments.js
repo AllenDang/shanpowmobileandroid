@@ -8,9 +8,15 @@ $(document).on("deviceready", function() {
 });
 
 DidGetMoreComments = function(data, rawData) {
-  var bookDetail;
-  bookDetail = template("Book/MoreComments");
-  $(".container").replaceWith(bookDetail(data));
+  var htmlString, moreComment;
+  moreComment = template("Book/MoreComments");
+  htmlString = moreComment(data);
+  if (htmlString.search("Template Error") < 0) {
+    $(".container").replaceWith(htmlString);
+  } else {
+    ShowLoadingError();
+    return;
+  }
   $(".actionbar .page-title").text("一句话评论");
   CenterTitle();
   $(".cmtScore").raty({

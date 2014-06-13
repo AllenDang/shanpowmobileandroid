@@ -7,9 +7,15 @@ $(document).on("deviceready", function() {
 });
 
 DidGetMoreComments = function(data, rawData) {
-  var bookDetail;
-  bookDetail = template("Book/MoreReviews");
-  $(".container").replaceWith(bookDetail(data));
+  var htmlString, moreReview;
+  moreReview = template("Book/MoreReviews");
+  htmlString = moreReview(data);
+  if (htmlString.search("Template Error") < 0) {
+    $(".container").replaceWith(htmlString);
+  } else {
+    ShowLoadingError();
+    return;
+  }
   $(".actionbar .page-title").text("书评");
   CenterTitle();
   $(".reviewScore").raty({

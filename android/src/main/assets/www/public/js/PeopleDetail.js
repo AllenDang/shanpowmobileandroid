@@ -7,9 +7,15 @@ $(document).on("deviceready", function() {
 });
 
 DidGetPeopleDetailData = function(data, rawData) {
-  var peopledetail;
+  var htmlString, peopledetail;
   peopledetail = template("People/Detail");
-  $(".container").replaceWith(peopledetail(data.Data));
+  htmlString = peopledetail(data.Data);
+  if (htmlString.search("Template Error") < 0) {
+    $(".container").replaceWith(htmlString);
+  } else {
+    ShowLoadingError();
+    return;
+  }
   if (data.Data.IsMySelf) {
     $(".actionbar .message-center").removeClass("hide");
     $(".actionbar .side-menu").removeClass("hide");

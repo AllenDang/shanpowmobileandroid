@@ -28,9 +28,15 @@ $(document).on("deviceready", function() {
 });
 
 DidGetIndexData = function(data, rawData) {
-  var channel, main, _ref;
+  var channel, htmlString, main, _ref;
   main = template("Index/Main");
-  $(".container").replaceWith(main(data.Data));
+  htmlString = main(data.Data);
+  if (htmlString.search("Template Error") < 0) {
+    $(".container").replaceWith(htmlString);
+  } else {
+    ShowLoadingError();
+    return;
+  }
   channel = getQueryString("ch");
   if (channel === "f") {
     $(".actionbar .channel").find("img.current-channel").attr("src", "public/img/Crown_Woman.png");

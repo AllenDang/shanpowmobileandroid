@@ -4,8 +4,13 @@ $(document).on "deviceready", ()->
   return
 
 DidGetCommentDetailData = (data, rawData)->
-  articles = template "Comment/Detail"
-  $(".container").replaceWith articles(data.Data)
+  commentDetail = template "Comment/Detail"
+  htmlString = commentDetail(data.Data)
+  if htmlString.search("Template Error") < 0
+    $(".container").replaceWith htmlString
+  else
+    ShowLoadingError()
+    return
 
   $(".actionbar .page-title").text "评论"
   CenterTitle()

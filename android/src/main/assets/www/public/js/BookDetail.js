@@ -8,9 +8,15 @@ $(document).on("deviceready", function() {
 });
 
 DidGetBookDetailData = function(data, rawData) {
-  var bookDetail;
+  var bookDetail, htmlString;
   bookDetail = template("Book/Detail");
-  $(".container").replaceWith(bookDetail(data.Data));
+  htmlString = bookDetail(data.Data);
+  if (htmlString.search("Template Error") < 0) {
+    $(".container").replaceWith(bookDetail(data.Data));
+  } else {
+    ShowLoadingError();
+    return;
+  }
   $(".actionbar .page-title").text(data.Data.Book.Title);
   CenterTitle();
   if ($(".summaryContent").height() <= 80) {

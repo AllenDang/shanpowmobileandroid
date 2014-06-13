@@ -4,8 +4,13 @@ $(document).on "deviceready", ()->
   return
 
 DidGetMoreComments = (data, rawData)->
-  bookDetail = template "Book/MoreReviews"
-  $(".container").replaceWith bookDetail data
+  moreReview = template "Book/MoreReviews"
+  htmlString = moreReview data
+  if htmlString.search("Template Error") < 0
+    $(".container").replaceWith htmlString
+  else
+    ShowLoadingError()
+    return
 
   $(".actionbar .page-title").text "书评"
   CenterTitle()

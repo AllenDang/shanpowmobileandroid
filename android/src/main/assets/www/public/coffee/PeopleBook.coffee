@@ -25,7 +25,12 @@ RequestReadingBooks = ()->
 
 DidGetPeopleBookData = (data, rawData)->
   peopleWantBook = template "People/BooksReading"
-  $("#reading").html peopleWantBook(data.Data)
+  htmlString = peopleWantBook(data.Data)
+  if htmlString.search("Template Error") < 0
+    $("#reading").html htmlString
+  else
+    ShowLoadingError()
+    return
 
   if data.Data.IsMySelf
     $("#readTab").text "我读过的"
