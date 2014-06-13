@@ -11,7 +11,9 @@ import com.shanpow.app.android.ArticleListFragment;
  */
 public class ArticleListPagerAdapter extends FragmentPagerAdapter {
 
-    protected static final String[] TAGS = new String[]{"每日一书", "作者访谈", "闲情八卦", "写作探讨", "山坡专题", "热议话题"};
+    protected static final String[] TAGS = new String[]{
+            "每日一书", "名家专栏", "作者访谈", "读者访谈",
+            "山坡专题", "网文动态", "闲情八卦", "写作探讨"};
 
     private int mCount = TAGS.length;
 
