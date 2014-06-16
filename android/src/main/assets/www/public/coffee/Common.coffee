@@ -72,7 +72,8 @@ RequestDataWithParam = (options)->
       if window.shouldCache ? true
         cordova.exec ((data)->), null, "CachedIOHelper", "set", ["#{options.type}:#{options.url}", data]
       if data.Result is true
-        localStorage.IsLogin = if data?.Data?.IsLogin then "YES" else "NO"
+        if data?.Data?.IsLogin?
+          localStorage.IsLogin = if data?.Data?.IsLogin then "YES" else "NO"
         if options.successCallback?
           options.successCallback(data, rawData)
         else
@@ -213,6 +214,12 @@ PullToRefresh = ()->
     $("#pullIndicator").width 0
     $(".actionbar .title-section").removeClass "hide"
     $(".actionbar .loading").addClass "hide"
+
+  $("body").unbind("touchcancel").on "touchcancel", (event)->
+    $("#pullIndicator").width 0
+    $(".actionbar .title-section").removeClass "hide"
+    $(".actionbar .loading").addClass "hide"
+    return
 
 TimeStamp = ()->
   date = new Date()

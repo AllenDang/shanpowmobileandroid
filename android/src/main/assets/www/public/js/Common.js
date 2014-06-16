@@ -79,7 +79,7 @@ RequestDataWithParam = function(options) {
       })
     },
     success: (function(data) {
-      var _ref3, _ref4;
+      var _ref3, _ref4, _ref5;
       setTimeout((function() {
         return navigator.notification.activityStop();
       }), 200);
@@ -87,7 +87,9 @@ RequestDataWithParam = function(options) {
         cordova.exec((function(data) {}), null, "CachedIOHelper", "set", ["" + options.type + ":" + options.url, data]);
       }
       if (data.Result === true) {
-        localStorage.IsLogin = (data != null ? (_ref4 = data.Data) != null ? _ref4.IsLogin : void 0 : void 0) ? "YES" : "NO";
+        if ((data != null ? (_ref4 = data.Data) != null ? _ref4.IsLogin : void 0 : void 0) != null) {
+          localStorage.IsLogin = (data != null ? (_ref5 = data.Data) != null ? _ref5.IsLogin : void 0 : void 0) ? "YES" : "NO";
+        }
         if (options.successCallback != null) {
           options.successCallback(data, rawData);
         } else {
@@ -234,7 +236,7 @@ PullToRefresh = function() {
       }
     }
   });
-  return $("body").unbind("touchend").on("touchend", function(event) {
+  $("body").unbind("touchend").on("touchend", function(event) {
     var actionbar;
     if ($("#pullIndicator").width() >= $(window).width()) {
       window.pullToRefresh = true;
@@ -250,6 +252,11 @@ PullToRefresh = function() {
     $("#pullIndicator").width(0);
     $(".actionbar .title-section").removeClass("hide");
     return $(".actionbar .loading").addClass("hide");
+  });
+  return $("body").unbind("touchcancel").on("touchcancel", function(event) {
+    $("#pullIndicator").width(0);
+    $(".actionbar .title-section").removeClass("hide");
+    $(".actionbar .loading").addClass("hide");
   });
 };
 

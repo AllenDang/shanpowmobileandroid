@@ -22,7 +22,8 @@ DidGetNewestMessageData = function(data, rawData) {
   window.TotalSum = data.Data.TotalSum;
   messagesHTML = template("DirectMessage/Messages");
   htmlString = messagesHTML({
-    Messages: window.conversations
+    Messages: window.conversations,
+    IsLogin: localStorage.IsLogin === "YES" ? true : false
   });
   if (htmlString.search("Template Error") < 0) {
     $(".container").replaceWith(htmlString);
