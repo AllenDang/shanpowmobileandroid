@@ -319,7 +319,7 @@ $(document).on "deviceready", ()->
     return
 
   $(document).on "click", ".left-button .slide-menu", (()->
-    if $(".actionbar .slide-menu").find(".badge").text() is ""
+    if $(".actionbar .slide-menu").find(".badge")?.text() is "" or $(".actionbar .slide-menu").find(".badge")?.text()?.length <= 0
       cordova.exec null, null, "ActivityLauncher", "toggleSlidingMenu", []
     else
       location.href = "file:///android_asset/www/MessageCenter/Index.html"

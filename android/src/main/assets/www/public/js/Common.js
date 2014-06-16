@@ -374,7 +374,8 @@ $(document).on("deviceready", function() {
     GetBack();
   });
   $(document).on("click", ".left-button .slide-menu", (function() {
-    if ($(".actionbar .slide-menu").find(".badge").text() === "") {
+    var _ref1, _ref2, _ref3;
+    if (((_ref1 = $(".actionbar .slide-menu").find(".badge")) != null ? _ref1.text() : void 0) === "" || ((_ref2 = $(".actionbar .slide-menu").find(".badge")) != null ? (_ref3 = _ref2.text()) != null ? _ref3.length : void 0 : void 0) <= 0) {
       cordova.exec(null, null, "ActivityLauncher", "toggleSlidingMenu", []);
     } else {
       location.href = "file:///android_asset/www/MessageCenter/Index.html";
