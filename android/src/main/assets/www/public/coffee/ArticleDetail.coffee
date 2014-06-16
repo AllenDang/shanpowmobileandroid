@@ -1,4 +1,5 @@
 $(document).on "deviceready", ()->
+  $(".actionbar").remove()
   articleId = getQueryString "id"
   window.isArticleDetail = true
   RequestAjax "GET", "/mj/article/#{articleId}", {}, DidGetArticleDetailData, FailGetArticleDetailData
@@ -13,7 +14,7 @@ DidGetArticleDetailData = (data, rawData)->
     ShowLoadingError()
     return
 
-  $(".actionbar .page-title").text "文章"
+  $(".actionbar .page-title").text ""
   CenterTitle()
   return
 

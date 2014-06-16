@@ -206,11 +206,6 @@ autoTextarea = function(elem, extra, maxHeight) {
 
 PullToRefresh = function() {
   $("body").unbind("touchstart").on("touchstart", function(event) {
-    if ($(".actionbar").length > 0) {
-      $(".actionbar").append("<div class='pullbar' id='pullIndicator'></div>");
-    } else {
-      $("body").prepend("<div class='pullbar' id='pullIndicator'></div>");
-    }
     window.startY = event.originalEvent.touches[0].screenY;
     window.startYOffset = $("body").scrollTop();
     return window.zeroY = null;

@@ -8,6 +8,9 @@
         <div class="nickname pull-left">{{Article.Author.Nickname}}</div>
       </a>
     </div>
+    <div class="viewcount pull-right">
+      <span>已被阅读{{Article.ViewCount}}次</span>
+    </div>
   </div>
   <div class="content">{{#Article.Content}}</div>
   {{if RelatedBooks}}
@@ -30,17 +33,8 @@
   </div>
   {{/if}}
 </div>
-<div class="row-fluid mega">
-  <table class="pull-right">
-    <tr>
-      <td class="response">
-        <a href="Response.html?id={{Article.Id}}&authorId={{Article.Author.Id}}">
-          <span class="glyphicons comments">{{Article.ResponseSum}}</span>
-        </a>
-      </td>
-      <td class="viewcount">
-        <div><span class="glyphicons eye_open">{{Article.ViewCount}}</span></div>
-      </td>
-    </tr>
-  </table>
+<div class="row-fluid response text-center">
+  <a href="Response.html?id={{Article.Id}}&authorId={{Article.Author.Id}}">
+    <span class="glyphicons comments">{{if Article.ResponseSum > 0}}{{Article.ResponseSum}}条评论{{else}}没有评论{{/if}}</span>
+  </a>
 </div>
