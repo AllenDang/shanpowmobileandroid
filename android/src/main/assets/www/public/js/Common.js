@@ -287,8 +287,8 @@ DidGetUnreadCount = function(data) {
   $(document).trigger("didGetUnreadCount");
 };
 
-GetBack = function() {
-  sessionStorage.shouldFetchDataFromCache = "YES";
+GetBack = function(shouldReadFromCache) {
+  sessionStorage.shouldFetchDataFromCache = !shouldReadFromCache ? "NO" : "YES";
   PopHistoryState();
   window.history.back();
 };

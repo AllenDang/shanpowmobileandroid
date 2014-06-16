@@ -243,8 +243,8 @@ DidGetUnreadCount = (data)->
   $(document).trigger "didGetUnreadCount"
   return
 
-GetBack = ()->
-  sessionStorage.shouldFetchDataFromCache = "YES"
+GetBack = (shouldReadFromCache)->
+  sessionStorage.shouldFetchDataFromCache = if !shouldReadFromCache then "NO" else "YES"
   PopHistoryState()
   window.history.back()
   return

@@ -91,7 +91,7 @@ WriteReview = (statusCode)->
 DidSaveReadingStatus = (data, rawData)->
   EnableButton()
   cordova.exec null, null, "ToastHelper", "show", ["评论已经发布成功！"]
-  GetBack()
+  GetBack(false)
   return
 
 DidFailSaveReadingStatus = (data, rawData)->
