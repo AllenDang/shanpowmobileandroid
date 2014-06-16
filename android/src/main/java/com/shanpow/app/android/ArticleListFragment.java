@@ -1,7 +1,6 @@
 package com.shanpow.app.android;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
@@ -11,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.shanpow.app.entity.GetArticleListResult;
@@ -56,8 +56,6 @@ public class ArticleListFragment extends Fragment
 
     private View mFooter;
 
-    private ProgressDialog mProgressDialog;
-
     private boolean mIsLoadingMoreData;
 
     @RestService
@@ -65,6 +63,9 @@ public class ArticleListFragment extends Fragment
 
     @ViewById
     ListView lv_articles;
+
+    @ViewById
+    ProgressBar progressBar;
 
     PullToRefreshLayout mPullToRefreshLayout;
 
@@ -96,15 +97,12 @@ public class ArticleListFragment extends Fragment
         lv_articles.setOnItemClickListener(this);
         lv_articles.setOnScrollListener(this);
 
-        if (isVisible()) {
-            mProgressDialog = ProgressDialog.show(getActivity(), "", getString(R.string.title_loading));
-        }
-
         loadData();
     }
 
     @Background
     void loadData() {
+        setProgressBar(View.VISIBLE);
         currentPageNum = 1;
         try {
             GetArticleListResult result = shanpowClient.GetArticlesByTag(mTag, currentPageNum, 10);
@@ -117,6 +115,8 @@ public class ArticleListFragment extends Fragment
         } catch (Exception e) {
             showNetworkErrorToast();
             e.printStackTrace();
+        } finally {
+            setProgressBar(View.GONE);
         }
     }
 
@@ -144,6 +144,11 @@ public class ArticleListFragment extends Fragment
     }
 
     @UiThread
+    void setProgressBar(int visibility) {
+        progressBar.setVisibility(visibility);
+    }
+
+    @UiThread
     void showNetworkErrorToast() {
         Toast toast = Toast.makeText(this.getActivity(), R.string.err_network_failed, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
@@ -152,11 +157,6 @@ public class ArticleListFragment extends Fragment
 
     @UiThread
     void fillData(SimpleArticleInfo[] articles) {
-        if (mProgressDialog != null) {
-            mProgressDialog.dismiss();
-            mProgressDialog = null;
-        }
-
         //判断是否需要添加loading footer
         if (currentPageNum < totalPageNum) {
             lv_articles.addFooterView(mFooter);
