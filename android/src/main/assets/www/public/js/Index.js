@@ -45,7 +45,6 @@ DidGetIndexData = function(data, rawData) {
   }
   if (data != null ? (_ref = data.Data) != null ? _ref.IsLogin : void 0 : void 0) {
     $(".wizard h4 .more").removeClass("hide");
-    localStorage.IsLogin = data.Data.IsLogin ? "YES" : "NO";
   }
   $("ul.slidesjs-pagination").css({
     "right": "auto",

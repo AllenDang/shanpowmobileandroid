@@ -72,6 +72,7 @@ RequestDataWithParam = (options)->
       if window.shouldCache ? true
         cordova.exec ((data)->), null, "CachedIOHelper", "set", ["#{options.type}:#{options.url}", data]
       if data.Result is true
+        localStorage.IsLogin = if data?.Data?.IsLogin then "YES" else "NO"
         if options.successCallback?
           options.successCallback(data, rawData)
         else
@@ -244,7 +245,12 @@ DidGetUnreadCount = (data)->
   return
 
 GetBack = (shouldReadFromCache)->
-  sessionStorage.shouldFetchDataFromCache = if !shouldReadFromCache then "NO" else "YES"
+  if shouldReadFromCache?
+    readFromCache = shouldReadFromCache
+  else
+    readFromCache = true
+  
+  sessionStorage.shouldFetchDataFromCache = readFromCache
   PopHistoryState()
   window.history.back()
   return
