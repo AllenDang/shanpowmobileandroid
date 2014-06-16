@@ -1,5 +1,7 @@
 <resources>
 
     <color name="black_overlay">#66000000</color>
+    <color name="black_sliding_menu">#464646</color>
+    <color name="green_sliding_menu_divider">#515a58</color>
 
 </resources>

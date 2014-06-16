@@ -3,15 +3,16 @@ package com.shanpow.app.android;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
+import com.shanpow.app.entity.IconWithText;
 import com.shanpow.app.service.ShanpowErrorHandler;
 import com.shanpow.app.service.ShanpowRestClient;
 import com.shanpow.app.util.AppPref_;
 import com.shanpow.app.util.Constant;
+import com.shanpow.app.util.SlidingMenuListAdapter;
 import com.tencent.tauth.Tencent;
 
 import org.androidannotations.annotations.AfterInject;
@@ -51,10 +52,15 @@ public class SlidingMenuBaseActivity extends SlidingActivity
         menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
         menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
 
-        //TODO: 临时方案
-        String[] menuItems = {"首页", "专栏文章"};
+        IconWithText[] menus = {
+                new IconWithText(R.drawable.ic_action_home, getString(R.string.title_home)),
+                new IconWithText(R.drawable.ic_article_list, getString(R.string.title_activity_article_list))
+        };
+
+        SlidingMenuListAdapter adapter = new SlidingMenuListAdapter(this, menus);
+
         ListView list = (ListView) findViewById(R.id.lv_menu);
-        list.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menuItems));
+        list.setAdapter(adapter);
 
         mTencent = Tencent.createInstance(Constant.TENCENT_APPID, getApplicationContext());
 
@@ -123,14 +129,14 @@ public class SlidingMenuBaseActivity extends SlidingActivity
     }
 
     @ItemClick
-    void lv_menuItemClicked(String item) {
+    void lv_menuItemClicked(IconWithText item) {
         //如果是MainActivity，则刷新webview
         if (this instanceof MainActivity_) {
             MainActivity_ activity = (MainActivity_) this;
-            if (item.equals("首页")) {
+            if (item.text.equals(getString(R.string.title_home))) {
                 activity.gotoUrl(Constant.URL_MAIN);
             }
-            if (item.equals("专栏文章")) {
+            if (item.text.equals(getString(R.string.title_activity_article_list))) {
                 //activity.gotoUrl(Constant.URL_ARTICLE_LIST);
                 ArticleListActivity_.intent(this).start();
             }
