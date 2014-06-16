@@ -8,7 +8,7 @@
       <div class="content">{{if Title}}{{$substring Content 0 40}}{{else}}{{$substring Content 0 50}}{{/if}}</div>
     </div>
     <div class="bookCover pull-left">
-      <a href="Book/Detail.html?id={{Book.Id}}"></a>
+      <a href="file:///android_asset/www/Book/Detail.html?id={{Book.Id}}"></a>
       <img src="{{Book.ImageUrl}}" alt="">
       <div class="bookTitle text-center">{{$substring Book.Title 0 10}}</div>
     </div>
