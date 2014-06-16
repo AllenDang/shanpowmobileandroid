@@ -6,7 +6,7 @@ import android.content.Intent;
 import com.shanpow.app.android.BookSourcesActivity_;
 import com.shanpow.app.android.LoginActivity_;
 import com.shanpow.app.android.MainActivity_;
-import com.shanpow.app.android.WebViewActivity;
+import com.shanpow.app.android.WebViewActivity_;
 import com.shanpow.app.util.Constant;
 
 import org.apache.cordova.CallbackContext;
@@ -76,7 +76,7 @@ public class ActivityLauncher extends CordovaPlugin {
 
     public void openWebView(String url) {
         Context context = cordova.getActivity().getApplicationContext();
-        Intent intent = new Intent(context, WebViewActivity.class);
+        Intent intent = new Intent(context, WebViewActivity_.class);
         intent.putExtra(Constant.EXTRA_URL, url);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);

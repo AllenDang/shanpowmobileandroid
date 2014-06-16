@@ -26,8 +26,7 @@
         <activity
             android:name=".MainActivity_"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.Black.NoTitleBar">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -92,7 +91,7 @@
             android:name=".CordovaViewActivity"
             android:label="@string/title_activity_cordova_view" />
         <activity
-            android:name=".WebViewActivity"
+            android:name=".WebViewActivity_"
             android:label="@string/title_activity_web_view"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
     </application>
