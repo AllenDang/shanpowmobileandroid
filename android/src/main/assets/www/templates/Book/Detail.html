@@ -25,24 +25,24 @@
     <div class="row-fluid status">
       <div class="span4 text-center statusAction" data-statuscode="wanttoread">
         <a href="#">
-          <div class="wanttoread">
-            <img src="../public/img/WantToRead{{if UserBookStatus}}{{if UserBookStatus.Status === 1}}_Active{{/if}}{{/if}}.png" alt="" class="pull-left">
+          <div class="wanttoread {{if UserBookStatus}}{{if UserBookStatus.Status === 1}}active{{/if}}{{/if}}">
+            <img src="../public/img/WantToRead.png" alt="" class="pull-left">
             <div class="pull-left" id="wanttoread">我想读</div>
           </div>
         </a>
       </div>
       <div class="span4 text-center statusAction" data-statuscode="read">
         <a href="WriteReview.html?bookid={{Book.Id}}&status=read&category={{Book.Category}}&bookcover={{Book.ImageUrl}}&isforman={{Book.ForMan}}&booktitle={{Book.Title}}">
-          <div class="read">
-            <img src="../public/img/Read{{if UserBookStatus}}{{if UserBookStatus.Status === 4}}_Active{{/if}}{{/if}}.png" alt="" class="pull-left">
+          <div class="read {{if UserBookStatus}}{{if UserBookStatus.Status === 4}}active{{/if}}{{/if}}">
+            <img src="../public/img/Read.png" alt="" class="pull-left">
             <div class="pull-left" id="read">我读过</div>
           </div>
         </a>
       </div>
       <div class="span4 text-center statusAction" data-statuscode="giveup">
         <a href="WriteReview.html?bookid={{Book.Id}}&status=giveup&category={{Book.Category}}&bookcover={{Book.ImageUrl}}&isforman={{Book.ForMan}}&booktitle={{Book.Title}}">
-          <div class="giveup">
-            <img src="../public/img/GiveUp{{if UserBookStatus}}{{if UserBookStatus.Status === 3}}_Active{{/if}}{{/if}}.png" alt="" class="pull-left">
+          <div class="giveup {{if UserBookStatus}}{{if UserBookStatus.Status === 3}}active{{/if}}{{/if}}">
+            <img src="../public/img/GiveUp.png" alt="" class="pull-left">
             <div class="pull-left" id="giveup">弃读</div>
           </div>
         </a>
