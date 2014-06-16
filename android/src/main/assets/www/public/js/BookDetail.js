@@ -90,7 +90,9 @@ DidGetBookDetailData = function(data, rawData) {
     width: 70
   });
   $(".readButton").unbind("click").click(function(event) {
-    cordova.exec(null, null, "ActivityLauncher", "bookSources", [data.Data.Book.Title, data.Data.Book.Author]);
+    var url;
+    url = $(this).data("url");
+    cordova.exec(null, null, "ActivityLauncher", "openWebView", [url]);
   });
 };
 

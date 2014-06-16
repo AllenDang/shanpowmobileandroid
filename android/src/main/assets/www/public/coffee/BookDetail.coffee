@@ -80,7 +80,8 @@ DidGetBookDetailData = (data, rawData)->
   }
 
   $(".readButton").unbind("click").click (event)->
-    cordova.exec null, null, "ActivityLauncher", "bookSources", [data.Data.Book.Title, data.Data.Book.Author]
+    url = $(this).data "url"
+    cordova.exec null, null, "ActivityLauncher", "openWebView", [url]
     return
 
   return
