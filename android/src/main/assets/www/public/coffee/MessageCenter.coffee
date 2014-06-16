@@ -106,7 +106,7 @@ MarkMsgAsRead = (target)->
   id = target.closest(".msg").attr "id"
 
   if target.closest(".msg").hasClass("dm")
-    localStorage.setItem("unreadMsgCount", "#{parseInt(localStorage.getItem("unreadMsgCount")) - 1}")
+    UpdateUnreadMessageCount parseInt(localStorage.getItem("unreadMsgCount")) - 1
 
     # 更新缓存中对应消息的已读状态
     cordova.exec ((data)->dmData = data), null, "CachedIOHelper", "get", ["GET:/mj/people/conversations"]

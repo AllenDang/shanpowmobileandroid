@@ -132,7 +132,7 @@ MarkMsgAsRead = function(target) {
   var id, msg, _i, _len, _ref;
   id = target.closest(".msg").attr("id");
   if (target.closest(".msg").hasClass("dm")) {
-    localStorage.setItem("unreadMsgCount", "" + (parseInt(localStorage.getItem("unreadMsgCount")) - 1));
+    UpdateUnreadMessageCount(parseInt(localStorage.getItem("unreadMsgCount")) - 1);
     cordova.exec((function(data) {
       var dmData;
       return dmData = data;
