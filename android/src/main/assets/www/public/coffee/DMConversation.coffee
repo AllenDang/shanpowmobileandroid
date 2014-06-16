@@ -15,7 +15,7 @@ DidGetNewestMessageData = (data, rawData)->
   window.TotalSum = data.Data.TotalSum
 
   messagesHTML = template "DirectMessage/Messages"
-  htmlString = messagesHTML({Messages: window.conversations})
+  htmlString = messagesHTML({Messages: window.conversations, IsLogin: if localStorage.IsLogin is "YES" then true else false})
   if htmlString.search("Template Error") < 0
     $(".container").replaceWith htmlString
   else

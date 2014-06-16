@@ -72,7 +72,8 @@ RequestDataWithParam = (options)->
       if window.shouldCache ? true
         cordova.exec ((data)->), null, "CachedIOHelper", "set", ["#{options.type}:#{options.url}", data]
       if data.Result is true
-        localStorage.IsLogin = if data?.Data?.IsLogin then "YES" else "NO"
+        if data?.Data?.IsLogin?
+          localStorage.IsLogin = if data?.Data?.IsLogin then "YES" else "NO"
         if options.successCallback?
           options.successCallback(data, rawData)
         else
