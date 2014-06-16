@@ -40,11 +40,10 @@ DidGetPeopleDetailData = (data, rawData)->
     return
 
   $(document).unbind("didGetUnreadCount").on "didGetUnreadCount", ()->
-    if parseInt(localStorage.getItem("unreadMsgCount")) > 0
-      $(".actionbar .message-center").find("span.badge").text localStorage.getItem("unreadMsgCount")
-    else
-      $(".actionbar .message-center").find("span.badge").text ""
+    UpdateMessageIconBadge()
     return
+
+  UpdateMessageIconBadge()
   return
 
 FailGetPeopleDetailData = (data, rawData)->
@@ -52,4 +51,11 @@ FailGetPeopleDetailData = (data, rawData)->
 
 DidCreateConversation = (data, rawData)->
   location.href = "file:///android_asset/www/DirectMessage/Conversation.html?id=#{data.Data}&other=#{unescape(window.nickname)}"
+  return
+
+UpdateMessageIconBadge = ()->
+  if parseInt(localStorage.getItem("unreadMsgCount")) > 0
+    $(".actionbar .message-center").find("span.badge").text localStorage.getItem("unreadMsgCount")
+  else
+    $(".actionbar .message-center").find("span.badge").text ""
   return

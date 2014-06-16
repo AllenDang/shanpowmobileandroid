@@ -1,6 +1,5 @@
 {{each Messages}}
   <div class="row-fluid msg {{if $value.IsRead === false}}unread{{/if}} response" id="{{$value.Id}}">
-    {{if $value.IsRead === false}}<div class="unread-indicator"></div>{{/if}}
     <div class="userAvatar span2">
       <a href="file:///android_asset/www/People/Detail.html?nickname={{$value.FromUser.Nickname}}"><img src="{{$value.FromUser.AvatarUrl}}" alt="" class="img-circle"></a>
     </div>

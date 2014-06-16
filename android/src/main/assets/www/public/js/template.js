@@ -663,33 +663,31 @@
         }
     }), /*v:9*/
     template("MessageCenter/Index", '<div class="container"> <div class="row-fluid tabs"> <div class="tab pull-left text-center active" id="directmessage">私信<span class="newMsgIndicator hide"></span></div> <div class="tab pull-left text-center" id="response">回复<span class="newMsgIndicator hide"></span></div> <div class="tab pull-left text-center" id="update">更新<span class="newMsgIndicator hide"></span></div> </div> <div class="row-fluid payload"> </div> </div>'), 
-    /*v:14*/
+    /*v:15*/
     template("MessageCenter/Response", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), $each = $utils.$each, Messages = $data.Messages, $escape = ($data.$value, 
             $data.$index, $utils.$escape), $out = "";
             return $line = 1, $each(Messages, function($value) {
                 $out += ' <div class="row-fluid msg ', $line = 2, $value.IsRead === !1 && ($out += "unread", 
-                $line = 2), $out += ' response" id="', $line = 2, $out += $escape($value.Id), $out += '"> ', 
-                $line = 3, $value.IsRead === !1 && ($out += '<div class="unread-indicator"></div>', 
-                $line = 3), $out += ' <div class="userAvatar span2"> <a href="file:///android_asset/www/People/Detail.html?nickname=', 
-                $line = 5, $out += $escape($value.FromUser.Nickname), $out += '"><img src="', $line = 5, 
+                $line = 2), $out += ' response" id="', $line = 2, $out += $escape($value.Id), $out += '"> <div class="userAvatar span2"> <a href="file:///android_asset/www/People/Detail.html?nickname=', 
+                $line = 4, $out += $escape($value.FromUser.Nickname), $out += '"><img src="', $line = 4, 
                 $out += $escape($value.FromUser.AvatarUrl), $out += '" alt="" class="img-circle"></a> </div> <div class="info span10"> <div class="row-fluid info"> <div class="span10 dotdotdotForLongText"><a href="file:///android_asset/www/People/Detail.html?nickname=', 
-                $line = 9, $out += $escape($value.FromUser.Nickname), $out += '">', $line = 9, $out += $escape($value.FromUser.Nickname), 
-                $out += "</a>&nbsp;", $line = 9, $out += $escape($value.Message), $out += '</div> <div class="span2 text-right">', 
-                $line = 10, $out += $escape($value.CreationTime), $out += '前</div> </div> <div class="content ', 
-                $line = 12, 6 === $value.Action && ($out += "glyphicons thumbs_up", $line = 12), 
-                $out += " ", $line = 12, 7 === $value.Action && ($out += "glyphicons thumbs_down", 
-                $line = 12), $out += '">', $line = 12, $out += $escape($value.Content), $out += "</div> </div> ", 
-                $line = 14, 2 === $value.Type ? ($out += ' <a href="file:///android_asset/www/Review/', 
-                $line = 15, 6 === $value.Action || 7 === $value.Action ? ($out += "Detail", $line = 15) : ($out += "Response", 
-                $line = 15), $out += ".html?id=", $line = 15, $out += $escape($value.AnchorId), 
-                $out += '"></a> ', $line = 16) : 3 === $value.Type ? ($out += ' <a href="file:///android_asset/www/Booklist/Response.html?id=', 
-                $line = 17, $out += $escape($value.AnchorId), $out += '"></a> ', $line = 18) : 9 === $value.Type ? ($out += ' <a href="file:///android_asset/www/Article/Response.html?id=', 
-                $line = 19, $out += $escape($value.AnchorId), $out += '"></a> ', $line = 20) : 10 === $value.Type && ($out += ' <a href="file:///android_asset/www/Comment/', 
-                $line = 21, 6 === $value.Action || 7 === $value.Action ? ($out += "Detail", $line = 21) : ($out += "Response", 
-                $line = 21), $out += ".html?id=", $line = 21, $out += $escape($value.AnchorId), 
-                $out += '"></a> ', $line = 22), $out += " </div> <hr> ", $line = 25;
+                $line = 8, $out += $escape($value.FromUser.Nickname), $out += '">', $line = 8, $out += $escape($value.FromUser.Nickname), 
+                $out += "</a>&nbsp;", $line = 8, $out += $escape($value.Message), $out += '</div> <div class="span2 text-right">', 
+                $line = 9, $out += $escape($value.CreationTime), $out += '前</div> </div> <div class="content ', 
+                $line = 11, 6 === $value.Action && ($out += "glyphicons thumbs_up", $line = 11), 
+                $out += " ", $line = 11, 7 === $value.Action && ($out += "glyphicons thumbs_down", 
+                $line = 11), $out += '">', $line = 11, $out += $escape($value.Content), $out += "</div> </div> ", 
+                $line = 13, 2 === $value.Type ? ($out += ' <a href="file:///android_asset/www/Review/', 
+                $line = 14, 6 === $value.Action || 7 === $value.Action ? ($out += "Detail", $line = 14) : ($out += "Response", 
+                $line = 14), $out += ".html?id=", $line = 14, $out += $escape($value.AnchorId), 
+                $out += '"></a> ', $line = 15) : 3 === $value.Type ? ($out += ' <a href="file:///android_asset/www/Booklist/Response.html?id=', 
+                $line = 16, $out += $escape($value.AnchorId), $out += '"></a> ', $line = 17) : 9 === $value.Type ? ($out += ' <a href="file:///android_asset/www/Article/Response.html?id=', 
+                $line = 18, $out += $escape($value.AnchorId), $out += '"></a> ', $line = 19) : 10 === $value.Type && ($out += ' <a href="file:///android_asset/www/Comment/', 
+                $line = 20, 6 === $value.Action || 7 === $value.Action ? ($out += "Detail", $line = 20) : ($out += "Response", 
+                $line = 20), $out += ".html?id=", $line = 20, $out += $escape($value.AnchorId), 
+                $out += '"></a> ', $line = 21), $out += " </div> <hr> ", $line = 24;
             }), new String($out);
         } catch (e) {
             throw {
@@ -697,10 +695,10 @@
                 name: "Render Error",
                 message: e.message,
                 line: $line,
-                source: '{{each Messages}}\n  <div class="row-fluid msg {{if $value.IsRead === false}}unread{{/if}} response" id="{{$value.Id}}">\n    {{if $value.IsRead === false}}<div class="unread-indicator"></div>{{/if}}\n    <div class="userAvatar span2">\n      <a href="file:///android_asset/www/People/Detail.html?nickname={{$value.FromUser.Nickname}}"><img src="{{$value.FromUser.AvatarUrl}}" alt="" class="img-circle"></a>\n    </div>\n    <div class="info span10">\n      <div class="row-fluid info">\n        <div class="span10 dotdotdotForLongText"><a href="file:///android_asset/www/People/Detail.html?nickname={{$value.FromUser.Nickname}}">{{$value.FromUser.Nickname}}</a>&nbsp;{{$value.Message}}</div>\n        <div class="span2 text-right">{{$value.CreationTime}}前</div>\n      </div>\n      <div class="content {{if $value.Action === 6}}glyphicons thumbs_up{{/if}} {{if $value.Action === 7}}glyphicons thumbs_down{{/if}}">{{$value.Content}}</div>\n    </div>\n    {{if $value.Type === 2}}\n    <a href="file:///android_asset/www/Review/{{if $value.Action === 6 || $value.Action === 7}}Detail{{else}}Response{{/if}}.html?id={{$value.AnchorId}}"></a>\n    {{else if $value.Type === 3}}\n    <a href="file:///android_asset/www/Booklist/Response.html?id={{$value.AnchorId}}"></a>\n    {{else if $value.Type === 9}}\n    <a href="file:///android_asset/www/Article/Response.html?id={{$value.AnchorId}}"></a>\n    {{else if $value.Type === 10}}\n    <a href="file:///android_asset/www/Comment/{{if $value.Action === 6 || $value.Action === 7}}Detail{{else}}Response{{/if}}.html?id={{$value.AnchorId}}"></a>\n    {{/if}}\n  </div>\n  <hr>\n{{/each}}'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
+                source: '{{each Messages}}\n  <div class="row-fluid msg {{if $value.IsRead === false}}unread{{/if}} response" id="{{$value.Id}}">\n    <div class="userAvatar span2">\n      <a href="file:///android_asset/www/People/Detail.html?nickname={{$value.FromUser.Nickname}}"><img src="{{$value.FromUser.AvatarUrl}}" alt="" class="img-circle"></a>\n    </div>\n    <div class="info span10">\n      <div class="row-fluid info">\n        <div class="span10 dotdotdotForLongText"><a href="file:///android_asset/www/People/Detail.html?nickname={{$value.FromUser.Nickname}}">{{$value.FromUser.Nickname}}</a>&nbsp;{{$value.Message}}</div>\n        <div class="span2 text-right">{{$value.CreationTime}}前</div>\n      </div>\n      <div class="content {{if $value.Action === 6}}glyphicons thumbs_up{{/if}} {{if $value.Action === 7}}glyphicons thumbs_down{{/if}}">{{$value.Content}}</div>\n    </div>\n    {{if $value.Type === 2}}\n    <a href="file:///android_asset/www/Review/{{if $value.Action === 6 || $value.Action === 7}}Detail{{else}}Response{{/if}}.html?id={{$value.AnchorId}}"></a>\n    {{else if $value.Type === 3}}\n    <a href="file:///android_asset/www/Booklist/Response.html?id={{$value.AnchorId}}"></a>\n    {{else if $value.Type === 9}}\n    <a href="file:///android_asset/www/Article/Response.html?id={{$value.AnchorId}}"></a>\n    {{else if $value.Type === 10}}\n    <a href="file:///android_asset/www/Comment/{{if $value.Action === 6 || $value.Action === 7}}Detail{{else}}Response{{/if}}.html?id={{$value.AnchorId}}"></a>\n    {{/if}}\n  </div>\n  <hr>\n{{/each}}'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:9*/
+    }), /*v:10*/
     template("MessageCenter/Update", function($data, $filename) {
         try {
             var $utils = this, $helpers = $utils.$helpers, $line = 0, $each = $utils.$each, Messages = $data.Messages, $escape = ($data.$value, 
@@ -717,9 +715,8 @@
                 $line = 13, $out += $string($substring($value.Content, 0, 50)), $out += "</div> </div> </div> ", 
                 $line = 16, 2 === $value.Type ? ($out += ' <a href="file:///android_asset/www/Review/Detail.html?id=', 
                 $line = 17, $out += $escape($value.AnchorId), $out += '"></a> ', $line = 18) : 10 === $value.Type && ($out += ' <a href="file:///android_asset/www/Comment/Detail.html?id=', 
-                $line = 19, $out += $escape($value.AnchorId), $out += '"></a> ', $line = 20), $out += " ", 
-                $line = 21, $value.IsRead === !1 && ($out += '<div class="unread-indicator"></div>', 
-                $line = 21), $out += " </div> <hr> ", $line = 24;
+                $line = 19, $out += $escape($value.AnchorId), $out += '"></a> ', $line = 20), $out += " </div> <hr> ", 
+                $line = 23;
             }), new String($out);
         } catch (e) {
             throw {
@@ -727,7 +724,7 @@
                 name: "Render Error",
                 message: e.message,
                 line: $line,
-                source: '{{each Messages}}\n  <div class="row-fluid msg {{if $value.IsRead === false}}unread{{/if}} update" id="{{$value.Id}}">\n    <div class="bookcover span2">\n      <a href="file:///android_asset/www/Book/Detail.html?id={{$value.Book.Id}}"><img src="{{$value.Book.ImageUrl}}" alt="" class=""></a>\n    </div>\n    <div class="info span10">\n      <div class="row-fluid info">\n        <div class="span9 dotdotdotForLongText"><a href="file:///android_asset/www/People/Detail.html?nickname={{$value.FromUser.Nickname}}">{{$value.FromUser.Nickname}}</a>{{$value.Message}}</div>\n        <div class="span3 text-right">{{$value.CreationTime}}前</div>\n      </div>\n      <div class="content">\n        <h5 class="contentTitle">{{$value.Title}}</h5>\n        <div class="summary">{{$substring $value.Content 0 50}}</div>\n      </div>\n    </div>\n    {{if $value.Type === 2}}\n    <a href="file:///android_asset/www/Review/Detail.html?id={{$value.AnchorId}}"></a>\n    {{else if $value.Type === 10}}\n    <a href="file:///android_asset/www/Comment/Detail.html?id={{$value.AnchorId}}"></a>\n    {{/if}}\n    {{if $value.IsRead === false}}<div class="unread-indicator"></div>{{/if}}\n  </div>\n  <hr>\n{{/each}}'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
+                source: '{{each Messages}}\n  <div class="row-fluid msg {{if $value.IsRead === false}}unread{{/if}} update" id="{{$value.Id}}">\n    <div class="bookcover span2">\n      <a href="file:///android_asset/www/Book/Detail.html?id={{$value.Book.Id}}"><img src="{{$value.Book.ImageUrl}}" alt="" class=""></a>\n    </div>\n    <div class="info span10">\n      <div class="row-fluid info">\n        <div class="span9 dotdotdotForLongText"><a href="file:///android_asset/www/People/Detail.html?nickname={{$value.FromUser.Nickname}}">{{$value.FromUser.Nickname}}</a>{{$value.Message}}</div>\n        <div class="span3 text-right">{{$value.CreationTime}}前</div>\n      </div>\n      <div class="content">\n        <h5 class="contentTitle">{{$value.Title}}</h5>\n        <div class="summary">{{$substring $value.Content 0 50}}</div>\n      </div>\n    </div>\n    {{if $value.Type === 2}}\n    <a href="file:///android_asset/www/Review/Detail.html?id={{$value.AnchorId}}"></a>\n    {{else if $value.Type === 10}}\n    <a href="file:///android_asset/www/Comment/Detail.html?id={{$value.AnchorId}}"></a>\n    {{/if}}\n  </div>\n  <hr>\n{{/each}}'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
     }), /*v:5*/

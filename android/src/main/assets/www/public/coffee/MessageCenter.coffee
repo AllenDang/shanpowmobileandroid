@@ -24,7 +24,7 @@ $(document).on "deviceready", ()->
   InitRequest()
   return
 
-$(document).on "click tap", "a", null, ()->
+$(document).on "click tap", "a", ()->
   MarkMsgAsRead($(this))
   return
 
@@ -37,6 +37,8 @@ DidGetInitData = (data, rawData)->
   $("#directmessage").find(".newMsgIndicator").removeClass("hide") if parseInt(data.Data.MessageUnreadSum) > 0
   $("#response").find(".newMsgIndicator").removeClass("hide") if parseInt(data.Data.ResponseUnreadSum) > 0
   $("#update").find(".newMsgIndicator").removeClass("hide") if parseInt(data.Data.UpdateUnreadSum) > 0
+  window.responseUnreadSum = data.Data.ResponseUnreadSum
+  window.updateUnreadSum = data.Data.UpdateUnreadSum
   return
 
 SwitchToDirectMessage = ()->
@@ -57,6 +59,8 @@ DidGetDirectMessageData = (data, rawData)->
 SwitchToResponse = ()->
   $(".payload").html ""
   GetResponses()
+  if not $("#response").find(".newMsgIndicator").hasClass("hide")
+    RequestAjax "POST", "/mj/msgcenter/markasread/response/all", {}, DidMarkAllResponseAsRead, null, false
   return
 
 GetResponses = ()->
@@ -69,9 +73,17 @@ DidGetResponseData = (data, rawData)->
   $(".payload").html responses data.Data
   return
 
+DidMarkAllResponseAsRead = (data, rawData)->
+  newUnreadCount = parseInt(localStorage.getItem("unreadMsgCount")) - parseInt(window.responseUnreadSum)
+  UpdateUnreadMessageCount newUnreadCount
+  $("#response").find(".newMsgIndicator").addClass("hide")
+  return
+
 SwitchToUpdate = ()->
   $(".payload").html ""
   GetUpdates()
+  if not $("#update").find(".newMsgIndicator").hasClass("hide")
+    RequestAjax "POST", "/mj/msgcenter/markasread/update/all", {}, DidMarkAllUpdateAsRead, null, false
   return
 
 GetUpdates = ()->
@@ -84,23 +96,24 @@ DidGetUpdateData = (data, rawData)->
   $(".payload").html update data.Data
   return
 
+DidMarkAllUpdateAsRead = (data, rawData)->
+  newUnreadCount = parseInt(localStorage.getItem("unreadMsgCount")) - parseInt(window.updateUnreadSum)
+  UpdateUnreadMessageCount newUnreadCount
+  $("#update").find(".newMsgIndicator").addClass("hide")
+  return
+
 MarkMsgAsRead = (target)->
   id = target.closest(".msg").attr "id"
 
-  localStorage.setItem("unreadMsgCount", "#{parseInt(localStorage.getItem("unreadMsgCount")) - 1}")
-
   if target.closest(".msg").hasClass("dm")
-    cordova.exec ((data)->dmData = data), null, "CachedIOHelper", "get", ["GET:/mj/people/conversations"]
+    localStorage.setItem("unreadMsgCount", "#{parseInt(localStorage.getItem("unreadMsgCount")) - 1}")
 
+    # 更新缓存中对应消息的已读状态
+    cordova.exec ((data)->dmData = data), null, "CachedIOHelper", "get", ["GET:/mj/people/conversations"]
     for msg in dmData.Data
       if msg.Id is id
         msg.IsNewMessages = false
-
     cordova.exec ((data)->), null, "CachedIOHelper", "set", ["GET:/mj/people/conversations", dmData]
 
-  RequestAjax "POST", "/mj/msgcenter/markasread", {id: id}, DidMarkMsgAsRead, null, false
   return
 
-DidMarkMsgAsRead = (data, rawData)->
-  console.log "marked"
-  return

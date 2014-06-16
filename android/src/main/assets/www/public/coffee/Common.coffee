@@ -94,7 +94,7 @@ RequestDataWithParam = (options)->
       return
     ),
     beforeSend: ((jqXHR, settings)->
-      if shouldShowSpinner
+      if shouldShowSpinner and options.type isnt "POST"
         navigator.notification.activityStart("", "正在加载...")
         setTimeout (()->navigator.notification.activityStop()), timeoutInterval
       return),
@@ -242,6 +242,11 @@ GetUnreadMessageCount = ()->
 DidGetUnreadCount = (data)->
   localStorage.setItem("unreadMsgCount", "#{data.MK_UNREAD_NOTIFICATION_COUNT}")
   $(document).trigger "didGetUnreadCount"
+  return
+
+UpdateUnreadMessageCount = (cnt)->
+  cordova.exec null, null, "CachedIOHelper", "set", ["MK_UNREAD_NOTIFICATION_COUNT", cnt]
+  localStorage.setItem("unreadMsgCount", "#{cnt}")
   return
 
 GetBack = (shouldReadFromCache)->
