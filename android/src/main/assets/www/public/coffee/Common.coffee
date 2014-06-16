@@ -214,6 +214,12 @@ PullToRefresh = ()->
     $(".actionbar .title-section").removeClass "hide"
     $(".actionbar .loading").addClass "hide"
 
+  $("body").unbind("touchcancel").on "touchcancel", (event)->
+    $("#pullIndicator").width 0
+    $(".actionbar .title-section").removeClass "hide"
+    $(".actionbar .loading").addClass "hide"
+    return
+
 TimeStamp = ()->
   date = new Date()
   return Number(date)

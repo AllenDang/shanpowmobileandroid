@@ -234,7 +234,7 @@ PullToRefresh = function() {
       }
     }
   });
-  return $("body").unbind("touchend").on("touchend", function(event) {
+  $("body").unbind("touchend").on("touchend", function(event) {
     var actionbar;
     if ($("#pullIndicator").width() >= $(window).width()) {
       window.pullToRefresh = true;
@@ -250,6 +250,11 @@ PullToRefresh = function() {
     $("#pullIndicator").width(0);
     $(".actionbar .title-section").removeClass("hide");
     return $(".actionbar .loading").addClass("hide");
+  });
+  return $("body").unbind("touchcancel").on("touchcancel", function(event) {
+    $("#pullIndicator").width(0);
+    $(".actionbar .title-section").removeClass("hide");
+    $(".actionbar .loading").addClass("hide");
   });
 };
 
