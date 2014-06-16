@@ -21,5 +21,6 @@
         android:text="Medium Text"
         android:id="@+id/textView"
         android:layout_toRightOf="@+id/imageView"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:textColor="@android:color/white" />
 </RelativeLayout>

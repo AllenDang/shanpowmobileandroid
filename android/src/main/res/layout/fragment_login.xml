@@ -21,14 +21,16 @@
             android:text="@string/text_user_doesnt_signedin"
             android:layout_toRightOf="@id/img_profile"
             android:layout_centerVertical="true"
-            android:paddingLeft="5dp" />
+            android:paddingLeft="5dp"
+            android:textColor="@android:color/white" />
 
         <Button
             style="@style/RoundedButton"
             android:text="@string/action_sign_in"
             android:id="@+id/btn_login"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:textColor="@android:color/white" />
 
     </RelativeLayout>
 
