@@ -125,6 +125,7 @@
     </div>
   </div>
   {{/if}}
+  {{if Book.Url !== ""}}
   {{if IsLogin === true}}
   <div class="readButton text-center login" data-url="{{Book.Url}}">
     <span class="before"></span>
@@ -133,6 +134,7 @@
   </div>
   {{else}}
   <div class="readButton text-center" data-url="{{Book.Url}}">开始阅读</div>
+  {{/if}}
   {{/if}}
   <div class="section row-fluid summary">
     <div class="row-fluid title">内容简介</div>
