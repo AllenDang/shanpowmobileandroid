@@ -246,9 +246,9 @@ DidGetUnreadCount = (data)->
 
 GetBack = (shouldReadFromCache)->
   if shouldReadFromCache?
-    readFromCache = shouldReadFromCache
+    readFromCache = if shouldReadFromCache then "YES" else "NO"
   else
-    readFromCache = true
+    readFromCache = "YES"
   
   sessionStorage.shouldFetchDataFromCache = readFromCache
   PopHistoryState()
