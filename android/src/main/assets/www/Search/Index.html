@@ -30,6 +30,7 @@
   </div>
   <script>
     $(document).on("deviceready", function() {
+      sessionStorage.shouldFetchDataFromCache = "NO";
       var actionbar, articleId;
       actionbar = template("public/ActionBar");
       $(".search").before(actionbar());

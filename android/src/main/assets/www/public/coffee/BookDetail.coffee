@@ -30,8 +30,9 @@ DidGetBookDetailData = (data, rawData)->
       $(".summaryContent").text window.fullSummary
     return
 
-  $(".statusAction[data-statuscode='wanttoread']").unbind("tap").on "tap", (event)->
+  $(".statusAction[data-statuscode='wanttoread']").unbind("click").on "click", (event)->
     return if $(this).hasClass "inactive"
+    $(this).find(".wanttoread").addClass("active")
     bookId = $(".container").attr "id"
     data = {
       markType: "wanttoread",
@@ -40,7 +41,7 @@ DidGetBookDetailData = (data, rawData)->
       isShareToQQ: false,
       isShareToWeibo: false
     }
-    RequestAjax "POST", "/book/#{bookId}/mark", data, DidMarkWantToRead, null
+    RequestAjax "POST", "/book/#{bookId}/mark", data, DidMarkWantToRead, FailMarkWantToRead, false
     
   $(".ratingStar").raty {
     score: -> return $(this).data("score") / 2,
@@ -88,5 +89,12 @@ FailGetBookDetailData = (data, rawData)->
   return
 
 DidMarkWantToRead = (data, rawData)->
-  location.reload()
+  $(".statusAction").each ()->
+    $(this).find(".active").removeClass "active" if not $(this).find(".active").hasClass("wanttoread")
+    return
+  $(".selfComment .arrow").removeClass().addClass("offset1 text-center arrow")
+  return
+
+FailMarkWantToRead = (data, rawData)->
+  cordova.exec null, null, "ToastHelper", "show", ["标记失败，请点击重试"]
   return

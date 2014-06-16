@@ -41,7 +41,6 @@ DidGetIndexData = (data, rawData)->
 
   if data?.Data?.IsLogin
     $(".wizard h4 .more").removeClass "hide"
-    localStorage.IsLogin = if data.Data.IsLogin then "YES" else "NO"
 
   $("ul.slidesjs-pagination").css {
     "right": "auto",

@@ -5,6 +5,8 @@ $(document).on "deviceready", ()->
   $(".actionbar .page-title").text "回复"
   CenterTitle()
 
+  $("#input-group").next("script").remove()
+  $("#input-group").remove()
   inputGroup = template "public/InputGroup"
   $(".container").replaceWith inputGroup {IsLogin: if localStorage.IsLogin is "YES" then true else false}
 
@@ -28,6 +30,9 @@ $(document).on "deviceready", ()->
   return
 
 DidGetResponseData = (data, rawData)->
+  if $("body").children(".responseItem").length > 0
+    $(".responseItem").remove()
+
   articleResponseMain = template "public/Responses"
   $(".actionbar").after articleResponseMain data.Data
 

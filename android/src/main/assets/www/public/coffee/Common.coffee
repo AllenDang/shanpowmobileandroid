@@ -72,6 +72,7 @@ RequestDataWithParam = (options)->
       if window.shouldCache ? true
         cordova.exec ((data)->), null, "CachedIOHelper", "set", ["#{options.type}:#{options.url}", data]
       if data.Result is true
+        localStorage.IsLogin = if data?.Data?.IsLogin then "YES" else "NO"
         if options.successCallback?
           options.successCallback(data, rawData)
         else
@@ -175,10 +176,6 @@ autoTextarea = (elem, extra, maxHeight)->
 
 PullToRefresh = ()->
   $("body").unbind("touchstart").on "touchstart", (event)->
-    if $(".actionbar").length > 0
-      $(".actionbar").append "<div class='pullbar' id='pullIndicator'></div>"
-    else
-      $("body").prepend "<div class='pullbar' id='pullIndicator'></div>"
     window.startY = event.originalEvent.touches[0].screenY
     window.startYOffset = $("body").scrollTop()
     window.zeroY = null
@@ -247,8 +244,13 @@ DidGetUnreadCount = (data)->
   $(document).trigger "didGetUnreadCount"
   return
 
-GetBack = ()->
-  sessionStorage.shouldFetchDataFromCache = "YES"
+GetBack = (shouldReadFromCache)->
+  if shouldReadFromCache?
+    readFromCache = if shouldReadFromCache then "YES" else "NO"
+  else
+    readFromCache = "YES"
+  
+  sessionStorage.shouldFetchDataFromCache = readFromCache
   PopHistoryState()
   window.history.back()
   return

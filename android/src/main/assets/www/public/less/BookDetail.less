@@ -170,12 +170,27 @@
   }
 
   .wanttoread, .read, .giveup, .addToBooklist, .writeComment {
+    position: relative;
     display: inline-block;
     height: 32px;
 
     img {
+      position: relative;
+      z-index: 1;
       height: 32px;
       width: 32px;
+    }
+
+    &.active:after {
+      content: "";
+      position: absolute;
+      background-color: @base;
+      width: 40px;
+      height: 40px;
+      z-index: 0;
+      border-radius: 20px;
+      left: -6px;
+      top: -4px;
     }
 
     div {

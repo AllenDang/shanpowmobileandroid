@@ -33,6 +33,9 @@ $(document).on("deviceready", function() {
 
 DidGetBooklistResponseData = function(data, rawData) {
   var booklistResponse;
+  if ($("body").children(".responseItem").length > 0) {
+    $(".responseItem").remove();
+  }
   booklistResponse = template("public/Responses");
   $(".actionbar").after(booklistResponse(data.Data));
   RegisterResponseBtn();

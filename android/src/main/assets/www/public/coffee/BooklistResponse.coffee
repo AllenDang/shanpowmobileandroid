@@ -28,6 +28,9 @@ $(document).on "deviceready", ()->
   return
 
 DidGetBooklistResponseData = (data, rawData)->
+  if $("body").children(".responseItem").length > 0
+    $(".responseItem").remove()
+    
   booklistResponse = template "public/Responses"
   $(".actionbar").after booklistResponse data.Data
   

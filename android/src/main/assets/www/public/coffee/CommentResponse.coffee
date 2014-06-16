@@ -25,6 +25,9 @@ $(document).on "deviceready", ()->
   return
 
 DidGetResponseData = (data, rawData)->
+  if $("body").children(".responseItem").length > 0
+    $(".responseItem").remove()
+    
   articleResponseMain = template "public/Responses"
   $(".actionbar").after articleResponseMain data.Data
 

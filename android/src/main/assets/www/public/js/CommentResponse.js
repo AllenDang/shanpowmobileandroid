@@ -30,6 +30,9 @@ $(document).on("deviceready", function() {
 
 DidGetResponseData = function(data, rawData) {
   var articleResponseMain;
+  if ($("body").children(".responseItem").length > 0) {
+    $(".responseItem").remove();
+  }
   articleResponseMain = template("public/Responses");
   $(".actionbar").after(articleResponseMain(data.Data));
   RegisterResponseBtn();

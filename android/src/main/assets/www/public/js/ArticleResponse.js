@@ -7,6 +7,8 @@ $(document).on("deviceready", function() {
   window.authorId = getQueryString("authorId");
   $(".actionbar .page-title").text("回复");
   CenterTitle();
+  $("#input-group").next("script").remove();
+  $("#input-group").remove();
   inputGroup = template("public/InputGroup");
   $(".container").replaceWith(inputGroup({
     IsLogin: localStorage.IsLogin === "YES" ? true : false
@@ -33,6 +35,9 @@ $(document).on("deviceready", function() {
 
 DidGetResponseData = function(data, rawData) {
   var articleResponseMain;
+  if ($("body").children(".responseItem").length > 0) {
+    $(".responseItem").remove();
+  }
   articleResponseMain = template("public/Responses");
   $(".actionbar").after(articleResponseMain(data.Data));
   RegisterResponseBtn();

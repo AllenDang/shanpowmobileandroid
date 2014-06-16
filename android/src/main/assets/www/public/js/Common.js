@@ -79,7 +79,7 @@ RequestDataWithParam = function(options) {
       })
     },
     success: (function(data) {
-      var _ref3;
+      var _ref3, _ref4;
       setTimeout((function() {
         return navigator.notification.activityStop();
       }), 200);
@@ -87,6 +87,7 @@ RequestDataWithParam = function(options) {
         cordova.exec((function(data) {}), null, "CachedIOHelper", "set", ["" + options.type + ":" + options.url, data]);
       }
       if (data.Result === true) {
+        localStorage.IsLogin = (data != null ? (_ref4 = data.Data) != null ? _ref4.IsLogin : void 0 : void 0) ? "YES" : "NO";
         if (options.successCallback != null) {
           options.successCallback(data, rawData);
         } else {
@@ -206,11 +207,6 @@ autoTextarea = function(elem, extra, maxHeight) {
 
 PullToRefresh = function() {
   $("body").unbind("touchstart").on("touchstart", function(event) {
-    if ($(".actionbar").length > 0) {
-      $(".actionbar").append("<div class='pullbar' id='pullIndicator'></div>");
-    } else {
-      $("body").prepend("<div class='pullbar' id='pullIndicator'></div>");
-    }
     window.startY = event.originalEvent.touches[0].screenY;
     window.startYOffset = $("body").scrollTop();
     return window.zeroY = null;
@@ -292,8 +288,14 @@ DidGetUnreadCount = function(data) {
   $(document).trigger("didGetUnreadCount");
 };
 
-GetBack = function() {
-  sessionStorage.shouldFetchDataFromCache = "YES";
+GetBack = function(shouldReadFromCache) {
+  var readFromCache;
+  if (shouldReadFromCache != null) {
+    readFromCache = shouldReadFromCache ? "YES" : "NO";
+  } else {
+    readFromCache = "YES";
+  }
+  sessionStorage.shouldFetchDataFromCache = readFromCache;
   PopHistoryState();
   window.history.back();
 };
