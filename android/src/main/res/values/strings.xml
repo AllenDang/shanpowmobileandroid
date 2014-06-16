@@ -30,5 +30,6 @@
     <string name="title_loading">正在加载数据……</string>
     <string name="title_activity_cordova_view">CordovaViewActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_web_view">WebViewActivity</string>
 
 </resources>
