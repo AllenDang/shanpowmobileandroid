@@ -31,13 +31,10 @@
   <script>
     $(document).on("deviceready", function() {
       sessionStorage.shouldFetchDataFromCache = "NO";
-      var actionbar, articleId;
-      actionbar = template("public/ActionBar");
-      $(".search").before(actionbar());
       $(".actionbar .channel").addClass("hide");
       $(".actionbar .slide-menu").addClass("hide");
       $(".actionbar .page-title").text("搜索");
-      $(".actionbar").children(".center").css("left", ($(window).width() - $(".actionbar .center").children(".page-title").width()) / 2);
+      CenterTitle();
     });
   </script>
 </body>
