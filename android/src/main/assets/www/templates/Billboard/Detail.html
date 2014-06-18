@@ -1,9 +1,22 @@
 <div class="container">
-  <div class="row-fluid text-center">本期发布于{{Billboard.CreationTime}}</div>
-  {{if IsDispNextPlan === true}}
-  <div class="desc row-fluid text-center">距离下期发布还有{{Billboard.NextVersionPlan}}</div>
-  {{/if}}
-  <hr>
+  <div class="billboard-info">
+    <div class="authorComment row-fluid">
+      <div class="span3 author">
+        <img src="{{Billboard.Author.AvatarUrl}}" class="img-circle">
+        <div class="nickname text-center">{{Billboard.Author.Nickname}}</div>
+        <a href="../People/Detail.html?nickname={{Billboard.Author.Nickname}}"></a>
+      </div>
+      <div class="span9 row-fluid">
+        <div class="cmt span11">
+        {{Billboard.Description}}
+        </div>
+      </div>
+    </div>
+    <div class="row-fluid text-center">本期发布于{{Billboard.CreationTime}}</div>
+    {{if IsDispNextPlan === true}}
+    <div class="desc row-fluid text-center">距离下期发布还有{{Billboard.NextVersionPlan}}</div>
+    {{/if}}
+  </div>
   <div class="listDetail tab-pane active" id="allbooks">
     <ul class="unstyled">
       {{each Billboard.Books}}

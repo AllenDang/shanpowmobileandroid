@@ -26,6 +26,11 @@ DidGetPeopleDetailData = function(data, rawData) {
   }
   $(".actionbar .page-title").text(unescape(window.nickname));
   CenterTitle();
+  if ($(".info").length > 4) {
+    $(".info").width(70);
+  } else {
+    $(".info").width(80);
+  }
   $(".book").each(function(index) {
     $(this).find(".bookCover").height($(this).find(".bookCover").width() * 4 / 3);
   });

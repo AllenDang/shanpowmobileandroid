@@ -165,15 +165,8 @@ body {
       }
 
       .arrow {
-        display: block;
-        width: 0;
-        height: 0;
         margin-left: 4px;
         margin-top: 12px;
-
-        border-width: 4px;
-        border-style: solid;
-        border-color: transparent black black transparent;
       }
 
       .btn:focus {
@@ -184,13 +177,35 @@ body {
         text-decoration: none;
       }
 
+      hr {
+        margin: 0 8px;
+      }
+
       .dropdown-menu {
-        li a img {
-          padding: 8px 0;
-          width: 32px;
-          max-width: 32px;
+        li a {
+          font-size: 1.3em;
+          padding: 0 24px 0 20px;
+          height: 45px;
+          line-height: 45px;
+
+          img {
+            padding: 8px 0;
+            width: 32px;
+            max-width: 32px;
+            margin-right: 12px;
+          }
         }
       }
+    }
+
+    .arrow {
+      display: block;
+      width: 0;
+      height: 0;
+
+      border-width: 4px;
+      border-style: solid;
+      border-color: transparent black black transparent;
     }
     
     .btn-group.open {
@@ -383,4 +398,9 @@ input[type="tel"], input[type="color"] {
       color: white;
     }
   }
+}
+
+hr {
+  border-top: none;
+  border-bottom-color: @base;
 }

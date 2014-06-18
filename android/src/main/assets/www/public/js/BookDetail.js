@@ -91,7 +91,7 @@ DidGetBookDetailData = function(data, rawData) {
   });
   $(".readButton").unbind("click").click(function(event) {
     var url;
-    url = $(this).data("url");
+    url = unescape($(this).data("url"));
     cordova.exec(null, null, "ActivityLauncher", "openWebView", [url]);
   });
 };

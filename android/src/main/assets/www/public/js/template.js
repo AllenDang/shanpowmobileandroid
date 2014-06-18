@@ -89,7 +89,9 @@
         return new Array(size);
     }), template.helper("$sub", function(x, y) {
         return x - y;
-    }), /*v:12*/
+    }), template.helper("$unescape", function(string) {
+        return unescape(string);
+    }), /*v:18*/
     template("Article/Detail", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), $escape = $utils.$escape, Article = $data.Article, $string = $utils.$string, RelatedBooks = $data.RelatedBooks, $each = $utils.$each, $out = ($data.$value, 
@@ -123,7 +125,7 @@
                 source: '<div class="container" data-reviewid="{{Article.Id}}">\n  <div class="row-fluid titleImage"><img src="{{Article.ImageUrl}}?imageView/2/w/360"></div>\n  <div class="row-fluid title">{{Article.Title}}</div>\n  <div class="info row-fluid">\n    <div class="user pull-left" id="{{Article.Author.Id}}">\n      <a href="../People/Detail.html?nickname={{Article.Author.Nickname}}">\n        <div class="avatar pull-left"><img src="{{Article.Author.AvatarUrl}}" alt="" class="img-circle"></div>\n        <div class="nickname pull-left">{{Article.Author.Nickname}}</div>\n      </a>\n    </div>\n    <div class="viewcount pull-right">\n      <span>已被阅读{{Article.ViewCount}}次</span>\n    </div>\n  </div>\n  <div class="content">{{#Article.Content}}</div>\n  {{if RelatedBooks}}\n  <div class="section row-fluid similarBooks">\n    <div class="row-fluid title">\n      <span>相关书籍</span>\n    </div>\n    <div class="row-fluid">\n      {{each RelatedBooks}}\n      <div class="book span3">\n        <a href="../Book/Detail.html?id={{$value.Id}}">\n          <div class="bookCover">\n            <div class="wrapper"><img src="{{$value.ImageUrl}}" alt=""></div>\n          </div>\n          <div class="bookTitle text-center">{{$value.Title}}</div>\n        </a>\n      </div>\n      {{/each}}\n    </div>\n  </div>\n  {{/if}}\n</div>\n<div class="row-fluid response text-center">\n  <a href="Response.html?id={{Article.Id}}&authorId={{Article.Author.Id}}">\n    <span class="glyphicons comments">{{if Article.ResponseSum > 0}}{{Article.ResponseSum}}条评论{{else}}没有评论{{/if}}</span>\n  </a>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:6*/
+    }), /*v:12*/
     template("Article/List", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), $each = $utils.$each, Data = $data.Data, include = ($data.$value, 
@@ -144,7 +146,7 @@
                 source: '<div class="container">\n  {{each Data}}\n  {{include "../public/ArticleItem" $value}}\n  {{/each}}\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:6*/
+    }), /*v:27*/
     template("Billboard/Detail", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), $escape = $utils.$escape, Billboard = $data.Billboard, IsDispNextPlan = $data.IsDispNextPlan, $each = $utils.$each, include = ($data.$value, 
@@ -153,17 +155,21 @@
                 var text = $utils.$include(filename, data, $filename);
                 return $out += text;
             }), $out = "";
-            return $out += '<div class="container"> <div class="row-fluid text-center">本期发布于', 
-            $line = 2, $out += $escape(Billboard.CreationTime), $out += "</div> ", $line = 3, 
+            return $out += '<div class="container"> <div class="billboard-info"> <div class="authorComment row-fluid"> <div class="span3 author"> <img src="', 
+            $line = 5, $out += $escape(Billboard.Author.AvatarUrl), $out += '" class="img-circle"> <div class="nickname text-center">', 
+            $line = 6, $out += $escape(Billboard.Author.Nickname), $out += '</div> <a href="../People/Detail.html?nickname=', 
+            $line = 7, $out += $escape(Billboard.Author.Nickname), $out += '"></a> </div> <div class="span9 row-fluid"> <div class="cmt span11"> ', 
+            $line = 11, $out += $escape(Billboard.Description), $out += ' </div> </div> </div> <div class="row-fluid text-center">本期发布于', 
+            $line = 15, $out += $escape(Billboard.CreationTime), $out += "</div> ", $line = 16, 
             IsDispNextPlan === !0 && ($out += ' <div class="desc row-fluid text-center">距离下期发布还有', 
-            $line = 4, $out += $escape(Billboard.NextVersionPlan), $out += "</div> ", $line = 5), 
-            $out += ' <hr> <div class="listDetail tab-pane active" id="allbooks"> <ul class="unstyled"> ', 
-            $line = 9, $each(Billboard.Books, function($value) {
-                $out += " ", $line = 10, include("../public/BookWithComment", $value), $out += " ", 
-                $line = 11;
+            $line = 17, $out += $escape(Billboard.NextVersionPlan), $out += "</div> ", $line = 18), 
+            $out += ' </div> <div class="listDetail tab-pane active" id="allbooks"> <ul class="unstyled"> ', 
+            $line = 22, $each(Billboard.Books, function($value) {
+                $out += " ", $line = 23, include("../public/BookWithComment", $value), $out += " ", 
+                $line = 24;
             }), $out += ' </ul> </div> </div> <div class="mega"> <table> <tr> <td class="span6"> <div class="glyphicons eye_open">', 
-            $line = 19, $out += $escape(Billboard.ViewCount), $out += '</div> </td> <td class="span6"> <div class="glyphicons heart">', 
-            $line = 22, $out += $escape(Billboard.LikeSum), $out += "</div> </td> </tr> </table> </div>", 
+            $line = 32, $out += $escape(Billboard.ViewCount), $out += '</div> </td> <td class="span6"> <div class="glyphicons heart">', 
+            $line = 35, $out += $escape(Billboard.LikeSum), $out += "</div> </td> </tr> </table> </div>", 
             new String($out);
         } catch (e) {
             throw {
@@ -171,10 +177,10 @@
                 name: "Render Error",
                 message: e.message,
                 line: $line,
-                source: '<div class="container">\n  <div class="row-fluid text-center">本期发布于{{Billboard.CreationTime}}</div>\n  {{if IsDispNextPlan === true}}\n  <div class="desc row-fluid text-center">距离下期发布还有{{Billboard.NextVersionPlan}}</div>\n  {{/if}}\n  <hr>\n  <div class="listDetail tab-pane active" id="allbooks">\n    <ul class="unstyled">\n      {{each Billboard.Books}}\n      {{include "../public/BookWithComment" $value}}\n      {{/each}}\n    </ul>\n  </div>\n</div>\n<div class="mega">\n  <table>\n    <tr>\n      <td class="span6">\n        <div class="glyphicons eye_open">{{Billboard.ViewCount}}</div>\n      </td>\n      <td class="span6">\n        <div class="glyphicons heart">{{Billboard.LikeSum}}</div>\n      </td>\n    </tr>\n  </table>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
+                source: '<div class="container">\n  <div class="billboard-info">\n    <div class="authorComment row-fluid">\n      <div class="span3 author">\n        <img src="{{Billboard.Author.AvatarUrl}}" class="img-circle">\n        <div class="nickname text-center">{{Billboard.Author.Nickname}}</div>\n        <a href="../People/Detail.html?nickname={{Billboard.Author.Nickname}}"></a>\n      </div>\n      <div class="span9 row-fluid">\n        <div class="cmt span11">\n        {{Billboard.Description}}\n        </div>\n      </div>\n    </div>\n    <div class="row-fluid text-center">本期发布于{{Billboard.CreationTime}}</div>\n    {{if IsDispNextPlan === true}}\n    <div class="desc row-fluid text-center">距离下期发布还有{{Billboard.NextVersionPlan}}</div>\n    {{/if}}\n  </div>\n  <div class="listDetail tab-pane active" id="allbooks">\n    <ul class="unstyled">\n      {{each Billboard.Books}}\n      {{include "../public/BookWithComment" $value}}\n      {{/each}}\n    </ul>\n  </div>\n</div>\n<div class="mega">\n  <table>\n    <tr>\n      <td class="span6">\n        <div class="glyphicons eye_open">{{Billboard.ViewCount}}</div>\n      </td>\n      <td class="span6">\n        <div class="glyphicons heart">{{Billboard.LikeSum}}</div>\n      </td>\n    </tr>\n  </table>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:6*/
+    }), /*v:12*/
     template("Billboard/Index", function($data, $filename) {
         try {
             var $utils = this, $helpers = $utils.$helpers, $line = 0, $each = $utils.$each, Data = $data.Data, $escape = ($data.$c, 
@@ -206,7 +212,7 @@
                 source: '<div class="container">\n  {{each Data as $c $i}}\n  <div class="row-fluid billboard">\n    <a href="Detail.html?title={{$c.Title}}&version={{$c.Version}}">\n      <div class="row-fluid info">\n        <div class="span4"><img src="{{$c.ImageUrl}}" alt=""></div>\n        <div class="span8">\n          <div class="row-fluid"><h4>{{$c.Title}}</h4></div>\n          <div class="row-fluid muted">更新于{{$c.CreationTime}}</div>\n          <div class="row-fluid description">{{$substring $c.Description 0 55}}</div>\n        </div>\n      </div>\n    </a>\n    <div class="row-fluid versions">\n      {{each $c.array as $d $j}}\n      <div class="ver pull-left text-center"><a href="Detail.html?title={{$c.Title}}&version={{$sub $c.Version $j}}">{{$sub $c.Version $j}}</a></div>\n      {{/each}}\n      <div class="ver pull-left text-center more {{if $c.Version <= 5}}hide{{/if}}">更多<span class="halflings chevron-down"></span></div>\n    </div>\n  </div>\n  {{/each}}\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:14*/
+    }), /*v:22*/
     template("Book/Detail", function($data, $filename) {
         try {
             var $utils = this, $helpers = $utils.$helpers, $line = 0, $escape = $utils.$escape, Book = $data.Book, UsersumOfReading = $data.UsersumOfReading, IsLogin = $data.IsLogin, UserBookStatus = $data.UserBookStatus, UserReview = $data.UserReview, UserComment = $data.UserComment, $string = $utils.$string, $substring = $helpers.$substring, $each = $utils.$each, RelatedBooklists = ($data.$value, 
@@ -342,7 +348,7 @@
                 source: '<div class="container" id="{{Book.Id}}">\n  <div class="section row-fluid mainInfo">\n    <div class="row-fluid">\n      <div class="span4 bookCover"><div class="wrapper"><img src="{{Book.ImageUrl}}" alt=""></div></div>\n      <div class="span8 basicInfo">\n        <div class="row-fluid"><div class="span5 text-right">作者：</div><div class="badge pull-left">{{Book.Author}}</div></div>\n        <div class="row-fluid"><div class="span5 text-right">状态：</div><div class="span7">{{Book.Status}}</div></div>\n        <div class="row-fluid"><div class="span5 text-right">字数：</div><div class="span7">{{Book.WordCount}}</div></div>\n        <div class="row-fluid"><div class="span5 text-right">类型：</div><div class="badge pull-left">{{Book.Category}}</div></div>\n        <div class="row-fluid"><div class="span5 text-right">最近更新：</div><div class="span7 dotdotdotForLongText">{{Book.LastUpdateDate}}</div></div>\n      </div>\n    </div>\n    <div class="row-fluid subSection2">\n      <div class="span6 text-center">\n        <div class="score">{{if Book.Score}}{{Book.Score}}{{else}}0{{/if}}</div>\n        <div class="ratingStar" data-score="{{Book.Score}}"></div>\n        <div class="ratingSum">评分来自{{Book.ScoreSum}}书友</div>\n      </div>\n      <div class="span6 text-center"><span>{{UsersumOfReading}}</span><span class="reading">正在看</span></div>\n    </div>\n    <div class="row-fluid"></div>\n  </div>\n  {{if IsLogin === true}}\n  <div class="section row-fluid readStatus">\n    <div class="row-fluid status">\n      <div class="span4 text-center statusAction" data-statuscode="wanttoread">\n        <a href="#">\n          <div class="wanttoread {{if UserBookStatus}}{{if UserBookStatus.Status === 1}}active{{/if}}{{/if}}">\n            <img src="../public/img/WantToRead.png" alt="" class="pull-left">\n            <div class="pull-left" id="wanttoread">我想读</div>\n          </div>\n        </a>\n      </div>\n      <div class="span4 text-center statusAction" data-statuscode="read">\n        <a href="WriteReview.html?bookid={{Book.Id}}&status=read&category={{Book.Category}}&bookcover={{Book.ImageUrl}}&isforman={{Book.ForMan}}&booktitle={{Book.Title}}">\n          <div class="read {{if UserBookStatus}}{{if UserBookStatus.Status === 4}}active{{/if}}{{/if}}">\n            <img src="../public/img/Read.png" alt="" class="pull-left">\n            <div class="pull-left" id="read">我读过</div>\n          </div>\n        </a>\n      </div>\n      <div class="span4 text-center statusAction" data-statuscode="giveup">\n        <a href="WriteReview.html?bookid={{Book.Id}}&status=giveup&category={{Book.Category}}&bookcover={{Book.ImageUrl}}&isforman={{Book.ForMan}}&booktitle={{Book.Title}}">\n          <div class="giveup {{if UserBookStatus}}{{if UserBookStatus.Status === 3}}active{{/if}}{{/if}}">\n            <img src="../public/img/GiveUp.png" alt="" class="pull-left">\n            <div class="pull-left" id="giveup">弃读</div>\n          </div>\n        </a>\n      </div>\n    </div>\n    <div class="row-fluid selfComment {{if UserBookStatus}}{{if UserBookStatus.Status === 2}}hide{{/if}} {{if UserBookStatus.Status === 0}}hide{{/if}}{{/if}}">\n      <div class="row-fluid {{if UserReview}}{{else}}{{if UserComment}}{{else}}hide{{/if}}{{/if}}">\n        <div class="offset{{if UserBookStatus}}{{if UserBookStatus.Status === 1}}1{{else}}{{if UserBookStatus.Status === 4}}5{{else}}{{if UserBookStatus.Status === 3}}9{{/if}}{{/if}}{{/if}}{{/if}} text-center arrow"></div>\n      </div>\n      <div class="row-fluid">\n        {{if UserReview}}\n        <div class="review row-fluid">\n          <div class="firstRow row-fluid">\n            <div class="nickname pull-left">我读过这本书</div>\n            <div class="reviewScore pull-left" data-score="{{UserReview.Score}}"></div>\n            <div class="mega pull-right">\n              <table>\n                <tr>\n                  <td>\n                    <div class="glyphicons comments">{{UserReview.ResponseSum}}</div>\n                  </td>\n                  <td>\n                    <div class="glyphicons thumbs_up">{{UserReview.LikeSum}}</div>\n                  </td>\n                </tr>\n              </table>\n            </div>\n          </div>\n          <div class="secondRow row-fluid">\n            <div class="reviewTitle pull-left dotdotdotForLongText">{{UserReview.Title}}</div>\n          </div>\n          <div class="content row-fluid">{{$substring UserReview.Content 0 80}}</div>\n        </div>\n        {{else}}\n        {{if UserComment}}\n        <div class="review row-fluid">\n          <div class="firstRow row-fluid">\n            <div class="nickname pull-left">我读过这本书</div>\n            <div class="reviewScore pull-left" data-score="{{UserComment.Score}}"></div>\n            <div class="mega pull-right">\n              <table>\n                <tr>\n                  <td>\n                    <div class="glyphicons comments">{{UserComment.ResponseSum}}</div>\n                  </td>\n                  <td>\n                    <div class="glyphicons thumbs_up">{{UserComment.LikeSum}}</div>\n                  </td>\n                </tr>\n              </table>\n            </div>\n          </div>\n          <div class="secondRow row-fluid">\n            <div class="pull-right timeStamp">{{UserComment.CreationTime}}</div>\n          </div>\n          <div class="content row-fluid">{{$substring UserComment.Content 0 80}}</div>\n        </div>\n        {{/if}}\n        {{/if}}\n      </div>\n    </div>\n    {{if UserBookStatus.Status === 0}}\n    <hr>\n    {{/if}}\n    <div class="row-fluid action">\n      <div class="span6 text-center">\n        <div class="addToBooklist">\n          <img src="../public/img/AddToBooklist.png" alt="" class="pull-left">\n          <div class="pull-left text-left">加入我的书单</div>\n        </div>\n      </div>\n      <div class="span6 text-center write">\n        <a href="WriteReview.html?status=read&bookid={{Book.Id}}&category={{Book.Category}}&bookcover={{Book.ImageUrl}}&isforman={{Book.ForMan}}&booktitle={{Book.Title}}"></a>\n        <div class="writeComment">\n          <img src="../public/img/Pencil.png" alt="" class="pull-left">\n          <div class="pull-left">写评论</div>\n        </div>\n      </div>\n      <div class="span2"></div>\n    </div>\n  </div>\n  {{/if}}\n  {{if Book.Url !== ""}}\n  {{if IsLogin === true}}\n  <div class="readButton text-center login" data-url="{{Book.Url}}">\n    <span class="before"></span>\n    <span>开始阅读</span>\n    <span class="after"></span>\n  </div>\n  {{else}}\n  <div class="readButton text-center" data-url="{{Book.Url}}">开始阅读</div>\n  {{/if}}\n  {{/if}}\n  <div class="section row-fluid summary">\n    <div class="row-fluid title">内容简介</div>\n    <div class="row-fluid summaryContent">{{Book.Summary}}</div>\n    <div class="expand pull-right"></div>\n  </div>\n  {{if Book.Comments}}\n  <div class="section row-fluid comments">\n    <div class="row-fluid title">\n      <span>短评（{{Book.CommentSum}}）</span>\n      <span class="more pull-right"><a href="MoreComments.html?bookid={{Book.Id}}">更多&nbsp;...</a></span>\n    </div>\n    <div class="row-fluid">\n      {{each Book.Comments}}\n      <div class="row-fluid comment" id="{{$value.Id}}">\n        <a href="../Comment/Detail.html?id={{$value.Id}}"></a>\n        <div class="row-fluid"><div class="author pull-left"><a href="../People/Detail.html?nickname={{$value.Author.Nickname}}">{{$value.Author.Nickname}}</a></div><div class="cmtScore pull-left" data-score="{{$value.Score}}"></div></div>\n        <div class="row-fluid"><div class="content">{{$value.Content}}</div></div>\n        <div class="row-fluid mega">\n          <table class="pull-right">\n            <tr>\n              <td>\n                <div class="glyphicons comments">{{$value.ResponseSum}}</div>\n              </td>\n              <td>\n                <div class="glyphicons thumbs_up">{{$value.LikeSum}}</div>\n              </td>\n            </tr>\n          </table>\n        </div>\n      </div>\n      {{/each}}\n    </div>\n  </div>\n  {{/if}}\n  {{if Book.Reviews}}\n  <div class="section row-fluid reviews">\n    <div class="row-fluid title">\n      <span>书评（{{Book.ReviewSum}}）</span>\n      <span class="more pull-right"><a href="MoreReviews.html?bookid={{Book.Id}}">更多&nbsp;...</a></span>\n    </div>\n    <div class="row-fluid">\n      {{each Book.Reviews}}\n      <div class="review row-fluid" id="{{$value.Id}}">\n        <a href="../Review/Detail.html?id={{$value.Id}}"></a>\n        <div class="megaInfo row-fluid">\n          <div class="userAvatar pull-left"><a href="../People/Detail.html?nickname={{$value.Author.Nickname}}"><img src="{{$value.Author.AvatarUrl}}" alt=""></a></div>\n          <div class="otherInfo pull-left">\n            <div class="firstRow row-fluid">\n              <div class="nickname pull-left"><a href="../People/Detail.html?nickname={{$value.Author.Nickname}}">{{$value.Author.Nickname}}</a></div>\n              <div class="reviewScore pull-left" data-score="{{$value.Score}}"></div>\n              <div class="mega pull-right">\n                <table>\n                  <tr>\n                    <td>\n                      <div class="glyphicons comments">{{$value.ResponseSum}}</div>\n                    </td>\n                    <td>\n                      <div class="glyphicons thumbs_up">{{$value.LikeSum}}</div>\n                    </td>\n                  </tr>\n                </table>\n              </div>\n            </div>\n            <div class="secondRow row-fluid">\n              <div class="reviewTitle pull-left dotdotdotForLongText">{{$value.Title}}</div>\n            </div>\n          </div>\n        </div>\n        <div class="content row-fluid">{{$substring $value.Content 0 80}}</div>\n      </div>\n      {{/each}}\n    </div>\n  </div>\n  {{/if}}\n  {{if RelatedBooklists}}\n  <div class="section row-fluid booklists">\n    <div class="row-fluid title">\n      <span>收藏这本书的书单</span>\n    </div>\n    <div class="row-fluid">\n      {{each RelatedBooklists as $c $i}}\n      <div class="booklist pull-left span6">\n        <a href="../Booklist/Detail.html?id={{$c.Id}}"></a>\n        <div class="row-fluid booklistTitle"><div class="titleText pull-left">{{$c.Title}}</div><div class="pull-right">({{$c.BookSum}})</div></div>\n        <div class="row-fluid nickname">{{$c.Author.Nickname}}</div>\n        <div class="row-fluid">\n          {{each $c.BookCoverUrls as $d $j}}\n          {{if $j <= 3}}\n          <div class="bookCover span3"><div class="wrapper"><img src="{{$d}}" alt=""></div></div>\n          {{/if}}\n          {{/each}}\n        </div>\n        <div class="row-fluid mega">\n          <div class="span6"><div class="glyphicons comments">{{$c.ResponseSum}}</div></div>\n          <div class="span6"><div class="glyphicons heart">{{$c.SubscribeSum}}</div></div>\n        </div>\n      </div>\n      {{/each}}\n    </div>\n  </div>\n  {{/if}}\n  {{if BooksWithSameAuthor}}\n  <div class="section row-fluid booksBySameAuthor">\n    <div class="row-fluid title">\n      <span>作者的其他书</span>\n    </div>\n    <div class="row-fluid">\n      {{each BooksWithSameAuthor}}\n      <div class="sameBook span3">\n        <a href="Detail.html?id={{$value.Id}}">\n          <div class="bookCover">\n            <div class="wrapper"><img src="{{$value.ImageUrl}}" alt=""></div>\n          </div>\n          <div class="bookTitle text-center">{{$value.Title}}</div>\n        </a>\n      </div>\n      {{/each}}\n    </div>\n  </div>\n  {{/if}}\n  {{if Book.SimilarBooks}}\n  <div class="section row-fluid similarBooks">\n    <div class="row-fluid title">\n      <span>喜欢这本书的人也喜欢</span>\n    </div>\n    <div class="row-fluid">\n      {{each Book.SimilarBooks as $c $i}}\n      {{if $i <= 3}}\n      <div class="sameBook span3">\n        <a href="Detail.html?id={{$c.Id}}">\n          <div class="bookCover">\n            <div class="wrapper"><img src="{{$c.ImageUrl}}" alt=""></div>\n          </div>\n          <div class="bookTitle text-center">{{$c.Title}}</div>\n        </a>\n      </div>\n      {{/if}}\n      {{/each}}\n    </div>\n  </div>\n  {{/if}}\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:6*/
+    }), /*v:12*/
     template("Book/MoreComments", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), $each = $utils.$each, Data = $data.Data, $escape = ($data.$value, 
@@ -367,7 +373,7 @@
                 source: '<div class="container">\n  {{each Data}}\n  <div class="row-fluid comment">\n    <a href="../Comment/Detail.html?id={{$value.Id}}"></a>\n    <div class="row-fluid"><div class="author pull-left"><a href="../People/Detail.html?nickname={{$value.Author.Nickname}}">{{$value.Author.Nickname}}</a></div><div class="cmtScore pull-left" data-score="{{$value.Score}}"></div></div>\n    <div class="row-fluid"><div class="content">{{$value.Content}}</div></div>\n    <div class="row-fluid mega">\n      <table class="pull-right">\n        <tr>\n          <td>\n            <div class="glyphicons comments">{{$value.ResponseSum}}</div>\n          </td>\n          <td>\n            <div class="glyphicons thumbs_up">{{$value.LikeSum}}</div>\n          </td>\n        </tr>\n      </table>\n    </div>\n  </div>\n  {{/each}}\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:6*/
+    }), /*v:12*/
     template("Book/MoreReviews", function($data, $filename) {
         try {
             var $utils = this, $helpers = $utils.$helpers, $line = 0, $each = $utils.$each, Data = $data.Data, $escape = ($data.$value, 
@@ -395,7 +401,7 @@
                 source: '<div class="container">\n  {{each Data}}\n  <div class="review row-fluid">\n    <a href="../Review/Detail.html?id={{$value.Id}}"></a>\n    <div class="megaInfo row-fluid">\n      <div class="userAvatar pull-left"><a href="../People/Detail.html?nickname={{$value.Author.Nickname}}"><img src="{{$value.Author.AvatarUrl}}" alt=""></a></div>\n      <div class="otherInfo pull-left">\n        <div class="firstRow row-fluid">\n          <div class="nickname pull-left"><a href="/m/people/{{$value.Author.Nickname}}">{{$value.Author.Nickname}}</a></div>\n          <div class="reviewScore pull-left" data-score="{{$value.Score}}"></div>\n          <div class="mega pull-right">\n            <table>\n              <tr>\n                <td>\n                  <div class="glyphicons comments">{{$value.ResponseSum}}</div>\n                </td>\n                <td>\n                  <div class="glyphicons thumbs_up">{{$value.LikeSum}}</div>\n                </td>\n              </tr>\n            </table>\n          </div>\n        </div>\n        <div class="secondRow row-fluid">\n          <div class="reviewTitle pull-left dotdotdotForLongText">{{$value.Title}}</div>\n        </div>\n      </div>\n    </div>\n    <div class="content row-fluid">{{$substring $value.Content 0 80}}</div>\n  </div>\n  {{/each}}\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:9*/
+    }), /*v:15*/
     template("Booklist/Detail", function($data, $filename) {
         try {
             var $utils = this, $helpers = $utils.$helpers, $line = 0, $escape = $utils.$escape, Author = $data.Author, CreationTime = $data.CreationTime, Description = $data.Description, Categories = $data.Categories, $string = $utils.$string, $len = $helpers.$len, Books = $data.Books, $each = $utils.$each, Id = ($data.$value, 
@@ -439,9 +445,9 @@
                 source: '<div class="container">\n  <h5 class="row-fluid text-center">\n    <a href="People/Detail.html?nickname={{Author.Nickname}}" class="authorNameLink">{{Author.Nickname}}</a><span>发布于 {{CreationTime}}</span>\n  </h5>\n  <div class="desc row-fluid text-center">{{Description}}</div>\n  <hr>\n  {{if Categories}}\n  <ul class="cats unstyled inline row-fluid">\n    <li class="cat span3 text-center active" data-cat="all">全部({{$len Books}})</li>\n    {{each Categories}}\n    <li class="cat span3 text-center" data-cat="{{$value.Category}}">{{$value.Category}}({{$value.Count}})</li>\n    {{/each}}\n    <li class="cat more span3 text-center">更多<span class="halflings chevron-down"></span></li>\n  </ul>\n  {{else}}\n  <em class="muted">暂时还没有书籍被加入到本书单</em>\n  {{/if}}\n  <hr>\n  <div class="clearfix"></div>\n  <div class="tab-content">\n    <div class="listDetail tab-pane active" id="allbooks">\n      <ul class="unstyled">\n        {{each Books}}\n        <li class="book row-fluid" data-cat="{{$value.GeneralCategory}}" id="{{$value.Id}}">\n          <a href="../Book/Detail.html?id={{$value.Id}}"></a>\n          <div class="megaInfo row-fluid">\n            <div class="bookCover span3">\n              <img src="{{$value.ImageUrl}}" alt="" data-srcimg="{{$value.ImageUrl}}">\n            </div>\n            <div class="bookMega span9">\n              <h4><strong>{{$value.Title}}</strong></h4>\n              <div class="pull-left">{{$value.Author}}</div>\n              <div class="clearfix"></div>\n              <div class="pull-left">{{$value.Category}}</div>\n            </div>\n          </div>\n          {{if $value.Comment}}\n          <div class="comment row-fluid">\n            <div class="span3">创建者评价</div>\n            <div class="span9">\n              <div class="ratingStar" data-score="{{$value.Score}}"></div>\n              <div class="content">{{$value.Comment}}</div>\n            </div>\n          </div>\n          {{/if}}\n        </li>\n        {{/each}}\n      </ul>\n    </div>\n  </div>\n</div>\n<div class="mega">\n  <table>\n    <tr>\n      <td class="span6">\n        <a href="Response.html?id={{Id}}&authorId={{Author.Id}}">\n          <span class="glyphicons chat">{{ResponseSum}}</span>\n        </a>\n      </td>\n      <td class="span6">\n        <div><span class="glyphicons heart">{{SubscribeSum}}</span></div>\n      </td>\n    </tr>\n  </table>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:6*/
+    }), /*v:12*/
     template("Booklist/My", '<div class="container"> <div class="row-fluid tabs"> <div class="tab pull-left text-center active" data-target="mine"></div> <div class="tab pull-left text-center" data-target="subscribed"></div> </div> <div class="row-fluid"> <div class="booklists"> <div class="row-fluid text-center none"></div> </div> </div> </div>'), 
-    /*v:7*/
+    /*v:13*/
     template("Comment/Detail", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), $escape = $utils.$escape, Comment = $data.Comment, IsLogin = $data.IsLogin, $out = "";
@@ -474,7 +480,7 @@
                 source: '<div class="container" data-bookid="{{Comment.Book.Id}}">\n  <div class="info row-fluid">\n    <div class="user pull-left" id="{{Comment.Author.Id}}">\n      <a href="../People/Detail.html?nickname={{Comment.Author.Nickname}}">\n        <div class="avatar pull-left"><img src="{{Comment.Author.AvatarUrl}}" alt="" class="img-circle"></div>\n        <div class="nickname pull-left">{{Comment.Author.Nickname}}</div>\n      </a>\n    </div>\n    <div class="ratingStar pull-left" data-score="{{Comment.Score}}"></div>\n  </div>\n  <div class="content">{{Comment.Content}}</div>\n  <div class="book row-fluid" id="{{Comment.Book}}">\n    <a href="../Book/Detail.html?id={{Comment.Book.Id}}"></a>\n    <div class="megaInfo row-fluid">\n      <div class="bookCover span3">\n        <img src="{{Comment.Book.ImageUrl}}" alt="" data-srcimg="{{Comment.Book.ImageUrl}}">\n      </div>\n      <div class="bookMega span9">\n        <h4><strong>{{Comment.Book.Title}}</strong></h4>\n        <div class="pull-left">{{Comment.Book.Author}}</div>\n        <div class="clearfix"></div>\n        <div class="pull-left">{{Comment.Book.Category}}</div>\n      </div>\n    </div>\n  </div>\n</div>\n<div class="row-fluid mega">\n  <table class="pull-right">\n    <tr>\n      <td class="response">\n        <a href="Response.html?id={{Comment.Id}}">\n          <span class="glyphicons comments">{{Comment.ResponseSum}}</span>\n        </a>\n      </td>\n      <td class="thumbsUp">\n        <div><span class="glyphicons thumbs_up">{{Comment.LikeSum}}</span></div>\n      </td>\n    </tr>\n  </table>\n</div>\n\n<script type="text/javascript">\n  window.logined = {{if IsLogin === true}}true{{else}}false{{/if}};\n</script>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:6*/
+    }), /*v:12*/
     template("DirectMessage/Messages", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), $each = $utils.$each, Messages = $data.Messages, include = ($data.$value, 
@@ -499,7 +505,7 @@
                 source: '<div class="container">\n  <div class="loadMore well text-center hide">载入更多历史信息</div>\n  <div class="messages">\n    {{each Messages}}\n    {{if $value.IsMySelf === true}}\n    {{include "./MineMsg" $value}}\n    {{else}}\n    {{include "./TheirMsg" $value}}\n    {{/if}}\n    {{/each}}\n  </div>\n  {{include "../public/InputGroup"}}\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:6*/
+    }), /*v:12*/
     template("DirectMessage/MineMsg", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), $escape = $utils.$escape, Id = $data.Id, CreationTime = $data.CreationTime, Content = $data.Content, Poster = $data.Poster, $out = "";
@@ -519,7 +525,7 @@
                 source: '<div class="row-fluid message mine" id="{{Id}}">\n  <div class="info span10">\n    <div class="row-fluid time text-center muted">{{CreationTime}}前</div>\n    <div class="row-fluid content">{{Content}}</div>\n    <div class="status loading hide"></div>\n  </div>\n  <div class="avatar span2">\n    <a href="file:///android_asset/www/People/Detail.html?nickname={{Poster.Nickname}}"><img src="{{Poster.AvatarUrl}}" class="img-circle pull-right"></a>\n  </div>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:6*/
+    }), /*v:12*/
     template("DirectMessage/TheirMsg", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), $escape = $utils.$escape, Id = $data.Id, Poster = $data.Poster, CreationTime = $data.CreationTime, Content = $data.Content, $out = "";
@@ -538,7 +544,7 @@
                 source: '<div class="row-fluid message" id="{{Id}}">\n  <div class="avatar span2">\n    <a href="file:///android_asset/www/People/Detail.html?nickname={{Poster.Nickname}}"><img src="{{Poster.AvatarUrl}}" class="img-circle"></a>\n  </div>\n  <div class="info span10 row-fluid">\n    <div class="row-fluid time text-center muted">{{CreationTime}}前</div>\n    <div class="row-fluid content">{{Content}}</div>\n  </div>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:6*/
+    }), /*v:12*/
     template("Index/Articles", function($data, $filename) {
         try {
             var $utils = this, $helpers = $utils.$helpers, $line = 0, $each = $utils.$each, Articles = $data.Articles, $escape = ($data.$value, 
@@ -565,7 +571,7 @@
                 source: '{{each Articles}}\n{{if $index === 0}}\n<div class="mainArticleItem">\n  <a href="Article/Detail.html?id={{$value.Id}}"></a>\n  <img src="{{if $value.ImageUrl}}{{$value.ImageUrl}}{{else}}http://shanpowbookcover.qiniudn.com/%E5%B0%8F%E7%BC%96%E5%81%B7%E6%87%92%E6%B2%A1%E9%85%8D%E5%9B%BE.png{{/if}}" alt="">\n  <div class="titleWrapper"><div class="articleTitle">{{$substring $value.Title 0 50}}</div></div>\n</div>\n{{else}}\n{{include "../public/ArticleItem" $value}}\n{{/if}}\n{{/each}}'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:6*/
+    }), /*v:12*/
     template("Index/Billboards", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), $each = $utils.$each, Billboards = $data.Billboards, $escape = ($data.$value, 
@@ -588,7 +594,7 @@
                 source: '{{each Billboards}}\n<div class="ranking pull-left">\n  <a href="Billboard/Detail.html?title={{$value.Title}}&version={{$value.Version}}"></a>\n  <div class="rankingImage">\n    <img src="{{$value.ImageUrl}}?imageView2/1/w/200/h/200" alt="">\n    <div class="updateInfo">更新至第<span>{{$value.Version}}</span>期</div>\n  </div>\n  <div class="rankingTitle"><table><tr><td>{{$value.Title}}</td></tr></table></div>\n</div>\n{{/each}}'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:9*/
+    }), /*v:15*/
     template("Index/Main", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), include = function(filename, data) {
@@ -615,7 +621,7 @@
                 source: '<div class="container">\n  <div class="row-fluid articles section">\n    {{include "./Articles"}}\n  </div>\n  <div class="row-fluid hot_ranking section">\n    <div class="title row-fluid">\n      <h4>\n        <span class="icon"></span>\n        <span>新鲜热榜</span>\n        <span class="more"><a href="Billboard/Index.html">更多&nbsp;...</a></span>\n      </h4>\n    </div>\n    <div class="rankinglist row-fluid">\n      {{include "./Billboards"}}\n    </div>\n  </div>\n  <div class="row-fluid wizard section">\n    <div class="title row-fluid">\n      <h4>\n        <span class="icon"></span>\n        <span>猜你喜欢</span>\n        <span class="more hide"><a href="Book/Recommendation.html">一键治书荒</a></span>\n      </h4>\n    </div>\n    <div class="row-fluid bookRecommended">\n      {{include "./Wizard"}}\n    </div>\n  </div>\n  <div class="row-fluid reviews section">\n    <div class="title row-fluid">\n      <h4>\n        <span class="icon"></span>\n        <span>推荐书评</span>\n        <span class="more"><a href="Review/All.html?ch={{if Ch}}{{Ch}}{{else}}m{{/if}}">更多&nbsp;...</a></span>\n      </h4>\n    </div>\n    <div class="unstyled">\n      {{each RecommendedReviews}}\n      {{include "../public/Review" $value}}\n      {{/each}}\n    </div>\n  </div>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:6*/
+    }), /*v:12*/
     template("Index/Wizard", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), IsLogin = $data.IsLogin, $each = $utils.$each, GuessBooks = $data.GuessBooks, $escape = ($data.$value, 
@@ -636,7 +642,7 @@
                 source: '{{if IsLogin === true}}\n  {{each GuessBooks}}\n  <div class="wizardBook span3">\n    <a href="Book/Detail.html?id={{$value.Id}}">\n      <div class="bookCover">\n        <div class="wrapper"><img src="{{$value.ImageUrl}}" alt=""></div>\n      </div>\n      <div class="bookTitle text-center">{{$value.Title}}</div>\n    </a>\n  </div>\n  {{/each}}\n{{else}}\n  <div class="span6 pull-left">\n    <div class="tip row-fluid">曲高不一定和寡，登录后发现您的专属推荐，还有志同道合的书友们</div>\n    <div class="login pull-left row-fluid"><a href="#" onclick="cordova.exec(null,null,\'ActivityLauncher\',\'login\',[]);">立即登录</a></div>\n  </div>\n  <div class="span6 pull-left"><img src="public/img/tagCloud.png" alt=""></div>\n{{/if}}'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:8*/
+    }), /*v:14*/
     template("MessageCenter/DirectMessage", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), $each = $utils.$each, Data = $data.Data, $escape = ($data.$value, 
@@ -663,9 +669,9 @@
                 source: '{{each Data}}\n  <div class="row-fluid msg {{if $value.IsNewMessages === true}}unread{{/if}} dm" id="{{$value.Id}}">\n    <div class="userAvatar span2">\n      <a href="file:///android_asset/www/People/Detail.html?nickname={{$value.Contacter.Nickname}}"><img src="{{$value.Contacter.AvatarUrl}}" alt="" class="img-circle"></a>\n    </div>\n    <div class="info span10">\n      <div class="row-fluid info">\n        <div class="span8 dotdotdotForLongText"><a href="file:///android_asset/www/People/Detail.html?nickname={{$value.Contacter.Nickname}}">{{$value.Contacter.Nickname}}</a></div>\n        <div class="span4 text-right">{{$value.LatestMessageTime}}前</div>\n      </div>\n      <div class="content">{{$value.LatestMessage}}</div>\n    </div>\n    <a href="file:///android_asset/www/DirectMessage/Conversation.html?id={{$value.Id}}&other={{$value.Contacter.Nickname}}"></a>\n    {{if $value.IsNewMessages === true}}<div class="unread-indicator"></div>{{/if}}\n  </div>\n  <hr>\n{{/each}}'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:10*/
+    }), /*v:16*/
     template("MessageCenter/Index", '<div class="container"> <div class="row-fluid tabs"> <div class="tab pull-left text-center active" id="directmessage">私信<span class="newMsgIndicator hide"></span></div> <div class="tab pull-left text-center" id="response">回复<span class="newMsgIndicator hide"></span></div> <div class="tab pull-left text-center" id="update">更新<span class="newMsgIndicator hide"></span></div> </div> <div class="row-fluid payload"> </div> </div>'), 
-    /*v:16*/
+    /*v:22*/
     template("MessageCenter/Response", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), $each = $utils.$each, Messages = $data.Messages, $escape = ($data.$value, 
@@ -700,7 +706,7 @@
                 source: '{{each Messages}}\n  <div class="row-fluid msg {{if $value.IsRead === false}}unread{{/if}} response" id="{{$value.Id}}">\n    <div class="userAvatar span2">\n      <a href="file:///android_asset/www/People/Detail.html?nickname={{$value.FromUser.Nickname}}"><img src="{{$value.FromUser.AvatarUrl}}" alt="" class="img-circle"></a>\n    </div>\n    <div class="info span10">\n      <div class="row-fluid info">\n        <div class="span10 dotdotdotForLongText"><a href="file:///android_asset/www/People/Detail.html?nickname={{$value.FromUser.Nickname}}">{{$value.FromUser.Nickname}}</a>&nbsp;{{$value.Message}}</div>\n        <div class="span2 text-right">{{$value.CreationTime}}前</div>\n      </div>\n      <div class="content {{if $value.Action === 6}}glyphicons thumbs_up{{/if}} {{if $value.Action === 7}}glyphicons thumbs_down{{/if}}">{{$value.Content}}</div>\n    </div>\n    {{if $value.Type === 2}}\n    <a href="file:///android_asset/www/Review/{{if $value.Action === 6 || $value.Action === 7}}Detail{{else}}Response{{/if}}.html?id={{$value.AnchorId}}"></a>\n    {{else if $value.Type === 3}}\n    <a href="file:///android_asset/www/Booklist/Response.html?id={{$value.AnchorId}}"></a>\n    {{else if $value.Type === 9}}\n    <a href="file:///android_asset/www/Article/Response.html?id={{$value.AnchorId}}"></a>\n    {{else if $value.Type === 10}}\n    <a href="file:///android_asset/www/Comment/{{if $value.Action === 6 || $value.Action === 7}}Detail{{else}}Response{{/if}}.html?id={{$value.AnchorId}}"></a>\n    {{/if}}\n  </div>\n  <hr>\n{{/each}}'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:11*/
+    }), /*v:17*/
     template("MessageCenter/Update", function($data, $filename) {
         try {
             var $utils = this, $helpers = $utils.$helpers, $line = 0, $each = $utils.$each, Messages = $data.Messages, $escape = ($data.$value, 
@@ -729,7 +735,28 @@
                 source: '{{each Messages}}\n  <div class="row-fluid msg {{if $value.IsRead === false}}unread{{/if}} update" id="{{$value.Id}}">\n    <div class="bookcover span2">\n      <a href="file:///android_asset/www/Book/Detail.html?id={{$value.Book.Id}}"><img src="{{$value.Book.ImageUrl}}" alt="" class=""></a>\n    </div>\n    <div class="info span10">\n      <div class="row-fluid info">\n        <div class="span9 dotdotdotForLongText"><a href="file:///android_asset/www/People/Detail.html?nickname={{$value.FromUser.Nickname}}">{{$value.FromUser.Nickname}}</a>{{$value.Message}}</div>\n        <div class="span3 text-right">{{$value.CreationTime}}前</div>\n      </div>\n      <div class="content">\n        <h5 class="contentTitle">{{$value.Title}}</h5>\n        <div class="summary">{{$substring $value.Content 0 50}}</div>\n      </div>\n    </div>\n    {{if $value.Type === 2}}\n    <a href="file:///android_asset/www/Review/Detail.html?id={{$value.AnchorId}}"></a>\n    {{else if $value.Type === 10}}\n    <a href="file:///android_asset/www/Comment/Detail.html?id={{$value.AnchorId}}"></a>\n    {{/if}}\n  </div>\n  <hr>\n{{/each}}'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:6*/
+    }), /*v:8*/
+    template("People/Articles", function($data, $filename) {
+        try {
+            var $utils = this, $line = ($utils.$helpers, 0), $each = $utils.$each, Articles = $data.Articles, include = ($data.$value, 
+            $data.$index, function(filename, data) {
+                data = data || $data;
+                var text = $utils.$include(filename, data, $filename);
+                return $out += text;
+            }), $out = "";
+            return $out += '<div class="container"> ', $line = 2, $each(Articles, function($value) {
+                $out += " ", $line = 3, include("../public/ArticleItem", $value), $out += " ", $line = 4;
+            }), $out += " </div>", new String($out);
+        } catch (e) {
+            throw {
+                filename: $filename,
+                name: "Render Error",
+                message: e.message,
+                line: $line,
+                source: '<div class="container">\n  {{each Articles}}\n  {{include "../public/ArticleItem" $value}}\n  {{/each}}\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
+            };
+        }
+    }), /*v:12*/
     template("People/BookFollowed", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), BooksCount = $data.BooksCount, $each = $utils.$each, Books = $data.Books, include = ($data.$value, 
@@ -752,9 +779,9 @@
                 source: '<div class="container">\n  {{if BooksCount > 0}}\n    {{each Books}}\n    {{include "../public/Book" $value}}\n    {{/each}}\n  {{else}}\n    <div class="well">没有关注的书籍</div>\n  {{/if}}\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:6*/
+    }), /*v:12*/
     template("People/Books", '<div class="container"> <div class="tabbable"> <ul class="nav nav-tabs"> <li class="active text-center"><a href="#reading" data-toggle="tab" id="readingTab">正在阅读的</a></li> <li class="text-center"><a href="#read" data-toggle="tab" id="readTab">读过的</a></li> <li class="text-center"><a href="#wanttoread" data-toggle="tab" id="wantTab">想读的</a></li> </ul> <div class="tab-content"> <div class="tab-pane row-fluid active" id="reading"> </div> <div class="tab-pane" id="read"> </div> <div class="tab-pane" id="wanttoread"> </div> </div> </div> </div>'), 
-    /*v:6*/
+    /*v:12*/
     template("People/BooksRead", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), $escape = $utils.$escape, BooksCount = $data.BooksCount, $out = "";
@@ -769,7 +796,7 @@
                 source: '<div class="sum">共{{BooksCount}}本</div>\n<div class="loadMore row-fluid text-center">加载更多记录</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:6*/
+    }), /*v:12*/
     template("People/BooksReading", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), Books = $data.Books, $each = $utils.$each, $escape = ($data.$value, 
@@ -790,7 +817,7 @@
                 source: '{{if Books}}\n  {{each Books}}\n  <div class="readingBook span4">\n    <div class="bookCover"><a href="file:///android_asset/www/Book/Detail.html?id={{$value.Id}}"><img src="{{$value.ImageUrl}}" alt=""></a></div>\n    <div class="bookTitle text-center dotdotdotForLongText">{{$value.Title}}</div>\n  </div>\n  {{/each}}\n{{else}}\n  <div class="readingBook span12 well">没有正在阅读的书籍</div>\n{{/if}}'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:6*/
+    }), /*v:12*/
     template("People/BooksWant", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), $escape = $utils.$escape, BooksCount = $data.BooksCount, $each = $utils.$each, Books = $data.Books, include = ($data.$value, 
@@ -812,49 +839,100 @@
                 source: '<div class="sum">共{{BooksCount}}本</div>\n{{each Books}}\n{{include "../public/Book" $value}}\n{{/each}}'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:6*/
-    template("People/Detail", function($data, $filename) {
+    }), /*v:9*/
+    template("People/Comments", function($data, $filename) {
         try {
-            var $utils = this, $line = ($utils.$helpers, 0), $escape = $utils.$escape, UserAvatarUrl = $data.UserAvatarUrl, Nickname = $data.Nickname, FollowingsCnt = $data.FollowingsCnt, FollowersCnt = $data.FollowersCnt, ReviewCnt = $data.ReviewCnt, CommentCnt = $data.CommentCnt, IsMySelf = $data.IsMySelf, $each = $utils.$each, ReadHistories = $data.ReadHistories, $out = ($data.$value, 
-            $data.$index, "");
-            return $out += '<div class="container"> <div class="row-fluid section basicInfo"> <div class="whiteArea"></div> <div class="avatar"><img src="', 
-            $line = 4, $out += $escape(UserAvatarUrl), $out += '" alt="" class="img-circle"></div> <div class="nickname text-center">', 
-            $line = 5, $out += $escape(Nickname), $out += '</div> </div> <div class="row-fluid section advancedInfo"> <div class="info pull-left span3"> <div class="num text-center">', 
-            $line = 9, $out += $escape(FollowingsCnt), $out += '</div> <div class="key text-center">关注</div> </div> <div class="info pull-left span3"> <div class="num text-center">', 
-            $line = 13, $out += $escape(FollowersCnt), $out += '</div> <div class="key text-center">粉丝</div> </div> <div class="info pull-left span3"> <div class="num text-center">', 
-            $line = 17, $out += $escape(ReviewCnt), $out += '</div> <div class="key text-center">书评</div> </div> <div class="info pull-left span3"> <div class="num text-center">', 
-            $line = 21, $out += $escape(CommentCnt), $out += '</div> <div class="key text-center">短评</div> </div> </div> <div class="row-fluid section readRecord"> <div class="title row-fluid"> <span>', 
-            $line = 27, IsMySelf === !0 ? ($out += "我", $line = 27) : ($out += "Ta", $line = 27), 
-            $out += '的阅读记录</span> <span class="more"><a href="Books.html?nickname=', $line = 28, 
-            $out += $escape(Nickname), $out += '">更多&nbsp;...</a></span> </div> <div class="row-fluid books"> ', 
-            $line = 31, $each(ReadHistories, function($value) {
-                $out += ' <div class="span3 book"> <a href="../Book/Detail.html?id=', $line = 33, 
-                $out += $escape($value.Id), $out += '"></a> <div class="bookCover"> <img src="', 
-                $line = 35, $out += $escape($value.ImageUrl), $out += '" alt=""> <div class="readStatus text-center">已读完</div> </div> <div class="bookTitle text-center">', 
-                $line = 38, $out += $escape($value.Title), $out += "</div> </div> ", $line = 40;
-            }), $out += ' </div> </div> <div class="row-fluid section booklists"> <div class="span4 button"> <a href="FollowedBooks.html?nickname=', 
-            $line = 45, $out += $escape(Nickname), $out += '"> <div class="icon"><img src="../public/img/heart.png" alt=""></div> <div class="text-center">', 
-            $line = 47, IsMySelf === !0 ? ($out += "我", $line = 47) : ($out += "Ta", $line = 47), 
-            $out += '关注的书</div> </a> </div> <div class="span4 button"> <a href="../Booklist/My.html?nickname=', 
-            $line = 51, $out += $escape(Nickname), $out += '&create=1"> <div class="icon"><img src="../public/img/CreateBooklist.png" alt=""></div> <div class="text-center">', 
-            $line = 53, IsMySelf === !0 ? ($out += "我", $line = 53) : ($out += "Ta", $line = 53), 
-            $out += '创建的书单</div> </a> </div> <div class="span4 button"> <a href="../Booklist/My.html?nickname=', 
-            $line = 57, $out += $escape(Nickname), $out += '&subscribe=1"> <div class="icon"><img src="../public/img/SubscribeBooklist.png" alt=""></div> <div class="text-center">', 
-            $line = 59, IsMySelf === !0 ? ($out += "我", $line = 59) : ($out += "Ta", $line = 59), 
-            $out += "收藏的书单</div> </a> </div> </div> ", $line = 63, IsMySelf === !1 && ($out += ' <div class="row-fluid section"> <div class="sendDirectMessage span10 offset1 text-center">发送私信</div> </div> ', 
-            $line = 67), $out += " </div>", new String($out);
+            var $utils = this, $line = ($utils.$helpers, 0), $each = $utils.$each, Comments = $data.Comments, include = ($data.$value, 
+            $data.$index, function(filename, data) {
+                data = data || $data;
+                var text = $utils.$include(filename, data, $filename);
+                return $out += text;
+            }), $out = "";
+            return $out += '<div class="container"> ', $line = 2, $each(Comments, function($value) {
+                $out += " ", $line = 3, include("../public/Review", $value), $out += " ", $line = 4;
+            }), $out += " </div>", new String($out);
         } catch (e) {
             throw {
                 filename: $filename,
                 name: "Render Error",
                 message: e.message,
                 line: $line,
-                source: '<div class="container">\n  <div class="row-fluid section basicInfo">\n    <div class="whiteArea"></div>\n    <div class="avatar"><img src="{{UserAvatarUrl}}" alt="" class="img-circle"></div>\n    <div class="nickname text-center">{{Nickname}}</div>\n  </div>\n  <div class="row-fluid section advancedInfo">\n    <div class="info pull-left span3">\n      <div class="num text-center">{{FollowingsCnt}}</div>\n      <div class="key text-center">关注</div>\n    </div>\n    <div class="info pull-left span3">\n      <div class="num text-center">{{FollowersCnt}}</div>\n      <div class="key text-center">粉丝</div>\n    </div>\n    <div class="info pull-left span3">\n      <div class="num text-center">{{ReviewCnt}}</div>\n      <div class="key text-center">书评</div>\n    </div>\n    <div class="info pull-left span3">\n      <div class="num text-center">{{CommentCnt}}</div>\n      <div class="key text-center">短评</div>\n    </div>\n  </div>\n  <div class="row-fluid section readRecord">\n    <div class="title row-fluid">\n      <span>{{if IsMySelf === true}}我{{else}}Ta{{/if}}的阅读记录</span>\n      <span class="more"><a href="Books.html?nickname={{Nickname}}">更多&nbsp;...</a></span>\n    </div>\n    <div class="row-fluid books">\n      {{each ReadHistories}}\n      <div class="span3 book">\n        <a href="../Book/Detail.html?id={{$value.Id}}"></a>\n        <div class="bookCover">\n          <img src="{{$value.ImageUrl}}" alt="">\n          <div class="readStatus text-center">已读完</div>\n        </div>\n        <div class="bookTitle text-center">{{$value.Title}}</div>\n      </div>\n      {{/each}}\n    </div>\n  </div>\n  <div class="row-fluid section booklists">\n    <div class="span4 button">\n      <a href="FollowedBooks.html?nickname={{Nickname}}">\n        <div class="icon"><img src="../public/img/heart.png" alt=""></div>\n        <div class="text-center">{{if IsMySelf === true}}我{{else}}Ta{{/if}}关注的书</div>\n      </a>\n    </div>\n    <div class="span4 button">\n      <a href="../Booklist/My.html?nickname={{Nickname}}&create=1">\n        <div class="icon"><img src="../public/img/CreateBooklist.png" alt=""></div>\n        <div class="text-center">{{if IsMySelf === true}}我{{else}}Ta{{/if}}创建的书单</div>\n      </a>\n    </div>\n    <div class="span4 button">\n      <a href="../Booklist/My.html?nickname={{Nickname}}&subscribe=1">\n        <div class="icon"><img src="../public/img/SubscribeBooklist.png" alt=""></div>\n        <div class="text-center">{{if IsMySelf === true}}我{{else}}Ta{{/if}}收藏的书单</div>\n      </a>\n    </div>\n  </div>\n  {{if IsMySelf === false}}\n  <div class="row-fluid section">\n    <div class="sendDirectMessage span10 offset1 text-center">发送私信</div>\n  </div>\n  {{/if}}\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
+                source: '<div class="container">\n  {{each Comments}}\n  {{include "../public/Review" $value}}\n  {{/each}}\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:6*/
+    }), /*v:23*/
+    template("People/Detail", function($data, $filename) {
+        try {
+            var $utils = this, $line = ($utils.$helpers, 0), $escape = $utils.$escape, UserAvatarUrl = $data.UserAvatarUrl, Nickname = $data.Nickname, FollowingsCnt = $data.FollowingsCnt, FollowersCnt = $data.FollowersCnt, ReviewCnt = $data.ReviewCnt, CommentCnt = $data.CommentCnt, ArticleCnt = $data.ArticleCnt, IsMySelf = $data.IsMySelf, $each = $utils.$each, ReadHistories = $data.ReadHistories, $out = ($data.$value, 
+            $data.$index, "");
+            return $out += '<div class="container"> <div class="row-fluid section basicInfo"> <div class="whiteArea"></div> <div class="avatar"><img src="', 
+            $line = 4, $out += $escape(UserAvatarUrl), $out += '" alt="" class="img-circle"></div> <div class="nickname text-center">', 
+            $line = 5, $out += $escape(Nickname), $out += '</div> </div> <div class="row-fluid section advancedInfo"> <div class="info"> <div class="num text-center">', 
+            $line = 9, $out += $escape(FollowingsCnt), $out += '</div> <div class="key text-center">关注</div> <a href="Follows.html?nickname=', 
+            $line = 11, $out += $escape(Nickname), $out += '&type=following"></a> </div> <div class="info"> <div class="num text-center">', 
+            $line = 14, $out += $escape(FollowersCnt), $out += '</div> <div class="key text-center">粉丝</div> <a href="Follows.html?nickname=', 
+            $line = 16, $out += $escape(Nickname), $out += '&type=follower"></a> </div> <div class="info"> <div class="num text-center">', 
+            $line = 19, $out += $escape(ReviewCnt), $out += '</div> <div class="key text-center">书评</div> <a href="Comments.html?nickname=', 
+            $line = 21, $out += $escape(Nickname), $out += '&type=review"></a> </div> <div class="info"> <div class="num text-center">', 
+            $line = 24, $out += $escape(CommentCnt), $out += '</div> <div class="key text-center">短评</div> <a href="Comments.html?nickname=', 
+            $line = 26, $out += $escape(Nickname), $out += '&type=comment"></a> </div> ', $line = 28, 
+            ArticleCnt > 0 && ($out += ' <div class="info"> <div class="num text-center">', 
+            $line = 30, $out += $escape(ArticleCnt), $out += '</div> <div class="key text-center">专栏文章</div> <a href="Articles.html?nickname=', 
+            $line = 32, $out += $escape(Nickname), $out += '&type=comment"></a> </div> ', $line = 34), 
+            $out += ' </div> <div class="row-fluid section readRecord"> <div class="title row-fluid"> <span>', 
+            $line = 38, IsMySelf === !0 ? ($out += "我", $line = 38) : ($out += "Ta", $line = 38), 
+            $out += '的阅读记录</span> <span class="more"><a href="Books.html?nickname=', $line = 39, 
+            $out += $escape(Nickname), $out += '">更多&nbsp;...</a></span> </div> <div class="row-fluid books"> ', 
+            $line = 42, $each(ReadHistories, function($value) {
+                $out += ' <div class="span3 book"> <a href="../Book/Detail.html?id=', $line = 44, 
+                $out += $escape($value.Id), $out += '"></a> <div class="bookCover"> <img src="', 
+                $line = 46, $out += $escape($value.ImageUrl), $out += '" alt=""> <div class="readStatus text-center">已读完</div> </div> <div class="bookTitle text-center">', 
+                $line = 49, $out += $escape($value.Title), $out += "</div> </div> ", $line = 51;
+            }), $out += ' </div> </div> <div class="row-fluid section booklists"> <div class="span4 button"> <a href="FollowedBooks.html?nickname=', 
+            $line = 56, $out += $escape(Nickname), $out += '"> <div class="icon"><img src="../public/img/heart.png" alt=""></div> <div class="text-center">', 
+            $line = 58, IsMySelf === !0 ? ($out += "我", $line = 58) : ($out += "Ta", $line = 58), 
+            $out += '关注的书</div> </a> </div> <div class="span4 button"> <a href="../Booklist/My.html?nickname=', 
+            $line = 62, $out += $escape(Nickname), $out += '&create=1"> <div class="icon"><img src="../public/img/CreateBooklist.png" alt=""></div> <div class="text-center">', 
+            $line = 64, IsMySelf === !0 ? ($out += "我", $line = 64) : ($out += "Ta", $line = 64), 
+            $out += '创建的书单</div> </a> </div> <div class="span4 button"> <a href="../Booklist/My.html?nickname=', 
+            $line = 68, $out += $escape(Nickname), $out += '&subscribe=1"> <div class="icon"><img src="../public/img/SubscribeBooklist.png" alt=""></div> <div class="text-center">', 
+            $line = 70, IsMySelf === !0 ? ($out += "我", $line = 70) : ($out += "Ta", $line = 70), 
+            $out += "收藏的书单</div> </a> </div> </div> ", $line = 74, IsMySelf === !1 && ($out += ' <div class="row-fluid section"> <div class="sendDirectMessage span10 offset1 text-center">发送私信</div> </div> ', 
+            $line = 78), $out += " </div>", new String($out);
+        } catch (e) {
+            throw {
+                filename: $filename,
+                name: "Render Error",
+                message: e.message,
+                line: $line,
+                source: '<div class="container">\n  <div class="row-fluid section basicInfo">\n    <div class="whiteArea"></div>\n    <div class="avatar"><img src="{{UserAvatarUrl}}" alt="" class="img-circle"></div>\n    <div class="nickname text-center">{{Nickname}}</div>\n  </div>\n  <div class="row-fluid section advancedInfo">\n    <div class="info">\n      <div class="num text-center">{{FollowingsCnt}}</div>\n      <div class="key text-center">关注</div>\n      <a href="Follows.html?nickname={{Nickname}}&type=following"></a>\n    </div>\n    <div class="info">\n      <div class="num text-center">{{FollowersCnt}}</div>\n      <div class="key text-center">粉丝</div>\n      <a href="Follows.html?nickname={{Nickname}}&type=follower"></a>\n    </div>\n    <div class="info">\n      <div class="num text-center">{{ReviewCnt}}</div>\n      <div class="key text-center">书评</div>\n      <a href="Comments.html?nickname={{Nickname}}&type=review"></a>\n    </div>\n    <div class="info">\n      <div class="num text-center">{{CommentCnt}}</div>\n      <div class="key text-center">短评</div>\n      <a href="Comments.html?nickname={{Nickname}}&type=comment"></a>\n    </div>\n    {{if ArticleCnt > 0}}\n    <div class="info">\n      <div class="num text-center">{{ArticleCnt}}</div>\n      <div class="key text-center">专栏文章</div>\n      <a href="Articles.html?nickname={{Nickname}}&type=comment"></a>\n    </div>\n    {{/if}}\n  </div>\n  <div class="row-fluid section readRecord">\n    <div class="title row-fluid">\n      <span>{{if IsMySelf === true}}我{{else}}Ta{{/if}}的阅读记录</span>\n      <span class="more"><a href="Books.html?nickname={{Nickname}}">更多&nbsp;...</a></span>\n    </div>\n    <div class="row-fluid books">\n      {{each ReadHistories}}\n      <div class="span3 book">\n        <a href="../Book/Detail.html?id={{$value.Id}}"></a>\n        <div class="bookCover">\n          <img src="{{$value.ImageUrl}}" alt="">\n          <div class="readStatus text-center">已读完</div>\n        </div>\n        <div class="bookTitle text-center">{{$value.Title}}</div>\n      </div>\n      {{/each}}\n    </div>\n  </div>\n  <div class="row-fluid section booklists">\n    <div class="span4 button">\n      <a href="FollowedBooks.html?nickname={{Nickname}}">\n        <div class="icon"><img src="../public/img/heart.png" alt=""></div>\n        <div class="text-center">{{if IsMySelf === true}}我{{else}}Ta{{/if}}关注的书</div>\n      </a>\n    </div>\n    <div class="span4 button">\n      <a href="../Booklist/My.html?nickname={{Nickname}}&create=1">\n        <div class="icon"><img src="../public/img/CreateBooklist.png" alt=""></div>\n        <div class="text-center">{{if IsMySelf === true}}我{{else}}Ta{{/if}}创建的书单</div>\n      </a>\n    </div>\n    <div class="span4 button">\n      <a href="../Booklist/My.html?nickname={{Nickname}}&subscribe=1">\n        <div class="icon"><img src="../public/img/SubscribeBooklist.png" alt=""></div>\n        <div class="text-center">{{if IsMySelf === true}}我{{else}}Ta{{/if}}收藏的书单</div>\n      </a>\n    </div>\n  </div>\n  {{if IsMySelf === false}}\n  <div class="row-fluid section">\n    <div class="sendDirectMessage span10 offset1 text-center">发送私信</div>\n  </div>\n  {{/if}}\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
+            };
+        }
+    }), /*v:8*/
+    template("People/Follows", function($data, $filename) {
+        try {
+            var $utils = this, $line = ($utils.$helpers, 0), $each = $utils.$each, Users = $data.Users, include = ($data.$value, 
+            $data.$index, function(filename, data) {
+                data = data || $data;
+                var text = $utils.$include(filename, data, $filename);
+                return $out += text;
+            }), $out = "";
+            return $out += '<div class="container"> <div class="users row-fluid"> ', $line = 3, 
+            $each(Users, function($value) {
+                $out += " ", $line = 4, include("../public/User", $value), $out += " ", $line = 5;
+            }), $out += " </div> </div>", new String($out);
+        } catch (e) {
+            throw {
+                filename: $filename,
+                name: "Render Error",
+                message: e.message,
+                line: $line,
+                source: '<div class="container">\n  <div class="users row-fluid">\n    {{each Users}}\n    {{include "../public/User" $value}}\n    {{/each}}\n  </div>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
+            };
+        }
+    }), /*v:12*/
     template("Review/All", "<div class=\"container\"> <div class='loadMore text-center hide'>加载更多书评</div> </div>"), 
-    /*v:7*/
+    /*v:13*/
     template("Review/Detail", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), $escape = $utils.$escape, Review = $data.Review, IsLogin = $data.IsLogin, $out = "";
@@ -887,7 +965,7 @@
                 source: '<div class="container" data-reviewid="{{Review.Id}}" data-bookid="{{Review.Book.Id}}">\n  <div class="row-fluid title">{{Review.Title}}</div>\n  <div class="info row-fluid">\n    <div class="user pull-left" id="{{Review.Author.Id}}">\n      <a href="../People/Detail.html?nickname={{Review.Author.Nickname}}">\n        <div class="avatar pull-left"><img src="{{Review.Author.AvatarUrl}}" alt="" class="img-circle"></div>\n        <div class="nickname pull-left">{{Review.Author.Nickname}}</div>\n      </a>\n    </div>\n    <div class="ratingStar pull-left" data-score="{{Review.Score}}"></div>\n  </div>\n  <div class="content">{{Review.Content}}</div>\n  <div class="book row-fluid" id="{{Review.Book.Id}}">\n    <a href="../Book/Detail.html?id={{Review.Book.Id}}"></a>\n    <div class="megaInfo row-fluid">\n      <div class="bookCover span3">\n        <img src="{{Review.Book.ImageUrl}}" alt="" data-srcimg="{{Review.Book.ImageUrl}}">\n      </div>\n      <div class="bookMega span9">\n        <h4><strong>{{Review.Book.Title}}</strong></h4>\n        <div class="pull-left">{{Review.Book.Category}}</div>\n      </div>\n    </div>\n  </div>\n</div>\n<div class="row-fluid mega">\n  <table class="pull-right">\n    <tr>\n      <td class="response">\n        <a href="Response.html?id={{Review.Id}}">\n          <span class="glyphicons comments">{{Review.ResponseSum}}</span>\n        </a>\n      </td>\n      <td class="thumbsUp">\n        <div><span class="glyphicons thumbs_up text-center">{{Review.LikeSum}}</span></div>\n      </td>\n    </tr>\n  </table>\n</div>\n\n<script type="text/javascript">\n  window.logined = {{if IsLogin === true}}true{{else}}false{{/if}};\n</script>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:6*/
+    }), /*v:15*/
     template("Search/Result", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), Books = $data.Books, $each = $utils.$each, $escape = ($data.$value, 
@@ -947,9 +1025,26 @@
                 source: '<div class="container">\n  {{if Books}}\n  <div class="row-fluid section books">\n    {{each Books}}\n    <div class="book row-fluid" id="{{$value.Id}}">\n      <a href="../Book/Detail.html?id={{$value.Id}}"></a>\n      <div class="megaInfo row-fluid">\n        <div class="bookCover span3">\n          <img src="{{$value.ImageUrl}}" alt="" data-srcimg="{{$value.ImageUrl}}">\n        </div>\n        <div class="bookMega span9">\n          <h4><strong>{{$value.Title}}</strong></h4>\n          <div class="pull-left">{{$value.Author}}</div>\n          <div class="clearfix"></div>\n          <div class="pull-left">{{$value.Category}}</div>\n          <div class="pull-left ratingStar" data-score="{{$value.Score}}"></div>\n        </div>\n      </div>\n    </div>\n    {{/each}}\n  </div>\n  {{/if}}\n  {{if Billboards}}\n  <div class="row-fluid section billboards">\n    <div class="title">相关榜单</div>\n    <hr>\n    {{each Billboards}}\n    <div class="ranking pull-left">\n      <a href="../Billboard/Detail.html?title={{$value.Title}}&version={{$value.Version}}">\n        <div class="rankingImage">\n          <img src="{{$value.ImageUrl}}" alt="">\n        </div>\n        <div class="rankingTitle text-center">{{$value.Title}}</div>\n      </a>\n    </div>\n    {{/each}}\n  </div>\n  {{/if}}\n  {{if Booklists}}\n  <div class="row-fluid section booklists">\n    <div class="title">相关书单</div>\n    <hr>\n    <div class="bls">\n      {{each Booklists}}\n      <div class="booklist">\n        <a href="../Booklist/Detail.html?id={{$value.Id}}">\n          <div class="detail pull-left">\n            <h4 class="pull-left">{{$value.Title}}</h4>\n            <div class="pull-right small">({{$value.BookSum}})</div>\n            <div class="clearfix"></div>\n            <div class="timestamp pull-right">{{$value.LastUpdateTime}}前</div>\n            <div class="clearfix"></div>\n            {{if BookSum > 0}}\n            <div class="covers row-fluid">\n              {{each $value.BookCovers as $c $i}}\n                <div class="pull-left bookCover span3"><img src="{{$c.ImageUrl}}" alt="{{$c.Title}}" title="{{$c.Title}}"></div>\n              {{/each}}\n            </div>\n            {{else}}\n            <div class="covers">暂时还没有书籍被加入到本书单</div>\n            {{/if}}\n            <div class="clearfix"></div>\n            {{if $value.Description}}\n            <div class="row-fluid desc">\n              <div class="descTitle">【书单简介】</div>\n              <div class="descText">{{$value.Description}}</div>\n            </div>\n            {{/if}}\n          </div>\n          <div class="mega">\n            <table>\n              <tr>\n                <td class="span6">\n                  <div class="glyphicons chat">{{$value.ResponseSum}}</div>\n                </td>\n                <td class="span6">\n                  <div class="glyphicons heart">{{$value.SubscribeSum}}</div>\n                </td>\n              </tr>\n            </table>\n          </div>\n        </a>\n      </div>\n      {{/each}}\n    </div>\n  </div>\n  {{/if}}\n  {{if Users}}\n  <div class="row-fluid section users">\n    <div class="title">相关用户</div>\n    <hr>\n    {{each Users}}\n    <div class="user pull-left">\n      <a href="../People/Detail.html?nickname={{$value.Nickname}}">\n        <div class="userAvatar">\n          <img src="{{$value.AvatarUrl}}" alt="" class="img-circle">\n        </div>\n        <div class="nickname text-center">{{$value.Nickname}}</div>\n      </a>\n    </div>\n    {{/each}}\n  </div>\n  {{/if}}\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:40*/
-    template("public/ActionBar", '<div class="actionbar row-fluid"> <div class="actionbar-section left-button pull-left"> <div class="slide-menu hide"> <div class="glyphicons show_lines"></div> <div class="badge"></div> </div> <div class="back"><div class="glyphicons chevron-left"></div></div> </div> <div class="actionbar-section center title-section pull-left"> <div class="page-title pull-left"></div> <div class="btn-group pull-left channel hide"> <a class="btn btn-link dropdown-toggle" data-toggle="dropdown" href="#"> <img src="public/img/Crown.png" alt="" class="current-channel pull-left"> <div class="arrow pull-left"></div> </a> <ul class="dropdown-menu"> <li><a href="?ch=m"><img src="public/img/Crown.png" alt=""></a></li> <li><a href="?ch=f"><img src="public/img/Crown_Woman.png" alt=""></a></li> </ul> </div> </div> <div class="actionbar-section center pull-left hide loading"> <div class="pullingText">下拉刷新...</div> </div> <div class="actionbar-section right-button pull-right"> <div class="buttons"> <a href="file:///android_asset/www/Search/Index.html" class="button hide glyphicons search"></a> <div class="write hide"> <div class="pull-left button post">发送</div> </div> <div class="message-center pull-left hide"> <a href="file:///android_asset/www/MessageCenter/Index.html" class=""> <img src="../public/img/MessageCenter.png"> <span class="badge unreadCount"></span> </a> </div> <div class="follow pull-left hide"><a href="file:///android_asset/www/MessageCenter/Index.html" class="glyphicons heart"></a></div> <div class="side-menu hide pull-left btn-group"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"><img src="../public/img/sidemenu.png"></a> <ul class="dropdown-menu pull-right"> <li><a tabindex="-1" href="#" id="logout">退出登录</a></li> </ul> </div> </div> </div> </div> <div class="pullbar" id="pullIndicator"></div> <div class="container spinner"></div>'), 
-    /*v:6*/
+    }), /*v:50*/
+    template("public/ActionBar", '<div class="actionbar row-fluid"> <div class="actionbar-section left-button pull-left"> <div class="slide-menu hide"> <div class="glyphicons show_lines"></div> <div class="badge"></div> </div> <div class="back"><div class="glyphicons chevron-left"></div></div> </div> <div class="actionbar-section center title-section pull-left"> <div class="page-title pull-left"></div> <div class="btn-group pull-left channel hide"> <a class="btn btn-link dropdown-toggle" data-toggle="dropdown" href="#"> <img src="public/img/Crown.png" alt="" class="current-channel pull-left"> <div class="arrow pull-left"></div> </a> <ul class="dropdown-menu"> <li><a href="?ch=m"><img src="public/img/Crown.png" alt="">男频</a></li> <hr> <li><a href="?ch=f"><img src="public/img/Crown_Woman.png" alt="">女频</a></li> </ul> </div> <div class="btn-group pull-left versions hide"> <a class="btn btn-link dropdown-toggle" data-toggle="dropdown" href="#"> <span></span> <div class="arrow pull-left"></div> </a> <ul class="dropdown-menu"> </ul> </div> </div> <div class="actionbar-section center pull-left hide loading"> <div class="pullingText">下拉刷新...</div> </div> <div class="actionbar-section right-button pull-right"> <div class="buttons"> <a href="file:///android_asset/www/Search/Index.html" class="button hide glyphicons search"></a> <div class="write hide"> <div class="pull-left button post">发送</div> </div> <div class="message-center pull-left hide"> <a href="file:///android_asset/www/MessageCenter/Index.html" class=""> <img src="../public/img/MessageCenter.png"> <span class="badge unreadCount"></span> </a> </div> <div class="follow pull-left hide"><a href="file:///android_asset/www/MessageCenter/Index.html" class="glyphicons heart"></a></div> <div class="side-menu hide pull-left btn-group"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"><img src="../public/img/sidemenu.png"></a> <ul class="dropdown-menu pull-right"> <li><a tabindex="-1" href="#" id="logout">退出登录</a></li> </ul> </div> </div> </div> </div> <div class="pullbar" id="pullIndicator"></div> <div class="container spinner"></div>'), 
+    /*v:4*/
+    template("public/ActionBarVersion", function($data, $filename) {
+        try {
+            var $utils = this, $line = ($utils.$helpers, 0), $escape = $utils.$escape, Title = $data.Title, Version = $data.Version, $out = "";
+            return $out += '<li> <a href="file:///android_asset/www/Billboard/Detail.html?title=', 
+            $line = 2, $out += $escape(Title), $out += "&version=", $line = 2, $out += $escape(Version), 
+            $out += '">第', $line = 2, $out += $escape(Version), $out += "期</a> ", $line = 3, 
+            Version > 1 && ($out += " <hr> ", $line = 5), $out += " </li>", new String($out);
+        } catch (e) {
+            throw {
+                filename: $filename,
+                name: "Render Error",
+                message: e.message,
+                line: $line,
+                source: '<li>\n  <a href="file:///android_asset/www/Billboard/Detail.html?title={{Title}}&version={{Version}}">第{{Version}}期</a>\n  {{if Version > 1}}\n  <hr>\n  {{/if}}\n</li>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
+            };
+        }
+    }), /*v:12*/
     template("public/ArticleItem", function($data, $filename) {
         try {
             var $utils = this, $helpers = $utils.$helpers, $line = 0, $string = $utils.$string, $substring = $helpers.$substring, Title = $data.Title, $escape = $utils.$escape, Author = $data.Author, OnlineTime = $data.OnlineTime, ImageUrl = $data.ImageUrl, Id = $data.Id, $out = "";
@@ -970,7 +1065,7 @@
                 source: '<div class="articleItem row-fluid">\n  <div class="row-fluid">\n    <div class="articleTitleText">{{$substring Title 0 50}}</div>\n  </div>\n  <div class="row-fluid">\n    <div class="info span8">\n      <div class="author pull-left muted dotdotdotForLongText">{{Author}}</div>\n      <div class="time pull-right muted">{{OnlineTime}}前</div>\n    </div>\n    <div class="span4">\n      <img src="{{if ImageUrl}}{{ImageUrl}}?imageView/2/h/34{{else}}http://shanpowbookcover.qiniudn.com/%E5%B0%8F%E7%BC%96%E5%81%B7%E6%87%92%E6%B2%A1%E9%85%8D%E5%9B%BE.png{{/if}}" alt="">\n    </div>\n  </div>\n  <a href="file:///android_asset/www/Article/Detail.html?id={{Id}}"></a>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:6*/
+    }), /*v:12*/
     template("public/Book", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), $escape = $utils.$escape, Id = $data.Id, ImageUrl = $data.ImageUrl, Title = $data.Title, CreationTime = $data.CreationTime, Author = $data.Author, Category = $data.Category, Score = $data.Score, $out = "";
@@ -992,7 +1087,7 @@
                 source: '<div class="book row-fluid" id="{{Id}}">\n  <a href="file:///android_asset/www/Book/Detail.html?id={{Id}}"></a>\n  <div class="megaInfo row-fluid">\n    <div class="bookCover span3">\n      <img src="{{ImageUrl}}" alt="">\n    </div>\n    <div class="bookMega span9">\n      <h4>{{Title}}</h4>\n      <div class="pull-left time">{{CreationTime}}</div>\n      <div class="clearfix"></div>\n      <div class="pull-left author">{{Author}}</div>\n      <div class="clearfix"></div>\n      <div class="pull-left category">{{Category}}</div>\n      <div class=\'pull-left ratingStar\' data-score=\'{{Score}}\'></div>\n    </div>\n  </div>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:6*/
+    }), /*v:12*/
     template("public/BookBook", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), $escape = $utils.$escape, BookId = $data.BookId, BookImageUrl = $data.BookImageUrl, BookTitle = $data.BookTitle, CreationTime = $data.CreationTime, BookAuthor = $data.BookAuthor, BookCategory = $data.BookCategory, BookScore = $data.BookScore, $out = "";
@@ -1015,7 +1110,7 @@
                 source: '<div class="book row-fluid" id="{{BookId}}">\n  <a href="file:///android_asset/www/Book/Detail.html?id={{BookId}}"></a>\n  <div class="megaInfo row-fluid">\n    <div class="bookCover span3">\n      <img src="{{BookImageUrl}}" alt="">\n    </div>\n    <div class="bookMega span9">\n      <h4>{{BookTitle}}</h4>\n      <div class="pull-left time">{{CreationTime}}</div>\n      <div class="clearfix"></div>\n      <div class="pull-left author">{{BookAuthor}}</div>\n      <div class="clearfix"></div>\n      <div class="pull-left category">{{BookCategory}}</div>\n      <div class=\'pull-left ratingStar\' data-score=\'{{BookScore}}\'></div>\n    </div>\n  </div>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:6*/
+    }), /*v:12*/
     template("public/BookWithComment", function($data, $filename) {
         try {
             var $utils = this, $helpers = $utils.$helpers, $line = 0, $escape = $utils.$escape, Id = $data.Id, ImageUrl = $data.ImageUrl, Title = $data.Title, Author = $data.Author, $string = $utils.$string, $substring = $helpers.$substring, Summary = $data.Summary, Comment = $data.Comment, $out = "";
@@ -1036,7 +1131,7 @@
                 source: '<li class="book row-fluid" id="{{Id}}">\n  <a href="../Book/Detail.html?id={{Id}}"></a>\n  <div class="megaInfo row-fluid">\n    <div class="bookCover span3">\n      <img src="{{ImageUrl}}" alt="">\n    </div>\n    <div class="bookMega span9">\n      <div class="row-fluid">\n        <div class="pull-left">{{Title}}</div>\n        <div class="pull-left author">{{Author}}</div>\n      </div>\n      <div class="row-fluid">{{$substring Summary 0 50}}</div>\n    </div>\n  </div>\n  {{if Comment}}\n  <div class="comment row-fluid">{{Comment}}</div>\n  {{/if}}\n</li>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:6*/
+    }), /*v:12*/
     template("public/Booklist", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), $escape = $utils.$escape, Id = $data.Id, Title = $data.Title, BookSum = $data.BookSum, LastUpdateTime = $data.LastUpdateTime, $each = $utils.$each, BookCovers = $data.BookCovers, Description = ($data.$value, 
@@ -1066,7 +1161,7 @@
                 source: '<div class="item">\n  <a href="file:///android_asset/www/Booklist/Detail.html?id={{Id}}">\n    <div class="detail pull-left">\n      <h4 class="pull-left">{{Title}}</h4>\n      <div class="pull-right small">({{BookSum}})</div>\n      <div class="clearfix"></div>\n      <div class="timestamp pull-right">{{LastUpdateTime}}前</div>\n      <div class="clearfix"></div>\n      {{if BookSum > 0}}\n      <div class="covers row-fluid">\n        {{each BookCovers}}\n          <div class="pull-left bookCover span3"><img src="{{$value}}"></div>\n        {{/each}}\n      </div>\n      {{else}}\n      <div class="covers">暂时还没有书籍被加入到本书单</div>\n      {{/if}}\n      <div class="clearfix"></div>\n      {{if Description}}\n      <div class="row-fluid desc">\n        <div class="descTitle">【书单简介】</div>\n        <div class="descText">{{Description}}</div>\n      </div>\n      {{/if}}\n    </div>\n    <div class="mega">\n      <table>\n        <tr>\n          <td class="span6">\n            <div class="glyphicons chat">{{ResponseSum}}</div>\n          </td>\n          <td class="span6">\n            <div class="glyphicons heart">{{SubscribeSum}}</div>\n          </td>\n        </tr>\n      </table>\n    </div>\n  </a>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:11*/
+    }), /*v:17*/
     template("public/ErrorMsg", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), onBlank = $data.onBlank, $escape = $utils.$escape, tip = $data.tip, $out = "";
@@ -1083,7 +1178,7 @@
                 source: '<div class="error-msg {{if onBlank === false}}black{{/if}}">\n  <img src="file:///android_asset/www/public/img/down-25{{if onBlank === false}}-white{{/if}}.png" alt="">\n  <span>{{tip}}</span>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:12*/
+    }), /*v:18*/
     template("public/InputGroup", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), IsLogin = $data.IsLogin, $out = "";
@@ -1098,7 +1193,7 @@
                 source: '{{if IsLogin === true}}\n<div class="postResponse row-fluid" id="input-group">\n  <textarea id="replyInput" type="text" class="span10" name="q" rows="1"></textarea>\n  <div id="submit" class="glyphicons ok_2"></div>\n</div>\n<script type="text/javascript">\n  autoTextarea($("#replyInput")[0], 10, 200);\n</script>\n{{/if}}'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:6*/
+    }), /*v:12*/
     template("public/Response", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), $escape = $utils.$escape, Id = $data.Id, Author = $data.Author, Content = $data.Content, CreationTime = $data.CreationTime, $out = "";
@@ -1120,7 +1215,7 @@
                 source: '<div class="responseItem row-fluid" id="{{Id}}">\n  <div class="author row-fluid">\n    <div class="avatar pull-left span2">\n      <a href="../People/Detail.html?nickname={{Author.Nickname}}"><img src="{{Author.AvatarUrl}}" alt="" class="img-circle"></a>\n    </div>\n    <div class="name span10">\n      <a href="../People/Detail.html?nickname={{Author.Nickname}}" class="pull-left">{{Author.Nickname}}</a>说：\n      <a href="#" class="responseBtn pull-right">回复</a>\n    </div>\n  </div>\n  <div class="responseContent row-fluid">\n    <div class="responseText">{{Content}}</div>\n    <div class="timestamp pull-right">{{CreationTime}}前</div>\n    <div class="status loading hide pull-right"></div>\n  </div>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:8*/
+    }), /*v:14*/
     template("public/Responses", function($data, $filename) {
         try {
             var $utils = this, $line = ($utils.$helpers, 0), $escape = $utils.$escape, AuthorId = $data.AuthorId, Id = $data.Id, AvatarUrl = $data.AvatarUrl, Nickname = $data.Nickname, BookId = $data.BookId, $each = $utils.$each, Responses = $data.Responses, include = ($data.$value, 
@@ -1145,10 +1240,10 @@
                 source: '<div class="container" data-authorid="{{AuthorId}}" data-id="{{Id}}" data-avatar="{{AvatarUrl}}" data-nickname="{{Nickname}}" data-bookid="{{BookId}}">\n  {{each Responses}}\n  {{include "./Response" $value}}\n  {{/each}}\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:7*/
+    }), /*v:13*/
     template("public/Review", function($data, $filename) {
         try {
-            var $utils = this, $helpers = $utils.$helpers, $line = 0, $escape = $utils.$escape, Id = $data.Id, Title = $data.Title, $string = $utils.$string, $substring = $helpers.$substring, Content = $data.Content, Book = $data.Book, Author = $data.Author, Score = $data.Score, ResponseSum = $data.ResponseSum, LikeSum = $data.LikeSum, $out = "";
+            var $utils = this, $helpers = $utils.$helpers, $line = 0, $escape = $utils.$escape, Id = $data.Id, Title = $data.Title, $string = $utils.$string, $substring = $helpers.$substring, Content = $data.Content, Book = $data.Book, $unescape = $helpers.$unescape, Author = $data.Author, Score = $data.Score, ResponseSum = $data.ResponseSum, LikeSum = $data.LikeSum, $out = "";
             return $out += '<div class="review" id="', $line = 1, $out += $escape(Id), $out += '"> <a href="file:///android_asset/www/', 
             $line = 2, Title ? ($out += "Review", $line = 2) : ($out += "Comment", $line = 2), 
             $out += "/Detail.html?id=", $line = 2, $out += $escape(Id), $out += '"></a> <div class="row-fluid reviewBasic"> <div class="reviewInfo pull-left"> ', 
@@ -1156,7 +1251,7 @@
             $line = 6, $out += $escape(Title), $out += "</strong></div> ", $line = 7), $out += ' <div class="content">', 
             $line = 8, Title ? ($line = 8, $out += $string($substring(Content, 0, 40)), $line = 8) : ($line = 8, 
             $out += $string($substring(Content, 0, 50)), $line = 8), $out += '</div> </div> <div class="bookCover pull-left"> <a href="file:///android_asset/www/Book/Detail.html?id=', 
-            $line = 11, $out += $escape(Book.Id), $out += '"></a> <img src="', $line = 12, $out += $escape(Book.ImageUrl), 
+            $line = 11, $out += $escape(Book.Id), $out += '"></a> <img src="', $line = 12, $out += $string($unescape(Book.ImageUrl)), 
             $out += '" alt=""> <div class="bookTitle text-center">', $line = 13, $out += $string($substring(Book.Title, 0, 10)), 
             $out += '</div> </div> </div> <div class="row-fluid reviewRelated"> <div class="user span8 row-fluid"> <div class="avatar span3"> <div class="arrow"></div> <a href="People/Detail.html?nickname=', 
             $line = 20, $out += $escape(Author.Nickname), $out += '"><img src="', $line = 20, 
@@ -1173,10 +1268,27 @@
                 name: "Render Error",
                 message: e.message,
                 line: $line,
-                source: '<div class="review" id="{{Id}}">\n  <a href="file:///android_asset/www/{{if Title}}Review{{else}}Comment{{/if}}/Detail.html?id={{Id}}"></a>\n  <div class="row-fluid reviewBasic">\n    <div class="reviewInfo pull-left">\n      {{if Title}}\n      <div class="reviewTitle dotdotdotForLongText"><strong>{{Title}}</strong></div>\n      {{/if}}\n      <div class="content">{{if Title}}{{$substring Content 0 40}}{{else}}{{$substring Content 0 50}}{{/if}}</div>\n    </div>\n    <div class="bookCover pull-left">\n      <a href="file:///android_asset/www/Book/Detail.html?id={{Book.Id}}"></a>\n      <img src="{{Book.ImageUrl}}" alt="">\n      <div class="bookTitle text-center">{{$substring Book.Title 0 10}}</div>\n    </div>\n  </div>\n  <div class="row-fluid reviewRelated">\n    <div class="user span8 row-fluid">\n      <div class="avatar span3">\n        <div class="arrow"></div>\n        <a href="People/Detail.html?nickname={{Author.Nickname}}"><img src="{{Author.AvatarUrl}}" alt="" class="img-circle"></a>\n      </div>\n      <div class="userInfo span8">\n        <div class="row-fluid dotdotdotForLongText"><a href="People/Detail.html?nickname={{Author.Nickname}}">{{$substring Author.Nickname 0 10}}</a></div>\n        <div class="row-fluid"><div class="ratingStar" data-score="{{Score}}"></div></div>\n      </div>\n    </div>\n    <div class="mega span4 row-fluid">\n      <div class="span6"><div class="glyphicons comments">{{ResponseSum}}</div></div>\n      <div class="span6"><div class="glyphicons thumbs_up">{{LikeSum}}</div></div>\n    </div>\n  </div>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
+                source: '<div class="review" id="{{Id}}">\n  <a href="file:///android_asset/www/{{if Title}}Review{{else}}Comment{{/if}}/Detail.html?id={{Id}}"></a>\n  <div class="row-fluid reviewBasic">\n    <div class="reviewInfo pull-left">\n      {{if Title}}\n      <div class="reviewTitle dotdotdotForLongText"><strong>{{Title}}</strong></div>\n      {{/if}}\n      <div class="content">{{if Title}}{{$substring Content 0 40}}{{else}}{{$substring Content 0 50}}{{/if}}</div>\n    </div>\n    <div class="bookCover pull-left">\n      <a href="file:///android_asset/www/Book/Detail.html?id={{Book.Id}}"></a>\n      <img src="{{$unescape Book.ImageUrl}}" alt="">\n      <div class="bookTitle text-center">{{$substring Book.Title 0 10}}</div>\n    </div>\n  </div>\n  <div class="row-fluid reviewRelated">\n    <div class="user span8 row-fluid">\n      <div class="avatar span3">\n        <div class="arrow"></div>\n        <a href="People/Detail.html?nickname={{Author.Nickname}}"><img src="{{Author.AvatarUrl}}" alt="" class="img-circle"></a>\n      </div>\n      <div class="userInfo span8">\n        <div class="row-fluid dotdotdotForLongText"><a href="People/Detail.html?nickname={{Author.Nickname}}">{{$substring Author.Nickname 0 10}}</a></div>\n        <div class="row-fluid"><div class="ratingStar" data-score="{{Score}}"></div></div>\n      </div>\n    </div>\n    <div class="mega span4 row-fluid">\n      <div class="span6"><div class="glyphicons comments">{{ResponseSum}}</div></div>\n      <div class="span6"><div class="glyphicons thumbs_up">{{LikeSum}}</div></div>\n    </div>\n  </div>\n</div>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
             };
         }
-    }), /*v:6*/
+    }), /*v:11*/
+    template("public/User", function($data, $filename) {
+        try {
+            var $utils = this, $line = ($utils.$helpers, 0), $escape = $utils.$escape, AvatarUrl = $data.AvatarUrl, Nickname = $data.Nickname, $out = "";
+            return $out += '<div class="user row-fluid"> <div class="span2"> <img src="', $line = 3, 
+            $out += $escape(AvatarUrl), $out += '" class="img-circle"></img> </div> <div class="nickname text-left span10">', 
+            $line = 5, $out += $escape(Nickname), $out += '</div> <a href="file:///android_asset/www/People/Detail.html?nickname=', 
+            $line = 6, $out += $escape(Nickname), $out += '"></a> </div> <hr>', new String($out);
+        } catch (e) {
+            throw {
+                filename: $filename,
+                name: "Render Error",
+                message: e.message,
+                line: $line,
+                source: '<div class="user row-fluid">\n  <div class="span2">\n    <img src="{{AvatarUrl}}" class="img-circle"></img>\n  </div>\n  <div class="nickname text-left span10">{{Nickname}}</div>\n  <a href="file:///android_asset/www/People/Detail.html?nickname={{Nickname}}"></a>\n</div>\n<hr>'.split(/\n/)[$line - 1].replace(/^[\s\t]+/, "")
+            };
+        }
+    }), /*v:12*/
     template("public/WizardBook", function($data, $filename) {
         try {
             var $utils = this, $helpers = $utils.$helpers, $line = 0, $escape = $utils.$escape, ImageUrl = $data.ImageUrl, Title = $data.Title, Author = $data.Author, $string = $utils.$string, $substring = $helpers.$substring, Summary = $data.Summary, Id = $data.Id, $out = "";

@@ -1,19 +1,126 @@
 @import (reference) "prefixer.less";
 @import (reference) "Common.less";
 
-hr {
-  border-color: @base;
+body {
+  padding-top: 120px;
 }
 
-.desc {
-  margin: 0;
-  margin-top: 16px;
+.container {
+  position: absolute;
+  left: 0px;
+  top: @actionbarheight;
+}
+
+.versions {
+  .dropdown-toggle {
+    position: relative;
+    padding: 0;
+
+    span {
+      height: 44px;
+      line-height: 44px;
+      font-size: 1.3em;
+      color: black;
+    }
+
+    .arrow {
+      position: absolute;
+      bottom: 12px;
+      right: -12px;
+    }
+  }
+
+  .dropdown-menu {
+    padding: 16px 0;
+
+    li {
+      a {
+        padding: 0px 30px;
+        font-size: 1.3em;
+      }
+
+      hr {
+        margin: 10px 8px;
+      }
+    }
+  }
+
+  .btn-link:focus {
+    text-decoration: none;
+  }
+}
+
+.billboard-info {
+  padding-bottom: 8px;
+  background-color: white;
+  border-bottom: 1px solid @base;
+
+  .authorComment {
+    margin-bottom: 8px;
+  }
+
+  .author {
+    img {
+      display: block;
+      margin: 0 auto;
+      margin-top: 12px;
+      margin-bottom: 4px;
+      width: 40px;
+      box-sizing: border-box;
+    }
+
+    .nickname {
+      .dotdotdotForLongText;
+      font-size: 0.85em;
+    }
+  }
+
+  .cmt {
+    position: relative;
+    border: 1px solid @base;
+    padding: 4px 8px;
+    margin-top: 12px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: -1px;
+      left: -12px;
+      width: 0px;
+      height: 0px;
+      z-index: 1;
+      font-size: 0px;
+      border-width: 6px;
+      border-style: solid;
+      border-color: @base @base transparent transparent;
+    }
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0px;
+      left: -10px;
+      width: 0px;
+      height: 0px;
+      z-index: 2;
+      font-size: 0px;
+      border-width: 6px;
+      border-style: solid;
+      border-color: white white transparent transparent;
+    }
+  }
+}
+
+.listDetail {
+  margin: 16px 16px 48px 16px;
 }
 
 .book {
   position: relative;
-  color: white;
-  background-color: fadeout(@base, 20%);
+  color: black;
+  background-color: white;
   margin-bottom: 16px;
 
   & > a {
@@ -40,14 +147,15 @@ hr {
       border-radius: 10px;
       padding: 0 10px;
       box-sizing: border-box;
-      background-color: rgba(0, 0, 0, 0.2);
+      background-color: @base;
+      color: white;
       margin-left: 8px;
     }
   }
 
   .comment {
-    background-color: white;
-    color: black;
+    background-color: @base;
+    color: white;
     padding: 8px;
     box-sizing: border-box;
   }

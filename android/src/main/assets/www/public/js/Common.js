@@ -79,7 +79,7 @@ RequestDataWithParam = function(options) {
       })
     },
     success: (function(data) {
-      var _ref3, _ref4, _ref5;
+      var _ref3, _ref4;
       setTimeout((function() {
         return navigator.notification.activityStop();
       }), 200);
@@ -88,7 +88,7 @@ RequestDataWithParam = function(options) {
       }
       if (data.Result === true) {
         if ((data != null ? (_ref4 = data.Data) != null ? _ref4.IsLogin : void 0 : void 0) != null) {
-          localStorage.IsLogin = (data != null ? (_ref5 = data.Data) != null ? _ref5.IsLogin : void 0 : void 0) ? "YES" : "NO";
+          localStorage.IsLogin = data.Data.IsLogin ? "YES" : "NO";
         }
         if (options.successCallback != null) {
           options.successCallback(data, rawData);
@@ -209,12 +209,17 @@ autoTextarea = function(elem, extra, maxHeight) {
 
 PullToRefresh = function() {
   $("body").unbind("touchstart").on("touchstart", function(event) {
+    window.startX = event.originalEvent.touches[0].screenX;
     window.startY = event.originalEvent.touches[0].screenY;
     window.startYOffset = $("body").scrollTop();
     return window.zeroY = null;
   });
   $("body").unbind("touchmove").on("touchmove", function(event) {
+    window.lastX = event.originalEvent.touches[0].screenX;
     window.lastY = event.originalEvent.touches[0].screenY;
+    if (Math.abs(window.lastY - window.startY) < Math.abs(window.lastX - window.startX) * 1.73) {
+      return;
+    }
     if ($("body").scrollTop() <= 0) {
       if (window.lastY - window.startY < 0) {
         return;

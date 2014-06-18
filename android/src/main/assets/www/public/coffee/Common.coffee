@@ -73,7 +73,7 @@ RequestDataWithParam = (options)->
         cordova.exec ((data)->), null, "CachedIOHelper", "set", ["#{options.type}:#{options.url}", data]
       if data.Result is true
         if data?.Data?.IsLogin?
-          localStorage.IsLogin = if data?.Data?.IsLogin then "YES" else "NO"
+          localStorage.IsLogin = if data.Data.IsLogin then "YES" else "NO"
         if options.successCallback?
           options.successCallback(data, rawData)
         else
@@ -177,12 +177,17 @@ autoTextarea = (elem, extra, maxHeight)->
 
 PullToRefresh = ()->
   $("body").unbind("touchstart").on "touchstart", (event)->
+    window.startX = event.originalEvent.touches[0].screenX
     window.startY = event.originalEvent.touches[0].screenY
     window.startYOffset = $("body").scrollTop()
     window.zeroY = null
 
   $("body").unbind("touchmove").on "touchmove", (event)->
+    window.lastX = event.originalEvent.touches[0].screenX
     window.lastY = event.originalEvent.touches[0].screenY
+
+    if Math.abs(window.lastY - window.startY) < Math.abs(window.lastX - window.startX) * 1.73
+      return
 
     if $("body").scrollTop() <= 0
       return if window.lastY - window.startY < 0

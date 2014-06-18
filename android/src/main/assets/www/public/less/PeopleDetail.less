@@ -88,6 +88,9 @@
 .advancedInfo {
   position: absolute;
   left: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
 
   .overlay {
     display: block;
@@ -95,8 +98,11 @@
   }
 
   .info {
+    position: relative;
     border-right: 1px solid @base;
     padding-right: 7px;
+    width: 70px;
+    display: inline-block;
 
     &:last-child {
       padding-right: 0;
@@ -107,12 +113,20 @@
       padding-left: 0;
     }
 
+    & > a {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
     .num {
       .dotdotdotForLongText;
       height: 40px;
       margin-bottom: 8px;
 
-      font-size: 3em;
+      font-size: 2em;
       line-height: 40px;
     }
   }

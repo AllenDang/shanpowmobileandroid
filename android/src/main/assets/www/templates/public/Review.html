@@ -9,7 +9,7 @@
     </div>
     <div class="bookCover pull-left">
       <a href="file:///android_asset/www/Book/Detail.html?id={{Book.Id}}"></a>
-      <img src="{{Book.ImageUrl}}" alt="">
+      <img src="{{$unescape Book.ImageUrl}}" alt="">
       <div class="bookTitle text-center">{{$substring Book.Title 0 10}}</div>
     </div>
   </div>

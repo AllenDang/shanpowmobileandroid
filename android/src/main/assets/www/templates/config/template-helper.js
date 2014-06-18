@@ -25,3 +25,8 @@ template.helper('$sub', function (x, y) {
   return x - y;
 });
 
+
+template.helper('$unescape', function (string) {
+  return unescape(string);
+});
+

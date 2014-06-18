@@ -5,22 +5,33 @@
     <div class="nickname text-center">{{Nickname}}</div>
   </div>
   <div class="row-fluid section advancedInfo">
-    <div class="info pull-left span3">
+    <div class="info">
       <div class="num text-center">{{FollowingsCnt}}</div>
       <div class="key text-center">关注</div>
+      <a href="Follows.html?nickname={{Nickname}}&type=following"></a>
     </div>
-    <div class="info pull-left span3">
+    <div class="info">
       <div class="num text-center">{{FollowersCnt}}</div>
       <div class="key text-center">粉丝</div>
+      <a href="Follows.html?nickname={{Nickname}}&type=follower"></a>
     </div>
-    <div class="info pull-left span3">
+    <div class="info">
       <div class="num text-center">{{ReviewCnt}}</div>
       <div class="key text-center">书评</div>
+      <a href="Comments.html?nickname={{Nickname}}&type=review"></a>
     </div>
-    <div class="info pull-left span3">
+    <div class="info">
       <div class="num text-center">{{CommentCnt}}</div>
       <div class="key text-center">短评</div>
+      <a href="Comments.html?nickname={{Nickname}}&type=comment"></a>
     </div>
+    {{if ArticleCnt > 0}}
+    <div class="info">
+      <div class="num text-center">{{ArticleCnt}}</div>
+      <div class="key text-center">专栏文章</div>
+      <a href="Articles.html?nickname={{Nickname}}&type=comment"></a>
+    </div>
+    {{/if}}
   </div>
   <div class="row-fluid section readRecord">
     <div class="title row-fluid">

@@ -11,7 +11,7 @@ $(document).on("deviceready", function() {
   window.status = getQueryString("status");
   window.bookid = getQueryString("bookid");
   window.category = unescape(getQueryString("category"));
-  window.bookcover = getQueryString("bookcover");
+  window.bookcover = unescape(getQueryString("bookcover"));
   window.isforman = getQueryString("isforman");
   window.booktitle = unescape(getQueryString("booktitle"));
   $("textarea").height($(window).height() - $("input").height() - $(".actionbar").height() - 128);
