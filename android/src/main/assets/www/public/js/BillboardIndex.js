@@ -24,7 +24,7 @@ DidGetBillboardIndexData = function(data, rawData) {
   }
   $(".billboard").each(function() {
     $(this).find(".ver").each(function(index) {
-      if (index > ($(this).closest(".billboard").find(".ver").length > 5 ? 3 : 4) && !$(this).hasClass("more")) {
+      if (index > ($(this).closest(".billboard").find(".ver").length > 6 ? 3 : 4) && !$(this).hasClass("more")) {
         $(this).addClass("hide");
       }
     });

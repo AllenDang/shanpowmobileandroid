@@ -17,7 +17,7 @@ DidGetBillboardIndexData = (data, rawData)->
 
   $(".billboard").each ()->
     $(this).find(".ver").each (index)->
-      if index > (if $(this).closest(".billboard").find(".ver").length > 5 then 3 else 4) and not $(this).hasClass("more")
+      if index > (if $(this).closest(".billboard").find(".ver").length > 6 then 3 else 4) and not $(this).hasClass("more")
         $(this).addClass("hide") 
       return
 
